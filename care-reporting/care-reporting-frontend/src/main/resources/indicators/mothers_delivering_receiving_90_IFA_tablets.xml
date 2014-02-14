@@ -1,0 +1,66 @@
+<indicator additive="true">
+    <name>Mothers delivering receiving at least 90 IFA tablets</name>
+    <classifications>
+        <classification name="IFA Tablets" />
+    </classifications>
+    <owners>
+        <reportviews>
+            <reportview name="Program Manager"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Mothers count" />
+        <report type="Bar Chart" label-x="Time" label-y="Mothers count" />
+    </reports>
+    <area level="Block"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="delivery_mother_form" fieldName="case_id" />
+                        <select-column aggregation="Count" tableName="delivery_mother_form" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="delivery_mother_form" />
+                    <group-by tableName="delivery_mother_form" fieldName="case_id">
+                        <having function="Count" tableName="delivery_mother_form" fieldName="*" operator=">=" value="0" />
+                    </group-by>
+                </dw-query>
+            </combineWith>
+            <where-group>
+                <where-group>
+                    <where-condition type="valueComparison">
+                        <table-name>mother_case</table-name>
+                        <field>ifa_tablets</field>
+                        <operator>&gt;=</operator>
+                        <value>90</value>
+                    </where-condition>
+                    <where-condition type="period">
+                        <!--ADD falls in period -->
+                        <table-name>mother_case</table-name>
+                        <field>add</field>
+                    </where-condition>
+                </where-group>
+                <where-group join="OR">
+                    <where-condition type="valueComparison">
+                        <table-name>mother_case</table-name>
+                        <field>ifa_tablets</field>
+                        <operator>&gt;=</operator>
+                        <value>90</value>
+                    </where-condition>
+                    <where-condition type="period">
+                        <!--EDD falls in period -->
+                        <table-name>mother_case</table-name>
+                        <field>edd</field>
+                    </where-condition>
+                </where-group>
+            </where-group>
+        </dw-query>
+    </numerator>
+</indicator>

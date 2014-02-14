@@ -1,0 +1,52 @@
+<indicator additive="false">
+    <name>Number of children 6-8 months old, receiving cereal</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <user login="mrcaretest@gmail.com"/>
+        <reportviews>
+            <reportview name="Program Manager"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Value"/>
+        <report type="Bar Chart" label-x="Time" label-y="Value"/>
+    </reports>
+    <area level="Block"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*"/>
+            </select-columns>
+            <dimension tableName="child_case"/>
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="cf_child_form" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="cf_child_form" />
+                    <group-by tableName="cf_child_form" fieldName="case_id" />
+                    <where-group>
+                        <where-condition type="valueComparison">
+                            <table-name>cf_child_form</table-name>
+                            <field>eaten_cereal</field>
+                            <operator>=</operator>
+                            <value>yes</value>
+                        </where-condition>
+                    </where-group>
+                </dw-query>
+            </combineWith>
+            <where-group>
+                <where-condition type="period">
+                    <table-name>child_case</table-name>
+                    <field>dob</field>
+                    <offset>180</offset>
+                    <second-offset>240</second-offset>
+                </where-condition>
+            </where-group>
+        </dw-query>
+    </numerator>
+</indicator>

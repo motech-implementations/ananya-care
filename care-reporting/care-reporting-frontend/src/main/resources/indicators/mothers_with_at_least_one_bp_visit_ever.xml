@@ -1,0 +1,42 @@
+<indicator additive="false">
+    <name>Mothers with at least one bp visit, ever</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <user login="mrcaretest@gmail.com"/>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" />
+        <report type="Bar Chart" />
+    </reports>
+    <area level="District"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="bp_form" fieldName="case_id" />
+                        <select-column aggregation="Count" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="bp_form" />
+                    <group-by tableName="bp_form" fieldName="case_id">
+                        <having function="Count" tableName="bp_form" fieldName="case_id" operator=">=" value="1" />
+                    </group-by>
+                    <where-group>
+                        <where-condition type="calculationEndDate">
+                            <table-name>bp_form</table-name>
+                            <field>time_end</field>
+                        </where-condition>
+                    </where-group>
+                </dw-query>
+            </combineWith>
+        </dw-query>
+    </numerator>
+</indicator>

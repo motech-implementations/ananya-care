@@ -1,0 +1,33 @@
+<indicator additive="false">
+    <name>Number of pregnant women nearing delivery in a period (15 day offset)</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <reportviews>
+            <reportview name="ALL"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Value" />
+        <report type="Bar Chart" label-x="Time" label-y="Value" />
+    </reports>
+    <area level="District"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <where-group>
+                <where-condition type="period">
+                    <table-name>mother_case</table-name>
+                    <field>edd</field>
+                    <offset>-15</offset>
+                </where-condition>
+            </where-group>
+        </dw-query>
+    </numerator>
+</indicator>

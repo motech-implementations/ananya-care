@@ -1,0 +1,24 @@
+<div ng:init="$root.pageTitle = title"></div>
+
+<div class="row-fluid">
+    <div ng-include src='"resources/partials/admin/sidebar.html"'></div>
+    <div class="span10 hq-content" ng-show="hasRole('CAN_EDIT_FORMS')">
+        <form class="form-horizontal" name="formForm">
+            <div class="control-group">
+                <label class="control-label" for="tableName">{{msg('forms.form.table.label')}}: </label>
+                <div class="controls">
+                    <input type="text" readonly="readonly" id="tableName" value="{{careForm.tableName}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="displayName">{{msg('forms.form.displayName.label')}}: </label>
+                <div class="controls">
+                    <input ng-model="careForm.displayName" type="text" id="displayName" name="displayName" placeholder="{{msg('forms.form.displayName.placeholder')}}" required />
+                </div>
+            </div>
+            <div class="control-group">
+                <button type="submit" class="btn btn-primary offset2" ng-click="submitForm(careForm)" ng-disabled="formForm.$invalid">{{msg('forms.form.submit')}}</button>
+            </div>
+        </form>
+    </div>
+</div>

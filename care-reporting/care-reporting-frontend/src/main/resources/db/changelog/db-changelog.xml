@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="CARE #119" author="Krzysztof Kaczmarczyk">
+        <sql>
+            ALTER TABLE dashboard_app.period_comparison ADD column end_offset integer;
+        </sql>
+    </changeSet>
+
+    <changeSet id="CARE #159" author="Lech Różański">
+        <sql>
+            ALTER TABLE dashboard_app.dw_query
+                ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1
+                REFERENCES dashboard_app.care_user (user_id) ON DELETE CASCADE
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

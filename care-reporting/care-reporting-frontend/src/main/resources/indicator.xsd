@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="indicator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" />
+                <xs:element name="classifications">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="classification" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" use="required" type="xs:string" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="owners">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="user" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:attribute name="login" use="required" type="xs:string" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="reportviews" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="reportview" minOccurs="1" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="name" use="required" type="xs:string" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="trend" type="xs:decimal" />
+                <xs:element name="reports">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="report" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="type" use="required" type="xs:string" />
+                                    <xs:attribute name="label-x" use="optional" type="xs:string" />
+                                    <xs:attribute name="label-y" use="optional" type="xs:string" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="area">
+                    <xs:complexType>
+                        <xs:attribute name="level" use="required" type="xs:string" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="default-frequency">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Daily" />
+                            <xs:enumeration value="Weekly" />
+                            <xs:enumeration value="Monthly" />
+                            <xs:enumeration value="Quarterly" />
+                            <xs:enumeration value="Yearly" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="numerator" type="query" />
+                <xs:element name="denominator" minOccurs="0" type="query" />
+            </xs:sequence>
+            <xs:attribute name="additive" type="xs:boolean"/>
+            <xs:attribute name="categorized" type="xs:boolean"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="query">
+        <xs:choice>
+            <xs:element name="indicator-name" type="xs:string" />
+            <xs:element name="dw-query" type="dw_query" />
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="dw_query">
+        <xs:sequence>
+            <xs:element name="select-columns" type="select_columns" />
+            <xs:element name="dimension">
+                <xs:complexType>
+                    <xs:attribute name="tableName" use="required" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="combineWith" minOccurs="0">
+                <xs:complexType>
+                    <xs:choice>
+                        <xs:element name="indicator-name" type="xs:string" />
+                        <xs:element name="dw-query" type="dw_query" />
+                    </xs:choice>
+                    <xs:attribute name="type" use="required" type="xs:string" />
+                    <xs:attribute name="dimension-key" use="optional" type="xs:string" />
+                    <xs:attribute name="foreign-key" use="optional" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="group-by" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="having" minOccurs="0" maxOccurs="1" type="having" />
+                    </xs:sequence>
+                    <xs:attribute name="tableName" use="required" type="xs:string" />
+                    <xs:attribute name="fieldName" use="required" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="where-group" minOccurs="0" type="where_group" />
+            <xs:element name="order-by-group" type="order_by_group" minOccurs="0" maxOccurs="1" />
+            <xs:element name="limit" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="order_by_group">
+        <xs:sequence minOccurs="0">
+            <xs:element name="order-by" type="order_by" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="order_by" >
+        <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element name="select-column" type="select_column" minOccurs="1" maxOccurs="1" />
+        </xs:choice>
+        <xs:attribute name="type" type="order_by_type" use="required" />
+    </xs:complexType>
+
+    <xs:simpleType name="order_by_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ascending" />
+            <xs:enumeration value="descending" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="having">
+        <xs:attribute name="function" use="optional" type="aggregation_function" />
+        <xs:attribute name="tableName" use="optional" type="xs:string" />
+        <xs:attribute name="fieldName" use="required" type="xs:string" />
+        <xs:attribute name="operator" use="required" type="comparison_operator" />
+        <xs:attribute name="value" use="required" type="xs:string" />
+    </xs:complexType>
+
+    <xs:simpleType name="comparison_operator">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="&lt;" />
+            <xs:enumeration value="&lt;=" />
+            <xs:enumeration value="=" />
+            <xs:enumeration value="&lt;&gt;" />
+            <xs:enumeration value="&gt;" />
+            <xs:enumeration value="&gt;=" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="aggregation_function">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Average" />
+            <xs:enumeration value="Count" />
+            <xs:enumeration value="Max" />
+            <xs:enumeration value="Min" />
+            <xs:enumeration value="Sum" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="where_group">
+        <xs:sequence>
+            <xs:element name="where-condition" type="where_condition" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="where-group" type="where_group" maxOccurs="unbounded" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="join" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="OR" />
+                    <xs:enumeration value="AND" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="where_condition">
+        <xs:sequence minOccurs="1" maxOccurs="1">
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="table-name" type="xs:string" />
+                <xs:element name="field" type="xs:string" />
+                <xs:element name="second-field" type="xs:string" />
+                <xs:element name="operator" type="comparison_operator" />
+                <xs:element name="offset" type="xs:integer" />
+                <xs:element name="second-offset" type="xs:integer" />
+                <xs:element name="date" type="xs:date" />
+                <xs:element name="second-date" type="xs:date" />
+                <xs:element name="value" type="xs:string" />
+                <xs:element name="values">
+                    <xs:complexType>
+                        <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                            <xs:element name="value" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="valueComparison" />
+                    <xs:enumeration value="dateDiff" />
+                    <xs:enumeration value="fieldComparison" />
+                    <xs:enumeration value="dateWithOffsetDiff" />
+                    <xs:enumeration value="dateRange" />
+                    <xs:enumeration value="dateValue" />
+                    <xs:enumeration value="enumRange" />
+                    <xs:enumeration value="period" />
+                    <xs:enumeration value="calculationEndDate" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType name="select_columns">
+        <xs:sequence>
+            <xs:element name="select-column" maxOccurs="unbounded" type="select_column" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="select_column">
+        <xs:attribute name="fieldName" use="required" type="xs:string" />
+        <xs:attribute name="tableName" use="optional" type="xs:string" />
+        <xs:attribute name="aggregation" use="optional" type="xs:string" />
+        <xs:attribute name="nullValue" use="optional" type="xs:string" />
+    </xs:complexType>
+
+</xs:schema>

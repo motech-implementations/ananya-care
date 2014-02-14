@@ -1,0 +1,203 @@
+<div ng:init="$root.pageTitle = title"></div>
+
+<div class="row-fluid">
+    <div ng-include src='"resources/partials/indicators/sidebar.html"'></div>
+    <div class="span10 hq-content" ng-show="hasRole('CAN_CREATE_INDICATORS')">
+        <h1 class="text-center">{{msg('queries.new.header')}}</h1>
+        <div class="container-fluid">
+            <form name="createForm" novalidate>
+                <div class="row">
+                    <div class="nested-well">
+                        <label for="queryName">{{msg('queries.new.label.name')}}:</label>
+                        <input id="queryName" ng-model="formData.queryName" class="input-block-level" maxlength="255" type="text"/>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="form in queryForms">
+                    <div class="alert alert-info alert-tall" ng-show="form.joinType != null">
+                        <div class="pull-left alert-tall-label">{{form.joinType.name}}</div>
+                        <div class="pull-right" ng-show="form.joinType.code == 'Join'">
+                            <div class="span6">
+                                <label for="selectKey1">{{msg('queries.new.label.key1')}}:</label>
+                                <div class="input-append">
+                                    <select id="selectKey1" ng-model="form.key1" ng-options="item.name as item.name for item in queryForms[$index - 1].listAllComputedFields"></select>
+                                    <tip msg="queries.new.tip.key1" placement="top" />
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <label for="selectKey2">{{msg('queries.new.label.key2')}}:</label>
+                                <div class="input-append">
+                                    <select id="selectKey2" ng-model="form.key2" ng-options="item.name as item.name for item in form.listAllComputedFields"></select>
+                                    <tip msg="queries.new.tip.key2" placement="top" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="nested-well">
+                            <div class="form-horizontal">
+                                <label for="selectedTable" class="control-label">{{msg('queries.new.label.selectedDimension')}}:</label>
+                                <div class="control-group">
+                                    <div class="input-append">
+                                        <select id="selectedTable" ng-model="form.dimension" ng-options="item as item.displayName for item in formData.dimensionForms"></select>
+                                        <tip msg="queries.new.tip.dimension" />
+                                    </div>
+                                    <button class="btn btn-danger pull-right" type="button" ng-hide="$index <= 0" ng-click="removeQuery($index)">{{msg('common.remove')}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nested-well">
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th class="span10">{{msg('queries.new.selectColumnsHeader')}}:</th>
+                                    <th>{{msg('common.actions')}}:</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="selectColumn in form.selectColumns">
+                                    <td>{{selectColumn.function.name}} {{selectColumn.form.displayName}}.{{selectColumn.field.name}}{{selectColumn.nullValueText}}</td>
+                                    <td>
+                                        <button class="btn btn-danger" ng-click="form.removeSelectColumn($index)">{{msg('common.remove')}}</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                            <div class="form-horizontal">
+                                <label for="selectedForm_{{$index}}" class="control-label">{{msg('queries.new.label.selectedForm')}}:</label>
+                                <div class="control-group">
+                                    <div class="input-append">
+                                        <select id="selectedForm_{{$index}}" ng-model="form.selectColumn.form" ng-options="item as item.displayName for item in formData.forms"></select>
+                                        <tip msg="queries.new.tip.formS" />
+                                    </div>
+                                </div>
+                                <label for="selectedField_{{$index}}" class="control-label">{{msg('queries.new.label.selectedField')}}:</label>
+                                <div class="control-group">
+                                    <div class="input-append">
+                                        <select id="selectedField_{{$index}}" ng-model="form.selectColumn.field" ng-options="item as item.name for item in form.listComputedFields"></select>
+                                        <tip msg="queries.new.tip.fieldS" />
+                                    </div>
+                                </div>
+                                <label for="selectedFunction_{{$index}}" class="control-label">{{msg('queries.new.label.selectedFunction')}}:</label>
+                                <div class="control-group">
+                                    <div class="input-append">
+                                        <select id="selectedFunction_{{$index}}" ng-model="form.selectColumn.function" ng-options="item as item.name for item in form.functions"></select>
+                                        <tip msg="queries.new.tip.functionS" />
+                                    </div>
+                                </div>
+                                <label for="selectedNvl_{{$index}}" class="control-label">{{msg('queries.new.label.selectedNvl')}}:</label>
+                                <div class="control-group">
+                                    <div class="input-append">
+                                        <input id="selectedNvl_{{$index}}" type="text" placeholder="{{msg('queries.new.selectedNvlPlaceholder')}}" ng-model="form.selectColumn.nullValue" />
+                                        <tip msg="queries.new.tip.nullS" />
+                                    </div>
+                                    <button class="btn btn-primary" ng-click="form.addSelectColumn()">{{msg('common.add')}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nested-well">
+                            <div class="form-horizontal">
+                                <fieldset>
+                                    <legend>{{msg('queries.new.label.groupBy')}}</legend>
+                                    <label for="groupByField_{{$index}}" class="control-label">{{msg('queries.new.label.selectedField')}}:</label>
+                                    <div class="control-group">
+                                        <div class="input-append">
+                                            <select id="groupByField_{{$index}}" ng-model="form.groupBy.field" ng-options="item as item.name for item in form.listGroupByComputedFields"></select>
+                                            <tip msg="queries.new.tip.fieldG" />
+                                        </div>
+                                    </div>
+                                    <label for="GroupByFunction_{{$index}}" class="control-label">{{msg('queries.new.label.selectedFunction')}}:</label>
+                                    <div class="control-group">
+                                        <div class="input-append">
+                                            <select id="GroupByFunction_{{$index}}" ng-model="form.groupBy.having.function" ng-options="item as item.name for item in form.groupByFunctions" ng-disabled="form.groupBy.field == null || form.groupBy.field.name == '---'"></select>
+                                            <tip msg="queries.new.tip.functionG" />
+                                        </div>
+                                    </div>
+                                    <label for="groupByOperator_{{$index}}" class="control-label">{{msg('queries.new.label.operator')}}:</label>
+                                    <div class="control-group">
+                                        <div class="input-append">
+                                            <select id="groupByOperator_{{$index}}" ng-model="form.groupBy.having.operator" ng-options="item as item for item in formData.operators" ng-disabled="form.groupBy.field == null || form.groupBy.field.name == '---' || form.groupBy.having.function == null || form.groupBy.having.function.code == 'none'"></select>
+                                            <tip msg="queries.new.tip.operatorG" />
+                                        </div>
+                                    </div>
+                                    <div ng-switch="form.groupBy.having.function.code">
+                                        <div ng-switch-when="none" ng-switch="form.groupBy.field.type">
+                                            <div ng-switch-when="Boolean">
+                                                <label for="groupByValue_{{$index}}_Boolean" class="control-label">{{msg('queries.new.label.groupByValue')}}:</label>
+                                                <div class="control-group">
+                                                    <div class="input-append">
+                                                        <input id="groupByValue_{{$index}}_Boolean" type="text" ng-model="form.groupBy.having.value" ng-disabled="form.groupBy.having.operator == null || form.groupBy.having.operator.length <= 0 || form.groupBy.having.operator == '---' || form.groupBy.field == null || form.groupBy.field.name == '---'" />
+                                                        <tip msg="queries.new.tip.valueG" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="Number">
+                                                <label for="groupByValue_{{$index}}_Number" class="control-label">{{msg('queries.new.label.groupByValue')}}:</label>
+                                                <div class="control-group">
+                                                    <div class="input-append">
+                                                        <input id="groupByValue_{{$index}}_Number" type="number" pattern="-?\d+" ng-model="form.groupBy.having.value" ng-disabled="form.groupBy.having.operator == null || form.groupBy.having.operator.length <= 0 || form.groupBy.having.operator == '---' || form.groupBy.field == null || form.groupBy.field.name == '---'" />
+                                                        <tip msg="queries.new.tip.valueG" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="String">
+                                                <label for="groupByValue_{{$index}}_String" class="control-label">{{msg('queries.new.label.groupByValue')}}:</label>
+                                                <div class="control-group">
+                                                    <div class="input-append">
+                                                        <input id="groupByValue_{{$index}}_String" type="text" ng-model="form.groupBy.having.value" ng-disabled="form.groupBy.having.operator == null || form.groupBy.having.operator.length <= 0 || form.groupBy.having.operator == '---' || form.groupBy.field == null || form.groupBy.field.name == '---'" />
+                                                        <tip msg="queries.new.tip.valueG" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="Date">
+                                                <label for="groupByValue_{{$index}}_Date" class="control-label">{{msg('queries.new.label.groupByValue')}}:</label>
+                                                <div class="control-group">
+                                                    <div class="input-append">
+                                                        <input id="groupByValue_{{$index}}_Date" type="text" ng-model="form.groupBy.having.value" ng-disabled="form.groupBy.having.operator == null || form.groupBy.having.operator.length <= 0 || form.groupBy.having.operator == '---' || form.groupBy.field == null || form.groupBy.field.name == '---'" date-format="yyyy-mm-dd" bs-datepicker />
+                                                        <tip msg="queries.new.tip.valueG" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="Count">
+                                            <label for="groupByValue_{{$index}}_Count" class="control-label">{{msg('queries.new.label.groupByValue')}}:</label>
+                                            <div class="control-group">
+                                                <div class="input-append">
+                                                    <input id="groupByValue_{{$index}}_Count" type="number" pattern="-?\d+" ng-model="form.groupBy.having.value" ng-disabled="form.groupBy.having.operator == null || form.groupBy.having.operator.length <= 0 || form.groupBy.having.operator == '---' || form.groupBy.field == null || form.groupBy.field.name == '---'" />
+                                                    <tip msg="queries.new.tip.operatorG" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="nested-well" where-group query="form" msg="msg"></div>
+                    </div>
+                </div>
+                <div class="row page-margin-bottom">
+                    <div class="row-fluid">
+                        <div class="span3">
+                            <label for="selectJoinType">{{msg('queries.new.selectJoinType')}}:</label>
+                            <select id="selectJoinType" class="input-block-level" ng-model="selectedJoinType" ng-options="item as item.name for item in listQueryJoinTypes"></select>
+                        </div>
+                    </div>
+                    <div class="row-fluid" ng-switch="isEdit">
+                        <div ng-switch-when="true">
+                            <button class="btn btn-success" ng-click="addQueryForm()">{{msg('queries.new.addQuery')}}</button>
+                            <div class="pull-right btn-group">
+                                <tip msg='queries.edit.duplicate.tip' />
+                                <button type="button" class="btn" ng-click="save(false)" ng-disabled="!isFormValid() || formData.queryName == formData.originalQueryName">{{msg('queries.edit.label.duplicate')}}</button>
+                                <button type="button" class="btn btn-primary" ng-click="save(true)" ng-disabled="!isFormValid()">{{msg('common.update')}}</button>
+                            </div>
+                        </div>
+                        <div ng-switch-when="false">
+                            <button class="btn btn-success" ng-click="addQueryForm()">{{msg('queries.new.addQuery')}}</button>
+                            <button type="button" class="btn btn-primary pull-right" ng-click="save(false)" ng-disabled="!isFormValid()">{{msg('common.save')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

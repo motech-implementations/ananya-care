@@ -1,0 +1,73 @@
+<indicator additive="false">
+    <name>Number of women who have received advice on new_born_care, ever</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <user login="mrcaretest@gmail.com"/>
+        <reportviews>
+            <reportview name="ALL"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Value" />
+    </reports>
+    <area level="Block"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="bp_form" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="bp_form" />
+                    <group-by tableName="bp_form" fieldName="case_id" />
+                    <where-group>
+                        <where-condition type="calculationEndDate">
+                            <table-name>bp_form</table-name>
+                            <field>time_end</field>
+                        </where-condition>
+                        <where-group>
+                            <where-condition type="valueComparison">
+                                <table-name>bp_form</table-name>
+                                <field>cord_care</field>
+                                <operator>=</operator>
+                                <value>yes</value>
+                            </where-condition>
+                        </where-group>
+                        <where-group join="OR">
+                            <where-condition type="valueComparison">
+                                <table-name>bp_form</table-name>
+                                <field>has_danger_signs</field>
+                                <operator>=</operator>
+                                <value>yes</value>
+                            </where-condition>
+                        </where-group>
+                        <where-group join="OR">
+                            <where-condition type="valueComparison">
+                                <table-name>bp_form</table-name>
+                                <field>wrapping</field>
+                                <operator>=</operator>
+                                <value>yes</value>
+                            </where-condition>
+                        </where-group>
+                        <where-group join="OR">
+                            <where-condition type="valueComparison">
+                                <table-name>bp_form</table-name>
+                                <field>immediate_breastfeeding</field>
+                                <operator>=</operator>
+                                <value>yes</value>
+                            </where-condition>
+                        </where-group>
+                    </where-group>
+                </dw-query>
+            </combineWith>
+        </dw-query>
+    </numerator>
+</indicator>

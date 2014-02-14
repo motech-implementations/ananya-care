@@ -1,0 +1,376 @@
+[class^="icon-"] {
+    background-image: url("../images/glyphicons-halflings.png");
+}
+
+[class*="icon-white"] {
+    background-image: url("../images/glyphicons-halflings-white.png");
+}
+
+.login-container {
+    top: 100px;
+    position: absolute;
+}
+
+.login-form {
+    margin-top: 30px;
+}
+
+.login-default-info {
+    color: red;
+    text-align: center;
+}
+
+label.inline {
+    display: inline-block;
+}
+
+.nested-well {
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 5px 5px 5px 5px;
+    padding: 15px;
+    background-color: rgb(250, 250, 250);
+    margin: 0px 0px 15px 0px;
+}
+
+div.scroll {
+    overflow: auto;
+}
+
+form#indicatorForm {
+    margin: 0px;
+}
+
+form#indicatorForm div.nested-well:last-child {
+    margin-bottom: 0px;
+}
+
+form#indicatorForm div.nested-well div.scroll {
+    max-height: 100px;
+}
+
+form#indicatorForm div.nested-well div.scroll ul li {
+    margin-left: 5px;
+}
+
+form#indicatorForm div.scroll:not(:last-child) label {
+    padding: 10px 0px 0px 0px;
+}
+
+div#defineLevel label {
+    padding: 5px;
+}
+
+form#indicatorForm div#formButtons {
+    margin-top: 30px;
+}
+
+.error {
+    font-size: 25px;
+    line-height: 150%;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #eeeeee;
+}
+
+.popover {
+    max-width: none;
+}
+
+.tab-content {
+    overflow: visible !important;
+}
+
+.chart-title {
+    padding: 20px 0px 20px 0px;
+}
+
+.chart-container {
+    min-width: 300px !important;
+    width: 300px !important;
+    min-height: 300px !important;
+    height: 300px !important;
+    overflow: auto;
+}
+
+.chart-container * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.chart-container-wrapper {
+    padding: 5px;
+    min-width: 300px !important;
+    width: 300px !important;
+    min-height: 300px !important;
+    height: 300px !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.fullscreen-chart-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.fullscreen-chart-container * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.fullscreen-chart-container-wrapper {
+    min-height: 700px !important;
+    height: 700px !important;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.chart-title {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #333333;
+    text-align: center;
+}
+
+.performance-summary-classification {
+    font-weight: bold;
+}
+
+.performance-summary-classification td {
+    background-color: #FFFF98 !important;
+}
+
+.date-label {
+    font-weight: bold !important;
+}
+
+.centered {
+    margin: 0 auto !important;
+    float: none !important;
+}
+
+h5 {
+    margin: 15px;
+}
+
+.tab-trend {
+    margin-bottom: 0px !important;
+}
+
+.map-report {
+    height: 400px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+}
+
+.legend-caption {
+    padding: 10px;
+    font-size: 10px;
+}
+
+.legend-range {
+    font-size: 10px;
+    padding: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.legend-positive {
+    background-color: #008000;
+}
+
+.legend-middle-positive {
+    background-color: #ffc000;
+}
+
+.legend-negative {
+    background-color: #cd0f17;
+}
+
+.legend-middle-negative {
+    background-color: #FF6666;
+}
+
+.legend-neutral {
+    background-color: #82AAFF;
+}
+
+.legend-no-data {
+    background-color: #F3F3F3;
+}
+
+.jvectormap-label {
+    padding: 5px;
+    background-color: #FFFFFF;
+    border-radius: 2px 2px 2px 2px;
+    color: #333333;
+    border: 1px solid black;
+}
+
+.jvectormap-label .name {
+    font-weight: bold;
+}
+
+.tabbable .nav-tabs li {
+    cursor: pointer;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.form-button-add {
+    margin-top: 20px;
+}
+
+.condition-dialog {
+    width: 900px !important;
+    margin-left: -450px !important;
+}
+
+.condition-dialog-body {
+    max-height: 500px !important;
+}
+
+.dialog-form {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.chart-button {
+    cursor: pointer;
+}
+
+.computed-fields-list {
+    height: 350px;
+}
+
+.time-dialog {
+    height: 200px;
+}
+
+#messageContainer .control-label {
+    width: 320px !important;
+}
+
+#messageContainer .controls {
+    margin-left: 340px !important;
+}
+
+.label-fixed-width {
+    width: 80px !important;
+}
+
+.pagination a {
+    cursor: pointer;
+}
+
+.indicator-title {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px;
+    height: 40px;
+}
+
+.indicator-columns-wrapper {
+    width: 1053px;
+    margin: auto;
+    overflow: auto;
+}
+
+.indicator-column {
+    width: 350px;
+    float: left;
+    overflow: auto;
+}
+
+.indicator-cell-header {
+    margin: auto;
+    width: 300px;
+}
+
+.indicator-btn-group {
+    margin: auto;
+    width: 280px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgb(220, 220, 220);
+}
+
+.page-margin-bottom {
+    margin-bottom: 150px !important;
+}
+
+.where-group {
+    padding-left: 10px;
+    line-height: 25px;
+}
+
+.btn-append {
+    margin-left: 10px;
+}
+
+.modal-huge {
+    width: 700px;
+    margin-left: -350px;
+}
+
+.modal-wide {
+    width: 900px;
+    margin-left: -450px;
+}
+
+.alert-tall {
+    min-height: 60px !important;
+}
+
+div.alert-tall .alert-tall-label {
+    margin-top: 20px;
+}
+
+.pre-no-bg {
+    background-color: #FFFFFF !important;
+}
+
+.pre-tall {
+    height: 500px;
+    background-color: #FFFFFF !important;
+}
+
+.hq-content {
+    padding-right: 40px !important;
+}
+
+.stacktrace-info {
+    color: rgb(255, 0, 0);
+}
+
+.stacktrace-container {
+    margin-top: 25px;
+}
+
+.stacktrace-container pre {
+    background-color: rgb(255, 255, 255) !important;
+    font-size: 110%;
+}

@@ -1,0 +1,52 @@
+<indicator additive="false">
+    <name>Mothers receiving at least 2 visits in last trimester</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <reportviews>
+            <reportview name="Program Manager"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Value" />
+    </reports>
+    <area level="Block"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="bp_form" fieldName="case_id" />
+                        <select-column aggregation="Count" tableName="bp_form" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="bp_form" />
+                    <group-by tableName="bp_form" fieldName="case_id">
+                        <having function="Count" tableName="bp_form" fieldName="case_id" operator=">=" value="2" />
+                    </group-by>
+                    <where-group>
+                        <where-condition type="valueComparison">
+                            <table-name>bp_form</table-name>
+                            <field>delivery_offset_days</field>
+                            <operator>&lt;=</operator>
+                            <value>90</value>
+                        </where-condition>
+                    </where-group>
+                </dw-query>
+            </combineWith>
+            <where-group>
+                <where-condition type="period">
+                    <table-name>mother_case</table-name>
+                    <field>add</field>
+                    <offset>-90</offset>
+                </where-condition>
+            </where-group>
+        </dw-query>
+    </numerator>
+</indicator>

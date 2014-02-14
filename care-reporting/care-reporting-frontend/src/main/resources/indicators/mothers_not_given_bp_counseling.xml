@@ -1,0 +1,59 @@
+<indicator additive="true">
+    <name>Mothers not given BP counseling</name>
+    <classifications>
+        <classification name="Birth preparedness plan"/>
+    </classifications>
+    <owners>
+        <user login="mrcaretest@gmail.com"/>
+        <reportviews>
+            <reportview name="ALL"/>
+        </reportviews>
+    </owners>
+    <trend>3</trend>
+    <reports>
+        <report type="Line Chart" label-x="Time" label-y="Value" />
+    </reports>
+    <area level="District"/>
+    <default-frequency>Daily</default-frequency>
+    <numerator>
+        <dw-query>
+            <select-columns>
+                <select-column aggregation="Count" fieldName="*" />
+            </select-columns>
+            <dimension tableName="mother_case" />
+            <combineWith type="Join" dimension-key="id" foreign-key="case_id">
+                <dw-query>
+                    <select-columns>
+                        <select-column tableName="registration_mother_form" fieldName="case_id" />
+                    </select-columns>
+                    <dimension tableName="registration_mother_form" />
+                    <combineWith type="Join" dimension-key="case_id" foreign-key="case_id">
+                        <dw-query>
+                            <select-columns>
+                                <select-column tableName="bp_form" fieldName="case_id" />
+                            </select-columns>
+                            <dimension tableName="bp_form" />
+                            <group-by tableName="bp_form" fieldName="case_id">
+                                <having function="Count" tableName="bp_form" fieldName="case_id" operator=">=" value="1" />
+                            </group-by>
+                            <where-group>
+                                <where-condition type="valueComparison">
+                                    <table-name>bp_form</table-name>
+                                    <field>counsel_preparation</field>
+                                    <operator>=</operator>
+                                    <value>no</value>
+                                </where-condition>
+                            </where-group>
+                        </dw-query>
+                    </combineWith>
+                    <where-group>
+                        <where-condition type="period">
+                            <table-name>registration_mother_form</table-name>
+                            <field>time_end</field>
+                        </where-condition>
+                    </where-group>
+                </dw-query>
+            </combineWith>
+        </dw-query>
+    </numerator>
+</indicator>
