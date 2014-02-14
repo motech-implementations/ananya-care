@@ -11,6 +11,7 @@
         <module>commcare-migration</module>
         <module>care-reporting-performance</module>
         <module>care-reporting-email-appender</module>
+        <module>care-reporting-frontend</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
