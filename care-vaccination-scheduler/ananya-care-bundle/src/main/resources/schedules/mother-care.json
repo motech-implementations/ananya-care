@@ -1,0 +1,22 @@
+{
+    "name": "Mother Care",
+    "milestones": [
+        {
+            "name": "Mother Care",
+            "scheduleWindows": {
+                "earliest": ["0 Weeks"],
+                "due": ["275 Days", "2 Weeks"],
+                "late": ["275 Days", "2 Weeks", "1 Day"]
+            },
+            "alerts": [
+                {
+                    "window": "late",
+                    "offset": ["0 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                }
+            ]
+        }
+    ]
+}

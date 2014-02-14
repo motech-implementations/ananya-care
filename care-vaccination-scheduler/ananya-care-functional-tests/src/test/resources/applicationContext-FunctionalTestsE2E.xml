@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:spring-configured/>
+    <context:annotation-config/>
+
+    <import resource="classpath:META-INF/motech/applicationAnanyaCareTest.xml"/>
+
+    <util:properties id="quartzProperties" location="classpath:quartzQA.properties"/>
+
+    <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation">
+            <value>classpath:quartzQA.properties</value>
+        </property>
+        <property name="applicationContextSchedulerContextKey">
+            <value>applicationContext</value>
+        </property>
+    </bean>
+
+    <util:properties id="couchdbProperties" location="classpath:/couchdbQA.properties"/>
+    <util:properties id="ananyaCareProperties" location="classpath:/ananyaCareQA.properties"/>
+
+    <context:component-scan base-package="org.motechproject.commcarehq"/>
+    <context:component-scan base-package="org.motechproject.care.qa"/>
+
+
+    <bean id="ananyaCareDummyAppDbConnector" class="org.ektorp.impl.StdCouchDbConnector">
+        <constructor-arg value="dummy-commcare-hq"/>
+        <constructor-arg ref="ananyaCareDbInstance"/>
+    </bean>
+
+    <bean id="ananyaCareDbConnector" class="org.ektorp.impl.StdCouchDbConnector">
+        <constructor-arg value="ananya-care"/>
+        <constructor-arg ref="ananyaCareDbInstance"/>
+    </bean>
+
+</beans>
