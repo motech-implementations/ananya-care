@@ -1,0 +1,46 @@
+[
+    {
+        "identifier": "*",
+        "version": "*",
+        "segment": "METADATA",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": [],
+            "keyConversionMap": {
+                "instanceID": "instanceId"
+            }
+        }
+    },
+    {
+        "identifier": "*",
+        "version": "*",
+        "segment": "MOTHER",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case","child_info"],
+            "keyConversionMap": {}
+        }
+    },
+    {
+        "identifier": "*",
+        "version": "*",
+        "segment": "CHILD",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case"],
+            "keyConversionMap": {}
+        }
+    },
+    {
+        "identifier": "http://bihar.commcarehq.org/pregnancy/update_vaccinations",
+        "version": "*",
+        "segment": "MOTHER",
+        "parser": {
+            "caseElementPath": "//mother/case",
+            "reportMissingCaseElement": false,
+            "convertToCamelCase": "true",
+            "restrictedElements": ["case"],
+            "keyConversionMap": {}
+        }
+    }
+]

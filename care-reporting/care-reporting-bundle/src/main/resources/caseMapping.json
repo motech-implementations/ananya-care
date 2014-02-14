@@ -1,0 +1,13 @@
+[
+    {
+        "identifier": "*",
+        "version": "*",
+        "parser": {
+            "convertToCamelCase": "true",
+            "restrictedElements": [],
+            "keyConversionMap": {
+
+            }
+        }
+    }
+]
