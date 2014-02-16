@@ -37,6 +37,11 @@
             <version>${motech.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-scheduletracking-api</artifactId>
+            <version>${motech.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>2.1.5</version>
@@ -52,19 +57,9 @@
             <version>2.9</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-js-resources</artifactId>
             <version>2.2.1.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
         </dependency>
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
@@ -79,24 +74,46 @@
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpcomponents.version}</version>
+            <artifactId>httpclient-cache</artifactId>
+            <version>4.1.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4</version>
         </dependency>
         <dependency>
+            <groupId>org.ektorp</groupId>
+            <artifactId>org.ektorp.spring</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>org.springframework.test</artifactId>
-            <version>3.1.0.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.orm</artifactId>
-            <version>3.1.0.RELEASE</version>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>org.motechproject.org.junit</artifactId>
+            <version>4.9.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -122,27 +139,37 @@
                         <Context-Path>ananya-care-bundle</Context-Path>
                         <Resource-Path>ananya-care-bundle/resources</Resource-Path>
                         <Import-Package>
+                            org.motechproject.server.config;version=${motech.version},
+                            org.motechproject.server.config.service;version=${motech.version},
+                            org.motechproject.event.listener;version=${motech.version},
+                            org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.commons.date;version=${motech.version},
                             !org.motechproject.scheduletracking.api.*;version=${motech.version},
+                            org.motechproject.scheduletracking.api.domain;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
                             org.motechproject.scheduler,
-                            !org.motechproject.commcare.builder;version=${motech.version},
                             !org.springframework.orm.hibernate3.annotation,
+                            !org.springframework.orm.jpa,
                             org.springframework.aop,
                             org.springframework.aop.framework,
+                            org.springframework.ui.velocity,
                             org.springframework.beans.factory,
                             net.sf.cglib.core,
                             net.sf.cglib.proxy,
                             net.sf.cglib.reflect,
                             org.aopalliance.aop,
                             org.postgresql,
-                            !org.antlr.stringtemplate,
-                            !org.apache.commons.io,
+                            org.antlr.stringtemplate.*,
+                            org.ektorp.impl,
+                            org.ektorp.spring,
                             *
                         </Import-Package>
                         <Embed-Dependency>
                             ananya-care-scheduling;inline=true,
-                            motech-http-agent-bundle;inline=true
+                            motech-http-agent-bundle;inline=true,
+                            spring-aspects;inline=true,
+                            org.apache.servicemix.bundles.stringtemplate;inline=true,
+                            org.motechproject.org.junit;inline=true
                         </Embed-Dependency>
                     </instructions>
                 </configuration>
@@ -176,33 +203,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <id>list-dependencies</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>resolve</goal>
-                        </goals>
-                        <configuration>
-                            <outputFile>target/dependencies.list</outputFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-osgi-dependencies</id>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <excludeArtifactIds>org.osgi.core,jstl,servlet-api,org.apache.felix.framework,org.apache.felix.http.proxy</excludeArtifactIds>
-                            <includeScope>runtime</includeScope>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <outputDirectory>
-                                ${user.home}/.motech/bundles
-                            </outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
