@@ -3,19 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+    <parent>
+        <artifactId>ananya-care</artifactId>
+        <groupId>org.motechproject.ananya-care</groupId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.motechproject.ananya-care</groupId>
-    <artifactId>ananya-care</artifactId>
+    <artifactId>care-vaccination-scheduler</artifactId>
     <packaging>pom</packaging>
-    <version>0.9-SNAPSHOT</version>
-    <name>Ananya Care</name>
+    <name>CARE Vaccination Scheduler</name>
 
     <modules>
-        <module>ananya-care-bundle</module>
-        <module>ananya-care-scheduling</module>
-        <module>ananya-care-dummy-commcare-hq</module>
-        <module>ananya-care-functional-tests</module>
+        <module>${project.artifactId}-bundle</module>
+        <module>${project.artifactId}-scheduling</module>
+        <module>${project.artifactId}-dummy-commcare-hq</module>
+        <module>${project.artifactId}-functional-tests</module>
     </modules>
 
     <properties>
@@ -23,13 +28,13 @@
         <spring.version>3.1.0.RELEASE</spring.version>
         <httpcomponents.version>4.1.2</httpcomponents.version>
         <quartz.version>2.1.5</quartz.version>
-        <release.version>${version}</release.version>
+        <release.version>${project.version}</release.version>
         <motech.version>0.21.1</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <db.server>localhost</db.server>
         <db.port>5984</db.port>
-        <db.name>ananya-care motech-scheduletracking</db.name>
+        <db.name>${project.artifactId} motech-scheduletracking</db.name>
 
         <main.basedir>${project.basedir}</main.basedir>
 
@@ -113,11 +118,12 @@
     </pluginRepositories>
 
     <build>
-        <finalName>ananya-care</finalName>
+        <finalName>${project.artifactId}</finalName>
 
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.6</version>
                 </plugin>
@@ -182,6 +188,7 @@
                             <goal>verify</goal>
                         </goals>
                         <configuration>
+                            <encoding>UTF-8</encoding>
                             <argLine>-XX:MaxPermSize=1024M</argLine>
                         </configuration>
                     </execution>
@@ -226,11 +233,6 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
                     <execution>
                         <id>Clear Couchdb Before Integration Tests</id>
                         <phase>pre-integration-test</phase>
@@ -443,25 +445,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.ektorp</groupId>
-            <artifactId>org.ektorp.spring</artifactId>
-            <version>1.3.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
@@ -527,8 +510,8 @@
         </profile>
     </profiles>
     <scm>
-        <connection>scm:git:https://github.com/motech/ananya-care</connection>
-        <developerConnection>scm:git:https://github.com/motech/ananya-care</developerConnection>
-        <url>https://github.com/motech/ananya-care</url>
+        <connection>scm:git:https://github.com/motech-implementations/ananya-care/care-vaccination-scheduler</connection>
+        <developerConnection>scm:git:https://github.com/motech-implementations/ananya-care/care-vaccination-scheduler</developerConnection>
+        <url>https://github.com/motech-implementations/ananya-care/care-vaccination-scheduler</url>
     </scm>
 </project>
