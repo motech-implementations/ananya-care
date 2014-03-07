@@ -1,6 +1,7 @@
 package org.motechproject.care.tools;
 
 import org.joda.time.LocalDate;
+import org.motechproject.scheduler.factory.MotechSchedulerFactoryBean;
 import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
 import org.motechproject.scheduletracking.api.events.constants.EventDataKeys;
 import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
@@ -18,7 +19,6 @@ import org.quartz.impl.calendar.BaseCalendar;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.quartz.spi.OperableTrigger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -33,8 +33,8 @@ public class QuartzWrapper {
     private ScheduleTrackingService trackingService;
 
     @Autowired
-    public QuartzWrapper(SchedulerFactoryBean schedulerFactoryBean, ScheduleTrackingService trackingService) {
-        this.scheduler = schedulerFactoryBean.getScheduler();
+    public QuartzWrapper(MotechSchedulerFactoryBean schedulerFactoryBean, ScheduleTrackingService trackingService) {
+        this.scheduler = schedulerFactoryBean.getQuartzSchedulerFactoryBean().getScheduler();
         this.trackingService = trackingService;
     }
 
