@@ -168,7 +168,7 @@
                             *
                         </Import-Package>
                         <Embed-Dependency>
-                            ananya-care-scheduling;inline=true,
+                            care-vaccination-scheduler-scheduling;inline=true,
                             motech-http-agent-bundle;inline=true,
                             spring-aspects;inline=true,
                             org.apache.servicemix.bundles.stringtemplate;inline=true,
