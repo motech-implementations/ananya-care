@@ -43,6 +43,8 @@ public class CareSchedulesIT extends SpringIntegrationTest {
     private static final int NOVEMBER = 11;
     private static final int DECEMBER = 12;
 
+    private static final String SCHEDULING_DIR = "care-vaccination-scheduler/care-vaccination-scheduler-scheduling/";
+
     @Autowired
     private ScheduleTrackingService trackingService;
 
@@ -70,8 +72,8 @@ public class CareSchedulesIT extends SpringIntegrationTest {
         });
 
         String outputDir = null;
-        if (new File("ananya-care-scheduling").exists()) {
-            outputDir = "ananya-care-scheduling/doc/schedules/";
+        if (new File(SCHEDULING_DIR).exists()) {
+            outputDir = SCHEDULING_DIR + "doc/schedules/";
         }
         else if (new File("doc").exists()) {
             outputDir = "doc/schedules/";
