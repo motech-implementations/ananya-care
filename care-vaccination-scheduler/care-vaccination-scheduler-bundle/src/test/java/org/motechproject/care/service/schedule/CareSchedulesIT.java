@@ -17,6 +17,7 @@ import org.motechproject.care.utils.FakeSchedule;
 import org.motechproject.care.utils.ScheduleVisualization;
 import org.motechproject.care.utils.ScheduleWithCapture;
 import org.motechproject.care.utils.SetDateAction;
+import org.motechproject.scheduler.factory.MotechSchedulerFactoryBean;
 import org.motechproject.scheduletracking.api.service.ScheduleTrackingService;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CareSchedulesIT extends SpringIntegrationTest {
     private ScheduleTrackingService trackingService;
 
     @Autowired
-    private SchedulerFactoryBean schedulerFactoryBean;
+    private MotechSchedulerFactoryBean motechSchedulerFactoryBean;
 
     private ScheduleWithCapture schedule;
     private ScheduleVisualization visualization;
@@ -60,7 +61,8 @@ public class CareSchedulesIT extends SpringIntegrationTest {
 
     @Before
     public void setUp() throws Exception {
-        FakeSchedule fakeSchedule = new FakeSchedule(trackingService, schedulerFactoryBean, new SetDateAction() {
+        SchedulerFactoryBean quartzSchedulerFactoryBean = motechSchedulerFactoryBean.getQuartzSchedulerFactoryBean();
+        FakeSchedule fakeSchedule = new FakeSchedule(trackingService, quartzSchedulerFactoryBean, new SetDateAction() {
             @Override
             public void setTheDateTo(LocalDate date) {
                 mockCurrentDate(date);

@@ -118,8 +118,7 @@ public class FakeSchedule {
         List times = TriggerUtils.computeFireTimesBetween((OperableTrigger) trigger, new BaseCalendar(), startDate.toDate(), endDate.toDate());
 
         String windowName = String.valueOf(detail.getJobDataMap().get(WINDOW_NAME));
-        MilestoneAlert milestoneAlert = (MilestoneAlert) detail.getJobDataMap().get(MILESTONE_NAME);
-        String milestoneName = milestoneAlert.getMilestoneName();
+        String milestoneName = String.valueOf(detail.getJobDataMap().get(MILESTONE_NAME));
 
         List<Date> existingAlertTimes = getTriggerTimesFor(milestoneName, windowName);
         existingAlertTimes.addAll(times);
