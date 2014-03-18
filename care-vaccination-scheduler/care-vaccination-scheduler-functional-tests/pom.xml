@@ -67,6 +67,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.0.1.v20110908</version>
                 <configuration>
+                    <webApp>${project.parent.basedir}/care-vaccination-scheduler-bundle/target/care-vaccination-scheduler-bundle-${release.version}.jar</webApp>
                     <classesDirectory>${project.parent.basedir}/${project.artifactId}/target/test-classes</classesDirectory>
                     <systemProperties>
                         <systemProperty>
