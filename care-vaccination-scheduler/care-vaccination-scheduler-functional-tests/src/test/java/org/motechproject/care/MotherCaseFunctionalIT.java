@@ -4,7 +4,6 @@ import junit.framework.Assert;
 import org.antlr.stringtemplate.StringTemplate;
 import org.joda.time.LocalDate;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.motechproject.care.domain.Mother;
 import org.motechproject.care.repository.AllMothers;
@@ -14,11 +13,13 @@ import org.motechproject.care.utils.StringTemplateHelper;
 import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.UUID;
 
+@ContextConfiguration("classpath*:META-INF/motech/*.xml")
 public class MotherCaseFunctionalIT extends SpringIntegrationTest {
     @Autowired
     private AllMothers allMothers;
