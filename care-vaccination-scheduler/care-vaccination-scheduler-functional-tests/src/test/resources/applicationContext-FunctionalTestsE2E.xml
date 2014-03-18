@@ -10,7 +10,7 @@
     <context:spring-configured/>
     <context:annotation-config/>
 
-    <import resource="classpath:META-INF/motech/applicationAnanyaCareTest.xml"/>
+    <import resource="classpath:META-INF/motech/applicationAnanyaCare.xml"/>
 
     <util:properties id="quartzProperties" location="classpath:quartzQA.properties"/>
 
