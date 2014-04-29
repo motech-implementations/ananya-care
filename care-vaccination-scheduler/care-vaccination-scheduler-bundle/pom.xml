@@ -82,12 +82,6 @@
             <version>1.4</version>
         </dependency>
         <dependency>
-            <groupId>org.ektorp</groupId>
-            <artifactId>org.ektorp.parent</artifactId>
-            <version>1.2.2</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
@@ -134,22 +128,6 @@
             <artifactId>com.springsource.org.apache.commons.codec</artifactId>
             <version>1.6.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>com.springsource.org.apache.httpcomponents.httpclient</artifactId>
-            <version>4.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>com.springsource.org.apache.httpcomponents.httpcore</artifactId>
-            <version>4.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>spy</groupId>
-            <artifactId>com.springsource.net.spy.memcached</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -180,11 +158,7 @@
                             org.motechproject.event.listener;version=${motech.version},
                             org.motechproject.event.listener.annotations;version=${motech.version},
                             org.motechproject.commons.date;version=${motech.version},
-                            !org.motechproject.scheduletracking.api.*;version=${motech.version},
-                            org.motechproject.scheduletracking.api.domain;version=${motech.version},
-                            org.motechproject.scheduletracking.api.service;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
-                            org.motechproject.scheduler;version=${motech.version},
                             !org.springframework.orm.hibernate3.annotation,
                             !org.springframework.orm.jpa,
                             org.springframework.aop,
@@ -197,8 +171,6 @@
                             org.aopalliance.aop,
                             org.postgresql,
                             org.antlr.stringtemplate.*,
-                            org.ektorp.spring,
-                            org.ektorp.impl,
                             *
                         </Import-Package>
                         <Embed-Dependency>
@@ -207,6 +179,8 @@
                             spring-aspects;inline=true,
                             org.apache.servicemix.bundles.stringtemplate;inline=true,
                             org.motechproject.org.junit;inline=true,
+                            motech-scheduletracking-api;inline=true,
+                            motech-scheduler;inline=true
                         </Embed-Dependency>
                     </instructions>
                 </configuration>
@@ -328,10 +302,7 @@
                             <includeArtifactIds>
                                 com.springsource.net.sf.ehcache,
                                 com.springsource.org.codehaus.btm,
-                                com.springsource.net.spy.memcached,
-                                com.springsource.org.apache.commons.codec,
-                                com.springsource.org.apache.httpcomponents.httpcore,
-                                com.springsource.org.apache.httpcomponents.httpclient,
+                                com.springsource.org.apache.commons.codec
                             </includeArtifactIds>
                             <includeScope>runtime</includeScope>
                             <overWriteIfNewer>true</overWriteIfNewer>
