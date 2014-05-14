@@ -72,6 +72,6 @@ public abstract class SpringIntegrationTest {
     }
 
     protected String getAppServerUrl() {
-        return "http://" + getAppServerHost() + ":" + getAppServerPort()+"/ananya-care/care/process";
+        return "http://" + getAppServerHost() + ":" + getAppServerPort()+"/motech-platform-server/module/care-vaccination-scheduler-bundle/care/process";
     }
 }

@@ -7,6 +7,15 @@
 
     <import resource="classpath:META-INF/motech/applicationAnanyaCare.xml"/>
 
+    <bean id="moduleRegistrationData" class="org.motechproject.osgi.web.ModuleRegistrationData">
+        <constructor-arg name="moduleName" value="ananya-care"/>
+        <constructor-arg name="i18n">
+            <map>
+                <entry key="messages" value="../care-vaccination-scheduler-bundle/resources/bundles/"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
     <osgi:reference id="schedulerServiceOsgi"
                     interface="org.motechproject.scheduler.MotechSchedulerService" />
 

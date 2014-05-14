@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/care/**")
-public class CareCaseService extends CaseService<CareCase>{
+public class CareCaseService extends CaseService<CareCase> {
 
     private MotherService motherService;
     private ChildService childService;
