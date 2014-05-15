@@ -29,7 +29,8 @@ public class ApplicationBeanConfigurer {
 
         Properties dataSourceProperties = new Properties();
         dataSourceProperties.put("driverClassName", settingsFacade.getProperty("jdbc.driverClassName"));
-        dataSourceProperties.put("url", settingsFacade.getProperty("jdbc.url"));
+        dataSourceProperties.put("url", String.format("%s/%s", settingsFacade.getProperty("jdbc.url"),
+                settingsFacade.getProperty("jdbc.dbName")));
         dataSourceProperties.put("username", settingsFacade.getProperty("jdbc.username"));
         dataSourceProperties.put("password", settingsFacade.getProperty("jdbc.password"));
 
