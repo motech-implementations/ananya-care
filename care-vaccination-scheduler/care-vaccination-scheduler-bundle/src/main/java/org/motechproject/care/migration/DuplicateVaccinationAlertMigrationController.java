@@ -34,9 +34,6 @@ public class DuplicateVaccinationAlertMigrationController {
     private ForceCloseVaccinations forceCloseVaccinations;
 
     @Autowired
-    private MotechSchedulerService motechSchedulerService;
-
-    @Autowired
     public DuplicateVaccinationAlertMigrationController(AllCareCaseTasks allCareCaseTasks, ScheduleService scheduleService, AllMothers allMothers, AllChildren allChildren, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
         this.allCareCaseTasks = allCareCaseTasks;
         this.scheduleService = scheduleService;
@@ -61,7 +58,7 @@ public class DuplicateVaccinationAlertMigrationController {
 
     @RequestMapping(value="/oldJobs" , method = RequestMethod.GET)
     public void migrateOldJobs(HttpServletRequest request, HttpServletResponse response){
-	MigrateOldJobs migrateOldJobs = new MigrateOldJobs(motechSchedulerService);
+	MigrateOldJobs migrateOldJobs = new MigrateOldJobs();
 	try {
 			migrateOldJobs.runMigration();
 		} catch (SchedulerException e) {

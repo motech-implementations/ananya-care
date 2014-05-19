@@ -23,6 +23,8 @@ import org.quartz.Trigger;
 import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * This is a part of fix to migrate the  quartz jobs created using the older version(1.8)
  * to new jobs using the updated version(2+).
@@ -39,6 +41,7 @@ public class MigrateOldJobs {
 
     private final static Logger logger = Logger.getLogger(MigrateOldJobs.class);
 
+    @Autowired
     private MotechSchedulerService motechSchedulerService;
 
     private static final String JOB_GROUP_NAME = "default";
@@ -65,8 +68,7 @@ public class MigrateOldJobs {
     }
 
 
-    public MigrateOldJobs(MotechSchedulerService motechSchedulerService ){
-        this.motechSchedulerService = motechSchedulerService;
+    public MigrateOldJobs(){
         populateExpiryCases();
         populateExpiryMilestones();
         StdSchedulerFactory schedulerFactoryBean;
