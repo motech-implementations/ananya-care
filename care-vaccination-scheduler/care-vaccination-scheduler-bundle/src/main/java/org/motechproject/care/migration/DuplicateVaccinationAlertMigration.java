@@ -1,6 +1,7 @@
 package org.motechproject.care.migration;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.motechproject.care.domain.Child;
 import org.motechproject.care.domain.Mother;
@@ -10,7 +11,6 @@ import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.scheduletracking.api.repository.AllEnrollments;
 import org.motechproject.scheduletracking.api.service.impl.EnrollmentAlertService;
-import org.motechproject.util.StringUtil;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -58,7 +58,7 @@ public class DuplicateVaccinationAlertMigration {
      */
     public void deleteAndUnEnrollDuplicateVaccinationAlerts(String clientCaseID) {
 
-        if (!StringUtil.isNullOrEmpty(clientCaseID)) {
+        if (StringUtils.isNotEmpty(clientCaseID)) {
 
             DuplicateVaccinationAlertService duplicateVaccinationAlertService = new DuplicateVaccinationAlertService(allMothers, allCareCaseTasks, allChildren, allEnrollments, enrollmentAlertService);
             Mother mother = allMothers.findByCaseId(clientCaseID);
