@@ -43,12 +43,6 @@
           <artifactId>org.apache.servicemix.bundles.stringtemplate</artifactId>
           <version>3.2_1</version>
       </dependency>
-      <dependency>
-          <groupId>org.mortbay.jetty</groupId>
-          <artifactId>com.springsource.org.mortbay.jetty.server</artifactId>
-          <version>6.1.9</version>
-          <scope>test</scope>
-      </dependency>
   </dependencies>
 
     <build>

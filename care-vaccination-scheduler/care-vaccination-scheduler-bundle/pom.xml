@@ -103,12 +103,6 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.junit</groupId>
-            <artifactId>org.motechproject.org.junit</artifactId>
-            <version>4.9.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
@@ -178,7 +172,6 @@
                             motech-http-agent-bundle;inline=true,
                             spring-aspects;inline=true,
                             org.apache.servicemix.bundles.stringtemplate;inline=true,
-                            org.motechproject.org.junit;inline=true,
                             motech-scheduletracking-api;inline=true,
                             motech-scheduler;inline=true
                         </Embed-Dependency>
