@@ -4,15 +4,21 @@ import junit.framework.Assert;
 import org.antlr.stringtemplate.StringTemplate;
 import org.joda.time.LocalDate;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.care.builder.ResponseMessageBuilder;
 import org.motechproject.care.domain.Mother;
 import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
+import org.motechproject.care.service.CareCaseService;
+import org.motechproject.care.service.ChildService;
+import org.motechproject.care.service.MotherService;
 import org.motechproject.care.utils.StringTemplateHelper;
 import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,13 +27,31 @@ import java.util.UUID;
 
 @ContextConfiguration("classpath*:META-INF/motech/*.xml")
 public class MotherCaseFunctionalIT extends SpringIntegrationTest {
+
+    @Autowired
+    private MotherService motherService;
+
+    @Autowired
+    private ChildService childService;
+
+    @Autowired
+    private ResponseMessageBuilder responseMessageBuilder;
+
     @Autowired
     private AllMothers allMothers;
+
+    CareCaseService careCaseService;
     String userId = "e819879aaf53a3787e0fd88993ac105d";
     String ownerId = "d823ea3d392a06f8b991e9e49394ce45";
 
+    @Before
+    public void setUp() {
+        careCaseService = new CareCaseService(motherService, childService);
+        careCaseService.setResponseMessageBuilder(responseMessageBuilder);
+    }
+
     @After
-    public void tearDown(){
+    public void tearDown() {
         allMothers.removeAll();
     }
 
@@ -126,7 +150,6 @@ public class MotherCaseFunctionalIT extends SpringIntegrationTest {
     }
 
     private void postXmlToMotechCare(String xmlBody) throws IOException {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForLocation(getAppServerUrl(), xmlBody);
+        careCaseService.processCase(new HttpEntity(xmlBody));
     }
 }

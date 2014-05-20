@@ -171,6 +171,7 @@
                             org.aopalliance.aop,
                             org.postgresql,
                             org.antlr.stringtemplate.*,
+                            !junit.framework,
                             *
                         </Import-Package>
                         <Embed-Dependency>
@@ -178,7 +179,6 @@
                             motech-http-agent-bundle;inline=true,
                             spring-aspects;inline=true,
                             org.apache.servicemix.bundles.stringtemplate;inline=true,
-                            org.motechproject.org.junit;inline=true,
                             motech-scheduletracking-api;inline=true,
                             motech-scheduler;inline=true
                         </Embed-Dependency>

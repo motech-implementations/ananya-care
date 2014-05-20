@@ -5,15 +5,19 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.motechproject.care.builder.ResponseMessageBuilder;
 import org.motechproject.care.domain.Child;
 import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
+import org.motechproject.care.service.CareCaseService;
+import org.motechproject.care.service.ChildService;
+import org.motechproject.care.service.MotherService;
 import org.motechproject.care.utils.StringTemplateHelper;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -24,14 +28,27 @@ import static org.junit.Assert.assertNull;
 @ContextConfiguration("classpath*:META-INF/motech/*.xml")
 public class ChildCaseFunctionalIT extends SpringIntegrationTest {
 
+    @Autowired
+    private MotherService motherService;
+
+    @Autowired
+    private ChildService childService;
+
+    @Autowired
+    private ResponseMessageBuilder responseMessageBuilder;
 
     @Autowired
     private AllChildren allChildren;
+
     String motherCaseId;
     DateTime dob;
+    CareCaseService careCaseService;
+
 
     @Before
     public void setUp(){
+        careCaseService = new CareCaseService(motherService, childService);
+        careCaseService.setResponseMessageBuilder(responseMessageBuilder);
         motherCaseId = UUID.randomUUID().toString();
         dob = DateUtil.newDateTime(DateUtil.today());
     }
@@ -41,6 +58,7 @@ public class ChildCaseFunctionalIT extends SpringIntegrationTest {
         String uniqueCaseId= UUID.randomUUID().toString();
 
         postChildXmlToMotechCare(uniqueCaseId, "/caseXmls/childRegistrationCaseXml.st");
+
         Child childFromDb = allChildren.findByCaseId(uniqueCaseId);
         Assert.assertNotNull(childFromDb);
         markForDeletion(childFromDb);
@@ -95,12 +113,11 @@ public class ChildCaseFunctionalIT extends SpringIntegrationTest {
     }
 
     private void postChildXmlToMotechCare(String uniqueCaseId, String xmlFileName) throws IOException {
-        RestTemplate restTemplate = new RestTemplate();
         StringTemplate stringTemplate = StringTemplateHelper.getStringTemplate(xmlFileName);
         stringTemplate.setAttribute("caseId",uniqueCaseId);
         stringTemplate.setAttribute("dobDate",DateUtil.newDate(dob).toString());
         stringTemplate.setAttribute("motherCaseId",motherCaseId);
 
-        restTemplate.postForLocation(getAppServerUrl(), stringTemplate.toString());
+        careCaseService.processCase(new HttpEntity(stringTemplate.toString()));
     }
 }
