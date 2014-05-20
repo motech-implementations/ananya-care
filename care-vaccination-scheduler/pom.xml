@@ -24,7 +24,7 @@
     </modules>
 
     <properties>
-        <jetty.port>9979</jetty.port>
+        <jetty.port>8080</jetty.port>
         <spring.version>3.1.0.RELEASE</spring.version>
         <httpcomponents.version>4.1.2</httpcomponents.version>
         <quartz.version>2.1.5</quartz.version>
@@ -418,12 +418,6 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>1.4.9</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.ektorp</groupId>
