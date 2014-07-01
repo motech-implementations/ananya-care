@@ -9,8 +9,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.domain.CareCaseTask;
 import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.care.domain.CaseTask;
-import org.motechproject.care.gateway.CommcareCaseGateway;
+import org.motechproject.casexml.domain.CaseTask;
+import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.commons.date.util.DateUtil;
 
 import java.util.Properties;

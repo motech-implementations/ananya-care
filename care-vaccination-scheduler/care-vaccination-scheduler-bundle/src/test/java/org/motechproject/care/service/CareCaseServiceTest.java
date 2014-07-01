@@ -12,10 +12,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.domain.Child;
 import org.motechproject.care.domain.Mother;
 import org.motechproject.care.request.CareCase;
-import org.motechproject.care.builder.ResponseMessageBuilder;
-import org.motechproject.care.exception.CaseParserException;
-import org.motechproject.care.parser.CommcareCaseParser;
-import org.motechproject.care.service.exception.CaseException;
+import org.motechproject.casexml.service.CaseService;
+import org.motechproject.casexml.service.exception.CaseException;
+import org.motechproject.casexml.parser.CommcareCaseParser;
+import org.motechproject.casexml.exception.CaseParserException;
+import org.motechproject.casexml.builder.ResponseMessageBuilder;
 import org.springframework.http.HttpEntity;
 
 import java.io.File;

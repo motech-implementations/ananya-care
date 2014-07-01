@@ -12,7 +12,8 @@
     <context:annotation-config/>
 
     <import resource="classpath:META-INF/motech/applicationAnanyaCare.xml"/>
-    <import resource="classpath:META-INF/motech/applicationSchedulerTrackingAPI.xml"/>
+    <import resource="classpath*:META-INF/motech/applicationSchedulerTrackingAPI.xml"/>
+
     <util:properties id="ananyaCareProperties" location="classpath:ananyaCare.properties"/>
     <import resource="classpath:applicationContext-DummyCommcare.xml"/>
 

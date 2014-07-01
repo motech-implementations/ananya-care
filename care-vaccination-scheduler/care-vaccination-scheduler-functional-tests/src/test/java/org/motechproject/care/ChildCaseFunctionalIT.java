@@ -5,7 +5,7 @@ import org.antlr.stringtemplate.StringTemplate;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.builder.ResponseMessageBuilder;
+import org.motechproject.casexml.builder.ResponseMessageBuilder;
 import org.motechproject.care.domain.Child;
 import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
@@ -25,7 +25,7 @@ import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-@ContextConfiguration("classpath*:META-INF/motech/*.xml")
+@ContextConfiguration("classpath*:applicationAnanyaCareTest.xml")
 public class ChildCaseFunctionalIT extends SpringIntegrationTest {
 
     @Autowired

@@ -138,6 +138,21 @@
             <artifactId>motech-platform-commons-couchdb</artifactId>
             <version>0.21.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.motechproject.contrib-ananya-care</groupId>
+            <artifactId>commcare-case-gateway</artifactId>
+            <version>0.10-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.contrib-ananya-care</groupId>
+            <artifactId>case-service</artifactId>
+            <version>0.10-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject.contrib-ananya-care</groupId>
+            <artifactId>motech-http-client</artifactId>
+            <version>0.10-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -167,6 +182,7 @@
                             org.motechproject.commons.couchdb.service;version=${motech.version},
                             org.motechproject.event.listener;version=${motech.version},
                             org.motechproject.event.listener.annotations;version=${motech.version},
+                            org.motechproject.event.*;version=${motech.version},
                             org.motechproject.commons.date;version=${motech.version},
                             org.motechproject.osgi.web;version=${motech.version},
                             !org.springframework.orm.hibernate3.annotation,
@@ -184,6 +200,10 @@
                             !junit.framework,
                             *
                         </Import-Package>
+                        <Export-Package>
+                            org.motechproject.casexml.*,
+                            org.motechproject.http.client.*,
+                        </Export-Package>
                         <Embed-Dependency>
                             care-vaccination-scheduler-scheduling;inline=true,
                             motech-http-agent-bundle;inline=true,
@@ -191,7 +211,11 @@
                             org.apache.servicemix.bundles.stringtemplate;inline=true,
                             motech-scheduletracking-api;inline=true,
                             motech-scheduler;inline=true,
-                            motech-platform-commons-couchdb
+                            motech-platform-commons-couchdb;inline=true,
+                            commcare-case-gateway;inline=true,
+                            case-service;inline=true,
+                            motech-http-client;inline=true,
+                            motech-platform-event;inline=true
                         </Embed-Dependency>
                     </instructions>
                 </configuration>

@@ -6,7 +6,7 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.builder.ResponseMessageBuilder;
+import org.motechproject.casexml.builder.ResponseMessageBuilder;
 import org.motechproject.care.domain.Mother;
 import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.UUID;
 
-@ContextConfiguration("classpath*:META-INF/motech/*.xml")
+@ContextConfiguration("classpath*:applicationAnanyaCareTest.xml")
 public class MotherCaseFunctionalIT extends SpringIntegrationTest {
 
     @Autowired

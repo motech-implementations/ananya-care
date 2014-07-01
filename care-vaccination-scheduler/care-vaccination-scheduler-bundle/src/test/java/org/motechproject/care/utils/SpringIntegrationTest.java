@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Properties;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath*:META-INF/motech/*.xml")
+@ContextConfiguration("classpath*:META-INF/motech/applicationAnanyaCareTest.xml")
 public abstract class SpringIntegrationTest extends BaseUnitTest {
 
     @Qualifier("ananyaCareDbConnector")

@@ -14,7 +14,8 @@
 			http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
     <mvc:annotation-driven/>
-    <context:component-scan base-package="org.motechproject.care"/>
+    <context:component-scan base-package="org.motechproject.care, org.motechproject.casexml, org.motechproject.http.client">
+    </context:component-scan>
 
     <util:properties id="ananyaCareProperties" location="classpath:ananyaCare.properties"/>
 

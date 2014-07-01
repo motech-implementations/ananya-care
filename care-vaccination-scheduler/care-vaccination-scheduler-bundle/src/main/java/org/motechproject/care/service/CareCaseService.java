@@ -5,7 +5,8 @@ import org.motechproject.care.request.CareCase;
 import org.motechproject.care.request.CaseType;
 import org.motechproject.care.service.mapper.ChildMapper;
 import org.motechproject.care.service.mapper.MotherMapper;
-import org.motechproject.care.service.exception.CaseException;
+import org.motechproject.casexml.service.CaseService;
+import org.motechproject.casexml.service.exception.CaseException;
 import org.motechproject.commons.date.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class CareCaseService extends CaseService<CareCase> {
     }
 
     @Override
-    public void createCase(CareCase careCase) throws CaseException{
+    public void createCase(CareCase careCase) throws CaseException {
         validateCreateCase(careCase);
         String caseType = careCase.getCase_type();
         if(CaseType.Mother.getType().equals(caseType))

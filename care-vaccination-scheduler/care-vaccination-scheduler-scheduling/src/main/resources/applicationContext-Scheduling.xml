@@ -16,10 +16,13 @@
     <import resource="classpath*:applicationScheduler.xml"/>
 
     <context:component-scan base-package="org.motechproject.care"/>
+    <context:component-scan base-package="org.motechproject.commons.couchdb.service"/>
 
     <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
         <property name="resourceLoaderPath" value="classpath:/templates/"/>
     </bean>
+
+    <bean id="couchDbManager" class="org.motechproject.commons.couchdb.service.impl.CouchDbManagerImpl"/>
 
     <bean id="ananyaCareDbConnector" factory-bean="couchDbManager" factory-method="getConnector">
         <constructor-arg value="ananya-care" />
