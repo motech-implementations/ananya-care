@@ -1,6 +1,7 @@
 package org.motechproject.commcarehq.service;
 
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+import org.apache.log4j.Level;
 import org.motechproject.commcarehq.domain.AlertDocCase;
 import org.motechproject.commcarehq.repository.AllAlertDocCases;
 import org.motechproject.commons.date.util.StringUtil;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringReader;
+
 
 @Controller
 @RequestMapping("/**")
@@ -23,6 +26,8 @@ public class EndpointService {
 
     private AllAlertDocCases allCareCases;
     private AlertDocCaseFactory alertDocCaseFactory;
+
+    Logger logger = Logger.getLogger(EndpointService.class);
 
     @Autowired
     public EndpointService(AllAlertDocCases allCareCases, AlertDocCaseFactory alertDocCaseFactory) {
@@ -73,6 +78,7 @@ public class EndpointService {
         try {
             AlertDocCase careCase = careCase(xmlDocument);
             allCareCases.add(careCase);
+            logger.info(xmlDocument);
         } catch (IllegalArgumentException ex) {
             return ValidationResponse.MISSING;
         }
