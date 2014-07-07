@@ -50,6 +50,7 @@ public abstract class AlertClientAction {
         String currentTime = DateUtil.now().toString();
         String taskId = MilestoneType.forType(milestoneName).getTaskId();
         String caseId = UUID.randomUUID().toString();
-        return new CareCaseTask(milestoneName, client.getGroupId(), caseId, motechUserId, currentTime, taskId, alertWindow.getStart().toString("yyyy-MM-dd"), alertWindow.getEnd().toString("yyyy-MM-dd"), client.getCaseType(), externalId);
+        String dateExpires = (alertWindow.getEnd() == null) ? null : alertWindow.getEnd().toString("yyyy-MM-dd");
+        return new CareCaseTask(milestoneName, client.getGroupId(), caseId, motechUserId, currentTime, taskId, alertWindow.getStart().toString("yyyy-MM-dd"), dateExpires, client.getCaseType(), externalId);
     }
 }

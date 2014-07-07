@@ -80,7 +80,7 @@ public class AlertMotherActionTest {
         assertNotNull(task.getCurrentTime());
         assertEquals(milestoneName, task.getCaseName());
         assertEquals(startOfSchedule.toString("yyyy-MM-dd"), task.getDateEligible());
-        assertEquals(startOfSchedule.plusWeeks(36).toString("yyyy-MM-dd"), task.getDateExpires());
+        assertEquals(null, task.getDateExpires());
         assertEquals(groupId, task.getOwnerId());
         assertEquals("tt_1", task.getTaskId());
         assertEquals(motherCaseId,task.getClientCaseId());
@@ -118,7 +118,7 @@ public class AlertMotherActionTest {
         assertEquals(caseName, task.getMilestoneName());
         assertEquals("task", task.getCaseType());
         assertEquals(startScheduleDate.toString("yyyy-MM-dd"), task.getDateEligible());
-        assertEquals(startScheduleDate.plusWeeks(36).toString("yyyy-MM-dd"), task.getDateExpires());
+        assertEquals(null, task.getDateExpires());
         assertEquals(groupId, task.getOwnerId());
         assertEquals("tt_1", task.getTaskId());
         assertEquals(motherCaseId,task.getClientCaseId());
@@ -155,7 +155,7 @@ public class AlertMotherActionTest {
         verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture());
         CaseTask task = argumentCaptor.getValue();
 
-        assertEquals(edd.toString("yyyy-MM-dd"), task.getDateExpires());
+        assertEquals(null, task.getDateExpires());
     }
 
     @Test

@@ -26,7 +26,7 @@ public abstract class Client extends MotechBaseDataObject{
 
     @JsonIgnore
     public boolean isActive() {
-        return isAlive && !closedByCommcare && !expired;
+        return isAlive && !closedByCommcare;
     }
 
     public String getCaseId() {

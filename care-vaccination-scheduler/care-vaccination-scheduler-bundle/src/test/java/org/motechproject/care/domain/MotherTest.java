@@ -37,14 +37,6 @@ public class MotherTest {
     }
 
     @Test
-    public void shouldBeSetToInActiveIfExpired() {
-        Mother mother = new Mother();
-        mother.setAlive(true);
-        mother.setExpired(true);
-        Assert.assertFalse(mother.isActive());
-    }
-
-    @Test
     public void shouldNotCopyNullPropertiesFromAnotherMotherObject()  {
         Mother mother = new Mother("caseId", null,"flwid","name",null,null, DateTime.parse("2010-04-03"),null,null,false,null,null,null,null,null,true);
         Mother motherFromDb = new Mother("caseId", DateTime.parse("2010-01-01"), null, "name2", "groupid2", null, null,null,null,false,null,null,null,null,null,false);

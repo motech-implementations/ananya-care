@@ -41,7 +41,6 @@ public abstract class BaseService<T extends Client> {
                 return false;
             client.setExpired(true);
             allClients.update(client);
-            vaccinationProcessor.closeSchedules(client);
             return true;
         }
     }

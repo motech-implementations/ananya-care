@@ -130,25 +130,22 @@ public class ChildServiceTest {
     }
 
     @Test
-    public void shouldSetChildCaseAsExpiredAndCloseSchedulesIfExists_WhenChildCaseIsExpired(){
+    public void shouldSetChildCaseAsExpired_WhenChildCaseIsExpired(){
         Child childFromDb = childWithCaseId(caseId);
         childFromDb.setExpired(false);
         childFromDb.setAlive(true);
         childFromDb.setClosedByCommcare(false);
 
         when(allChildren.findByCaseId(caseId)).thenReturn(childFromDb);
-        boolean wasClosed = childService.expireCase(caseId);
+        boolean wasExpired = childService.expireCase(caseId);
 
-        assertTrue(wasClosed);
+        assertTrue(wasExpired);
 
         verify(allChildren, times(1)).update(childFromDb);
-        verify(vaccinationProcessor, never()).enrollUpdateVaccines(any(Child.class));
-        verify(vaccinationProcessor).closeSchedules(childFromDb);
 
         ArgumentCaptor<Child> captor = ArgumentCaptor.forClass(Child.class);
         verify(allChildren).update(captor.capture());
         Child child = captor.getValue();
-        assertFalse(child.isActive());
         assertTrue(child.isExpired());
     }
 
@@ -214,15 +211,6 @@ public class ChildServiceTest {
         verify(allChildren).update(any(Child.class));
         verify(vaccinationProcessor,never()).enrollUpdateVaccines(Matchers.<Child>any());
 
-    }
-
-    @Test
-    public void shouldCloseSchedulesEvenForAnExpiredClientToEnableActiveMqRetriesIfExceptionsOccur(){
-        String caseId = "caseId";
-        Child child = new ChildBuilder().withExpired(true).build();
-        when(allChildren.findByCaseId(caseId)).thenReturn(child);
-        childService.expireCase(caseId);
-        verify(vaccinationProcessor).closeSchedules(child);
     }
 
     private Child childWithCaseId(String caseId) {

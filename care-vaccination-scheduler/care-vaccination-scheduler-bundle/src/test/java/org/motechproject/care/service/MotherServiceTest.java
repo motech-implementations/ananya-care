@@ -75,15 +75,6 @@ public class MotherServiceTest {
     }
 
     @Test
-    public void shouldCloseSchedulesEvenForAnExpiredClientToEnableActiveMqRetriesIfExceptionsOccur(){
-        String caseId = "caseId";
-        Mother mother = new MotherBuilder().withExpired(true).build();
-        when(allMothers.findByCaseId(caseId)).thenReturn(mother);
-        motherService.expireCase(caseId);
-        verify(vaccinationProcessor).closeSchedules(mother);
-    }
-
-    @Test
     public void shouldUpdateMotherCaseIfItExists(){
         Mother mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive(true).build();
         DateTime now = DateTime.now();
@@ -144,7 +135,7 @@ public class MotherServiceTest {
     }
 
     @Test
-    public void shouldSetMotherCaseAsExpiredAndCloseSchedulesIfExists_WhenMotherCaseIsExpired(){
+    public void shouldSetMotherCaseAsExpired_WhenMotherCaseIsExpired(){
         Mother motherFromDb = motherWithCaseId(caseId);
         motherFromDb.setExpired(false);
         motherFromDb.setClosedByCommcare(false);
@@ -152,17 +143,15 @@ public class MotherServiceTest {
         motherFromDb.setAlive(true);
 
         when(allMothers.findByCaseId(caseId)).thenReturn(motherFromDb);
-        boolean wasClosed = motherService.expireCase(caseId);
+        boolean wasExpired = motherService.expireCase(caseId);
 
-        Assert.assertTrue(wasClosed);
+        Assert.assertTrue(wasExpired);
 
         verify(allMothers, times(1)).update(motherFromDb);
-        verify(vaccinationProcessor).closeSchedules(motherFromDb);
 
         ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
         verify(allMothers).update(captor.capture());
         Mother mother = captor.getValue();
-        assertFalse(mother.isActive());
         assertTrue(mother.isExpired());
     }
 
