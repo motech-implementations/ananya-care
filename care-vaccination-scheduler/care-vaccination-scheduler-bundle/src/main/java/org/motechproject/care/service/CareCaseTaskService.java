@@ -8,6 +8,7 @@ import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -39,5 +40,20 @@ public class CareCaseTaskService {
         allCareCaseTasks.update(careCaseTask);
         String commcareUrl = ananyaCareProperties.getProperty("commcare.hq.url");
         commcareCaseGateway.closeCase(commcareUrl, careCaseTask.toCaseTask());
+    }
+
+    public void closeAll(String clientCaseId, String milestoneName) {
+        logger.info(String.format("Closing all cases for Client Case Id: %s; Milestone Name: %s", clientCaseId, milestoneName));
+        List<CareCaseTask> careCaseTasks = allCareCaseTasks.findTasksByClientCaseIdAndMilestoneName(clientCaseId, milestoneName);
+        String commcareUrl = ananyaCareProperties.getProperty("commcare.hq.url");
+        for(CareCaseTask task : careCaseTasks) {
+            if (task != null && task.getOpen()) {
+                logger.info(String.format("Sending close case to Commcare for Task Id: %s; Milestone Name: %s", task.getId(), milestoneName));
+                task.setOpen(false);
+                task.setCurrentTime(DateUtil.now().toString());
+                allCareCaseTasks.update(task);
+                commcareCaseGateway.closeCase(commcareUrl, task.toCaseTask());
+            }
+        }
     }
 }

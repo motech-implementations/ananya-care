@@ -32,6 +32,8 @@ public class DuplicateVaccinationAlertMigrationController {
     Logger logger = Logger.getLogger(DuplicateVaccinationAlertMigrationController.class);
     @Autowired
     private ForceCloseVaccinations forceCloseVaccinations;
+    @Autowired
+    private CloseOldTasks closeOldTasks;
 
     @Autowired
     public DuplicateVaccinationAlertMigrationController(AllCareCaseTasks allCareCaseTasks, ScheduleService scheduleService, AllMothers allMothers, AllChildren allChildren, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
@@ -64,5 +66,10 @@ public class DuplicateVaccinationAlertMigrationController {
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+    }
+
+    @RequestMapping(value="/closeOldTasks", method = RequestMethod.GET)
+    public void closeOldTasks(HttpServletRequest request, HttpServletResponse response) {
+        closeOldTasks.run();
     }
 }
