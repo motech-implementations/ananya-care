@@ -44,7 +44,7 @@ public class CareCaseTaskServiceTest {
     @Test
     public void shouldNotCloseACaseIfNoCareTaskExistsForIt(){
         careCaseTaskService.close("clientCaseId", "milestoneName");
-        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class));
+        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class), anyString(), anyString());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CareCaseTaskServiceTest {
 
         careCaseTaskService.close(clientCaseId, milestoneName);
 
-        verify(commcareCaseGateway).closeCase(url, caseTask);
+        verify(commcareCaseGateway).closeCase(url, caseTask, null, null);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class CareCaseTaskServiceTest {
 
         careCaseTaskService.close(clientCaseId, milestoneName);
         verify(allCareCaseTasks,never()).update(Matchers.<CareCaseTask>any());
-        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any());
+        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString());
     }
 
     @Test

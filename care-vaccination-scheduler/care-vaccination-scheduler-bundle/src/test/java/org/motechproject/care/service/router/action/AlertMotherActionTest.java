@@ -73,7 +73,7 @@ public class AlertMotherActionTest {
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture());
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString());
         CaseTask task = argumentCaptor.getValue();
 
         assertNotNull(task.getTaskId());
@@ -152,7 +152,7 @@ public class AlertMotherActionTest {
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture());
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(null, task.getDateExpires());
@@ -180,7 +180,7 @@ public class AlertMotherActionTest {
         alertMotherAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture());
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(now.toString("yyyy-MM-dd"), task.getDateEligible());
@@ -206,7 +206,7 @@ public class AlertMotherActionTest {
         when(allMothers.findByCaseId(motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class));
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
     }
 
     @Test
@@ -229,7 +229,7 @@ public class AlertMotherActionTest {
         when(allMothers.findByCaseId(motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class));
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
     }
 
     @Test
@@ -251,7 +251,7 @@ public class AlertMotherActionTest {
         when(allMothers.findByCaseId(motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class));
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
 
     }
 

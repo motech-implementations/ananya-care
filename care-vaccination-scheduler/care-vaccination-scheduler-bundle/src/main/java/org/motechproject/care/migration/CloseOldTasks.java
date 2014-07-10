@@ -34,7 +34,7 @@ public class CloseOldTasks {
     public void run() {
         List<Mother> mothers = allMothers.getAll();
         for (CareCaseTask task : allCareCaseTasks.getAll()) {
-            if (task.getOpen() == true && llMothers.findByCaseId(task.getClientCaseId()) == null) {
+            if (task.getOpen() == true && allMothers.findByCaseId(task.getClientCaseId()) == null) {
                 logger.info("Found open task without active case: " + task.getId() + ", client case id: " + task.getClientCaseId());
                 careCaseTaskService.closeAll(task.getClientCaseId(), task.getMilestoneName());
             }
