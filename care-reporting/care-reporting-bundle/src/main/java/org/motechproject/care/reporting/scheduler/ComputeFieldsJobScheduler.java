@@ -1,10 +1,12 @@
 package org.motechproject.care.reporting.scheduler;
 
+import java.util.HashMap;
+
 import org.motechproject.care.reporting.constants.EventConstants;
 import org.motechproject.care.reporting.constants.PropertyConstants;
 import org.motechproject.event.MotechEvent;
-import org.motechproject.scheduler.MotechSchedulerService;
-import org.motechproject.scheduler.domain.CronSchedulableJob;
+import org.motechproject.scheduler.contract.CronSchedulableJob;
+import org.motechproject.scheduler.service.MotechSchedulerService;
 import org.motechproject.server.config.SettingsFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
 
 @Component
 @Lazy(false)

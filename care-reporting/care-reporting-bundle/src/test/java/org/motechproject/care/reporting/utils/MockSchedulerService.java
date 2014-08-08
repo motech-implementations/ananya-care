@@ -1,17 +1,17 @@
 package org.motechproject.care.reporting.utils;
 
-import org.motechproject.event.MotechEvent;
-import org.motechproject.scheduler.MotechSchedulerService;
-import org.motechproject.scheduler.domain.CronSchedulableJob;
-import org.motechproject.scheduler.domain.DayOfWeekSchedulableJob;
-import org.motechproject.scheduler.domain.JobBasicInfo;
-import org.motechproject.scheduler.domain.JobDetailedInfo;
-import org.motechproject.scheduler.domain.JobId;
-import org.motechproject.scheduler.domain.RepeatingSchedulableJob;
-import org.motechproject.scheduler.domain.RunOnceSchedulableJob;
-
 import java.util.Date;
 import java.util.List;
+
+import org.motechproject.event.MotechEvent;
+import org.motechproject.scheduler.contract.CronSchedulableJob;
+import org.motechproject.scheduler.contract.DayOfWeekSchedulableJob;
+import org.motechproject.scheduler.contract.JobBasicInfo;
+import org.motechproject.scheduler.contract.JobDetailedInfo;
+import org.motechproject.scheduler.contract.JobId;
+import org.motechproject.scheduler.contract.RepeatingSchedulableJob;
+import org.motechproject.scheduler.contract.RunOnceSchedulableJob;
+import org.motechproject.scheduler.service.MotechSchedulerService;
 
 public class MockSchedulerService implements MotechSchedulerService {
     @Override

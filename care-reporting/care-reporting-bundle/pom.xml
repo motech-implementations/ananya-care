@@ -7,7 +7,7 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <motech.version>0.21.1</motech.version>
+        <motech.version>0.24-SNAPSHOT</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <postgres-driver.version>9.1-901.jdbc4</postgres-driver.version>
     </properties>
@@ -31,6 +31,10 @@
                 <exclusion>
                     <groupId>org.slf4j</groupId>
                     <artifactId>com.springsource.slf4j.api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.motechproject</groupId>
+                    <artifactId>motech-platform-dataservices-migration</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -243,7 +247,7 @@
                             org.hibernate,
                             org.hibernate.jdbc,
                             org.hibernate.proxy,
-                            javassist.util.proxy,
+                           <!--  javassist.util.proxy, -->
                             org.apache.commons.dbcp,
                             org.postgresql,
                             *
@@ -309,7 +313,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
+           <!--  <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.6</version>
                 <dependencies>
@@ -339,7 +343,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
         </plugins>
     </build>
     <repositories>
