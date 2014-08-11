@@ -71,11 +71,13 @@ public class AlertChildActionTest {
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(commCareUrl);
         when(ananyaCareProperties.getProperty("motech.user.id")).thenReturn(motechUserId);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
         alertChildAction.invoke(milestoneEvent);
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl),argumentCaptor.capture(), anyString(), anyString());
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl),argumentCaptor.capture(), anyString(), anyString(), anyInt());
         CaseTask task = argumentCaptor.getValue();
 
         assertNotNull(task.getTaskId());
@@ -110,6 +112,8 @@ public class AlertChildActionTest {
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("motech.user.id")).thenReturn(motechUserId);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
 
         alertChildAction.invoke(milestoneEvent);
 
@@ -147,10 +151,12 @@ public class AlertChildActionTest {
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString());
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(), anyInt());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(now.toString("yyyy-MM-dd"), task.getDateEligible());
@@ -175,10 +181,12 @@ public class AlertChildActionTest {
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString());
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(), anyInt());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(dob.plusMonths(20).toString("yyyy-MM-dd"), task.getDateEligible());
@@ -205,7 +213,7 @@ public class AlertChildActionTest {
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(), anyInt());
     }
 
     @Test
@@ -229,7 +237,7 @@ public class AlertChildActionTest {
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(), anyInt());
     }
 
     @Test
@@ -253,7 +261,7 @@ public class AlertChildActionTest {
         when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(), anyInt());
     }
 
     public static Period weeks(int numberOfWeeks) {

@@ -18,6 +18,7 @@ import java.util.Properties;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -44,7 +45,7 @@ public class CareCaseTaskServiceTest {
     @Test
     public void shouldNotCloseACaseIfNoCareTaskExistsForIt(){
         careCaseTaskService.close("clientCaseId", "milestoneName");
-        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class), anyString(), anyString());
+        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class), anyString(), anyString(), anyInt());
     }
 
     @Test
@@ -60,10 +61,13 @@ public class CareCaseTaskServiceTest {
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(url);
         when(careCaseTask.toCaseTask()).thenReturn(caseTask);
         when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
 
-        verify(commcareCaseGateway).closeCase(url, caseTask, null, null);
+        verify(commcareCaseGateway).closeCase(url, caseTask, null, null,
+                Integer.parseInt(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")));
     }
 
     @Test
@@ -77,7 +81,7 @@ public class CareCaseTaskServiceTest {
 
         careCaseTaskService.close(clientCaseId, milestoneName);
         verify(allCareCaseTasks,never()).update(Matchers.<CareCaseTask>any());
-        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString());
+        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString(), anyInt());
     }
 
     @Test
@@ -89,6 +93,8 @@ public class CareCaseTaskServiceTest {
         String currentTime = DateUtil.now().toString();
         careCaseTask.setCurrentTime(currentTime);
         when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
         ArgumentCaptor<CareCaseTask> captor = ArgumentCaptor.forClass(CareCaseTask.class);
