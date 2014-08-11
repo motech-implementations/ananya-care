@@ -37,11 +37,16 @@ public class CareCaseTaskService {
         logger.info(String.format("Sending close case to Commcare for Client Case Id: %s; Milestone Name: %s", clientCaseId, milestoneName));
         careCaseTask.setOpen(false);
         careCaseTask.setCurrentTime(DateUtil.now().toString());
-        allCareCaseTasks.update(careCaseTask);
         String commcareUrl = ananyaCareProperties.getProperty("commcare.hq.url");
         String commcareUsername = ananyaCareProperties.getProperty("commcare.hq.username");
         String commcarePassword = ananyaCareProperties.getProperty("commcare.hq.password");
-        commcareCaseGateway.closeCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword);
+        Integer redeliveryCount = Integer.parseInt(ananyaCareProperties.getProperty("commcare.hq.redelivery.count"));
+        try {
+            commcareCaseGateway.closeCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword, redeliveryCount);
+            allCareCaseTasks.update(careCaseTask);
+        } catch (Exception ex) {
+            logger.error("Exception while sending close case request to CCHQ: " + ex.getMessage());
+        }
     }
 
     public void closeAll(String clientCaseId, String milestoneName) {
@@ -50,13 +55,14 @@ public class CareCaseTaskService {
         String commcareUrl = ananyaCareProperties.getProperty("commcare.hq.url");
         String commcareUsername = ananyaCareProperties.getProperty("commcare.hq.username");
         String commcarePassword = ananyaCareProperties.getProperty("commcare.hq.password");
+        Integer redeliveryCount = Integer.parseInt(ananyaCareProperties.getProperty("commcare.hq.redelivery.count"));
         for(CareCaseTask task : careCaseTasks) {
             if (task != null && task.getOpen()) {
                 logger.info(String.format("Sending close case to Commcare for Task Id: %s; Milestone Name: %s", task.getId(), milestoneName));
                 task.setOpen(false);
                 task.setCurrentTime(DateUtil.now().toString());
                 allCareCaseTasks.update(task);
-                commcareCaseGateway.closeCase(commcareUrl, task.toCaseTask(), commcareUsername, commcarePassword);
+                commcareCaseGateway.closeCase(commcareUrl, task.toCaseTask(), commcareUsername, commcarePassword, redeliveryCount);
             }
         }
     }

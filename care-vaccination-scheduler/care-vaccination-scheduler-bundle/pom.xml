@@ -202,7 +202,7 @@
                         </Import-Package>
                         <Export-Package>
                             org.motechproject.casexml.*,
-                            org.motechproject.http.client.*,
+                            org.motechproject.http.agent.*,
                         </Export-Package>
                         <Embed-Dependency>
                             care-vaccination-scheduler-scheduling;inline=true,
@@ -214,7 +214,7 @@
                             motech-platform-commons-couchdb;inline=true,
                             commcare-case-gateway;inline=true,
                             case-service;inline=true,
-                            motech-http-client;inline=true,
+                            motech-http-agent;inline=true,
                             motech-platform-event;inline=true
                         </Embed-Dependency>
                     </instructions>

@@ -40,11 +40,12 @@ public abstract class AlertClientAction {
         String commcareUrl = ananyaCareProperties.getProperty("commcare.hq.url");
         String commcareUsername = ananyaCareProperties.getProperty("commcare.hq.username");
         String commcarePassword = ananyaCareProperties.getProperty("commcare.hq.password");
+        Integer redeliveryCount = Integer.parseInt(ananyaCareProperties.getProperty("commcare.hq.redelivery.count"));
         CareCaseTask careCaseTask = createCaseTask(alertWindow, externalId, milestoneName, client);
         allCareCaseTasks.add(careCaseTask);
         logger.info(String.format("Notifying commcare -- TaskId: %s, ExternalId: %s, EligibleDate: %s, ExpiryDate: %s ",
                 careCaseTask.getTaskId(), careCaseTask.getClientCaseId(), careCaseTask.getDateEligible(), careCaseTask.getDateExpires()));
-        commcareCaseGateway.submitCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword);
+        commcareCaseGateway.submitCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword, redeliveryCount);
     }
 
     private CareCaseTask createCaseTask(Window alertWindow, String externalId, String milestoneName, Client client) {
