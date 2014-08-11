@@ -1,0 +1,21 @@
+{
+    "name": "MeaslesBooster Vaccination",
+    "milestones": [
+        {
+            "name": "Measles Booster",
+            "scheduleWindows": {
+                "earliest": ["15 Months"],
+                "due": ["24 Months"]
+            },
+            "alerts": [
+                {
+                    "window": "due",
+                    "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                }
+            ]
+        }
+    ]
+}

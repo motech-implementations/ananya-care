@@ -26,8 +26,10 @@ public class CareCase{
     /* Child */
 
     private String measles_date;
+    private String measles_booster_date;
     private String bcg_date;
     private String vit_a_1_date;
+    private String vit_a_2_date;
     private String mother_id;
     private String dob;
 
@@ -198,6 +200,10 @@ public class CareCase{
         return measles_date;
     }
 
+    public String getMeasles_booster_date() {
+        return measles_booster_date;
+    }
+
     public String getBcg_date() {
         return bcg_date;
     }
@@ -206,9 +212,17 @@ public class CareCase{
         return vit_a_1_date;
     }
 
+    public String getVit_a_2_date() {
+        return vit_a_2_date;
+    }
+
 
     public void setMeasles_date(String measles_date) {
         this.measles_date = measles_date;
+    }
+
+    public void setMeasles_booster_date(String measles_booster_date) {
+        this.measles_booster_date = measles_booster_date;
     }
 
     public void setBcg_date(String bcg_date) {
@@ -217,6 +231,10 @@ public class CareCase{
 
     public void setVit_a_1_date(String vit_a_1_date) {
         this.vit_a_1_date = vit_a_1_date;
+    }
+
+    public void setVit_a_2_date(String vit_a_2_date) {
+        this.vit_a_2_date = vit_a_2_date;
     }
 
     public String getMother_id() {

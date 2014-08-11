@@ -60,7 +60,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         DateTime dob = DateUtil.newDateTime(DateUtil.today().minusMonths(4));
 
         String motherCaseId = "motherCaseId";
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withMotherCaseId(motherCaseId).build();
+        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withVitamin2Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId,vitaScheduleName);
@@ -79,6 +79,27 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         Child childFromDb = allChildren.findByCaseId(caseId);
         assertEquals(dob, childFromDb.getDOB());
         assertNull(childFromDb.getVitamin1Date());
+
+        // Vitamin A-2
+        dob = DateUtil.newDateTime(DateUtil.today().minusMonths(15));
+        child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(dob.plusMonths(9)).withVitamin2Date(null).withMotherCaseId(motherCaseId).build();
+        childService.process(child);
+
+        markScheduleForUnEnrollment(caseId,vitaScheduleName);
+        query = new EnrollmentsQuery()
+                .havingExternalId(caseId)
+                .havingState(EnrollmentStatus.ACTIVE)
+                .havingSchedule(vitaScheduleName);
+
+        enrollment = trackingService.searchWithWindowDates(query).get(0);
+
+        assertEquals(MilestoneType.VitaminA2.toString(), enrollment.getCurrentMilestoneName());
+        assertEquals(dob.plusMonths(15), enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
+        assertEquals(dob.plusMonths(33), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
+
+        childFromDb = allChildren.findByCaseId(caseId);
+        assertEquals(dob, childFromDb.getDOB());
+        assertNull(childFromDb.getVitamin2Date());
     }
 
     @Test

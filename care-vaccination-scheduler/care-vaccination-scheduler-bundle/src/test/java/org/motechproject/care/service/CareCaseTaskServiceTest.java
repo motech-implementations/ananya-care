@@ -117,7 +117,7 @@ public class CareCaseTaskServiceTest {
 
         careCaseTaskService.close(clientCaseId, milestoneName);
         ArgumentCaptor<CareCaseTask> captor = ArgumentCaptor.forClass(CareCaseTask.class);
-        
+
         verify(allCareCaseTasks, never()).update(captor.capture());
     }
 }

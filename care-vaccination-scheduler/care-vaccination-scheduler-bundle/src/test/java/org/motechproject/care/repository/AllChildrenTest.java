@@ -22,8 +22,10 @@ public class AllChildrenTest extends SpringIntegrationTest {
         DateTime testStartTime = DateTime.now();
         String caseId = CaseUtils.getUniqueCaseId();
         DateTime measlesDate = DateUtil.now().plusDays(10);
+        DateTime measlesBoosterDate = DateUtil.now().plusMonths(6).plusDays(10);
         DateTime bcgDate = DateUtil.now().plusWeeks(15);
         DateTime vitamin1Date = DateUtil.now().plusWeeks(20);
+        DateTime vitamin2Date = DateUtil.now().plusWeeks(44);
         DateTime hep0Date = DateUtil.now().plusMonths(1);
         DateTime hep1Date = DateUtil.now().plusMonths(2);
         DateTime hep2Date = DateUtil.now().plusMonths(3);
@@ -39,7 +41,7 @@ public class AllChildrenTest extends SpringIntegrationTest {
         DateTime opvBoosterDate = DateUtil.now().plusMonths(5);
         DateTime dob = DateUtil.now().minusDays(20);
         String motherCaseId = "MotherCaseId";
-        Child child = new Child(caseId, DateUtil.now(),"flwID", "aragorn", "groupID", dob, measlesDate, bcgDate, vitamin1Date, motherCaseId, hep0Date, hep1Date, hep2Date, hep3Date,dpt1Date,dpt2Date,dpt3Date,dptBoosterDate,opv0Date,opv1Date,opv2Date,opv3Date,opvBoosterDate, true);
+        Child child = new Child(caseId, DateUtil.now(),"flwID", "aragorn", "groupID", dob, measlesDate, measlesBoosterDate, bcgDate, vitamin1Date, vitamin2Date, motherCaseId, hep0Date, hep1Date, hep2Date, hep3Date,dpt1Date,dpt2Date,dpt3Date,dptBoosterDate,opv0Date,opv1Date,opv2Date,opv3Date,opvBoosterDate, true);
         allChildren.add(child);
 
         Child childFromDb = allChildren.findByCaseId(caseId);

@@ -14,7 +14,9 @@ public class ChildCareCaseBuilder {
     private String case_type= CaseType.Child.getType();
     private String bcg_date = "2012-01-01";
     private String measles_date = "2012-01-02";
+    private String measles_booster_date = "2012-06-02";
     private String vit_a_1_date = "2012-01-02";
+    private String vit_a_2_date = "2012-06-02";
     private String motherCaseId="motherCaseId";
     private String DOB="2009-01-02";
     private String hep0Date="2012-01-02";
@@ -45,7 +47,9 @@ public class ChildCareCaseBuilder {
         careCase.setCase_type(case_type);
         careCase.setBcg_date(bcg_date);
         careCase.setVit_a_1_date(vit_a_1_date);
+        careCase.setVit_a_2_date(vit_a_2_date);
         careCase.setMeasles_date(measles_date);
+        careCase.setMeasles_booster_date(measles_booster_date);
         careCase.setMother_id(motherCaseId);
         careCase.setHep_b_0_date(hep0Date);
         careCase.setHep_b_1_date(hep1Date);
@@ -106,6 +110,11 @@ public class ChildCareCaseBuilder {
 
     public ChildCareCaseBuilder withMeaslesDate(String measlesDate){
         this.measles_date =measlesDate;
+        return this;
+    }
+
+    public ChildCareCaseBuilder withMeaslesBoosterDate(String measlesBoosterDate) {
+        this.measles_booster_date = measlesBoosterDate;
         return this;
     }
 

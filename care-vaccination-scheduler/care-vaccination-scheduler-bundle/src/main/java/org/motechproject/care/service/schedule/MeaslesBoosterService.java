@@ -7,15 +7,14 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class VitaService extends VaccinationService{
-
+@Component
+public class MeaslesBoosterService extends VaccinationService {
 
     @Autowired
-    public VitaService(ScheduleService schedulerService, CareCaseTaskService careCaseTaskService) {
-        super(schedulerService, ChildVaccinationSchedule.Vita.getName(), careCaseTaskService);
+    public MeaslesBoosterService(ScheduleService schedulerService, CareCaseTaskService careCaseTaskService) {
+        super(schedulerService, ChildVaccinationSchedule.MeaslesBooster.getName(), careCaseTaskService);
     }
 
     @Override
@@ -24,11 +23,8 @@ public class VitaService extends VaccinationService{
         if(child.getDOB() != null){
             schedulerService.enroll(child.getCaseId(), child.getDOB(), scheduleName);
         }
-        if(child.getVitamin1Date() != null){
-            fulfillMilestone(child.getCaseId(), MilestoneType.VitaminA, child.getVitamin1Date());
-        }
-        if (child.getVitamin2Date() != null) {
-           fulfillMilestone(child.getCaseId(), MilestoneType.VitaminA2, child.getVitamin2Date());
+        if(child.getMeaslesBoosterDate() != null){
+            fulfillMilestone(child.getCaseId(), MilestoneType.MeaslesBooster, child.getMeaslesBoosterDate());
         }
     }
 }

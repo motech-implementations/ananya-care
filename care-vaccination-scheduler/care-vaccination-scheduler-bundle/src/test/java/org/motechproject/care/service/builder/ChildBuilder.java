@@ -16,7 +16,9 @@ public class ChildBuilder {
     private String userId="b823ea3d392a06f8b991e9e4933348bd";
     private DateTime bcgDate = new DateTime(2012, 1, 1, 0, 0, 0);
     private DateTime measlesDate = new DateTime(2012, 1, 2, 0, 0, 0);
+    private DateTime measlesBoosterDate = new DateTime(2012, 6, 2, 0, 0, 0);
     private DateTime vitamin1Date = new DateTime(2012, 1, 2, 0, 0, 0);
+    private DateTime vitamin2Date = new DateTime(2012, 6, 2, 0, 0, 0);
     private DateTime hep0Date=new DateTime(2012, 1, 2, 0, 0, 0);
     private DateTime hep1Date=new DateTime(2012, 2, 2, 0, 0, 0);
     private DateTime hep2Date=new DateTime(2012, 3, 2, 0, 0, 0);
@@ -61,6 +63,7 @@ public class ChildBuilder {
         child.setBcgDate(bcgDate);
         child.setMeaslesDate(measlesDate);
         child.setVitamin1Date(vitamin1Date);
+        child.setVitamin2Date(vitamin2Date);
 
         child.setOpv0Date(opv0Date);
         child.setOpv1Date(opv1Date);
@@ -106,8 +109,18 @@ public class ChildBuilder {
         return this;
     }
 
+    public ChildBuilder withVitamin2Date(DateTime vita2Date) {
+        this.vitamin2Date = vita2Date;
+        return this;
+    }
+
     public ChildBuilder withMeaslesDate(DateTime measlesDate){
         this.measlesDate =measlesDate;
+        return this;
+    }
+
+    public ChildBuilder withMeaslesBoosterDate(DateTime measlesBoosterDate) {
+        this.measlesBoosterDate = measlesBoosterDate;
         return this;
     }
 

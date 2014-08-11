@@ -28,10 +28,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class MeaslesIntegrationTest extends SpringIntegrationTest {
+public class MeaslesBoosterIntegrationTest extends SpringIntegrationTest {
 
     @Autowired
-    private MeaslesService measlesService;
+    private MeaslesBoosterService measlesBoosterService;
     @Autowired
     private AllChildren allChildren;
 
@@ -39,9 +39,9 @@ public class MeaslesIntegrationTest extends SpringIntegrationTest {
     private ChildService childService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         caseId = CaseUtils.getUniqueCaseId();
-        List<VaccinationService> vaccinationServices = Arrays.asList((VaccinationService) measlesService);
+        List<VaccinationService> vaccinationServices = Arrays.asList((VaccinationService) measlesBoosterService);
         VaccinationProcessor childVaccinationProcessor = new VaccinationProcessor(vaccinationServices);
         childService = new ChildService(allChildren, childVaccinationProcessor);
     }
@@ -52,47 +52,28 @@ public class MeaslesIntegrationTest extends SpringIntegrationTest {
     }
 
     @Test
-    public void shouldVerifyMeaslesScheduleCreationWhenChildIsRegistered() {
-        String measlesScheduleName = ChildVaccinationSchedule.Measles.getName();
+    public void shouldVerifyMeaslesBoosterScheduleCreationWhenChildIsRegistered() {
+        String measlesBoosterScheduleName = ChildVaccinationSchedule.MeaslesBooster.getName();
         DateTime dob = DateUtil.newDateTime(DateUtil.today().minusMonths(4));
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withMeaslesDate(null).withMotherCaseId("motherCaseId").build();
+        Child child = new ChildBuilder().withCaseId(caseId).withDOB(dob).withMeaslesDate(null).withMeaslesBoosterDate(null).withMotherCaseId("motherCaseId").build();
         childService.process(child);
 
-        markScheduleForUnEnrollment(caseId,  measlesScheduleName);
+        markScheduleForUnEnrollment(caseId, measlesBoosterScheduleName);
         EnrollmentsQuery query = new EnrollmentsQuery()
                 .havingExternalId(caseId)
                 .havingState(EnrollmentStatus.ACTIVE)
-                .havingSchedule(measlesScheduleName);
+                .havingSchedule(measlesBoosterScheduleName);
 
         EnrollmentRecord enrollment = trackingService.searchWithWindowDates(query).get(0);
 
-        assertEquals(MilestoneType.Measles.toString(), enrollment.getCurrentMilestoneName());
+        assertEquals(MilestoneType.MeaslesBooster.toString(), enrollment.getCurrentMilestoneName());
         assertEquals(dob, enrollment.getReferenceDateTime().withTimeAtStartOfDay());
-        assertEquals(dob.plusMonths(9), enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
+        assertEquals(dob.plusMonths(15), enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
         assertEquals(dob.plusMonths(24), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
         Child childFromDb = allChildren.findByCaseId(caseId);
         assertEquals(dob, childFromDb.getDOB());
-        assertNull(childFromDb.getMeaslesDate());
-    }
-
-    @Test
-    public void shouldVerifyMeaslesScheduleFulfillmentWhenChildHasTakenMeasles() {
-        String measlesScheduleName = ChildVaccinationSchedule.Measles.getName();
-        DateTime dob = DateUtil.newDateTime(DateUtil.today().minusMonths(4));
-        DateTime measlesTaken = DateUtil.newDateTime(DateUtil.today().plusMonths(1));
-        String motherCaseId = "motherCaseId";
-
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withMeaslesDate(null).withMotherCaseId(motherCaseId).build();
-        childService.process(child);
-        child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withMeaslesDate(measlesTaken).withMotherCaseId(motherCaseId).build();
-        childService.process(child);
-
-        assertNull(trackingService.getEnrollment(caseId, measlesScheduleName));
-
-        Child childFromDb = allChildren.findByCaseId(caseId);
-        assertEquals(dob, childFromDb.getDOB());
-        assertEquals(measlesTaken, childFromDb.getMeaslesDate());
+        assertNull(childFromDb.getMeaslesBoosterDate());
     }
 }

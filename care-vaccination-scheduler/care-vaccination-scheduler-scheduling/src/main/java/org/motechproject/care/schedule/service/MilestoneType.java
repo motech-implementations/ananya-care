@@ -3,6 +3,7 @@ package org.motechproject.care.schedule.service;
 public enum MilestoneType {
 
     Measles("Measles", "measles"),
+    MeaslesBooster("Measles Booster", "measles_booster"),
     Hep0("Hep 0", "hep_0"),
     Hep1("Hep 1", "hep_1"),
     Hep2("Hep 2", "hep_2"),
@@ -22,6 +23,7 @@ public enum MilestoneType {
     TT2("TT 2", "tt_2"),
     TTBooster("TT Booster", "tt_booster"),
     VitaminA("Vita", "vita_1"),
+    VitaminA2("Vita2", "vita_2"),
     Bcg("Bcg", "bcg"),
     Anc1("Anc 1", "anc_1"),
     Anc2("Anc 2", "anc_2"),

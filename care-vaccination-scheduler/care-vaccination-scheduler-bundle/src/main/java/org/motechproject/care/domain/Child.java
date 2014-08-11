@@ -12,8 +12,10 @@ public class Child extends Client {
 
     private DateTime DOB;
     private DateTime measlesDate;
+    private DateTime measlesBoosterDate;
     private DateTime bcgDate;
     private DateTime vitamin1Date;
+    private DateTime vitamin2Date;
     private DateTime hep0Date;
     private DateTime hep1Date;
     private DateTime hep2Date;
@@ -36,7 +38,7 @@ public class Child extends Client {
     public Child() {}
 
 
-    public Child(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime DOB, DateTime measlesDate, DateTime bcgDate, DateTime vitamin1Date, String motherCaseId,
+    public Child(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime DOB, DateTime measlesDate, DateTime measlesBoosterDate, DateTime bcgDate, DateTime vitamin1Date, DateTime vitamin2Date, String motherCaseId,
                  DateTime hep0Date, DateTime hep1Date, DateTime hep2Date, DateTime hep3Date,
                  DateTime dpt1Date, DateTime dpt2Date, DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date, DateTime opv1Date, DateTime opv2Date, DateTime opv3Date, DateTime opvBoosterDate, boolean isAlive) {
         super(isAlive);
@@ -48,8 +50,10 @@ public class Child extends Client {
         this.groupId = groupId;
         this.DOB = DOB;
         this.measlesDate = measlesDate;
+        this.measlesBoosterDate = measlesBoosterDate;
         this.bcgDate = bcgDate;
         this.vitamin1Date = vitamin1Date;
+        this.vitamin2Date = vitamin2Date;
         this.hep0Date = hep0Date;
         this.hep1Date = hep1Date;
         this.hep2Date = hep2Date;
@@ -77,8 +81,16 @@ public class Child extends Client {
         return DateUtil.setTimeZone(measlesDate);
     }
 
+    public DateTime getMeaslesBoosterDate() {
+        return DateUtil.setTimeZone(measlesBoosterDate);
+    }
+
     public void setMeaslesDate(DateTime measlesDate) {
         this.measlesDate = measlesDate;
+    }
+
+    public void setMeaslesBoosterDate(DateTime measlesBoosterDate) {
+        this.measlesBoosterDate = measlesBoosterDate;
     }
 
     public DateTime getBcgDate() {
@@ -96,6 +108,15 @@ public class Child extends Client {
     public void setVitamin1Date(DateTime vitamin1Date) {
         this.vitamin1Date = vitamin1Date;
     }
+
+    public DateTime getVitamin2Date() {
+        return DateUtil.setTimeZone(vitamin2Date);
+    }
+
+    public void setVitamin2Date(DateTime vitamin2Date) {
+        this.vitamin2Date = vitamin2Date;
+    }
+
 
     public void setValuesFrom(Child child) {
         try{

@@ -17,6 +17,23 @@
 
                 }
             ]
+        },
+        {
+            "name": "Vita2",
+            "scheduleWindows": {
+                "earliest": ["6 Months"],
+                "due": ["24 Months"]
+            },
+            "alerts": [
+                {
+                    "window": "due",
+                    "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+
+                }
+            ]
         }
     ]
 }

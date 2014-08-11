@@ -3,6 +3,7 @@ package org.motechproject.care.schedule.vaccinations;
 public enum ChildVaccinationSchedule {
 
     Measles("Measles Vaccination"),
+    MeaslesBooster("MeaslesBooster Vaccination"),
     Vita("Vita Vaccination"),
     Bcg("Bcg Vaccination"),
     Hepatitis0("Hepatitis0 Vaccination"),
