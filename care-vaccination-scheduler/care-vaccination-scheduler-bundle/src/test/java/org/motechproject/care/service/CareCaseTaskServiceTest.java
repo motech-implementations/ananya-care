@@ -20,10 +20,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CareCaseTaskServiceTest {
@@ -80,7 +77,7 @@ public class CareCaseTaskServiceTest {
         when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
-        verify(allCareCaseTasks,never()).update(Matchers.<CareCaseTask>any());
+        verify(allCareCaseTasks, never()).update(Matchers.<CareCaseTask>any());
         verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString(), anyInt());
     }
 
@@ -102,6 +99,25 @@ public class CareCaseTaskServiceTest {
 
         CareCaseTask value = captor.getValue();
         assertFalse(value.getOpen());
-        assertNotSame(currentTime,careCaseTask.getCurrentTime());
+        assertNotSame(currentTime, careCaseTask.getCurrentTime());
+    }
+
+    @Test
+    public void shouldNotUpdateTheCaseTaskStatusToCloseIfDeliveryFails() {
+        String clientCaseId = "clientCaseId";
+        String milestoneName = "milestoneName";
+        CareCaseTask careCaseTask = new CareCaseTask();
+        careCaseTask.setOpen(true);
+        String currentTime = DateUtil.now().toString();
+        careCaseTask.setCurrentTime(currentTime);
+        when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        String redeliveryCount = "5";
+        when(ananyaCareProperties.getProperty("commcare.hq.redelivery.count")).thenReturn(redeliveryCount);
+        doThrow(new RuntimeException("Connection refused")).when(commcareCaseGateway).closeCase(anyString(), any(CaseTask.class), anyString(), anyString(), anyInt());
+
+        careCaseTaskService.close(clientCaseId, milestoneName);
+        ArgumentCaptor<CareCaseTask> captor = ArgumentCaptor.forClass(CareCaseTask.class);
+        
+        verify(allCareCaseTasks, never()).update(captor.capture());
     }
 }
