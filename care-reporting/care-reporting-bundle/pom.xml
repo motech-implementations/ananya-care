@@ -85,21 +85,15 @@
             <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
             <version>1.2.2.osgi</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>com.springsource.javax.persistence</artifactId>
             <version>1.99.0</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>com.springsource.org.postgresql.jdbc4</artifactId>
             <version>8.3.604</version>
-        </dependency>
-        <dependency>
-            <groupId>org.motechproject.ananya-care</groupId>
-            <artifactId>care-reporting-migration</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -117,6 +111,11 @@
             <groupId>org.motechproject</groupId>
             <artifactId>commcare-provider-sync</artifactId>
             <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.motechproject</groupId>
+            <artifactId>motech-platform-dataservices</artifactId>
+            <version>${motech.version}</version>
         </dependency>
     </dependencies>
 
@@ -247,7 +246,6 @@
                             org.hibernate,
                             org.hibernate.jdbc,
                             org.hibernate.proxy,
-                           <!--  javassist.util.proxy, -->
                             org.apache.commons.dbcp,
                             org.postgresql,
                             *

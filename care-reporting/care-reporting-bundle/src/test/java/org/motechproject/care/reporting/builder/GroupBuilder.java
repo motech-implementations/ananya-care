@@ -1,11 +1,11 @@
 package org.motechproject.care.reporting.builder;
 
-import org.motechproject.care.reporting.utils.TestUtils;
-import org.motechproject.commcare.provider.sync.response.Group;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import org.motechproject.care.reporting.utils.TestUtils;
+import org.motechproject.commcare.provider.sync.response.Group;
 
 public class GroupBuilder {
     private final Group group;

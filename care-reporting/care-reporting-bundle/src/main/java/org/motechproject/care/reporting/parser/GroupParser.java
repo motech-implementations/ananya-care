@@ -1,10 +1,9 @@
 package org.motechproject.care.reporting.parser;
 
-import org.motechproject.commcare.provider.sync.response.Group;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.motechproject.commcare.provider.sync.response.Group;
 
 public class GroupParser extends BaseInfoParser {
 

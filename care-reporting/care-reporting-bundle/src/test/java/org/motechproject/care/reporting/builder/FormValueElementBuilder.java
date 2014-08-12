@@ -6,14 +6,13 @@ import java.util.Map;
 import org.motechproject.commcare.domain.FormValueElement;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multimap;
 
 public class FormValueElementBuilder {
 
     private FormValueElement element = new FormValueElement();
     private Map<String, String> attributes = new HashMap<>();
-    private Multimap<String, FormValueElement> subElements = HashMultimap.create();
+    private Multimap<String, FormValueElement> subElements = new HashMultimap<>();
     private String elementName = "form";
 
     public FormValueElementBuilder withName(String elementName) {
