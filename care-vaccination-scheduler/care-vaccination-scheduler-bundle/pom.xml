@@ -139,11 +139,6 @@
             <version>0.21.1</version>
         </dependency>
         <dependency>
-            <groupId>org.motechproject</groupId>
-            <artifactId>motech-platform-event</artifactId>
-            <version>0.21.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.motechproject.contrib-ananya-care</groupId>
             <artifactId>commcare-case-gateway</artifactId>
             <version>0.10-SNAPSHOT</version>
@@ -219,7 +214,6 @@
                             motech-platform-commons-couchdb;inline=true,
                             commcare-case-gateway;inline=true,
                             case-service;inline=true,
-                            motech-platform-event;inline=true,
                             motech-http-agent;inline=true
                         </Embed-Dependency>
                     </instructions>
