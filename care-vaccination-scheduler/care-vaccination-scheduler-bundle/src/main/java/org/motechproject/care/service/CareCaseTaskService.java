@@ -45,7 +45,7 @@ public class CareCaseTaskService {
             commcareCaseGateway.closeCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword, redeliveryCount);
             allCareCaseTasks.update(careCaseTask);
         } catch (Exception ex) {
-            logger.error("Exception while sending close case request to CCHQ: " + ex.getMessage());
+            logger.error(String.format("Exception while sending close case request to CCHQ (caseId: %s)\n%s", clientCaseId, ex.getMessage()));
         }
     }
 
