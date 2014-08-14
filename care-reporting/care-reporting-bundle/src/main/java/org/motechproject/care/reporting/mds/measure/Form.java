@@ -6,7 +6,6 @@ import org.joda.time.DateTime;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.mds.annotations.Field;
 
-//TODO: @MappedSuperclass
 public class Form implements java.io.Serializable {
     @ExternalPrimaryKey
     private String instanceId;
