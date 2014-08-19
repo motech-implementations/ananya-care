@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.Join;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 import javax.persistence.ManyToMany;
 
@@ -76,7 +79,12 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     private DateTime lastModifiedTime;
     @ManyToMany
     @Cascade(persist = true, update = true, delete = false)
-    //TODO: @JoinTable(name="flw_group_map", joinColumns={@JoinColumn(name="flw_id")}, inverseJoinColumns={@JoinColumn(name="group_id")})
+    //TODO: @JoinTable(name="flw_group_map", joinColumns={@JoinColumn(name="flw_id")}, 
+    //inverseJoinColumns={@JoinColumn(name="group_id")})
+    @Persistent(table="flw_group_map")
+    @Join(column="flw_id")
+    @Element(column="group_id")
+    @Field(name = "flwGroups")
     private Set<FlwGroup> flwGroups;
     @Field(name = "location_id")
     private LocationDimension locationDimension;

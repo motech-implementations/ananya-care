@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
@@ -35,6 +36,7 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
     @Field(name = "last_modified_time")
     private DateTime lastModifiedTime;
     //TODO: @ManyToMany(mappedBy="flwGroups")
+    @Persistent(mappedBy="flwGroups")
     private Set<Flw> flws;
 
 	public FlwGroup() {
