@@ -69,12 +69,16 @@
             <version>1.8.5</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>org.hibernate.ejb-library</artifactId>
-            <type>libd</type>
-            <version>3.4.0.GA-A</version>
-        </dependency>
+	<dependency>
+		<groupId>org.motechproject.org.hibernate</groupId>
+		<artifactId>com.springsource.org.hibernate</artifactId>
+		<version>3.6.0.Final-r027</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.servicemix.bundles</groupId>
+		<artifactId>org.apache.servicemix.bundles.ant</artifactId>
+		<version>1.8.1_1</version>
+	</dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>org.springframework.orm</artifactId>
