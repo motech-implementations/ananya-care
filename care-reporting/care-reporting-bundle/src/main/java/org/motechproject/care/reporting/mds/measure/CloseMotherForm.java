@@ -3,8 +3,8 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -27,7 +27,7 @@ public class CloseMotherForm extends Form {
     private String placeDeath;
     private String dupeReg;
     private String finishedContinuum;
-    private Short numChildren;
+    private int numChildren;
     private String motherAlive;
     private String moved;
     private String migrated;
@@ -164,11 +164,11 @@ public class CloseMotherForm extends Form {
 	}
 
 	@Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

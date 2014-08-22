@@ -4,8 +4,8 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -30,8 +30,8 @@ public class CfMotherForm extends Form {
 	private DateTime dateLastVisit;
 	private DateTime dateNextCf;
 	private String lastVisitType;
-	private Short cfVisitNum;
-    private Short numChildren;
+	private int cfVisitNum;
+    private int numChildren;
 	private String playCompFeedingVid;
 	private String lastvisit;
 	private DateTime dateCf7;
@@ -186,20 +186,20 @@ public class CfMotherForm extends Form {
 	}
 
 	@Field(name = "cf_visit_num")
-	public Short getCfVisitNum() {
+	public int getCfVisitNum() {
 		return this.cfVisitNum;
 	}
 
-	public void setCfVisitNum(Short cfVisitNum) {
+	public void setCfVisitNum(int cfVisitNum) {
 		this.cfVisitNum = cfVisitNum;
 	}
 
     @Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

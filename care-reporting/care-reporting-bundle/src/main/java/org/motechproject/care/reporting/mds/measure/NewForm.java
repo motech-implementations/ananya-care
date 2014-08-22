@@ -3,8 +3,8 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -20,7 +20,7 @@ public class NewForm extends Form {
 	private DateTime timeEnd;
 	private DateTime timeStart;
 	private DateTime dateModified;
-	private Short ageCalc;
+	private int ageCalc;
 	private String caseName;
 	private String caseType;
 	private DateTime dateLastVisit;
@@ -103,11 +103,11 @@ public class NewForm extends Form {
 	}
 
 	@Field(name = "age_calc")
-	public Short getAgeCalc() {
+	public int getAgeCalc() {
 		return this.ageCalc;
 	}
 
-	public void setAgeCalc(Short ageCalc) {
+	public void setAgeCalc(int ageCalc) {
 		this.ageCalc = ageCalc;
 	}
 

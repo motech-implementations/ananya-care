@@ -4,8 +4,8 @@ import org.joda.time.DateTime;
 
 import javax.jdo.annotations.Unique;
 
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -43,7 +43,7 @@ public class UiMotherForm extends Form {
 	@Field(name = "up_to_date")
 	private String upToDate;
 	@Field(name = "num_children")
-	private Short numChildren;
+	private int numChildren;
 	@Field(name = "update_mother")
 	private String updateMother;
 	@Field(name = "tt_booster")
@@ -150,11 +150,11 @@ public class UiMotherForm extends Form {
 		this.upToDate = upToDate;
 	}
 
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

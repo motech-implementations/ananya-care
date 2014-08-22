@@ -66,7 +66,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	@Field(name = "add")
 	private DateTime add;
 	@Field(name = "age")
-	private Short age;
+	private int age;
 	@Field(name = "birth_place")
 	private String birthPlace;
 	@Field(name = "complications")
@@ -93,7 +93,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	@Field(name = "family_planning_type")
 	private String familyPlanningType;
 	@Field(name = "how_many_children")
-	private Short howManyChildren;
+	private int howManyChildren;
 	@Field(name = "interest_in_kilkari")
 	private String interestInKilkari;
 	@Field(name = "last_preg_tt")
@@ -104,7 +104,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	@Field(name = "mobile_number")
 	private String mobileNumber;
 	@Field(name = "num_boys")
-	private Short numBoys;
+	private int numBoys;
 
 	@Field(name = "DateTime_cf_1")
 	private DateTime DateTimeCf1;
@@ -200,7 +200,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 	@Field(name = "delivery_type")
 	private String deliveryType;
 	@Field(name = "ifa_tablets")
-	private Short ifaTablets;
+	private int ifaTablets;
 
 	@Field(name = "ifa_tablets_100")
 	private DateTime ifaTablets100;
@@ -406,11 +406,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.add = add;
 	}
 
-	public Short getAge() {
+	public int getAge() {
 		return this.age;
 	}
 
-	public void setAge(Short age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
@@ -494,11 +494,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.familyPlanningType = familyPlanningType;
 	}
 
-	public Short getHowManyChildren() {
+	public int getHowManyChildren() {
 		return this.howManyChildren;
 	}
 
-	public void setHowManyChildren(Short howManyChildren) {
+	public void setHowManyChildren(int howManyChildren) {
 		this.howManyChildren = howManyChildren;
 	}
 
@@ -534,11 +534,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.mobileNumber = mobileNumber;
 	}
 
-	public Short getNumBoys() {
+	public int getNumBoys() {
 		return this.numBoys;
 	}
 
-	public void setNumBoys(Short numBoys) {
+	public void setNumBoys(int numBoys) {
 		this.numBoys = numBoys;
 	}
 
@@ -822,11 +822,11 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
 		this.deliveryType = deliveryType;
 	}
 
-	public Short getIfaTablets() {
+	public int getIfaTablets() {
 		return this.ifaTablets;
 	}
 
-	public void setIfaTablets(Short ifaTablets) {
+	public void setIfaTablets(int ifaTablets) {
 		this.ifaTablets = ifaTablets;
 	}
 

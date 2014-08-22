@@ -3,7 +3,7 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.Flw;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;

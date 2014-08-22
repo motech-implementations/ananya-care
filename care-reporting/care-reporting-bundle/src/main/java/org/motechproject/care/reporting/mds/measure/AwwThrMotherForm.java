@@ -3,13 +3,13 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-@Entity(name = "aww_thr_mother_form")@Unique(members = "instance_id"))
+@Entity(name = "aww_thr_mother_form")@Unique(members = "instance_id")
 public class AwwThrMotherForm extends Form {
 
     private Integer id;

@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.ChildCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -55,7 +55,7 @@ public class DeliveryChildForm extends Form {
 	private String cordTied;
 	private DateTime dateFirstWeight;
 	private DateTime dateTimeFeed;
-	private BigDecimal firstWeight;
+	private int firstWeight;
 	private String skinCare;
 	private String whatApplied;
 	private String wrappedDried;
@@ -421,11 +421,11 @@ public class DeliveryChildForm extends Form {
 	}
 
 	@Field(name = "first_weight")//TODO: precision = 131089, scale = 0)
-	public BigDecimal getFirstWeight() {
+	public int getFirstWeight() {
 		return this.firstWeight;
 	}
 
-	public void setFirstWeight(BigDecimal firstWeight) {
+	public void setFirstWeight(int firstWeight) {
 		this.firstWeight = firstWeight;
 	}
 

@@ -1,12 +1,10 @@
 package org.motechproject.care.reporting.mds.measure;
 
-import java.math.BigDecimal;
-
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.ChildCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
@@ -28,7 +26,7 @@ public class AwwGrowthMonitoringChildForm1 extends Form {
     private String lastGrowth3;
     private DateTime currentWeightDate;
     private DateTime lastWeightDate;
-    private BigDecimal currentWeight;
+    private int currentWeight;
     private String lastWeight;
     private String takeWeight;
     private String childWeight;
@@ -167,11 +165,11 @@ public class AwwGrowthMonitoringChildForm1 extends Form {
     }
 
     @Field(name = "current_weight")
-    public BigDecimal getCurrentWeight() {
+    public int getCurrentWeight() {
         return currentWeight;
     }
 
-    public void setCurrentWeight(BigDecimal currentWeight) {
+    public void setCurrentWeight(int currentWeight) {
         this.currentWeight = currentWeight;
     }
 

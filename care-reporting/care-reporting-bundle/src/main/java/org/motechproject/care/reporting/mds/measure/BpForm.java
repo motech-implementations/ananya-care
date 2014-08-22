@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -52,7 +52,7 @@ public class BpForm extends Form {
     private String counselIfa;
     private String counselTt;
     private String eatingExtra;
-    private Short ifaTabletsIssued;
+    private int ifaTabletsIssued;
     private String reasonNoIfa;
     private String receivedTt1;
     private String receivedTt2;
@@ -86,7 +86,7 @@ public class BpForm extends Form {
     private String skinToSkin;
     private String vehicle;
     private String wrapping;
-    private Short bpVisitNum;
+    private int bpVisitNum;
     private DateTime anc1Date;
     private DateTime anc2Date;
     private DateTime anc3Date;
@@ -98,7 +98,7 @@ public class BpForm extends Form {
     private DateTime dateLastVisit;
     private DateTime dateNextBp;
     private String deliveryType;
-    private Short ifaTablets;
+    private int ifaTablets;
     private DateTime ifaTablets100;
     private String lastVisitType;
     private String maternalEmergency;
@@ -122,19 +122,19 @@ public class BpForm extends Form {
     private String riskOfPreg;
     private String spacingMethods;
     private String stopChildren;
-    private Short ifaTabletsTotal;
+    private int ifaTabletsTotal;
     private String nextvisittype;
     private String playFamilyPlanningVid;
     private String postponing;
     private String institutional;
     private DateTime creationTime = new DateTime();
-    private BigDecimal anc1_Weight;
+    private int anc1_Weight;
     private Integer anc1_Hemoglobin;
-    private BigDecimal anc2_Weight;
+    private int anc2_Weight;
     private Integer anc2_Hemoglobin;
-    private BigDecimal anc3_Weight;
+    private int anc3_Weight;
     private Integer anc3_Hemoglobin;
-    private BigDecimal anc4_Weight;
+    private int anc4_Weight;
     private Integer anc4_Hemoglobin;
     private String anaemia;
     private String rtiSti;
@@ -463,11 +463,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "ifa_tablets_issued")
-    public Short getIfaTabletsIssued() {
+    public int getIfaTabletsIssued() {
         return this.ifaTabletsIssued;
     }
 
-    public void setIfaTabletsIssued(Short ifaTabletsIssued) {
+    public void setIfaTabletsIssued(int ifaTabletsIssued) {
         this.ifaTabletsIssued = ifaTabletsIssued;
     }
 
@@ -772,11 +772,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "bp_visit_num")
-    public Short getBpVisitNum() {
+    public int getBpVisitNum() {
         return this.bpVisitNum;
     }
 
-    public void setBpVisitNum(Short bpVisitNum) {
+    public void setBpVisitNum(int bpVisitNum) {
         this.bpVisitNum = bpVisitNum;
     }
 
@@ -889,11 +889,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "ifa_tablets")
-    public Short getIfaTablets() {
+    public int getIfaTablets() {
         return this.ifaTablets;
     }
 
-    public void setIfaTablets(Short ifaTablets) {
+    public void setIfaTablets(int ifaTablets) {
         this.ifaTablets = ifaTablets;
     }
 
@@ -1108,11 +1108,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "ifa_tablets_total")
-    public Short getIfaTabletsTotal() {
+    public int getIfaTabletsTotal() {
         return this.ifaTabletsTotal;
     }
 
-    public void setIfaTabletsTotal(Short ifaTabletsTotal) {
+    public void setIfaTabletsTotal(int ifaTabletsTotal) {
         this.ifaTabletsTotal = ifaTabletsTotal;
     }
 
@@ -1169,11 +1169,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "anc1_weight")
-    public BigDecimal getAnc1_Weight() {
+    public int getAnc1_Weight() {
         return anc1_Weight;
     }
 
-    public void setAnc1_Weight(BigDecimal anc1_Weight) {
+    public void setAnc1_Weight(int anc1_Weight) {
         this.anc1_Weight = anc1_Weight;
     }
 
@@ -1187,11 +1187,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "anc2_weight")
-    public BigDecimal getAnc2_Weight() {
+    public int getAnc2_Weight() {
         return anc2_Weight;
     }
 
-    public void setAnc2_Weight(BigDecimal anc2_Weight) {
+    public void setAnc2_Weight(int anc2_Weight) {
         this.anc2_Weight = anc2_Weight;
     }
 
@@ -1205,11 +1205,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "anc3_weight")
-    public BigDecimal getAnc3_Weight() {
+    public int getAnc3_Weight() {
         return anc3_Weight;
     }
 
-    public void setAnc3_Weight(BigDecimal anc3_Weight) {
+    public void setAnc3_Weight(int anc3_Weight) {
         this.anc3_Weight = anc3_Weight;
     }
 
@@ -1223,11 +1223,11 @@ public class BpForm extends Form {
     }
 
     @Field(name = "anc4_weight")
-    public BigDecimal getAnc4_Weight() {
+    public int getAnc4_Weight() {
         return anc4_Weight;
     }
 
-    public void setAnc4_Weight(BigDecimal anc4_Weight) {
+    public void setAnc4_Weight(int anc4_Weight) {
         this.anc4_Weight = anc4_Weight;
     }
 

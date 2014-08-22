@@ -5,8 +5,8 @@ import org.joda.time.DateTime;
 
 import javax.jdo.annotations.Unique;
 
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -25,12 +25,12 @@ public class RegistrationMotherForm extends Form {
 	private String ppiud;
 	private String pptl;
 	private String abdPain;
-	private Short ageCalc;
-	private Short ageCalcAdj;
-	private Short ageEst;
+	private int ageCalc;
+	private int ageCalcAdj;
+	private int ageEst;
 	private String ageEstTrigger;
 	private DateTime add;
-	private Short age;
+	private int age;
 	private String birthPlace;
 	private String complications;
 	private DateTime dateLastVisit;
@@ -42,14 +42,14 @@ public class RegistrationMotherForm extends Form {
 	private DateTime edd;
 	private String enrolledInKilkari;
 	private String familyPlanningType;
-	private Short howManyChildren;
+	private int howManyChildren;
 	private String interestInKilkari;
 	private String lastPregTt;
 	private String lastVisitType;
 	private DateTime lmp;
 	private String mobileNumber;
 	private DateTime motherDob;
-	private Short numBoys;
+	private int numBoys;
 	private String status;
 	private DateTime childDob;
     private String clientNoRegister;
@@ -64,7 +64,7 @@ public class RegistrationMotherForm extends Form {
 	private String education;
 	private String fever;
 	private String firstPregnancy;
-	private Short gestAge;
+	private int gestAge;
 	private String goodToRegister;
 	private String inDistrict;
 	private String injectible;
@@ -82,8 +82,8 @@ public class RegistrationMotherForm extends Form {
 	private String nextvisit;
 	private String nextvisitBp;
 	private String nextvisittype;
-	private Short numChildren;
-	private Short numGirls;
+	private int numChildren;
+	private int numGirls;
 	private String ocpUsed;
 	private String otherConditions;
 	private String otherDistrict;
@@ -184,29 +184,29 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "age_calc")
-	public Short getAgeCalc() {
+	public int getAgeCalc() {
 		return this.ageCalc;
 	}
 
-	public void setAgeCalc(Short ageCalc) {
+	public void setAgeCalc(int ageCalc) {
 		this.ageCalc = ageCalc;
 	}
 
 	@Field(name = "age_calc_adj")
-	public Short getAgeCalcAdj() {
+	public int getAgeCalcAdj() {
 		return this.ageCalcAdj;
 	}
 
-	public void setAgeCalcAdj(Short ageCalcAdj) {
+	public void setAgeCalcAdj(int ageCalcAdj) {
 		this.ageCalcAdj = ageCalcAdj;
 	}
 
 	@Field(name = "age_est")
-	public Short getAgeEst() {
+	public int getAgeEst() {
 		return this.ageEst;
 	}
 
-	public void setAgeEst(Short ageEst) {
+	public void setAgeEst(int ageEst) {
 		this.ageEst = ageEst;
 	}
 
@@ -229,11 +229,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "age")
-	public Short getAge() {
+	public int getAge() {
 		return this.age;
 	}
 
-	public void setAge(Short age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
@@ -337,11 +337,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "how_many_children")
-	public Short getHowManyChildren() {
+	public int getHowManyChildren() {
 		return this.howManyChildren;
 	}
 
-	public void setHowManyChildren(Short howManyChildren) {
+	public void setHowManyChildren(int howManyChildren) {
 		this.howManyChildren = howManyChildren;
 	}
 
@@ -400,11 +400,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "num_boys")
-	public Short getNumBoys() {
+	public int getNumBoys() {
 		return this.numBoys;
 	}
 
-	public void setNumBoys(Short numBoys) {
+	public void setNumBoys(int numBoys) {
 		this.numBoys = numBoys;
 	}
 
@@ -535,11 +535,11 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "gest_age")
-	public Short getGestAge() {
+	public int getGestAge() {
 		return this.gestAge;
 	}
 
-	public void setGestAge(Short gestAge) {
+	public void setGestAge(int gestAge) {
 		this.gestAge = gestAge;
 	}
 
@@ -697,20 +697,20 @@ public class RegistrationMotherForm extends Form {
 	}
 
 	@Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 
 	@Field(name = "num_girls")
-	public Short getNumGirls() {
+	public int getNumGirls() {
 		return this.numGirls;
 	}
 
-	public void setNumGirls(Short numGirls) {
+	public void setNumGirls(int numGirls) {
 		this.numGirls = numGirls;
 	}
 

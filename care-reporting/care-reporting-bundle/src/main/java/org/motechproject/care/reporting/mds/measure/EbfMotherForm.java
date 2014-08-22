@@ -3,8 +3,8 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -46,7 +46,7 @@ public class EbfMotherForm extends Form {
 	private DateTime dateNextEb;
 	private String discharge;
 	private String distension;
-	private Short ebVisitNum;
+	private int ebVisitNum;
 	private String familyPlanningType;
 	private String fever;
 	private String haveCondoms;
@@ -68,7 +68,7 @@ public class EbfMotherForm extends Form {
 	private String menstrualIrregularity;
 	private DateTime nextInjCalc;
 	private String nextvisittype;
-	private Short numChildren;
+	private int numChildren;
 	private String ocp;
 	private String ocpContinue;
 	private String ocpCounselRegularity;
@@ -405,11 +405,11 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Field(name = "eb_visit_num")
-	public Short getEbVisitNum() {
+	public int getEbVisitNum() {
 		return this.ebVisitNum;
 	}
 
-	public void setEbVisitNum(Short ebVisitNum) {
+	public void setEbVisitNum(int ebVisitNum) {
 		this.ebVisitNum = ebVisitNum;
 	}
 
@@ -604,11 +604,11 @@ public class EbfMotherForm extends Form {
 	}
 
 	@Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

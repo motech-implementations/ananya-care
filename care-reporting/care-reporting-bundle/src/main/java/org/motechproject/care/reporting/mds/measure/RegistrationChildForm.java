@@ -1,8 +1,8 @@
 package org.motechproject.care.reporting.mds.measure;
 
 import javax.jdo.annotations.Unique;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.ChildCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -59,7 +59,7 @@ public class RegistrationChildForm extends Form {
 	private DateTime vitA1Date;
 	private String childHaveAName;
 	private String childName;
-	private BigDecimal weight;
+	private int weight;
     private DateTime creationTime = new DateTime();
 
     public RegistrationChildForm() {
@@ -463,12 +463,12 @@ public class RegistrationChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Field(name = "weight", precision = 131089, scale = 0)
-	public BigDecimal getWeight() {
+	@Field(name = "weight")//TODO: , precision = 131089, scale = 0)
+	public int getWeight() {
 		return this.weight;
 	}
 
-	public void setWeight(BigDecimal weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 

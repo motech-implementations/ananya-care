@@ -3,8 +3,8 @@ package org.motechproject.care.reporting.mds.measure;
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -22,10 +22,10 @@ public class DeathMotherForm extends Form {
 	private DateTime dateModified;
 	private String motherAlive;
 	private String status;
-	private Short castNumChildren;
+	private int castNumChildren;
     private DateTime dateDeath;
 	private String deathVillage;
-	private Short numChildren;
+	private int numChildren;
 	private String placeDeath;
 	private String siteDeath;
     private Boolean close;
@@ -104,11 +104,11 @@ public class DeathMotherForm extends Form {
 	}
 
 	@Field(name = "cast_num_children")
-	public Short getCastNumChildren() {
+	public int getCastNumChildren() {
 		return this.castNumChildren;
 	}
 
-	public void setCastNumChildren(Short castNumChildren) {
+	public void setCastNumChildren(int castNumChildren) {
 		this.castNumChildren = castNumChildren;
 	}
 
@@ -132,11 +132,11 @@ public class DeathMotherForm extends Form {
 	}
 
 	@Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

@@ -1,7 +1,7 @@
 package org.motechproject.care.reporting.mds.measure;
 
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.ChildCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
 import org.motechproject.care.reporting.utils.FormToString;
 
 import javax.jdo.annotations.Unique;

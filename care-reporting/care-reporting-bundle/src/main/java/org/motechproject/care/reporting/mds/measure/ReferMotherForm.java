@@ -1,8 +1,8 @@
 package org.motechproject.care.reporting.mds.measure;
 
 import org.motechproject.mds.annotations.Cascade;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
@@ -21,7 +21,7 @@ public class ReferMotherForm extends Form {
 	private DateTime timeEnd;
 	private DateTime timeStart;
 	private DateTime dateModified;
-    private Short numChildren;
+    private int numChildren;
 	private String referMother;
     private DateTime creationTime = new DateTime();
 
@@ -81,11 +81,11 @@ public class ReferMotherForm extends Form {
 	}
 
     @Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 

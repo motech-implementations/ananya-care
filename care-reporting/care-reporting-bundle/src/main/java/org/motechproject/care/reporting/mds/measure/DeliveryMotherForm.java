@@ -6,8 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.care.reporting.mds.dimension.Flw;
+import org.motechproject.care.reporting.mds.dimension.MotherCase;
 import org.motechproject.care.reporting.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -37,20 +37,20 @@ public class DeliveryMotherForm extends Form {
 	private String lastVisitType;
 	private String motherAlive;
 	private String term;
-	private Short castNumChildren;
+	private int castNumChildren;
 	private String complications;
 	private DateTime dateDeath;
 	private String deathVillage;
 	private String deliveryNature;
 	private String fever;
 	private String hasDelivered;
-	private Short howManyChildren;
+	private int howManyChildren;
 	private String ifaTabletsGiven;
 	private String inDistrict;
 	private String jsyMoney;
 	private String nextvisittype;
 	private DateTime notified;
-	private Short numChildren;
+	private int numChildren;
 	private String otherConditions;
 	private String otherDistrict;
 	private String otherVillage;
@@ -262,11 +262,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Field(name = "cast_num_children")
-	public Short getCastNumChildren() {
+	public int getCastNumChildren() {
 		return this.castNumChildren;
 	}
 
-	public void setCastNumChildren(Short castNumChildren) {
+	public void setCastNumChildren(int castNumChildren) {
 		this.castNumChildren = castNumChildren;
 	}
 
@@ -326,11 +326,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Field(name = "how_many_children")
-	public Short getHowManyChildren() {
+	public int getHowManyChildren() {
 		return this.howManyChildren;
 	}
 
-	public void setHowManyChildren(Short howManyChildren) {
+	public void setHowManyChildren(int howManyChildren) {
 		this.howManyChildren = howManyChildren;
 	}
 
@@ -381,11 +381,11 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	@Field(name = "num_children")
-	public Short getNumChildren() {
+	public int getNumChildren() {
 		return this.numChildren;
 	}
 
-	public void setNumChildren(Short numChildren) {
+	public void setNumChildren(int numChildren) {
 		this.numChildren = numChildren;
 	}
 
