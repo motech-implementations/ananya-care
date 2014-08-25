@@ -39,7 +39,7 @@ public class GrowthMonitoringChildForm extends Form {
 
     }
 
-    @Field(name = "case_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public ChildCase getChildCase() {
         return childCase;
@@ -50,7 +50,7 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
     
-    @Field(name = "user_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public Flw getFlw() {
         return this.flw;
@@ -61,7 +61,7 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
      
-    @Field(name = "date_modified")
+    @Field
     public DateTime getDateModified() {
         return dateModified;
     }
@@ -71,7 +71,7 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
      
-    @Field(name = "time_start")
+    @Field
     public DateTime getTimeStart() {
         return timeStart;
     }
@@ -81,7 +81,7 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
      
-    @Field(name = "time_end")
+    @Field
     public DateTime getTimeEnd() {
         return timeEnd;
     }
@@ -91,7 +91,7 @@ public class GrowthMonitoringChildForm extends Form {
     }
 
      
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -100,7 +100,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "take_weight")
+    @Field
     public String getTakeWeight() {
         return takeWeight;
     }
@@ -109,7 +109,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.takeWeight = takeWeight;
     }
 
-    @Field(name = "child_weight")
+    @Field
     public String getChildWeight() {
         return childWeight;
     }
@@ -118,7 +118,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.childWeight = childWeight;
     }
 
-    @Field(name = "show_grade")
+    @Field
     public String getShowGrade() {
         return showGrade;
     }
@@ -127,7 +127,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.showGrade = showGrade;
     }
 
-    @Field(name = "requires_attention")
+    @Field
     public String getRequiresAttention() {
         return requiresAttention;
     }
@@ -136,7 +136,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.requiresAttention = requiresAttention;
     }
 
-    @Field(name = "success")
+    @Field
     public String getSuccess() {
         return success;
     }
@@ -145,7 +145,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.success = success;
     }
 
-    @Field(name = "calc_grade")
+    @Field
     public String getCalcGrade() {
         return calcGrade;
     }
@@ -154,7 +154,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.calcGrade = calcGrade;
     }
 
-    @Field(name = "calc_growth")
+    @Field
     public String getCalcGrowth() {
         return calcGrowth;
     }
@@ -163,7 +163,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.calcGrowth = calcGrowth;
     }
 
-    @Field(name = "child_gender")
+    @Field
     public String getChildGender() {
         return childGender;
     }
@@ -172,7 +172,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.childGender = childGender;
     }
 
-    @Field(name = "child_age")
+    @Field
     public Integer getChildAge() {
         return childAge;
     }
@@ -181,7 +181,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.childAge = childAge;
     }
 
-    @Field(name = "dob")
+    @Field
     public DateTime getDob() {
         return dob;
     }
@@ -190,7 +190,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.dob = dob;
     }
 
-    @Field(name = "gender")
+    @Field
     public String getGender() {
         return gender;
     }
@@ -199,7 +199,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.gender = gender;
     }
 
-    @Field(name = "change_from_normal")
+    @Field
     public String getChangeFromNormal() {
         return changeFromNormal;
     }
@@ -208,7 +208,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.changeFromNormal = changeFromNormal;
     }
 
-    @Field(name = "change_from_muw")
+    @Field
     public String getChangeFromMuw() {
         return changeFromMuw;
     }
@@ -217,7 +217,7 @@ public class GrowthMonitoringChildForm extends Form {
         this.changeFromMuw = changeFromMuw;
     }
 
-    @Field(name = "change_from_suw")
+    @Field
     public String getChangeFromSuw() {
         return changeFromSuw;
     }

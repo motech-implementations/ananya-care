@@ -1,7 +1,5 @@
 package org.motechproject.care.reporting.mds.measure;
 
-import java.math.BigDecimal;
-
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
@@ -15,302 +13,304 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwGrowthMonitoringChildForm2 extends Form {
 
-    private Integer id;
-    private ChildCase childCase;
-    private Flw flw;
-    private DateTime dateModified;
-    private DateTime timeStart;
-    private DateTime timeEnd;
-    private DateTime creationTime;
-    private String currentGrowth;
-    private String lastGrowth1;
-    private String lastGrowth2;
-    private String lastGrowth3;
-    private DateTime currentWeightDate;
-    private DateTime lastWeightDate;
-    private int currentWeight;
-    private String lastWeight;
-    private String takeWeight;
-    private String childWeight;
-    private String showGrade;
-    private String requiresAttention;
-    private String success;
-    private String calcGrade;
-    private String calcGrowth;
-    private String childGender;
-    private Integer childAge;
-    private DateTime dob;
-    private String gender;
-    private String changeFromNormal;
-    private String changeFromMuw;
-    private String changeFromSuw;
-    private Integer ageLastWeight;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5167684836392534235L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private ChildCase childCase;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	private DateTime dateModified;
+	@Field
+	private DateTime timeStart;
+	@Field
+	private DateTime timeEnd;
+	@Field
+	private DateTime creationTime;
+	@Field
+	private String currentGrowth;
+	@Field
+	private String lastGrowth1;
+	@Field
+	private String lastGrowth2;
+	@Field
+	private String lastGrowth3;
+	@Field
+	private DateTime currentWeightDate;
+	@Field
+	private DateTime lastWeightDate;
+	@Field
+	private int currentWeight;
+	@Field
+	private String lastWeight;
+	@Field
+	private String takeWeight;
+	@Field
+	private String childWeight;
+	@Field
+	private String showGrade;
+	@Field
+	private String requiresAttention;
+	@Field
+	private String success;
+	@Field
+	private String calcGrade;
+	@Field
+	private String calcGrowth;
+	@Field
+	private String childGender;
+	@Field
+	private Integer childAge;
+	@Field
+	private DateTime dob;
+	@Field
+	private String gender;
+	@Field
+	private String changeFromNormal;
+	@Field
+	private String changeFromMuw;
+	@Field
+	private String changeFromSuw;
+	@Field
+	private Integer ageLastWeight;
 
-    public AwwGrowthMonitoringChildForm2() {
+	public AwwGrowthMonitoringChildForm2() {
 
-    }
-    
-    @Field(name = "case_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public ChildCase getChildCase() {
-        return childCase;
-    }
+	}
 
-    public void setChildCase(ChildCase childCase) {
-        this.childCase = childCase;
-    }
+	public ChildCase getChildCase() {
+		return childCase;
+	}
 
-    
-    @Field(name = "user_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public Flw getFlw() {
-        return this.flw;
-    }
+	public void setChildCase(ChildCase childCase) {
+		this.childCase = childCase;
+	}
 
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
+	public Flw getFlw() {
+		return this.flw;
+	}
 
-    @Field(name = "date_modified")
-    public DateTime getDateModified() {
-        return dateModified;
-    }
+	public void setFlw(Flw flw) {
+		this.flw = flw;
+	}
 
-    public void setDateModified(DateTime dateModified) {
-        this.dateModified = dateModified;
-    }
+	public DateTime getDateModified() {
+		return dateModified;
+	}
 
-    @Field(name = "time_start")
-    public DateTime getTimeStart() {
-        return timeStart;
-    }
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
 
-    public void setTimeStart(DateTime timeStart) {
-        this.timeStart = timeStart;
-    }
+	public DateTime getTimeStart() {
+		return timeStart;
+	}
 
-    @Field(name = "time_end")
-    public DateTime getTimeEnd() {
-        return timeEnd;
-    }
+	public void setTimeStart(DateTime timeStart) {
+		this.timeStart = timeStart;
+	}
 
-    public void setTimeEnd(DateTime timeEnd) {
-        this.timeEnd = timeEnd;
-    }
+	public DateTime getTimeEnd() {
+		return timeEnd;
+	}
 
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public void setTimeEnd(DateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    @Field(name = "current_growth")
-    public String getCurrentGrowth() {
-        return currentGrowth;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    public void setCurrentGrowth(String currentGrowth) {
-        this.currentGrowth = currentGrowth;
-    }
+	public String getCurrentGrowth() {
+		return currentGrowth;
+	}
 
-    @Field(name = "last_growth_1")
-    public String getLastGrowth1() {
-        return lastGrowth1;
-    }
+	public void setCurrentGrowth(String currentGrowth) {
+		this.currentGrowth = currentGrowth;
+	}
 
-    public void setLastGrowth1(String lastGrowth1) {
-        this.lastGrowth1 = lastGrowth1;
-    }
+	public String getLastGrowth1() {
+		return lastGrowth1;
+	}
 
-    @Field(name = "last_growth_2")
-    public String getLastGrowth2() {
-        return lastGrowth2;
-    }
+	public void setLastGrowth1(String lastGrowth1) {
+		this.lastGrowth1 = lastGrowth1;
+	}
 
-    public void setLastGrowth2(String lastGrowth2) {
-        this.lastGrowth2 = lastGrowth2;
-    }
+	public String getLastGrowth2() {
+		return lastGrowth2;
+	}
 
-    @Field(name = "last_growth_3")
-    public String getLastGrowth3() {
-        return lastGrowth3;
-    }
+	public void setLastGrowth2(String lastGrowth2) {
+		this.lastGrowth2 = lastGrowth2;
+	}
 
-    public void setLastGrowth3(String lastGrowth3) {
-        this.lastGrowth3 = lastGrowth3;
-    }
+	public String getLastGrowth3() {
+		return lastGrowth3;
+	}
 
-    @Field(name = "current_weight_date")
-    public DateTime getCurrentWeightDateTime() {
-        return currentWeightDate;
-    }
+	public void setLastGrowth3(String lastGrowth3) {
+		this.lastGrowth3 = lastGrowth3;
+	}
 
-    public void setCurrentWeightDate(DateTime currentWeightDate) {
-        this.currentWeightDate = currentWeightDate;
-    }
+	public DateTime getCurrentWeightDateTime() {
+		return currentWeightDate;
+	}
 
-    @Field(name = "last_weight_date")
-    public DateTime getLastWeightDateTime() {
-        return lastWeightDate;
-    }
+	public void setCurrentWeightDate(DateTime currentWeightDate) {
+		this.currentWeightDate = currentWeightDate;
+	}
 
-    public void setLastWeightDate(DateTime lastWeightDate) {
-        this.lastWeightDate = lastWeightDate;
-    }
+	public DateTime getLastWeightDateTime() {
+		return lastWeightDate;
+	}
 
-    @Field(name = "current_weight")
-    public int getCurrentWeight() {
-        return currentWeight;
-    }
+	public void setLastWeightDate(DateTime lastWeightDate) {
+		this.lastWeightDate = lastWeightDate;
+	}
 
-    public void setCurrentWeight(int currentWeight) {
-        this.currentWeight = currentWeight;
-    }
+	public int getCurrentWeight() {
+		return currentWeight;
+	}
 
-    @Field(name = "last_weight")
-    public String getLastWeight() {
-        return lastWeight;
-    }
+	public void setCurrentWeight(int currentWeight) {
+		this.currentWeight = currentWeight;
+	}
 
-    public void setLastWeight(String lastWeight) {
-        this.lastWeight = lastWeight;
-    }
+	public String getLastWeight() {
+		return lastWeight;
+	}
 
-    @Field(name = "take_weight")
-    public String getTakeWeight() {
-        return takeWeight;
-    }
+	public void setLastWeight(String lastWeight) {
+		this.lastWeight = lastWeight;
+	}
 
-    public void setTakeWeight(String takeWeight) {
-        this.takeWeight = takeWeight;
-    }
+	public String getTakeWeight() {
+		return takeWeight;
+	}
 
-    @Field(name = "child_weight")
-    public String getChildWeight() {
-        return childWeight;
-    }
+	public void setTakeWeight(String takeWeight) {
+		this.takeWeight = takeWeight;
+	}
 
-    public void setChildWeight(String childWeight) {
-        this.childWeight = childWeight;
-    }
+	public String getChildWeight() {
+		return childWeight;
+	}
 
-    @Field(name = "show_grade")
-    public String getShowGrade() {
-        return showGrade;
-    }
+	public void setChildWeight(String childWeight) {
+		this.childWeight = childWeight;
+	}
 
-    public void setShowGrade(String showGrade) {
-        this.showGrade = showGrade;
-    }
+	public String getShowGrade() {
+		return showGrade;
+	}
 
-    @Field(name = "requires_attention")
-    public String getRequiresAttention() {
-        return requiresAttention;
-    }
+	public void setShowGrade(String showGrade) {
+		this.showGrade = showGrade;
+	}
 
-    public void setRequiresAttention(String requiresAttention) {
-        this.requiresAttention = requiresAttention;
-    }
+	public String getRequiresAttention() {
+		return requiresAttention;
+	}
 
-    @Field(name = "success")
-    public String getSuccess() {
-        return success;
-    }
+	public void setRequiresAttention(String requiresAttention) {
+		this.requiresAttention = requiresAttention;
+	}
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
+	public String getSuccess() {
+		return success;
+	}
 
-    @Field(name = "calc_grade")
-    public String getCalcGrade() {
-        return calcGrade;
-    }
+	public void setSuccess(String success) {
+		this.success = success;
+	}
 
-    public void setCalcGrade(String calcGrade) {
-        this.calcGrade = calcGrade;
-    }
+	public String getCalcGrade() {
+		return calcGrade;
+	}
 
-    @Field(name = "calc_growth")
-    public String getCalcGrowth() {
-        return calcGrowth;
-    }
+	public void setCalcGrade(String calcGrade) {
+		this.calcGrade = calcGrade;
+	}
 
-    public void setCalcGrowth(String calcGrowth) {
-        this.calcGrowth = calcGrowth;
-    }
+	public String getCalcGrowth() {
+		return calcGrowth;
+	}
 
-    @Field(name = "child_gender")
-    public String getChildGender() {
-        return childGender;
-    }
+	public void setCalcGrowth(String calcGrowth) {
+		this.calcGrowth = calcGrowth;
+	}
 
-    public void setChildGender(String childGender) {
-        this.childGender = childGender;
-    }
+	public String getChildGender() {
+		return childGender;
+	}
 
-    @Field(name = "child_age")
-    public Integer getChildAge() {
-        return childAge;
-    }
+	public void setChildGender(String childGender) {
+		this.childGender = childGender;
+	}
 
-    public void setChildAge(Integer childAge) {
-        this.childAge = childAge;
-    }
+	public Integer getChildAge() {
+		return childAge;
+	}
 
-    @Field(name = "dob")
-    public DateTime getDob() {
-        return dob;
-    }
+	public void setChildAge(Integer childAge) {
+		this.childAge = childAge;
+	}
 
-    public void setDob(DateTime dob) {
-        this.dob = dob;
-    }
+	public DateTime getDob() {
+		return dob;
+	}
 
-    @Field(name = "gender")
-    public String getGender() {
-        return gender;
-    }
+	public void setDob(DateTime dob) {
+		this.dob = dob;
+	}
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+	public String getGender() {
+		return gender;
+	}
 
-    @Field(name = "change_from_normal")
-    public String getChangeFromNormal() {
-        return changeFromNormal;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    public void setChangeFromNormal(String changeFromNormal) {
-        this.changeFromNormal = changeFromNormal;
-    }
+	public String getChangeFromNormal() {
+		return changeFromNormal;
+	}
 
-    @Field(name = "change_from_muw")
-    public String getChangeFromMuw() {
-        return changeFromMuw;
-    }
+	public void setChangeFromNormal(String changeFromNormal) {
+		this.changeFromNormal = changeFromNormal;
+	}
 
-    public void setChangeFromMuw(String changeFromMuw) {
-        this.changeFromMuw = changeFromMuw;
-    }
+	public String getChangeFromMuw() {
+		return changeFromMuw;
+	}
 
-    @Field(name = "change_from_suw")
-    public String getChangeFromSuw() {
-        return changeFromSuw;
-    }
+	public void setChangeFromMuw(String changeFromMuw) {
+		this.changeFromMuw = changeFromMuw;
+	}
 
-    public void setChangeFromSuw(String changeFromSuw) {
-        this.changeFromSuw = changeFromSuw;
-    }
+	public String getChangeFromSuw() {
+		return changeFromSuw;
+	}
 
-    @Field(name = "age_last_weight")
-    public Integer getAgeLastWeight() {
-        return ageLastWeight;
-    }
+	public void setChangeFromSuw(String changeFromSuw) {
+		this.changeFromSuw = changeFromSuw;
+	}
 
-    public void setAgeLastWeight(Integer ageLastWeight) {
-        this.ageLastWeight = ageLastWeight;
-    }
+	public Integer getAgeLastWeight() {
+		return ageLastWeight;
+	}
+
+	public void setAgeLastWeight(Integer ageLastWeight) {
+		this.ageLastWeight = ageLastWeight;
+	}
 }

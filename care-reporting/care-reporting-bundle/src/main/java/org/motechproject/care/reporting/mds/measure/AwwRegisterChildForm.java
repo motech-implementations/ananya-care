@@ -13,26 +13,47 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwRegisterChildForm extends Form {
 
-	 private Flw flw;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2520193494145920723L;
+	@Field
+    @Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+    @Cascade(persist = true, update = true, delete = false)
 	private ChildCase childCase;
+	@Field
 	private DateTime timeStart;
+	@Field
 	private DateTime timeEnd;
+	@Field
 	private DateTime dateModified;
+	@Field
 	private DateTime creationTime = new DateTime();
+	@Field
 	private DateTime dob;
+	@Field
 	private String childAlive;
+	@Field
 	private String gender;
+	@Field
 	private String childName;
+	@Field
 	private Integer ageEstMonths;
+	@Field
 	private Integer ageEstYears;
+	@Field
 	private Integer childMctsId;
+	@Field
 	private String invalidOwner;
+	@Field
 	private Integer fullChildMctsId;
+	@Field
 	private String success;
+	@Field
 	private String ownerIdCalc;
 
-	@Field(name = "user_id")
-    @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return flw;
 	}
@@ -42,8 +63,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
-    @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return childCase;
 	}
@@ -53,7 +72,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
 	public DateTime getTimeStart() {
 		return timeStart;
 	}
@@ -63,7 +81,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
 	public DateTime getTimeEnd() {
 		return timeEnd;
 	}
@@ -73,7 +90,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
 	public DateTime getDateModified() {
 		return dateModified;
 	}
@@ -83,7 +99,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "creation_time")
 	public DateTime getCreationTime() {
 		return creationTime;
 	}
@@ -93,7 +108,6 @@ public class AwwRegisterChildForm extends Form {
 	}
 
 	
-	@Field(name = "dob")
 	public DateTime getDob() {
 		return dob;
 	}
@@ -102,7 +116,6 @@ public class AwwRegisterChildForm extends Form {
 		this.dob = dob;
 	}
 
-	@Field(name = "child_alive")
 	public String getChildAlive() {
 		return childAlive;
 	}
@@ -110,7 +123,7 @@ public class AwwRegisterChildForm extends Form {
 	public void setChildAlive(String childAlive) {
 		this.childAlive = childAlive;
 	}
-	@Field(name = "gender")
+	
 	public String getGender() {
 		return gender;
 	}
@@ -119,7 +132,6 @@ public class AwwRegisterChildForm extends Form {
 		this.gender = gender;
 	}
 
-	@Field(name = "child_name")
 	public String getChildName() {
 		return childName;
 	}
@@ -128,7 +140,6 @@ public class AwwRegisterChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Field(name = "age_est_months")
 	public Integer getAgeEstMonths() {
 		return ageEstMonths;
 	}
@@ -137,7 +148,6 @@ public class AwwRegisterChildForm extends Form {
 		this.ageEstMonths = ageEstMonths;
 	}
 
-	@Field(name = "age_est_years")
 	public Integer getAgeEstYears() {
 		return ageEstYears;
 	}
@@ -146,7 +156,6 @@ public class AwwRegisterChildForm extends Form {
 		this.ageEstYears = ageEstYears;
 	}
 
-	@Field(name = "child_mcts_id")
 	public Integer getChildMctsId() {
 		return childMctsId;
 	}
@@ -155,7 +164,6 @@ public class AwwRegisterChildForm extends Form {
 		this.childMctsId = childMctsId;
 	}
 
-	@Field(name = "invalid_owner")
 	public String getInvalidOwner() {
 		return invalidOwner;
 	}
@@ -164,7 +172,6 @@ public class AwwRegisterChildForm extends Form {
 		this.invalidOwner = invalidOwner;
 	}
 
-	@Field(name = "full_child_mcts_id")
 	public Integer getFullChildMctsId() {
 		return fullChildMctsId;
 	}
@@ -173,7 +180,6 @@ public class AwwRegisterChildForm extends Form {
 		this.fullChildMctsId = fullChildMctsId;
 	}
 
-	@Field(name = "success")
 	public String getSuccess() {
 		return success;
 	}
@@ -182,7 +188,6 @@ public class AwwRegisterChildForm extends Form {
 		this.success = success;
 	}
 
-	@Field(name = "owner_id_calc")
 	public String getOwnerIdCalc() {
 		return ownerIdCalc;
 	}

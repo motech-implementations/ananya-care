@@ -15,102 +15,102 @@ import org.slf4j.LoggerFactory;
 
 
 @Entity(name = "child_case")
-public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Serializable {
+public class ChildCase/* extends SelfUpdatable<ChildCase> */implements java.io.Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 	
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = true)
 	private Flw flw;
 	//TODO @ManyToOne(fetch = FetchType.EAGER)
-	@Field(name = "mother_id")
+	@Field
     @Cascade(persist = true, update = true, delete = true)
 	private MotherCase motherCase;
 	
-	@Field(name = "owner_id")
+	@Field
     @Cascade(persist = true, update = true, delete = true)
 	private FlwGroup flwGroup;
 	@ExternalPrimaryKey
-	@Field(name = "case_id")
+	@Field
     private String caseId;
-	@Field(name = "case_name")
+	@Field
 	private String caseName;
-	@Field(name = "DateTime_modified")
+	@Field
 	private DateTime DateTimeModified;
-	@Field(name = "server_DateTime_modified")
+	@Field
 	private DateTime serverDateTimeModified;
-    @Field(name = "case_type")
+    @Field
     private String caseType;
-	@Field(name = "baby_measles")
+	@Field
 	private String babyMeasles;
-	@Field(name = "bcg_DateTime")
+	@Field
 	private DateTime bcgDateTime;
-	@Field(name = "birth_status")
+	@Field
 	private String birthStatus;
-	@Field(name = "dob")
+	@Field
 	private DateTime dob;
-	@Field(name = "dpt_1_DateTime")
+	@Field
 	private DateTime dpt1DateTime;
-	@Field(name = "dpt_2_DateTime")
+	@Field
 	private DateTime dpt2DateTime;
-	@Field(name = "dpt_3_DateTime")
+	@Field
 	private DateTime dpt3DateTime;
-	@Field(name = "gender")
+	@Field
 	private String gender;
-	@Field(name = "hep_b_0_DateTime")
+	@Field
 	private DateTime hepB0DateTime;
-	@Field(name = "hep_b_1_DateTime")
+	@Field
 	private DateTime hepB1DateTime;
-	@Field(name = "hep_b_2_DateTime")
+	@Field
 	private DateTime hepB2DateTime;
-	@Field(name = "hep_b_3_DateTime")
+	@Field
 	private DateTime hepB3DateTime;
-	@Field(name = "measles_DateTime")
+	@Field
 	private DateTime measlesDateTime;
-	@Field(name = "opv_0_DateTime")
+	@Field
 	private DateTime opv0DateTime;
-	@Field(name = "opv_1_DateTime")
+	@Field
 	private DateTime opv1DateTime;
-	@Field(name = "opv_2_DateTime")
+	@Field
 	private DateTime opv2DateTime;
-	@Field(name = "opv_3_DateTime")
+	@Field
 	private DateTime opv3DateTime;
-	@Field(name = "vit_a_1_DateTime")
+	@Field
 	private DateTime vitA1DateTime;
-	@Field(name = "child_alive")
+	@Field
 	private String childAlive;
-	@Field(name = "dpt_booster_DateTime")
+	@Field
 	private DateTime dptBoosterDateTime;
-	@Field(name = "opv_booster_DateTime")
+	@Field
 	private DateTime opvBoosterDateTime;
-	@Field(name = "DateTime_je")
+	@Field
 	private DateTime DateTimeJe;
-	@Field(name = "DateTime_measles_booster")
+	@Field
 	private DateTime DateTimeMeaslesBooster;
-    @Field(name = "baby_weight")
+    @Field
 	private String babyWeight;
-	@Field(name = "name")
+	@Field
 	private String name;
-	@Field(name = "term")
+	@Field
 	private String term;
-	@Field(name = "time_of_birth")
+	@Field
 	private String timeOfBirth;
-	@Field(name = "vit_a_2_DateTime")
+	@Field
 	private DateTime vitA2DateTime;
-	@Field(name = "vit_a_3_DateTime")
+	@Field
 	private DateTime vitA3DateTime;
-    @Field(name = "cord_fallen")
+    @Field
     private String cordFallen;
-	@Field(name = "closed")
+	@Field
 	private Boolean closed;
-	@Field(name = "closed_on")
+	@Field
 	private DateTime closedOn;
-    @Field(name = "closed_by")
+    @Field
     @Cascade(persist = true, update = true, delete = true)
     private Flw closedBy;
-    @Field(name = "creation_time")
+    @Field
     private DateTime creationTime;
-    @Field(name = "last_modified_time")
+    @Field
     private DateTime lastModifiedTime;
 
     public ChildCase() {
@@ -463,7 +463,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @Override
+   /* @Override
     public void updateToLatest(ChildCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
 
@@ -479,7 +479,7 @@ public class ChildCase extends SelfUpdatable<ChildCase> implements java.io.Seria
     @Override
     public void updateLastModifiedTime() {
         this.lastModifiedTime = new DateTime();
-    }
+    }*/
 
     private boolean isLatest(ChildCase updatedObject) {
         if (this.serverDateTimeModified == null)

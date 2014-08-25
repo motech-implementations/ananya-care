@@ -16,111 +16,111 @@ import org.joda.time.DateTime;
 @Unique(members = {"instance_id","case_id"})
 public class UiChildForm extends Form {
 
-	@Field(name = "user_id")
+	@Field
 	@Cascade(persist = true, update = true, delete = false)
 	private Flw flw;
-	@Field(name = "case_id")
+	@Field
 	@Cascade(persist = true, update = true, delete = false)
 	private ChildCase childCase;
-	@Field(name = "time_end")
+	@Field
 	private DateTime timeEnd;
-	@Field(name = "time_start")
+	@Field
 	private DateTime timeStart;
-	@Field(name = "date_modified")
+	@Field
 	private DateTime dateModified;
-	@Field(name = "add_vaccinations")
+	@Field
 	private String addVaccinations;
-	@Field(name = "baby_bcg")
+	@Field
 	private String babyBcg;
-	@Field(name = "baby_dpt1")
+	@Field
 	private String babyDpt1;
-	@Field(name = "baby_dpt2")
+	@Field
 	private String babyDpt2;
-	@Field(name = "baby_dpt3")
+	@Field
 	private String babyDpt3;
-	@Field(name = "baby_hep_b_0")
+	@Field
 	private String babyHepB0;
-	@Field(name = "baby_hep_b_1")
+	@Field
 	private String babyHepB1;
-	@Field(name = "baby_hep_b_2")
+	@Field
 	private String babyHepB2;
-	@Field(name = "baby_hep_b_3")
+	@Field
 	private String babyHepB3;
-	@Field(name = "baby_measles")
+	@Field
 	private String babyMeasles;
-	@Field(name = "baby_opv0")
+	@Field
 	private String babyOpv0;
-	@Field(name = "baby_opv1")
+	@Field
 	private String babyOpv1;
-	@Field(name = "baby_opv2")
+	@Field
 	private String babyOpv2;
-	@Field(name = "baby_opv3")
+	@Field
 	private String babyOpv3;
-	@Field(name = "baby_vita1")
+	@Field
 	private String babyVita1;
-	@Field(name = "bcg_date")
+	@Field
 	private DateTime bcgDate;
-	@Field(name = "dpt_1_date")
+	@Field
 	private DateTime dpt1Date;
-	@Field(name = "dpt_2_date")
+	@Field
 	private DateTime dpt2Date;
-	@Field(name = "dpt_3_date")
+	@Field
 	private DateTime dpt3Date;
-	@Field(name = "dpt_booster_date")
+	@Field
 	private DateTime dptBoosterDate;
-	@Field(name = "hep_b_0_date")
+	@Field
 	private DateTime hepB0Date;
-	@Field(name = "hep_b_1_date")
+	@Field
 	private DateTime hepB1Date;
-	@Field(name = "hep_b_2_date")
+	@Field
 	private DateTime hepB2Date;
-	@Field(name = "hep_b_3_date")
+	@Field
 	private DateTime hepB3Date;
-	@Field(name = "measles_date")
+	@Field
 	private DateTime measlesDate;
-	@Field(name = "opv_0_date")
+	@Field
 	private DateTime opv0Date;
-	@Field(name = "opv_1_date")
+	@Field
 	private DateTime opv1Date;
-	@Field(name = "opv_2_date")
+	@Field
 	private DateTime opv2Date;
-	@Field(name = "opv_3_date")
+	@Field
 	private DateTime opv3Date;
-	@Field(name = "opv_booster_date")
+	@Field
 	private DateTime opvBoosterDate;
-	@Field(name = "vit_a_1_date")
+	@Field
 	private DateTime vitA1Date;
-	@Field(name = "baby_dpt_booster")
+	@Field
 	private String babyDptBooster;
-	@Field(name = "baby_je")
+	@Field
 	private String babyJe;
-	@Field(name = "baby_measles_booster")
+	@Field
 	private String babyMeaslesBooster;
-	@Field(name = "baby_opv_booster")
+	@Field
 	private String babyOpvBooster;
-	@Field(name = "baby_vita2")
+	@Field
 	private String babyVita2;
-	@Field(name = "baby_vita3")
+	@Field
 	private String babyVita3;
-	@Field(name = "date_je")
+	@Field
 	private DateTime dateJe;
-	@Field(name = "date_measles_booster")
+	@Field
 	private DateTime dateMeaslesBooster;
-	@Field(name = "vit_a_2_date")
+	@Field
 	private DateTime vitA2Date;
-	@Field(name = "vit_a_3_date")
+	@Field
 	private DateTime vitA3Date;
-    @Field(name = "creation_time")
+    @Field
     private DateTime creationTime = new DateTime();
-	@Field(name = "up_to_date_six_weeks")
+	@Field
     private String upToDateSixWeeks;
-	@Field(name = "up_to_date_ten_weeks")
+	@Field
 	private String upToDateTenWeeks;
-	@Field(name = "up_to_date_14_weeks")
+	@Field
     private String upToDate14Weeks;
-	@Field(name = "up_to_date_two_year")
+	@Field
     private String upToDateTwoYear;
-	@Field(name = "immuns_up_to_date")
+	@Field
     private String immunsUpToDate;
 
     public UiChildForm() {

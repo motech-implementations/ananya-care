@@ -19,49 +19,49 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "flw")
-public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
+public class Flw/* extends SelfUpdatable<Flw> */implements java.io.Serializable {
 
     @ExternalPrimaryKey
-    @Field(name = "flw_id")
+    @Field
     @Unique
     private String flwId;
-	@Field(name = "default_phone_number")
+	@Field
 	private String defaultPhoneNumber;
-	@Field(name = "email")
+	@Field
 	private String email;
-	@Field(name = "first_name")
+	@Field
 	private String firstName;
-	@Field(name = "last_name")
+	@Field
 	private String lastName;
-	@Field(name = "phone_number_1")
+	@Field
 	private String phoneNumber1;
-	@Field(name = "phone_number_2")
+	@Field
 	private String phoneNumber2;
-	@Field(name = "asset_id")
+	@Field
 	private String assetId;
-	@Field(name = "awc_code")
+	@Field
 	private String awcCode;
-	@Field(name = "role")
+	@Field
     private String role;
-	@Field(name = "subcentre")
+	@Field
 	private String subcentre;
-	@Field(name = "user_type")
+	@Field
 	private String userType;
-	@Field(name = "username")
+	@Field
 	private String username;
-    @Field(name = "population")
+    @Field
 	private String population;
-	@Field(name = "education")
+	@Field
 	private String education;
-    @Field(name = "state")
+    @Field
 	private String state;
-    @Field(name = "district")
+    @Field
 	private String district;
-    @Field(name = "block")
+    @Field
 	private String block;
-    @Field(name = "panchayat")
+    @Field
 	private String panchayat;
-    @Field(name = "village")
+    @Field
 	private String village;
     @Field
 	private String ward;
@@ -71,29 +71,29 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 	private String ictcordinator;
     @Field
 	private String remarks;
-    @Field(name = "dob")
+    @Field
     private DateTime dob;
-    @Field(name = "creation_time")
+    @Field
     private DateTime creationTime;
-    @Field(name = "last_modified_time")
+    @Field
     private DateTime lastModifiedTime;
     @ManyToMany
     @Cascade(persist = true, update = true, delete = false)
     //TODO: @JoinTable(name="flw_group_map", joinColumns={@JoinColumn(name="flw_id")}, 
     //inverseJoinColumns={@JoinColumn(name="group_id")})
-    @Persistent(table="flw_group_map")
+ /*   @Persistent(table="flw_group_map")
     @Join(column="flw_id")
     @Element(column="group_id")
-    @Field(name = "flwGroups")
-    private Set<FlwGroup> flwGroups;
-    @Field(name = "location_id")
+    @Field
+    private Set<FlwGroup> flwGroups;*/
+    @Field
     private LocationDimension locationDimension;
 
 	public Flw() {
         DateTime DateTime = new DateTime();
         creationTime = DateTime;
         lastModifiedTime = DateTime;
-        flwGroups = new HashSet<>();
+//        flwGroups = new HashSet<>();
     }
 
     public Flw(String flwId,
@@ -237,13 +237,13 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
 		this.username = username;
 	}
 
-    public Set<FlwGroup> getFlwGroups() {
+    /*public Set<FlwGroup> getFlwGroups() {
         return flwGroups;
     }
 
     public void setFlwGroups(Set<FlwGroup> flwGroups) {
         this.flwGroups = flwGroups;
-    }
+    }*/
 
 	public String getPopulation() {
 		return this.population;
@@ -357,7 +357,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @Override
+   /* @Override
     public void updateToLatest(Flw object) {
         validateIfUpdatable(this.flwId, object.flwId);
 
@@ -367,7 +367,7 @@ public class Flw extends SelfUpdatable<Flw> implements java.io.Serializable {
     @Override
     protected void updateLastModifiedTime() {
         this.lastModifiedTime = new DateTime();
-    }
+    }*/
 
     public LocationDimension getLocationDimension() {
         return this.locationDimension;

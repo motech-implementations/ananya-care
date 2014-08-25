@@ -13,20 +13,35 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwEditChildForm extends Form {
 
-	 private Flw flw;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7234394038533535579L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
 	private ChildCase childCase;
+	@Field
 	private DateTime timeStart;
+	@Field
 	private DateTime timeEnd;
+	@Field
 	private DateTime dateModified;
+	@Field
 	private DateTime creationTime = new DateTime();
-	String updateChildName;
-	String newChildName;
-	String updateChildDob;
-	DateTime newChildDob;
-	String success;
+	@Field
+	private String updateChildName;
+	@Field
+	private String newChildName;
+	@Field
+	private String updateChildDob;
+	@Field
+	private DateTime newChildDob;
+	@Field
+	private String success;
 
-	@Field(name = "user_id")
-	 @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return flw;
 	}
@@ -34,9 +49,7 @@ public class AwwEditChildForm extends Form {
 	public void setFlw(Flw flw) {
 		this.flw = flw;
 	}
-	
-	@Field(name = "case_id")
-	 @Cascade(persist = true, update = true, delete = false)
+
 	public ChildCase getChildCase() {
 		return childCase;
 	}
@@ -45,8 +58,6 @@ public class AwwEditChildForm extends Form {
 		this.childCase = childCase;
 	}
 
-	
-	@Field(name = "time_start")
 	public DateTime getTimeStart() {
 		return timeStart;
 	}
@@ -55,8 +66,6 @@ public class AwwEditChildForm extends Form {
 		this.timeStart = timeStart;
 	}
 
-	
-	@Field(name = "time_end")
 	public DateTime getTimeEnd() {
 		return timeEnd;
 	}
@@ -65,8 +74,6 @@ public class AwwEditChildForm extends Form {
 		this.timeEnd = timeEnd;
 	}
 
-	
-	@Field(name = "date_modified")
 	public DateTime getDateModified() {
 		return dateModified;
 	}
@@ -75,8 +82,6 @@ public class AwwEditChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	
-	@Field(name = "creation_time")
 	public DateTime getCreationTime() {
 		return creationTime;
 	}
@@ -85,7 +90,6 @@ public class AwwEditChildForm extends Form {
 		this.creationTime = creationTime;
 	}
 
-	@Field(name = "update_child_name")
 	public String getUpdateChildName() {
 		return updateChildName;
 	}
@@ -94,7 +98,6 @@ public class AwwEditChildForm extends Form {
 		this.updateChildName = updateChildName;
 	}
 
-	@Field(name = "new_child_name")
 	public String getNewChildName() {
 		return newChildName;
 	}
@@ -103,7 +106,6 @@ public class AwwEditChildForm extends Form {
 		this.newChildName = newChildName;
 	}
 
-	@Field(name = "update_child_dob")
 	public String getUpdateChildDob() {
 		return updateChildDob;
 	}
@@ -112,8 +114,6 @@ public class AwwEditChildForm extends Form {
 		this.updateChildDob = updateChildDob;
 	}
 
-	
-	@Field(name = "new_child_dob")
 	public DateTime getNewChildDob() {
 		return newChildDob;
 	}
@@ -122,7 +122,6 @@ public class AwwEditChildForm extends Form {
 		this.newChildDob = newChildDob;
 	}
 
-	@Field(name = "success")
 	public String getSuccess() {
 		return success;
 	}

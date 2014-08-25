@@ -16,39 +16,39 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class UiMotherForm extends Form {
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	private Flw flw;
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	private MotherCase motherCase;
-	@Field(name = "time_end")
+	@Field
 	private DateTime timeEnd;
-	@Field(name = "time_start")
+	@Field
 	private DateTime timeStart;
-	@Field(name = "date_modified")
+	@Field
 	private DateTime dateModified;
-	@Field(name = "details_available")
+	@Field
 	private String detailsAvailable;
-	@Field(name = "tt_1_date")
+	@Field
 	private DateTime tt1Date;
-	@Field(name = "tt_2_date")
+	@Field
 	private DateTime tt2Date;
-	@Field(name = "tt_booster_date")
+	@Field
 	private DateTime ttBoosterDate;
-	@Field(name = "received_tt1")
+	@Field
 	private String receivedTt1;
-	@Field(name = "received_tt2")
+	@Field
 	private String receivedTt2;
-	@Field(name = "up_to_date")
+	@Field
 	private String upToDate;
-	@Field(name = "num_children")
+	@Field
 	private int numChildren;
-	@Field(name = "update_mother")
+	@Field
 	private String updateMother;
-	@Field(name = "tt_booster")
+	@Field
 	private String ttBooster;
-    @Field(name = "creation_time")
+    @Field
 	private DateTime creationTime = new DateTime();
 
     public UiMotherForm() {

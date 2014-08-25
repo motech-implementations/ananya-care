@@ -78,7 +78,7 @@ public class DeliveryMotherForm extends Form {
     public DeliveryMotherForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -89,7 +89,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -100,7 +100,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -110,7 +110,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -120,7 +120,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -129,7 +129,7 @@ public class DeliveryMotherForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "ppiud")
+	@Field
 	public String getPpiud() {
 		return this.ppiud;
 	}
@@ -138,7 +138,7 @@ public class DeliveryMotherForm extends Form {
 		this.ppiud = ppiud;
 	}
 
-	@Field(name = "pptl")
+	@Field
 	public String getPptl() {
 		return this.pptl;
 	}
@@ -147,7 +147,7 @@ public class DeliveryMotherForm extends Form {
 		this.pptl = pptl;
 	}
 
-	@Field(name = "abd_pain")
+	@Field
 	public String getAbdPain() {
 		return this.abdPain;
 	}
@@ -157,7 +157,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "add")
+	@Field
 	public DateTime getAdd() {
 		return this.add;
 	}
@@ -166,7 +166,7 @@ public class DeliveryMotherForm extends Form {
 		this.add = add;
 	}
 
-	@Field(name = "birth_place")
+	@Field
 	public String getBirthPlace() {
 		return this.birthPlace;
 	}
@@ -176,7 +176,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_del_fu")
+	@Field
 	public DateTime getDateDelFu() {
 		return this.dateDelFu;
 	}
@@ -186,7 +186,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_last_visit")
+	@Field
 	public DateTime getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -196,7 +196,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_cf")
+	@Field
 	public DateTime getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -206,7 +206,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_eb")
+	@Field
 	public DateTime getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -216,7 +216,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_pnc")
+	@Field
 	public DateTime getDateNextPnc() {
 		return this.dateNextPnc;
 	}
@@ -225,7 +225,7 @@ public class DeliveryMotherForm extends Form {
 		this.dateNextPnc = dateNextPnc;
 	}
 
-	@Field(name = "family_planning_type")
+	@Field
 	public String getFamilyPlanningType() {
 		return this.familyPlanningType;
 	}
@@ -234,7 +234,7 @@ public class DeliveryMotherForm extends Form {
 		this.familyPlanningType = familyPlanningType;
 	}
 
-	@Field(name = "last_visit_type")
+	@Field
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -243,7 +243,7 @@ public class DeliveryMotherForm extends Form {
 		this.lastVisitType = lastVisitType;
 	}
 
-	@Field(name = "mother_alive")
+	@Field
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -252,7 +252,7 @@ public class DeliveryMotherForm extends Form {
 		this.motherAlive = motherAlive;
 	}
 
-	@Field(name = "term")
+	@Field
 	public String getTerm() {
 		return this.term;
 	}
@@ -261,7 +261,7 @@ public class DeliveryMotherForm extends Form {
 		this.term = term;
 	}
 
-	@Field(name = "cast_num_children")
+	@Field
 	public int getCastNumChildren() {
 		return this.castNumChildren;
 	}
@@ -270,7 +270,7 @@ public class DeliveryMotherForm extends Form {
 		this.castNumChildren = castNumChildren;
 	}
 
-	@Field(name = "complications")
+	@Field
 	public String getComplications() {
 		return this.complications;
 	}
@@ -280,7 +280,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_death")
+	@Field
 	public DateTime getDateDeath() {
 		return this.dateDeath;
 	}
@@ -289,7 +289,7 @@ public class DeliveryMotherForm extends Form {
 		this.dateDeath = dateDeath;
 	}
 
-	@Field(name = "death_village")
+	@Field
 	public String getDeathVillage() {
 		return this.deathVillage;
 	}
@@ -298,7 +298,7 @@ public class DeliveryMotherForm extends Form {
 		this.deathVillage = deathVillage;
 	}
 
-	@Field(name = "delivery_nature")
+	@Field
 	public String getDeliveryNature() {
 		return this.deliveryNature;
 	}
@@ -307,7 +307,7 @@ public class DeliveryMotherForm extends Form {
 		this.deliveryNature = deliveryNature;
 	}
 
-	@Field(name = "fever")
+	@Field
 	public String getFever() {
 		return this.fever;
 	}
@@ -316,7 +316,7 @@ public class DeliveryMotherForm extends Form {
 		this.fever = fever;
 	}
 
-	@Field(name = "has_delivered")
+	@Field
 	public String getHasDelivered() {
 		return this.hasDelivered;
 	}
@@ -325,7 +325,7 @@ public class DeliveryMotherForm extends Form {
 		this.hasDelivered = hasDelivered;
 	}
 
-	@Field(name = "how_many_children")
+	@Field
 	public int getHowManyChildren() {
 		return this.howManyChildren;
 	}
@@ -334,7 +334,7 @@ public class DeliveryMotherForm extends Form {
 		this.howManyChildren = howManyChildren;
 	}
 
-	@Field(name = "ifa_tablets_given")
+	@Field
 	public String getIfaTabletsGiven() {
 		return this.ifaTabletsGiven;
 	}
@@ -343,7 +343,7 @@ public class DeliveryMotherForm extends Form {
 		this.ifaTabletsGiven = ifaTabletsGiven;
 	}
 
-	@Field(name = "in_district")
+	@Field
 	public String getInDistrict() {
 		return this.inDistrict;
 	}
@@ -352,7 +352,7 @@ public class DeliveryMotherForm extends Form {
 		this.inDistrict = inDistrict;
 	}
 
-	@Field(name = "jsy_money")
+	@Field
 	public String getJsyMoney() {
 		return this.jsyMoney;
 	}
@@ -361,7 +361,7 @@ public class DeliveryMotherForm extends Form {
 		this.jsyMoney = jsyMoney;
 	}
 
-	@Field(name = "nextvisittype")
+	@Field
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}
@@ -371,7 +371,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
 	
-	@Field(name = "notified")
+	@Field
 	public DateTime getNotified() {
 		return this.notified;
 	}
@@ -380,7 +380,7 @@ public class DeliveryMotherForm extends Form {
 		this.notified = notified;
 	}
 
-	@Field(name = "num_children")
+	@Field
 	public int getNumChildren() {
 		return this.numChildren;
 	}
@@ -389,7 +389,7 @@ public class DeliveryMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Field(name = "other_conditions")
+	@Field
 	public String getOtherConditions() {
 		return this.otherConditions;
 	}
@@ -398,7 +398,7 @@ public class DeliveryMotherForm extends Form {
 		this.otherConditions = otherConditions;
 	}
 
-	@Field(name = "other_district")
+	@Field
 	public String getOtherDistrict() {
 		return this.otherDistrict;
 	}
@@ -407,7 +407,7 @@ public class DeliveryMotherForm extends Form {
 		this.otherDistrict = otherDistrict;
 	}
 
-	@Field(name = "other_village")
+	@Field
 	public String getOtherVillage() {
 		return this.otherVillage;
 	}
@@ -416,7 +416,7 @@ public class DeliveryMotherForm extends Form {
 		this.otherVillage = otherVillage;
 	}
 
-	@Field(name = "pain_urine")
+	@Field
 	public String getPainUrine() {
 		return this.painUrine;
 	}
@@ -425,7 +425,7 @@ public class DeliveryMotherForm extends Form {
 		this.painUrine = painUrine;
 	}
 
-	@Field(name = "place_death")
+	@Field
 	public String getPlaceDeath() {
 		return this.placeDeath;
 	}
@@ -434,7 +434,7 @@ public class DeliveryMotherForm extends Form {
 		this.placeDeath = placeDeath;
 	}
 
-	@Field(name = "post_postpartum_fp")
+	@Field
 	public String getPostPostpartumFp() {
 		return this.postPostpartumFp;
 	}
@@ -443,7 +443,7 @@ public class DeliveryMotherForm extends Form {
 		this.postPostpartumFp = postPostpartumFp;
 	}
 
-	@Field(name = "safe")
+	@Field
 	public String getSafe() {
 		return this.safe;
 	}
@@ -452,7 +452,7 @@ public class DeliveryMotherForm extends Form {
 		this.safe = safe;
 	}
 
-	@Field(name = "site_death")
+	@Field
 	public String getSiteDeath() {
 		return this.siteDeath;
 	}
@@ -461,7 +461,7 @@ public class DeliveryMotherForm extends Form {
 		this.siteDeath = siteDeath;
 	}
 
-	@Field(name = "vaginal_discharge")
+	@Field
 	public String getVaginalDischarge() {
 		return this.vaginalDischarge;
 	}
@@ -470,7 +470,7 @@ public class DeliveryMotherForm extends Form {
 		this.vaginalDischarge = vaginalDischarge;
 	}
 
-	@Field(name = "where_born")
+	@Field
 	public String getWhereBorn() {
 		return this.whereBorn;
 	}
@@ -479,7 +479,7 @@ public class DeliveryMotherForm extends Form {
 		this.whereBorn = whereBorn;
 	}
 
-	@Field(name = "which_hospital")
+	@Field
 	public String getWhichHospital() {
 		return this.whichHospital;
 	}
@@ -488,7 +488,7 @@ public class DeliveryMotherForm extends Form {
 		this.whichHospital = whichHospital;
 	}
 
-	@Field(name = "which_village")
+	@Field
 	public String getWhichVillage() {
 		return this.whichVillage;
 	}
@@ -498,7 +498,7 @@ public class DeliveryMotherForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -507,7 +507,7 @@ public class DeliveryMotherForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return this.close;
     }
@@ -521,7 +521,7 @@ public class DeliveryMotherForm extends Form {
         return FormToString.toString(this);
     }
 
-    @Field(name = "jsy_money_date")
+    @Field
     public DateTime getJsyMoneyDateTime() {
         return jsyMoneyDate;
     }
@@ -530,7 +530,7 @@ public class DeliveryMotherForm extends Form {
         this.jsyMoneyDate = jsyMoneyDate;
     }
 
-    @Field(name = "delivery_complications")
+    @Field
     public String getDeliveryComplications() {
         return deliveryComplications;
     }
@@ -540,7 +540,7 @@ public class DeliveryMotherForm extends Form {
     }
 
     
-    @Field(name = "discharge_date")
+    @Field
     public DateTime getDischargeDateTime() {
         return dischargeDate;
     }
@@ -549,7 +549,7 @@ public class DeliveryMotherForm extends Form {
         this.dischargeDate = dischargeDate;
     }
 
-    @Field(name = "discharge_time")
+    @Field
     public String getDischargeTime() {
         return dischargeTime;
     }
@@ -558,7 +558,7 @@ public class DeliveryMotherForm extends Form {
         this.dischargeTime = dischargeTime;
     }
 
-    @Field(name = "who_assisted")
+    @Field
     public String getWhoAssisted() {
         return whoAssisted;
     }
@@ -567,7 +567,7 @@ public class DeliveryMotherForm extends Form {
         this.whoAssisted = whoAssisted;
     }
 
-    @Field(name = "bleeding")
+    @Field
     public String getBleeding() {
         return bleeding;
     }
@@ -576,7 +576,7 @@ public class DeliveryMotherForm extends Form {
         this.bleeding = bleeding;
     }
 
-    @Field(name = "home_sba_assist")
+    @Field
     public String getHomeSbaAssist() {
         return homeSbaAssist;
     }
@@ -585,7 +585,7 @@ public class DeliveryMotherForm extends Form {
         this.homeSbaAssist = homeSbaAssist;
     }
 
-    @Field(name = "age_current_weight")
+    @Field
     public Integer getAgeCurrentWeight() {
         return ageCurrentWeight;
     }
@@ -594,7 +594,7 @@ public class DeliveryMotherForm extends Form {
         this.ageCurrentWeight = ageCurrentWeight;
     }
 
-    @Field(name = "age_last_weight")
+    @Field
     public Integer getAgeLastWeight() {
         return ageLastWeight;
     }

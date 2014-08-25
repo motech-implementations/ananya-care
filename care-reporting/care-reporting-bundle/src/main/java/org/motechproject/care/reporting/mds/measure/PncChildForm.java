@@ -56,7 +56,7 @@ public class PncChildForm extends Form {
     public PncChildForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -67,7 +67,7 @@ public class PncChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -78,7 +78,7 @@ public class PncChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -88,7 +88,7 @@ public class PncChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -98,7 +98,7 @@ public class PncChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -107,7 +107,7 @@ public class PncChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "able_expressed_milk")
+	@Field
 	public String getAbleExpressedMilk() {
 		return this.ableExpressedMilk;
 	}
@@ -116,7 +116,7 @@ public class PncChildForm extends Form {
 		this.ableExpressedMilk = ableExpressedMilk;
 	}
 
-	@Field(name = "adequate_support")
+	@Field
 	public String getAdequateSupport() {
 		return this.adequateSupport;
 	}
@@ -125,7 +125,7 @@ public class PncChildForm extends Form {
 		this.adequateSupport = adequateSupport;
 	}
 
-	@Field(name = "applied_to_stump")
+	@Field
 	public String getAppliedToStump() {
 		return this.appliedToStump;
 	}
@@ -134,7 +134,7 @@ public class PncChildForm extends Form {
 		this.appliedToStump = appliedToStump;
 	}
 
-	@Field(name = "baby_active")
+	@Field
 	public String getBabyActive() {
 		return this.babyActive;
 	}
@@ -143,7 +143,7 @@ public class PncChildForm extends Form {
 		this.babyActive = babyActive;
 	}
 
-	@Field(name = "breastfeeding_well")
+	@Field
 	public String getBreastfeedingWell() {
 		return this.breastfeedingWell;
 	}
@@ -152,7 +152,7 @@ public class PncChildForm extends Form {
 		this.breastfeedingWell = breastfeedingWell;
 	}
 
-	@Field(name = "child_alive")
+	@Field
 	public String getChildAlive() {
 		return this.childAlive;
 	}
@@ -161,7 +161,7 @@ public class PncChildForm extends Form {
 		this.childAlive = childAlive;
 	}
 
-	@Field(name = "child_died_village")
+	@Field
 	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
@@ -170,7 +170,7 @@ public class PncChildForm extends Form {
 		this.childDiedVillage = childDiedVillage;
 	}
 
-	@Field(name = "child_place_death")
+	@Field
 	public String getChildPlaceDeath() {
 		return this.childPlaceDeath;
 	}
@@ -179,7 +179,7 @@ public class PncChildForm extends Form {
 		this.childPlaceDeath = childPlaceDeath;
 	}
 
-	@Field(name = "child_site_death")
+	@Field
 	public String getChildSiteDeath() {
 		return this.childSiteDeath;
 	}
@@ -189,7 +189,7 @@ public class PncChildForm extends Form {
 	}
 
 	
-	@Field(name = "chld_date_death")
+	@Field
 	public DateTime getChldDateDeath() {
 		return this.chldDateDeath;
 	}
@@ -198,7 +198,7 @@ public class PncChildForm extends Form {
 		this.chldDateDeath = chldDateDeath;
 	}
 
-	@Field(name = "cord_fallen")
+	@Field
 	public String getCordFallen() {
 		return this.cordFallen;
 	}
@@ -207,7 +207,7 @@ public class PncChildForm extends Form {
 		this.cordFallen = cordFallen;
 	}
 
-	@Field(name = "correct_position")
+	@Field
 	public String getCorrectPosition() {
 		return this.correctPosition;
 	}
@@ -216,7 +216,7 @@ public class PncChildForm extends Form {
 		this.correctPosition = correctPosition;
 	}
 
-	@Field(name = "counsel_cord_care")
+	@Field
 	public String getCounselCordCare() {
 		return this.counselCordCare;
 	}
@@ -225,7 +225,7 @@ public class PncChildForm extends Form {
 		this.counselCordCare = counselCordCare;
 	}
 
-	@Field(name = "counsel_exclusive_bf")
+	@Field
 	public String getCounselExclusiveBf() {
 		return this.counselExclusiveBf;
 	}
@@ -234,7 +234,7 @@ public class PncChildForm extends Form {
 		this.counselExclusiveBf = counselExclusiveBf;
 	}
 
-	@Field(name = "counsel_express_milk")
+	@Field
 	public String getCounselExpressMilk() {
 		return this.counselExpressMilk;
 	}
@@ -243,7 +243,7 @@ public class PncChildForm extends Form {
 		this.counselExpressMilk = counselExpressMilk;
 	}
 
-	@Field(name = "counsel_skin")
+	@Field
 	public String getCounselSkin() {
 		return this.counselSkin;
 	}
@@ -252,7 +252,7 @@ public class PncChildForm extends Form {
 		this.counselSkin = counselSkin;
 	}
 
-	@Field(name = "cousel_bf_correct")
+	@Field
 	public String getCouselBfCorrect() {
 		return this.couselBfCorrect;
 	}
@@ -261,7 +261,7 @@ public class PncChildForm extends Form {
 		this.couselBfCorrect = couselBfCorrect;
 	}
 
-	@Field(name = "demonstrate_expressed")
+	@Field
 	public String getDemonstrateExpressed() {
 		return this.demonstrateExpressed;
 	}
@@ -270,7 +270,7 @@ public class PncChildForm extends Form {
 		this.demonstrateExpressed = demonstrateExpressed;
 	}
 
-	@Field(name = "demonstrate_skin")
+	@Field
 	public String getDemonstrateSkin() {
 		return this.demonstrateSkin;
 	}
@@ -279,7 +279,7 @@ public class PncChildForm extends Form {
 		this.demonstrateSkin = demonstrateSkin;
 	}
 
-	@Field(name = "easy_awake")
+	@Field
 	public String getEasyAwake() {
 		return this.easyAwake;
 	}
@@ -288,7 +288,7 @@ public class PncChildForm extends Form {
 		this.easyAwake = easyAwake;
 	}
 
-	@Field(name = "feed_vigour")
+	@Field
 	public String getFeedVigour() {
 		return this.feedVigour;
 	}
@@ -297,7 +297,7 @@ public class PncChildForm extends Form {
 		this.feedVigour = feedVigour;
 	}
 
-	@Field(name = "good_latch")
+	@Field
 	public String getGoodLatch() {
 		return this.goodLatch;
 	}
@@ -306,7 +306,7 @@ public class PncChildForm extends Form {
 		this.goodLatch = goodLatch;
 	}
 
-	@Field(name = "improvements_bf")
+	@Field
 	public String getImprovementsBf() {
 		return this.improvementsBf;
 	}
@@ -315,7 +315,7 @@ public class PncChildForm extends Form {
 		this.improvementsBf = improvementsBf;
 	}
 
-	@Field(name = "observed_bf")
+	@Field
 	public String getObservedBf() {
 		return this.observedBf;
 	}
@@ -324,7 +324,7 @@ public class PncChildForm extends Form {
 		this.observedBf = observedBf;
 	}
 
-	@Field(name = "other_milk_to_child")
+	@Field
 	public String getOtherMilkToChild() {
 		return this.otherMilkToChild;
 	}
@@ -333,7 +333,7 @@ public class PncChildForm extends Form {
 		this.otherMilkToChild = otherMilkToChild;
 	}
 
-	@Field(name = "second_observation")
+	@Field
 	public String getSecondObservation() {
 		return this.secondObservation;
 	}
@@ -342,7 +342,7 @@ public class PncChildForm extends Form {
 		this.secondObservation = secondObservation;
 	}
 
-	@Field(name = "skin_to_skin")
+	@Field
 	public String getSkinToSkin() {
 		return this.skinToSkin;
 	}
@@ -351,7 +351,7 @@ public class PncChildForm extends Form {
 		this.skinToSkin = skinToSkin;
 	}
 
-	@Field(name = "warm_to_touch")
+	@Field
 	public String getWarmToTouch() {
 		return this.warmToTouch;
 	}
@@ -360,7 +360,7 @@ public class PncChildForm extends Form {
 		this.warmToTouch = warmToTouch;
 	}
 
-	@Field(name = "what_applied")
+	@Field
 	public String getWhatApplied() {
 		return this.whatApplied;
 	}
@@ -369,7 +369,7 @@ public class PncChildForm extends Form {
 		this.whatApplied = whatApplied;
 	}
 
-	@Field(name = "wrapped")
+	@Field
 	public String getWrapped() {
 		return this.wrapped;
 	}
@@ -379,7 +379,7 @@ public class PncChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -388,7 +388,7 @@ public class PncChildForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return close;
     }

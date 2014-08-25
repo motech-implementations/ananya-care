@@ -29,7 +29,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -40,7 +40,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -51,7 +51,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -61,7 +61,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -71,7 +71,7 @@ public class ReferMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -80,7 +80,7 @@ public class ReferMotherForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-    @Field(name = "num_children")
+    @Field
 	public int getNumChildren() {
 		return this.numChildren;
 	}
@@ -89,7 +89,7 @@ public class ReferMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Field(name = "refer_mother")
+	@Field
 	public String getReferMother() {
 		return this.referMother;
 	}
@@ -99,7 +99,7 @@ public class ReferMotherForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

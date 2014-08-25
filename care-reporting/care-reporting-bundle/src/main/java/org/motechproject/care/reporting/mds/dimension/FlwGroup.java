@@ -15,35 +15,35 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "flw_group")
-public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Serializable {
+public class FlwGroup/* extends SelfUpdatable<FlwGroup>*/ implements java.io.Serializable {
 
     @ExternalPrimaryKey
-	@Field(name = "group_id")
+	@Field
     @Unique
 	private String groupId;
-	@Field(name = "case_sharing")
+	@Field
 	private Boolean caseSharing;
-	@Field(name = "domain")
+	@Field
 	private String domain;
-	@Field(name = "awc_code")
+	@Field
 	private String awcCode;
-	@Field(name = "name")
+	@Field
 	private String name;
-	@Field(name = "reporting")
+	@Field
 	private Boolean reporting;
-    @Field(name = "creation_time")
+    @Field
     private DateTime creationTime;
-    @Field(name = "last_modified_time")
+    @Field
     private DateTime lastModifiedTime;
-    //TODO: @ManyToMany(mappedBy="flwGroups")
+    /*//TODO: @ManyToMany(mappedBy="flwGroups")
     @Persistent(mappedBy="flwGroups")
-    private Set<Flw> flws;
+    private Set<Flw> flws;*/
 
 	public FlwGroup() {
         DateTime DateTime = new DateTime();
         creationTime = DateTime;
         lastModifiedTime = DateTime;
-        flws = new HashSet<>(0);
+//        flws = new HashSet<>(0);
 	}
 
     public FlwGroup(String groupId, Boolean caseSharing, String domain,
@@ -57,7 +57,7 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
 		this.reporting = reporting;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
-        this.flws = flws;
+//        this.flws = flws;
 	}
 
 	public String getGroupId() {
@@ -124,15 +124,15 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    public Set<Flw> getFlws() {
+  /*  public Set<Flw> getFlws() {
         return flws;
     }
 
     public void setFlws(Set<Flw> flws) {
         this.flws = flws;
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void updateToLatest(FlwGroup other) {
         validateIfUpdatable(this.groupId, other.groupId);
 
@@ -142,5 +142,5 @@ public class FlwGroup extends SelfUpdatable<FlwGroup> implements java.io.Seriali
     @Override
     protected void updateLastModifiedTime() {
         this.lastModifiedTime = new DateTime();
-    }
+    }*/
 }

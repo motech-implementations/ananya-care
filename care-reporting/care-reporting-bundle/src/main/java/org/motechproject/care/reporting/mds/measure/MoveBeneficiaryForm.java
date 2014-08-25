@@ -13,7 +13,7 @@ import org.motechproject.mds.annotations.Field;
 @Entity(name = "move_beneficiary_form")
 @Unique(members = "instance_id")
 public class MoveBeneficiaryForm extends Form{
-    private int id;
+
     private Flw flw;
     private MotherCase motherCase;
     private DateTime timeEnd;
@@ -28,7 +28,7 @@ public class MoveBeneficiaryForm extends Form{
     public MoveBeneficiaryForm() {
     }
 
-    @Field(name = "user_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public Flw getFlw() {
         return this.flw;
@@ -39,7 +39,7 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     
-    @Field(name = "case_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
         return this.motherCase;
@@ -50,7 +50,7 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     
-    @Field(name = "time_end")
+    @Field
     public DateTime getTimeEnd() {
         return this.timeEnd;
     }
@@ -60,7 +60,7 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     
-    @Field(name = "time_start")
+    @Field
     public DateTime getTimeStart() {
         return this.timeStart;
     }
@@ -70,7 +70,7 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     
-    @Field(name = "date_modified")
+    @Field
     public DateTime getDateModified() {
         return this.dateModified;
     }
@@ -80,7 +80,7 @@ public class MoveBeneficiaryForm extends Form{
     }
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -89,7 +89,7 @@ public class MoveBeneficiaryForm extends Form{
         this.creationTime = creationTime;
     }
 
-    @Field(name = "confirm_move")
+    @Field
     public String getConfirmMove() {
         return confirmMove;
     }
@@ -98,7 +98,7 @@ public class MoveBeneficiaryForm extends Form{
         this.confirmMove = confirmMove;
     }
 
-    @Field(name = "new_ward")
+    @Field
     public Integer getNewWard() {
         return newWard;
     }
@@ -107,7 +107,7 @@ public class MoveBeneficiaryForm extends Form{
         this.newWard = newWard;
     }
 
-    @Field(name = "new_awcc")
+    @Field
     public Integer getNewAwcc() {
         return newAwcc;
     }
@@ -116,7 +116,7 @@ public class MoveBeneficiaryForm extends Form{
         this.newAwcc = newAwcc;
     }
 
-    @Field(name = "confirm_again")
+    @Field
     public String getConfirmAgain() {
         return confirmAgain;
     }

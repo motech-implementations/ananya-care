@@ -10,27 +10,40 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "abort_form")
 @Unique(members = "instance_id")
 public class AbortForm extends Form {
 
-	 private Flw flw;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2726077642537636852L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
 	private MotherCase motherCase;
+	@Field
 	private DateTime timeEnd;
+	@Field
 	private DateTime timeStart;
+	@Field
 	private DateTime dateModified;
+	@Field
 	private String abortionType;
+	@Field
 	private String birthStatus;
-    private DateTime dateAborted;
-    private Boolean close;
-    private DateTime creationTime = new DateTime();
+	@Field
+	private DateTime dateAborted;
+	@Field
+	private Boolean close;
+	@Field
+	private DateTime creationTime = new DateTime();
 
-    public AbortForm() {
+	public AbortForm() {
 	}
-	
-	@Field(name = "user_id")
-     @Cascade(persist = true, update = true, delete = false)
+
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -39,9 +52,6 @@ public class AbortForm extends Form {
 		this.flw = flw;
 	}
 
-	
-	@Field(name = "case_id")
-    @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}
@@ -50,8 +60,6 @@ public class AbortForm extends Form {
 		this.motherCase = motherCase;
 	}
 
-	
-	@Field(name = "time_end")
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -60,8 +68,6 @@ public class AbortForm extends Form {
 		this.timeEnd = timeEnd;
 	}
 
-	
-	@Field(name = "time_start")
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -70,8 +76,6 @@ public class AbortForm extends Form {
 		this.timeStart = timeStart;
 	}
 
-	
-	@Field(name = "date_modified")
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -80,7 +84,6 @@ public class AbortForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "abortion_type")
 	public String getAbortionType() {
 		return this.abortionType;
 	}
@@ -89,7 +92,6 @@ public class AbortForm extends Form {
 		this.abortionType = abortionType;
 	}
 
-	@Field(name = "birth_status")
 	public String getBirthStatus() {
 		return this.birthStatus;
 	}
@@ -98,8 +100,6 @@ public class AbortForm extends Form {
 		this.birthStatus = birthStatus;
 	}
 
-	
-	@Field(name = "date_aborted")
 	public DateTime getDateAborted() {
 		return this.dateAborted;
 	}
@@ -108,27 +108,24 @@ public class AbortForm extends Form {
 		this.dateAborted = dateAborted;
 	}
 
-    
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    @Field(name = "close")
-    public Boolean getClose() {
-        return close;
-    }
+	public Boolean getClose() {
+		return close;
+	}
 
-    public void setClose(Boolean close) {
-        this.close = close;
-    }
+	public void setClose(Boolean close) {
+		this.close = close;
+	}
 
-    @Override
-    public String toString() {
-        return FormToString.toString(this);
-    }
+	@Override
+	public String toString() {
+		return FormToString.toString(this);
+	}
 }

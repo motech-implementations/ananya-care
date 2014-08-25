@@ -36,7 +36,7 @@ public class MiForm extends Form {
     public MiForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -47,7 +47,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -58,7 +58,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -68,7 +68,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -78,7 +78,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -88,7 +88,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "date_arrived")
+	@Field
 	public DateTime getDateArrived() {
 		return this.dateArrived;
 	}
@@ -98,7 +98,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "date_learned")
+	@Field
 	public DateTime getDateLearned() {
 		return this.dateLearned;
 	}
@@ -108,7 +108,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "date_of_delivery")
+	@Field
 	public DateTime getDateOfDelivery() {
 		return this.dateOfDelivery;
 	}
@@ -117,7 +117,7 @@ public class MiForm extends Form {
 		this.dateOfDelivery = dateOfDelivery;
 	}
 
-	@Field(name = "name")
+	@Field
 	public String getName() {
 		return this.name;
 	}
@@ -126,7 +126,7 @@ public class MiForm extends Form {
 		this.name = name;
 	}
 
-	@Field(name = "preg_status")
+	@Field
 	public String getPregStatus() {
 		return this.pregStatus;
 	}
@@ -135,7 +135,7 @@ public class MiForm extends Form {
 		this.pregStatus = pregStatus;
 	}
 
-	@Field(name = "referral_info")
+	@Field
 	public String getReferralInfo() {
 		return this.referralInfo;
 	}
@@ -144,7 +144,7 @@ public class MiForm extends Form {
 		this.referralInfo = referralInfo;
 	}
 
-	@Field(name = "abortion_type")
+	@Field
 	public String getAbortionType() {
 		return this.abortionType;
 	}
@@ -154,7 +154,7 @@ public class MiForm extends Form {
 	}
 
 	
-	@Field(name = "date_aborted")
+	@Field
 	public DateTime getDateAborted() {
 		return this.dateAborted;
 	}
@@ -163,7 +163,7 @@ public class MiForm extends Form {
 		this.dateAborted = dateAborted;
 	}
 
-	@Field(name = "migrated_status")
+	@Field
 	public String getMigratedStatus() {
 		return this.migratedStatus;
 	}
@@ -173,7 +173,7 @@ public class MiForm extends Form {
 	}
 
 
-    @Field(name = "status")
+    @Field
     public String getStatus() {
         return this.status;
     }
@@ -183,7 +183,7 @@ public class MiForm extends Form {
     }
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -197,7 +197,7 @@ public class MiForm extends Form {
         return FormToString.toString(this);
     }
 
-    @Field(name = "date_del_fu")
+    @Field
     public DateTime getDateDelFu() {
         return dateDelFu;
     }

@@ -65,7 +65,7 @@ public class DeliveryChildForm extends Form {
     public DeliveryChildForm() {
 	}
     
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -76,7 +76,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -87,7 +87,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -97,7 +97,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -107,7 +107,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -116,7 +116,7 @@ public class DeliveryChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "abnormalities")
+	@Field
 	public String getAbnormalities() {
 		return this.abnormalities;
 	}
@@ -125,7 +125,7 @@ public class DeliveryChildForm extends Form {
 		this.abnormalities = abnormalities;
 	}
 
-	@Field(name = "add_vaccinations")
+	@Field
 	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
@@ -134,7 +134,7 @@ public class DeliveryChildForm extends Form {
 		this.addVaccinations = addVaccinations;
 	}
 
-	@Field(name = "baby_bcg")
+	@Field
 	public String getBabyBcg() {
 		return this.babyBcg;
 	}
@@ -143,7 +143,7 @@ public class DeliveryChildForm extends Form {
 		this.babyBcg = babyBcg;
 	}
 
-	@Field(name = "baby_hep_b_0")
+	@Field
 	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
@@ -152,7 +152,7 @@ public class DeliveryChildForm extends Form {
 		this.babyHepB0 = babyHepB0;
 	}
 
-	@Field(name = "baby_opv0")
+	@Field
 	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
@@ -161,7 +161,7 @@ public class DeliveryChildForm extends Form {
 		this.babyOpv0 = babyOpv0;
 	}
 
-	@Field(name = "breastfed_hour")
+	@Field
 	public String getBreastfedHour() {
 		return this.breastfedHour;
 	}
@@ -170,7 +170,7 @@ public class DeliveryChildForm extends Form {
 		this.breastfedHour = breastfedHour;
 	}
 
-	@Field(name = "case_name")
+	@Field
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -179,7 +179,7 @@ public class DeliveryChildForm extends Form {
 		this.caseName = caseName;
 	}
 
-	@Field(name = "case_type")
+	@Field
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -188,7 +188,7 @@ public class DeliveryChildForm extends Form {
 		this.caseType = caseType;
 	}
 
-	@Field(name = "baby_weight")
+	@Field
 	public String getBabyWeight() {
 		return this.babyWeight;
 	}
@@ -198,7 +198,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "bcg_date")
+	@Field
 	public DateTime getBcgDateTime() {
 		return this.bcgDate;
 	}
@@ -207,7 +207,7 @@ public class DeliveryChildForm extends Form {
 		this.bcgDate = bcgDate;
 	}
 
-	@Field(name = "birth_status")
+	@Field
 	public String getBirthStatus() {
 		return this.birthStatus;
 	}
@@ -217,7 +217,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "dob")
+	@Field
 	public DateTime getDob() {
 		return this.dob;
 	}
@@ -226,7 +226,7 @@ public class DeliveryChildForm extends Form {
 		this.dob = dob;
 	}
 
-	@Field(name = "gender")
+	@Field
 	public String getGender() {
 		return this.gender;
 	}
@@ -236,7 +236,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_0_date")
+	@Field
 	public DateTime getHepB0DateTime() {
 		return this.hepB0Date;
 	}
@@ -246,7 +246,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_0_date")
+	@Field
 	public DateTime getOpv0DateTime() {
 		return this.opv0Date;
 	}
@@ -255,7 +255,7 @@ public class DeliveryChildForm extends Form {
 		this.opv0Date = opv0Date;
 	}
 
-	@Field(name = "term")
+	@Field
 	public String getTerm() {
 		return this.term;
 	}
@@ -264,7 +264,7 @@ public class DeliveryChildForm extends Form {
 		this.term = term;
 	}
 
-	@Field(name = "time_of_birth")
+	@Field
 	public String getTimeOfBirth() {
 		return this.timeOfBirth;
 	}
@@ -273,7 +273,7 @@ public class DeliveryChildForm extends Form {
 		this.timeOfBirth = timeOfBirth;
 	}
 
-	@Field(name = "child_alive")
+	@Field
 	public String getChildAlive() {
 		return this.childAlive;
 	}
@@ -282,7 +282,7 @@ public class DeliveryChildForm extends Form {
 		this.childAlive = childAlive;
 	}
 
-	@Field(name = "child_breathing")
+	@Field
 	public String getChildBreathing() {
 		return this.childBreathing;
 	}
@@ -291,7 +291,7 @@ public class DeliveryChildForm extends Form {
 		this.childBreathing = childBreathing;
 	}
 
-	@Field(name = "child_cried")
+	@Field
 	public String getChildCried() {
 		return this.childCried;
 	}
@@ -300,7 +300,7 @@ public class DeliveryChildForm extends Form {
 		this.childCried = childCried;
 	}
 
-	@Field(name = "child_died_village")
+	@Field
 	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
@@ -309,7 +309,7 @@ public class DeliveryChildForm extends Form {
 		this.childDiedVillage = childDiedVillage;
 	}
 
-	@Field(name = "child_have_a_name")
+	@Field
 	public String getChildHaveAName() {
 		return this.childHaveAName;
 	}
@@ -318,7 +318,7 @@ public class DeliveryChildForm extends Form {
 		this.childHaveAName = childHaveAName;
 	}
 
-	@Field(name = "child_heartbeats")
+	@Field
 	public String getChildHeartbeats() {
 		return this.childHeartbeats;
 	}
@@ -327,7 +327,7 @@ public class DeliveryChildForm extends Form {
 		this.childHeartbeats = childHeartbeats;
 	}
 
-	@Field(name = "child_movement")
+	@Field
 	public String getChildMovement() {
 		return this.childMovement;
 	}
@@ -336,7 +336,7 @@ public class DeliveryChildForm extends Form {
 		this.childMovement = childMovement;
 	}
 
-	@Field(name = "child_name")
+	@Field
 	public String getChildName() {
 		return this.childName;
 	}
@@ -345,7 +345,7 @@ public class DeliveryChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Field(name = "child_place_death")
+	@Field
 	public String getChildPlaceDeath() {
 		return this.childPlaceDeath;
 	}
@@ -354,7 +354,7 @@ public class DeliveryChildForm extends Form {
 		this.childPlaceDeath = childPlaceDeath;
 	}
 
-	@Field(name = "child_site_death")
+	@Field
 	public String getChildSiteDeath() {
 		return this.childSiteDeath;
 	}
@@ -364,7 +364,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "chld_date_death")
+	@Field
 	public DateTime getChldDateDeath() {
 		return this.chldDateDeath;
 	}
@@ -373,7 +373,7 @@ public class DeliveryChildForm extends Form {
 		this.chldDateDeath = chldDateDeath;
 	}
 
-	@Field(name = "cord_applied")
+	@Field
 	public String getCordApplied() {
 		return this.cordApplied;
 	}
@@ -382,7 +382,7 @@ public class DeliveryChildForm extends Form {
 		this.cordApplied = cordApplied;
 	}
 
-	@Field(name = "cord_cut")
+	@Field
 	public String getCordCut() {
 		return this.cordCut;
 	}
@@ -391,7 +391,7 @@ public class DeliveryChildForm extends Form {
 		this.cordCut = cordCut;
 	}
 
-	@Field(name = "cord_tied")
+	@Field
 	public String getCordTied() {
 		return this.cordTied;
 	}
@@ -401,7 +401,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_first_weight")
+	@Field
 	public DateTime getDateFirstWeight() {
 		return this.dateFirstWeight;
 	}
@@ -411,7 +411,7 @@ public class DeliveryChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_time_feed")
+	@Field
 	public DateTime getDateTimeFeed() {
 		return this.dateTimeFeed;
 	}
@@ -420,7 +420,7 @@ public class DeliveryChildForm extends Form {
 		this.dateTimeFeed = dateTimeFeed;
 	}
 
-	@Field(name = "first_weight")//TODO: precision = 131089, scale = 0)
+	@Field
 	public int getFirstWeight() {
 		return this.firstWeight;
 	}
@@ -429,7 +429,7 @@ public class DeliveryChildForm extends Form {
 		this.firstWeight = firstWeight;
 	}
 
-	@Field(name = "skin_care")
+	@Field
 	public String getSkinCare() {
 		return this.skinCare;
 	}
@@ -438,7 +438,7 @@ public class DeliveryChildForm extends Form {
 		this.skinCare = skinCare;
 	}
 
-	@Field(name = "what_applied")
+	@Field
 	public String getWhatApplied() {
 		return this.whatApplied;
 	}
@@ -447,7 +447,7 @@ public class DeliveryChildForm extends Form {
 		this.whatApplied = whatApplied;
 	}
 
-	@Field(name = "wrapped_dried")
+	@Field
 	public String getWrappedDried() {
 		return this.wrappedDried;
 	}
@@ -457,7 +457,7 @@ public class DeliveryChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -466,7 +466,7 @@ public class DeliveryChildForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return this.close;
     }

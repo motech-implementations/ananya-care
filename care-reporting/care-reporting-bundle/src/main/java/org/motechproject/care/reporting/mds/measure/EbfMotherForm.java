@@ -107,7 +107,7 @@ public class EbfMotherForm extends Form {
     public EbfMotherForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -118,7 +118,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -129,7 +129,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -139,7 +139,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -149,7 +149,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -159,7 +159,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "addval")
+	@Field
 	public DateTime getAddval() {
 		return this.addval;
 	}
@@ -168,7 +168,7 @@ public class EbfMotherForm extends Form {
 		this.addval = addval;
 	}
 
-	@Field(name = "adopt_immediately")
+	@Field
 	public String getAdoptImmediately() {
 		return this.adoptImmediately;
 	}
@@ -177,7 +177,7 @@ public class EbfMotherForm extends Form {
 		this.adoptImmediately = adoptImmediately;
 	}
 
-	@Field(name = "ask_ppiud")
+	@Field
 	public String getAskPpiud() {
 		return this.askPpiud;
 	}
@@ -186,7 +186,7 @@ public class EbfMotherForm extends Form {
 		this.askPpiud = askPpiud;
 	}
 
-	@Field(name = "aware_of_failure")
+	@Field
 	public String getAwareOfFailure() {
 		return this.awareOfFailure;
 	}
@@ -195,7 +195,7 @@ public class EbfMotherForm extends Form {
 		this.awareOfFailure = awareOfFailure;
 	}
 
-	@Field(name = "bleeding")
+	@Field
 	public String getBleeding() {
 		return this.bleeding;
 	}
@@ -204,7 +204,7 @@ public class EbfMotherForm extends Form {
 		this.bleeding = bleeding;
 	}
 
-    @Field(name = "complications")
+    @Field
 	public String getComplications() {
 		return this.complications;
 	}
@@ -213,7 +213,7 @@ public class EbfMotherForm extends Form {
 		this.complications = complications;
 	}
 
-	@Field(name = "condoms")
+	@Field
 	public String getCondoms() {
 		return this.condoms;
 	}
@@ -222,7 +222,7 @@ public class EbfMotherForm extends Form {
 		this.condoms = condoms;
 	}
 
-	@Field(name = "counsel_follow_up_ppiud")
+	@Field
 	public String getCounselFollowUpPpiud() {
 		return this.counselFollowUpPpiud;
 	}
@@ -231,7 +231,7 @@ public class EbfMotherForm extends Form {
 		this.counselFollowUpPpiud = counselFollowUpPpiud;
 	}
 
-	@Field(name = "counsel_follow_up_pptl")
+	@Field
 	public String getCounselFollowUpPptl() {
 		return this.counselFollowUpPptl;
 	}
@@ -240,7 +240,7 @@ public class EbfMotherForm extends Form {
 		this.counselFollowUpPptl = counselFollowUpPptl;
 	}
 
-	@Field(name = "counsel_menstrual_cycle")
+	@Field
 	public String getCounselMenstrualCycle() {
 		return this.counselMenstrualCycle;
 	}
@@ -249,7 +249,7 @@ public class EbfMotherForm extends Form {
 		this.counselMenstrualCycle = counselMenstrualCycle;
 	}
 
-	@Field(name = "counsel_methods")
+	@Field
 	public String getCounselMethods() {
 		return this.counselMethods;
 	}
@@ -258,7 +258,7 @@ public class EbfMotherForm extends Form {
 		this.counselMethods = counselMethods;
 	}
 
-	@Field(name = "counsel_ppfp")
+	@Field
 	public String getCounselPpfp() {
 		return this.counselPpfp;
 	}
@@ -267,7 +267,7 @@ public class EbfMotherForm extends Form {
 		this.counselPpfp = counselPpfp;
 	}
 
-	@Field(name = "counsel_time_iud")
+	@Field
 	public String getCounselTimeIud() {
 		return this.counselTimeIud;
 	}
@@ -277,7 +277,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_1")
+	@Field
 	public DateTime getDateEb1() {
 		return this.dateEb1;
 	}
@@ -287,7 +287,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_2")
+	@Field
 	public DateTime getDateEb2() {
 		return this.dateEb2;
 	}
@@ -297,7 +297,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_3")
+	@Field
 	public DateTime getDateEb3() {
 		return this.dateEb3;
 	}
@@ -307,7 +307,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_4")
+	@Field
 	public DateTime getDateEb4() {
 		return this.dateEb4;
 	}
@@ -317,7 +317,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_5")
+	@Field
 	public DateTime getDateEb5() {
 		return this.dateEb5;
 	}
@@ -327,7 +327,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_eb_6")
+	@Field
 	public DateTime getDateEb6() {
 		return this.dateEb6;
 	}
@@ -337,7 +337,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_iud_adopted")
+	@Field
 	public DateTime getDateIudAdopted() {
 		return this.dateIudAdopted;
 	}
@@ -347,7 +347,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_last_inj")
+	@Field
 	public DateTime getDateLastInj() {
 		return this.dateLastInj;
 	}
@@ -357,7 +357,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_last_visit")
+	@Field
 	public DateTime getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -367,7 +367,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_cf")
+	@Field
 	public DateTime getDateNextCf() {
 		return this.dateNextCf;
 	}
@@ -377,7 +377,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_eb")
+	@Field
 	public DateTime getDateNextEb() {
 		return this.dateNextEb;
 	}
@@ -386,7 +386,7 @@ public class EbfMotherForm extends Form {
 		this.dateNextEb = dateNextEb;
 	}
 
-	@Field(name = "discharge")
+	@Field
 	public String getDischarge() {
 		return this.discharge;
 	}
@@ -395,7 +395,7 @@ public class EbfMotherForm extends Form {
 		this.discharge = discharge;
 	}
 
-	@Field(name = "distension")
+	@Field
 	public String getDistension() {
 		return this.distension;
 	}
@@ -404,7 +404,7 @@ public class EbfMotherForm extends Form {
 		this.distension = distension;
 	}
 
-	@Field(name = "eb_visit_num")
+	@Field
 	public int getEbVisitNum() {
 		return this.ebVisitNum;
 	}
@@ -413,7 +413,7 @@ public class EbfMotherForm extends Form {
 		this.ebVisitNum = ebVisitNum;
 	}
 
-	@Field(name = "family_planning_type")
+	@Field
 	public String getFamilyPlanningType() {
 		return this.familyPlanningType;
 	}
@@ -422,7 +422,7 @@ public class EbfMotherForm extends Form {
 		this.familyPlanningType = familyPlanningType;
 	}
 
-	@Field(name = "fever")
+	@Field
 	public String getFever() {
 		return this.fever;
 	}
@@ -431,7 +431,7 @@ public class EbfMotherForm extends Form {
 		this.fever = fever;
 	}
 
-	@Field(name = "have_condoms")
+	@Field
 	public String getHaveCondoms() {
 		return this.haveCondoms;
 	}
@@ -440,7 +440,7 @@ public class EbfMotherForm extends Form {
 		this.haveCondoms = haveCondoms;
 	}
 
-	@Field(name = "headaches")
+	@Field
 	public String getHeadaches() {
 		return this.headaches;
 	}
@@ -449,7 +449,7 @@ public class EbfMotherForm extends Form {
 		this.headaches = headaches;
 	}
 
-	@Field(name = "high_bp")
+	@Field
 	public String getHighBp() {
 		return this.highBp;
 	}
@@ -458,7 +458,7 @@ public class EbfMotherForm extends Form {
 		this.highBp = highBp;
 	}
 
-	@Field(name = "inj_menstrual_irregularity")
+	@Field
 	public String getInjMenstrualIrregularity() {
 		return this.injMenstrualIrregularity;
 	}
@@ -467,7 +467,7 @@ public class EbfMotherForm extends Form {
 		this.injMenstrualIrregularity = injMenstrualIrregularity;
 	}
 
-	@Field(name = "injectable")
+	@Field
 	public String getInjectable() {
 		return this.injectable;
 	}
@@ -476,7 +476,7 @@ public class EbfMotherForm extends Form {
 		this.injectable = injectable;
 	}
 
-	@Field(name = "intend_to_continue")
+	@Field
 	public String getIntendToContinue() {
 		return this.intendToContinue;
 	}
@@ -485,7 +485,7 @@ public class EbfMotherForm extends Form {
 		this.intendToContinue = intendToContinue;
 	}
 
-	@Field(name = "interval_ppfp_interest")
+	@Field
 	public String getIntervalPpfpInterest() {
 		return this.intervalPpfpInterest;
 	}
@@ -494,7 +494,7 @@ public class EbfMotherForm extends Form {
 		this.intervalPpfpInterest = intervalPpfpInterest;
 	}
 
-	@Field(name = "iud")
+	@Field
 	public String getIud() {
 		return this.iud;
 	}
@@ -503,7 +503,7 @@ public class EbfMotherForm extends Form {
 		this.iud = iud;
 	}
 
-	@Field(name = "iud_adopted")
+	@Field
 	public String getIudAdopted() {
 		return this.iudAdopted;
 	}
@@ -512,7 +512,7 @@ public class EbfMotherForm extends Form {
 		this.iudAdopted = iudAdopted;
 	}
 
-	@Field(name = "iud_counsel_duration")
+	@Field
 	public String getIudCounselDuration() {
 		return this.iudCounselDuration;
 	}
@@ -521,7 +521,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselDuration = iudCounselDuration;
 	}
 
-	@Field(name = "iud_counsel_follow_up")
+	@Field
 	public String getIudCounselFollowUp() {
 		return this.iudCounselFollowUp;
 	}
@@ -530,7 +530,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselFollowUp = iudCounselFollowUp;
 	}
 
-	@Field(name = "iud_counsel_hospital")
+	@Field
 	public String getIudCounselHospital() {
 		return this.iudCounselHospital;
 	}
@@ -539,7 +539,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselHospital = iudCounselHospital;
 	}
 
-	@Field(name = "iud_counsel_placement")
+	@Field
 	public String getIudCounselPlacement() {
 		return this.iudCounselPlacement;
 	}
@@ -548,7 +548,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselPlacement = iudCounselPlacement;
 	}
 
-	@Field(name = "iud_counsel_screening")
+	@Field
 	public String getIudCounselScreening() {
 		return this.iudCounselScreening;
 	}
@@ -557,7 +557,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselScreening = iudCounselScreening;
 	}
 
-	@Field(name = "iud_counsel_side_effects")
+	@Field
 	public String getIudCounselSideEffects() {
 		return this.iudCounselSideEffects;
 	}
@@ -566,7 +566,7 @@ public class EbfMotherForm extends Form {
 		this.iudCounselSideEffects = iudCounselSideEffects;
 	}
 
-	@Field(name = "last_visit_type")
+	@Field
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -575,7 +575,7 @@ public class EbfMotherForm extends Form {
 		this.lastVisitType = lastVisitType;
 	}
 
-	@Field(name = "menstrual_irregularity")
+	@Field
 	public String getMenstrualIrregularity() {
 		return this.menstrualIrregularity;
 	}
@@ -585,7 +585,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "next_inj_calc")
+	@Field
 	public DateTime getNextInjCalc() {
 		return this.nextInjCalc;
 	}
@@ -594,7 +594,7 @@ public class EbfMotherForm extends Form {
 		this.nextInjCalc = nextInjCalc;
 	}
 
-	@Field(name = "nextvisittype")
+	@Field
 	public String getNextvisittype() {
 		return this.nextvisittype;
 	}
@@ -603,7 +603,7 @@ public class EbfMotherForm extends Form {
 		this.nextvisittype = nextvisittype;
 	}
 
-	@Field(name = "num_children")
+	@Field
 	public int getNumChildren() {
 		return this.numChildren;
 	}
@@ -612,7 +612,7 @@ public class EbfMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Field(name = "ocp")
+	@Field
 	public String getOcp() {
 		return this.ocp;
 	}
@@ -621,7 +621,7 @@ public class EbfMotherForm extends Form {
 		this.ocp = ocp;
 	}
 
-	@Field(name = "ocp_continue")
+	@Field
 	public String getOcpContinue() {
 		return this.ocpContinue;
 	}
@@ -630,7 +630,7 @@ public class EbfMotherForm extends Form {
 		this.ocpContinue = ocpContinue;
 	}
 
-	@Field(name = "ocp_counsel_regularity")
+	@Field
 	public String getOcpCounselRegularity() {
 		return this.ocpCounselRegularity;
 	}
@@ -639,7 +639,7 @@ public class EbfMotherForm extends Form {
 		this.ocpCounselRegularity = ocpCounselRegularity;
 	}
 
-	@Field(name = "pain_swelling")
+	@Field
 	public String getPainSwelling() {
 		return this.painSwelling;
 	}
@@ -648,7 +648,7 @@ public class EbfMotherForm extends Form {
 		this.painSwelling = painSwelling;
 	}
 
-	@Field(name = "ppfp_interest")
+	@Field
 	public Boolean getPpfpInterest() {
 		return this.ppfpInterest;
 	}
@@ -657,7 +657,7 @@ public class EbfMotherForm extends Form {
 		this.ppfpInterest = ppfpInterest;
 	}
 
-	@Field(name = "ppiud_abdominal_pain")
+	@Field
 	public String getPpiudAbdominalPain() {
 		return this.ppiudAbdominalPain;
 	}
@@ -666,7 +666,7 @@ public class EbfMotherForm extends Form {
 		this.ppiudAbdominalPain = ppiudAbdominalPain;
 	}
 
-	@Field(name = "ppiud_problems")
+	@Field
 	public String getPpiudProblems() {
 		return this.ppiudProblems;
 	}
@@ -675,7 +675,7 @@ public class EbfMotherForm extends Form {
 		this.ppiudProblems = ppiudProblems;
 	}
 
-	@Field(name = "pptl_abdominal_pain")
+	@Field
 	public String getPptlAbdominalPain() {
 		return this.pptlAbdominalPain;
 	}
@@ -684,7 +684,7 @@ public class EbfMotherForm extends Form {
 		this.pptlAbdominalPain = pptlAbdominalPain;
 	}
 
-	@Field(name = "pptl_pain_surgery")
+	@Field
 	public String getPptlPainSurgery() {
 		return this.pptlPainSurgery;
 	}
@@ -693,7 +693,7 @@ public class EbfMotherForm extends Form {
 		this.pptlPainSurgery = pptlPainSurgery;
 	}
 
-	@Field(name = "pptl_problems")
+	@Field
 	public String getPptlProblems() {
 		return this.pptlProblems;
 	}
@@ -702,7 +702,7 @@ public class EbfMotherForm extends Form {
 		this.pptlProblems = pptlProblems;
 	}
 
-	@Field(name = "regular_periods")
+	@Field
 	public String getRegularPeriods() {
 		return this.regularPeriods;
 	}
@@ -711,7 +711,7 @@ public class EbfMotherForm extends Form {
 		this.regularPeriods = regularPeriods;
 	}
 
-	@Field(name = "tablets_received")
+	@Field
 	public String getTabletsReceived() {
 		return this.tabletsReceived;
 	}
@@ -720,7 +720,7 @@ public class EbfMotherForm extends Form {
 		this.tabletsReceived = tabletsReceived;
 	}
 
-	@Field(name = "taken_as_prescribed")
+	@Field
 	public String getTakenAsPrescribed() {
 		return this.takenAsPrescribed;
 	}
@@ -729,7 +729,7 @@ public class EbfMotherForm extends Form {
 		this.takenAsPrescribed = takenAsPrescribed;
 	}
 
-	@Field(name = "tl")
+	@Field
 	public String getTl() {
 		return this.tl;
 	}
@@ -738,7 +738,7 @@ public class EbfMotherForm extends Form {
 		this.tl = tl;
 	}
 
-	@Field(name = "tl_adopted")
+	@Field
 	public String getTlAdopted() {
 		return this.tlAdopted;
 	}
@@ -747,7 +747,7 @@ public class EbfMotherForm extends Form {
 		this.tlAdopted = tlAdopted;
 	}
 
-	@Field(name = "tl_consel_incentives")
+	@Field
 	public String getTlConselIncentives() {
 		return this.tlConselIncentives;
 	}
@@ -756,7 +756,7 @@ public class EbfMotherForm extends Form {
 		this.tlConselIncentives = tlConselIncentives;
 	}
 
-	@Field(name = "tl_counsel_follow_up")
+	@Field
 	public String getTlCounselFollowUp() {
 		return this.tlCounselFollowUp;
 	}
@@ -765,7 +765,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselFollowUp = tlCounselFollowUp;
 	}
 
-	@Field(name = "tl_counsel_hospital")
+	@Field
 	public String getTlCounselHospital() {
 		return this.tlCounselHospital;
 	}
@@ -774,7 +774,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselHospital = tlCounselHospital;
 	}
 
-	@Field(name = "tl_counsel_irreversible")
+	@Field
 	public String getTlCounselIrreversible() {
 		return this.tlCounselIrreversible;
 	}
@@ -783,7 +783,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselIrreversible = tlCounselIrreversible;
 	}
 
-	@Field(name = "tl_counsel_screening")
+	@Field
 	public String getTlCounselScreening() {
 		return this.tlCounselScreening;
 	}
@@ -792,7 +792,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselScreening = tlCounselScreening;
 	}
 
-	@Field(name = "tl_counsel_side_effects")
+	@Field
 	public String getTlCounselSideEffects() {
 		return this.tlCounselSideEffects;
 	}
@@ -801,7 +801,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselSideEffects = tlCounselSideEffects;
 	}
 
-	@Field(name = "tl_counsel_timing")
+	@Field
 	public String getTlCounselTiming() {
 		return this.tlCounselTiming;
 	}
@@ -810,7 +810,7 @@ public class EbfMotherForm extends Form {
 		this.tlCounselTiming = tlCounselTiming;
 	}
 
-	@Field(name = "understand_tablets")
+	@Field
 	public String getUnderstandTablets() {
 		return this.understandTablets;
 	}
@@ -819,7 +819,7 @@ public class EbfMotherForm extends Form {
 		this.understandTablets = understandTablets;
 	}
 
-	@Field(name = "using_correctly")
+	@Field
 	public String getUsingCorrectly() {
 		return this.usingCorrectly;
 	}
@@ -828,7 +828,7 @@ public class EbfMotherForm extends Form {
 		this.usingCorrectly = usingCorrectly;
 	}
 
-	@Field(name = "where_replace")
+	@Field
 	public String getWhereReplace() {
 		return this.whereReplace;
 	}
@@ -837,7 +837,7 @@ public class EbfMotherForm extends Form {
 		this.whereReplace = whereReplace;
 	}
 
-	@Field(name = "why_no_ppffp")
+	@Field
 	public String getWhyNoPpffp() {
 		return this.whyNoPpffp;
 	}
@@ -846,7 +846,7 @@ public class EbfMotherForm extends Form {
 		this.whyNoPpffp = whyNoPpffp;
 	}
 
-	@Field(name = "within_42")
+	@Field
 	public String getWithin42() {
 		return this.within42;
 	}
@@ -856,7 +856,7 @@ public class EbfMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_tl_adopted")
+	@Field
 	public DateTime getDateTlAdopted() {
 		return this.dateTlAdopted;
 	}
@@ -865,7 +865,7 @@ public class EbfMotherForm extends Form {
 		this.dateTlAdopted = dateTlAdopted;
 	}
 
-	@Field(name = "abdominal_pain")
+	@Field
 	public String getAbdominalPain() {
 		return this.abdominalPain;
 	}
@@ -874,7 +874,7 @@ public class EbfMotherForm extends Form {
 		this.abdominalPain = abdominalPain;
 	}
 
-	@Field(name = "pain_urination")
+	@Field
 	public String getPainUrination() {
 		return this.painUrination;
 	}
@@ -883,7 +883,7 @@ public class EbfMotherForm extends Form {
 		this.painUrination = painUrination;
 	}
 
-	@Field(name = "ppiud_bleeding")
+	@Field
 	public String getPpiudBleeding() {
 		return this.ppiudBleeding;
 	}
@@ -892,7 +892,7 @@ public class EbfMotherForm extends Form {
 		this.ppiudBleeding = ppiudBleeding;
 	}
 
-	@Field(name = "ppiud_discharge")
+	@Field
 	public String getPpiudDischarge() {
 		return this.ppiudDischarge;
 	}
@@ -901,7 +901,7 @@ public class EbfMotherForm extends Form {
 		this.ppiudDischarge = ppiudDischarge;
 	}
 
-	@Field(name = "ppiud_fever")
+	@Field
 	public String getPpiudFever() {
 		return this.ppiudFever;
 	}
@@ -911,7 +911,7 @@ public class EbfMotherForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

@@ -13,151 +13,150 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwThrChildForm extends Form {
 
-    private int id;
-    private Flw flw;
-    private ChildCase childCase;
-    private DateTime timeStart;
-    private DateTime timeEnd;
-    private DateTime dateModified;
-    private DateTime creationTime = new DateTime();
-    private String collectRation;
-    private String childDistributeRation;
-    private Integer childDaysRationGiven;
-    private String childAmountGiven;
-    private String childCauseNotGiven;
-    private String success;
-    private String childName;
-    private String motherName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2073998367169294335L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private ChildCase childCase;
+	@Field
+	private DateTime timeStart;
+	@Field
+	private DateTime timeEnd;
+	@Field
+	private DateTime dateModified;
+	@Field
+	private DateTime creationTime = new DateTime();
+	@Field
+	private String collectRation;
+	@Field
+	private String childDistributeRation;
+	@Field
+	private Integer childDaysRationGiven;
+	@Field
+	private String childAmountGiven;
+	@Field
+	private String childCauseNotGiven;
+	@Field
+	private String success;
+	@Field
+	private String childName;
+	@Field
+	private String motherName;
 
-    @Field(name = "user_id")
-     @Cascade(persist = true, update = true, delete = false)
-    public Flw getFlw() {
-        return flw;
-    }
+	public Flw getFlw() {
+		return flw;
+	}
 
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
-    
-    @Field(name = "case_id")
-     @Cascade(persist = true, update = true, delete = false)
-    public ChildCase getChildCase() {
-        return childCase;
-    }
+	public void setFlw(Flw flw) {
+		this.flw = flw;
+	}
 
-    public void setChildCase(ChildCase childCase) {
-        this.childCase = childCase;
-    }
+	public ChildCase getChildCase() {
+		return childCase;
+	}
 
-    
-    @Field(name = "time_start")
-    public DateTime getTimeStart() {
-        return timeStart;
-    }
+	public void setChildCase(ChildCase childCase) {
+		this.childCase = childCase;
+	}
 
-    public void setTimeStart(DateTime timeStart) {
-        this.timeStart = timeStart;
-    }
+	public DateTime getTimeStart() {
+		return timeStart;
+	}
 
-    
-    @Field(name = "time_end")
-    public DateTime getTimeEnd() {
-        return timeEnd;
-    }
+	public void setTimeStart(DateTime timeStart) {
+		this.timeStart = timeStart;
+	}
 
-    public void setTimeEnd(DateTime timeEnd) {
-        this.timeEnd = timeEnd;
-    }
+	public DateTime getTimeEnd() {
+		return timeEnd;
+	}
 
-    
-    @Field(name = "date_modified")
-    public DateTime getDateModified() {
-        return dateModified;
-    }
+	public void setTimeEnd(DateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
-    public void setDateModified(DateTime dateModified) {
-        this.dateModified = dateModified;
-    }
+	public DateTime getDateModified() {
+		return dateModified;
+	}
 
-    
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    @Field(name = "collect_ration")
-    public String getCollectRation() {
-        return collectRation;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    public void setCollectRation(String collectRation) {
-        this.collectRation = collectRation;
-    }
+	public String getCollectRation() {
+		return collectRation;
+	}
 
-    @Field(name = "child_distribute_ration")
-    public String getChildDistributeRation() {
-        return childDistributeRation;
-    }
+	public void setCollectRation(String collectRation) {
+		this.collectRation = collectRation;
+	}
 
-    public void setChildDistributeRation(String childDistributeRation) {
-        this.childDistributeRation = childDistributeRation;
-    }
+	public String getChildDistributeRation() {
+		return childDistributeRation;
+	}
 
-    @Field(name = "child_days_ration_given")
-    public Integer getChildDaysRationGiven() {
-        return childDaysRationGiven;
-    }
+	public void setChildDistributeRation(String childDistributeRation) {
+		this.childDistributeRation = childDistributeRation;
+	}
 
-    public void setChildDaysRationGiven(Integer childDaysRationGiven) {
-        this.childDaysRationGiven = childDaysRationGiven;
-    }
+	public Integer getChildDaysRationGiven() {
+		return childDaysRationGiven;
+	}
 
-    @Field(name = "child_amount_given")
-    public String getChildAmountGiven() {
-        return childAmountGiven;
-    }
+	public void setChildDaysRationGiven(Integer childDaysRationGiven) {
+		this.childDaysRationGiven = childDaysRationGiven;
+	}
 
-    public void setChildAmountGiven(String childAmountGiven) {
-        this.childAmountGiven = childAmountGiven;
-    }
+	public String getChildAmountGiven() {
+		return childAmountGiven;
+	}
 
-    @Field(name = "child_cause_not_given")
-    public String getChildCauseNotGiven() {
-        return childCauseNotGiven;
-    }
+	public void setChildAmountGiven(String childAmountGiven) {
+		this.childAmountGiven = childAmountGiven;
+	}
 
-    public void setChildCauseNotGiven(String childCauseNotGiven) {
-        this.childCauseNotGiven = childCauseNotGiven;
-    }
+	public String getChildCauseNotGiven() {
+		return childCauseNotGiven;
+	}
 
-    @Field(name = "success")
-    public String getSuccess() {
-        return success;
-    }
+	public void setChildCauseNotGiven(String childCauseNotGiven) {
+		this.childCauseNotGiven = childCauseNotGiven;
+	}
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
+	public String getSuccess() {
+		return success;
+	}
 
-    @Field(name = "child_name")
-    public String getChildName() {
-        return childName;
-    }
+	public void setSuccess(String success) {
+		this.success = success;
+	}
 
-    public void setChildName(String childName) {
-        this.childName = childName;
-    }
+	public String getChildName() {
+		return childName;
+	}
 
-    @Field(name = "mother_name")
-    public String getMotherName() {
-        return motherName;
-    }
+	public void setChildName(String childName) {
+		this.childName = childName;
+	}
 
-    public void setMotherName(String motherName) {
-        this.motherName = motherName;
-    }
+	public String getMotherName() {
+		return motherName;
+	}
+
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
+	}
 }

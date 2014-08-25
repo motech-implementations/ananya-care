@@ -12,114 +12,113 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwPreschoolActivitiesForm extends Form {
 
-    private Integer id;
-    private Flw flw;
-    private DateTime dateModified;
-    private DateTime timeStart;
-    private DateTime timeEnd;
-    private DateTime creationTime = new DateTime();
-    private String menu;
-    private String activity;
-    private String success;
-    private Integer numChildren;
-    private String childIds;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8990103902947600674L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	private DateTime dateModified;
+	@Field
+	private DateTime timeStart;
+	@Field
+	private DateTime timeEnd;
+	@Field
+	private DateTime creationTime = new DateTime();
+	@Field
+	private String menu;
+	@Field
+	private String activity;
+	@Field
+	private String success;
+	@Field
+	private Integer numChildren;
+	@Field
+	private String childIds;
 
-    public AwwPreschoolActivitiesForm() {
+	public AwwPreschoolActivitiesForm() {
 
-    }
-    
-    @Field(name = "user_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public Flw getFlw() {
-        return this.flw;
-    }
+	}
 
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
+	public Flw getFlw() {
+		return this.flw;
+	}
 
-     
-    @Field(name = "date_modified")
-    public DateTime getDateModified() {
-        return dateModified;
-    }
+	public void setFlw(Flw flw) {
+		this.flw = flw;
+	}
 
-    public void setDateModified(DateTime dateModified) {
-        this.dateModified = dateModified;
-    }
+	public DateTime getDateModified() {
+		return dateModified;
+	}
 
-     
-    @Field(name = "time_start")
-    public DateTime getTimeStart() {
-        return timeStart;
-    }
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
 
-    public void setTimeStart(DateTime timeStart) {
-        this.timeStart = timeStart;
-    }
+	public DateTime getTimeStart() {
+		return timeStart;
+	}
 
-     
-    @Field(name = "time_end")
-    public DateTime getTimeEnd() {
-        return timeEnd;
-    }
+	public void setTimeStart(DateTime timeStart) {
+		this.timeStart = timeStart;
+	}
 
-    public void setTimeEnd(DateTime timeEnd) {
-        this.timeEnd = timeEnd;
-    }
+	public DateTime getTimeEnd() {
+		return timeEnd;
+	}
 
-     
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public void setTimeEnd(DateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    @Field(name = "menu")
-    public String getMenu() {
-        return menu;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
+	public String getMenu() {
+		return menu;
+	}
 
-    @Field(name = "activity")
-    public String getActivity() {
-        return activity;
-    }
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
 
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
+	public String getActivity() {
+		return activity;
+	}
 
-    @Field(name = "success")
-    public String getSuccess() {
-        return success;
-    }
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
+	public String getSuccess() {
+		return success;
+	}
 
-    @Field(name = "num_children")
-    public Integer getNumChildren() {
-        return numChildren;
-    }
+	public void setSuccess(String success) {
+		this.success = success;
+	}
 
-    public void setNumChildren(Integer numChildren) {
-        this.numChildren = numChildren;
-    }
+	public Integer getNumChildren() {
+		return numChildren;
+	}
 
-    @Field(name = "child_ids")
-    public String getChildIds() {
-        return childIds;
-    }
+	public void setNumChildren(Integer numChildren) {
+		this.numChildren = numChildren;
+	}
 
-    public void setChildIds(String childIds) {
-        this.childIds = childIds;
-    }
+	public String getChildIds() {
+		return childIds;
+	}
+
+	public void setChildIds(String childIds) {
+		this.childIds = childIds;
+	}
 }

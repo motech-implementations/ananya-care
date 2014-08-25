@@ -42,7 +42,7 @@ public class NewForm extends Form {
     public NewForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -52,7 +52,7 @@ public class NewForm extends Form {
 		this.flw = flw;
 	}
 
-	@Field(name = "manual_group")
+	@Field
 	public String getManualGroup() {
 		return this.manualGroup;
 	}
@@ -62,7 +62,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -73,7 +73,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -83,7 +83,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -93,7 +93,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -102,7 +102,7 @@ public class NewForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "age_calc")
+	@Field
 	public int getAgeCalc() {
 		return this.ageCalc;
 	}
@@ -111,7 +111,7 @@ public class NewForm extends Form {
 		this.ageCalc = ageCalc;
 	}
 
-	@Field(name = "case_name")
+	@Field
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -120,7 +120,7 @@ public class NewForm extends Form {
 		this.caseName = caseName;
 	}
 
-	@Field(name = "case_type")
+	@Field
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -130,7 +130,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "date_last_visit")
+	@Field
 	public DateTime getDateLastVisit() {
 		return this.dateLastVisit;
 	}
@@ -140,7 +140,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "date_next_reg")
+	@Field
 	public DateTime getDateNextReg() {
 		return this.dateNextReg;
 	}
@@ -149,7 +149,7 @@ public class NewForm extends Form {
 		this.dateNextReg = dateNextReg;
 	}
 
-	@Field(name = "family_number")
+	@Field
 	public Integer getFamilyNumber() {
 		return this.familyNumber;
 	}
@@ -158,7 +158,7 @@ public class NewForm extends Form {
 		this.familyNumber = familyNumber;
 	}
 
-	@Field(name = "hh_number")
+	@Field
 	public Integer getHhNumber() {
 		return this.hhNumber;
 	}
@@ -167,7 +167,7 @@ public class NewForm extends Form {
 		this.hhNumber = hhNumber;
 	}
 
-	@Field(name = "husband_name")
+	@Field
 	public String getHusbandName() {
 		return this.husbandName;
 	}
@@ -176,7 +176,7 @@ public class NewForm extends Form {
 		this.husbandName = husbandName;
 	}
 
-	@Field(name = "last_visit_type")
+	@Field
 	public String getLastVisitType() {
 		return this.lastVisitType;
 	}
@@ -185,7 +185,7 @@ public class NewForm extends Form {
 		this.lastVisitType = lastVisitType;
 	}
 
-	@Field(name = "mother_alive")
+	@Field
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -195,7 +195,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "mother_dob")
+	@Field
 	public DateTime getMotherDob() {
 		return this.motherDob;
 	}
@@ -204,7 +204,7 @@ public class NewForm extends Form {
 		this.motherDob = motherDob;
 	}
 
-	@Field(name = "mother_name")
+	@Field
 	public String getMotherName() {
 		return this.motherName;
 	}
@@ -213,7 +213,7 @@ public class NewForm extends Form {
 		this.motherName = motherName;
 	}
 
-	@Field(name = "caste")
+	@Field
 	public String getCaste() {
 		return this.caste;
 	}
@@ -223,7 +223,7 @@ public class NewForm extends Form {
 	}
 
 	
-	@Field(name = "dob")
+	@Field
 	public DateTime getDob() {
 		return this.dob;
 	}
@@ -232,7 +232,7 @@ public class NewForm extends Form {
 		this.dob = dob;
 	}
 
-	@Field(name = "dob_known")
+	@Field
 	public String getDobKnown() {
 		return this.dobKnown;
 	}
@@ -241,7 +241,7 @@ public class NewForm extends Form {
 		this.dobKnown = dobKnown;
 	}
 
-	@Field(name = "full_name")
+	@Field
 	public String getFullName() {
 		return this.fullName;
 	}
@@ -251,7 +251,7 @@ public class NewForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

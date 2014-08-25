@@ -32,7 +32,7 @@ public class MoForm extends Form {
     public MoForm() {
 	}
     
-    @Field(name = "user_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -43,7 +43,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -54,7 +54,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -64,7 +64,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -74,7 +74,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -84,7 +84,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "migrate_out_date")
+	@Field
 	public DateTime getMigrateOutDateTime() {
 		return this.migrateOutDate;
 	}
@@ -93,7 +93,7 @@ public class MoForm extends Form {
 		this.migrateOutDate = migrateOutDate;
 	}
 
-	@Field(name = "migrated_status")
+	@Field
 	public String getMigratedStatus() {
 		return this.migratedStatus;
 	}
@@ -102,7 +102,7 @@ public class MoForm extends Form {
 		this.migratedStatus = migratedStatus;
 	}
 
-	@Field(name = "status")
+	@Field
 	public String getStatus() {
 		return this.status;
 	}
@@ -112,7 +112,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "date_learned")
+	@Field
 	public DateTime getDateLearned() {
 		return this.dateLearned;
 	}
@@ -122,7 +122,7 @@ public class MoForm extends Form {
 	}
 
 	
-	@Field(name = "date_left")
+	@Field
 	public DateTime getDateLeft() {
 		return this.dateLeft;
 	}
@@ -131,7 +131,7 @@ public class MoForm extends Form {
 		this.dateLeft = dateLeft;
 	}
 
-	@Field(name = "name")
+	@Field
 	public String getName() {
 		return this.name;
 	}
@@ -140,7 +140,7 @@ public class MoForm extends Form {
 		this.name = name;
 	}
 
-	@Field(name = "note_given")
+	@Field
 	public String getNoteGiven() {
 		return this.noteGiven;
 	}
@@ -150,7 +150,7 @@ public class MoForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

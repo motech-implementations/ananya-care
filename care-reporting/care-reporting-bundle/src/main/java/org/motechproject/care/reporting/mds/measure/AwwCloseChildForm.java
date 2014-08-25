@@ -9,241 +9,238 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "aww_close_child_form")
-@Unique(members = {"instance_id","case_id"})
+@Unique(members = { "instance_id", "case_id" })
 public class AwwCloseChildForm extends Form {
 
-    private int id;
-    private ChildCase childCase;
-    private Flw flw;
-    private DateTime timeEnd;
-    private DateTime timeStart;
-    private DateTime dateModified;
-    private DateTime creationTime = new DateTime();
-    private String closeChild;
-    private String childOverSix;
-    private String dupeReg;
-    private String died;
-    private DateTime dateDeath;
-    private String siteDeath;
-    private String diedVillage;
-    private String placeDeath;
-    private String confirmClose;
-    private String yesClosedMessage;
-    private String noClosedMessage;
-    private String childAlive;
-    private String success;
-    private String childName;
-    private DateTime dob;
-    private String closeChildCase;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6692658655289936938L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private ChildCase childCase;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	private DateTime timeEnd;
+	@Field
+	private DateTime timeStart;
+	@Field
+	private DateTime dateModified;
+	@Field
+	private DateTime creationTime = new DateTime();
+	@Field
+	private String closeChild;
+	@Field
+	private String childOverSix;
+	@Field
+	private String dupeReg;
+	@Field
+	private String died;
+	@Field
+	private DateTime dateDeath;
+	@Field
+	private String siteDeath;
+	@Field
+	private String diedVillage;
+	@Field
+	private String placeDeath;
+	@Field
+	private String confirmClose;
+	@Field
+	private String yesClosedMessage;
+	@Field
+	private String noClosedMessage;
+	@Field
+	private String childAlive;
+	@Field
+	private String success;
+	@Field
+	private String childName;
+	@Field
+	private DateTime dob;
+	@Field
+	private String closeChildCase;
 
-    public AwwCloseChildForm() {
+	public AwwCloseChildForm() {
 
-    }
-    
-    @Field(name = "case_id")
-     @Cascade(persist = true, update = true, delete = false)
-    public ChildCase getChildCase() {
-        return this.childCase;
-    }
+	}
 
-    public void setChildCase(ChildCase childCase) {
-        this.childCase = childCase;
-    }
+	public ChildCase getChildCase() {
+		return this.childCase;
+	}
 
-    
-    @Field(name = "user_id")
-     @Cascade(persist = true, update = true, delete = false)
-    public Flw getFlw() {
-        return this.flw;
-    }
+	public void setChildCase(ChildCase childCase) {
+		this.childCase = childCase;
+	}
 
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
+	public Flw getFlw() {
+		return this.flw;
+	}
 
-    
-    @Field(name = "time_end")
-    public DateTime getTimeEnd() {
-        return this.timeEnd;
-    }
+	public void setFlw(Flw flw) {
+		this.flw = flw;
+	}
 
-    public void setTimeEnd(DateTime timeEnd) {
-        this.timeEnd = timeEnd;
-    }
+	public DateTime getTimeEnd() {
+		return this.timeEnd;
+	}
 
-    
-    @Field(name = "time_start")
-    public DateTime getTimeStart() {
-        return this.timeStart;
-    }
+	public void setTimeEnd(DateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
-    public void setTimeStart(DateTime timeStart) {
-        this.timeStart = timeStart;
-    }
+	public DateTime getTimeStart() {
+		return this.timeStart;
+	}
 
-    
-    @Field(name = "date_modified")
-    public DateTime getDateModified() {
-        return this.dateModified;
-    }
+	public void setTimeStart(DateTime timeStart) {
+		this.timeStart = timeStart;
+	}
 
-    public void setDateModified(DateTime dateModified) {
-        this.dateModified = dateModified;
-    }
+	public DateTime getDateModified() {
+		return this.dateModified;
+	}
 
-    
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    @Field(name = "close_child")
-    public String getCloseChild() {
-        return closeChild;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    public void setCloseChild(String closeChild) {
-        this.closeChild = closeChild;
-    }
+	public String getCloseChild() {
+		return closeChild;
+	}
 
-    @Field(name = "child_over_six")
-    public String getChildOverSix() {
-        return childOverSix;
-    }
+	public void setCloseChild(String closeChild) {
+		this.closeChild = closeChild;
+	}
 
-    public void setChildOverSix(String childOverSix) {
-        this.childOverSix = childOverSix;
-    }
+	public String getChildOverSix() {
+		return childOverSix;
+	}
 
-    @Field(name = "dupe_reg")
-    public String getDupeReg() {
-        return dupeReg;
-    }
+	public void setChildOverSix(String childOverSix) {
+		this.childOverSix = childOverSix;
+	}
 
-    public void setDupeReg(String dupeReg) {
-        this.dupeReg = dupeReg;
-    }
+	public String getDupeReg() {
+		return dupeReg;
+	}
 
-    @Field(name = "died")
-    public String getDied() {
-        return died;
-    }
+	public void setDupeReg(String dupeReg) {
+		this.dupeReg = dupeReg;
+	}
 
-    public void setDied(String died) {
-        this.died = died;
-    }
+	public String getDied() {
+		return died;
+	}
 
-    @Field(name = "date_death")
-    public DateTime getDateDeath() {
-        return dateDeath;
-    }
+	public void setDied(String died) {
+		this.died = died;
+	}
 
-    public void setDateDeath(DateTime dateDeath) {
-        this.dateDeath = dateDeath;
-    }
+	public DateTime getDateDeath() {
+		return dateDeath;
+	}
 
-    @Field(name = "site_death")
-    public String getSiteDeath() {
-        return siteDeath;
-    }
+	public void setDateDeath(DateTime dateDeath) {
+		this.dateDeath = dateDeath;
+	}
 
-    public void setSiteDeath(String siteDeath) {
-        this.siteDeath = siteDeath;
-    }
+	public String getSiteDeath() {
+		return siteDeath;
+	}
 
-    @Field(name = "died_village")
-    public String getDiedVillage() {
-        return diedVillage;
-    }
+	public void setSiteDeath(String siteDeath) {
+		this.siteDeath = siteDeath;
+	}
 
-    public void setDiedVillage(String diedVillage) {
-        this.diedVillage = diedVillage;
-    }
+	public String getDiedVillage() {
+		return diedVillage;
+	}
 
-    @Field(name = "place_death")
-    public String getPlaceDeath() {
-        return placeDeath;
-    }
+	public void setDiedVillage(String diedVillage) {
+		this.diedVillage = diedVillage;
+	}
 
-    public void setPlaceDeath(String placeDeath) {
-        this.placeDeath = placeDeath;
-    }
+	public String getPlaceDeath() {
+		return placeDeath;
+	}
 
-    @Field(name = "confirm_close")
-    public String getConfirmClose() {
-        return confirmClose;
-    }
+	public void setPlaceDeath(String placeDeath) {
+		this.placeDeath = placeDeath;
+	}
 
-    public void setConfirmClose(String confirmClose) {
-        this.confirmClose = confirmClose;
-    }
+	public String getConfirmClose() {
+		return confirmClose;
+	}
 
-    @Field(name = "yes_closed_message")
-    public String getYesClosedMessage() {
-        return yesClosedMessage;
-    }
+	public void setConfirmClose(String confirmClose) {
+		this.confirmClose = confirmClose;
+	}
 
-    public void setYesClosedMessage(String yesClosedMessage) {
-        this.yesClosedMessage = yesClosedMessage;
-    }
+	public String getYesClosedMessage() {
+		return yesClosedMessage;
+	}
 
-    @Field(name = "no_closed_message")
-    public String getNoClosedMessage() {
-        return noClosedMessage;
-    }
+	public void setYesClosedMessage(String yesClosedMessage) {
+		this.yesClosedMessage = yesClosedMessage;
+	}
 
-    public void setNoClosedMessage(String noClosedMessage) {
-        this.noClosedMessage = noClosedMessage;
-    }
+	public String getNoClosedMessage() {
+		return noClosedMessage;
+	}
 
-    @Field(name = "child_alive")
-    public String getChildAlive() {
-        return childAlive;
-    }
+	public void setNoClosedMessage(String noClosedMessage) {
+		this.noClosedMessage = noClosedMessage;
+	}
 
-    public void setChildAlive(String childAlive) {
-        this.childAlive = childAlive;
-    }
+	public String getChildAlive() {
+		return childAlive;
+	}
 
-    @Field(name = "success")
-    public String getSuccess() {
-        return success;
-    }
+	public void setChildAlive(String childAlive) {
+		this.childAlive = childAlive;
+	}
 
-    public void setSuccess(String success) {
-        this.success = success;
-    }
+	public String getSuccess() {
+		return success;
+	}
 
-    @Field(name = "child_name")
-    public String getChildName() {
-        return childName;
-    }
+	public void setSuccess(String success) {
+		this.success = success;
+	}
 
-    public void setChildName(String childName) {
-        this.childName = childName;
-    }
+	public String getChildName() {
+		return childName;
+	}
 
-    @Field(name = "dob")
-    public DateTime getDob() {
-        return dob;
-    }
+	public void setChildName(String childName) {
+		this.childName = childName;
+	}
 
-    public void setDob(DateTime dob) {
-        this.dob = dob;
-    }
+	public DateTime getDob() {
+		return dob;
+	}
 
-    @Field(name = "close_child_case")
-    public String getCloseChildCase() {
-        return closeChildCase;
-    }
+	public void setDob(DateTime dob) {
+		this.dob = dob;
+	}
 
-    public void setCloseChildCase(String closeChildCase) {
-        this.closeChildCase = closeChildCase;
-    }
+	public String getCloseChildCase() {
+		return closeChildCase;
+	}
+
+	public void setCloseChildCase(String closeChildCase) {
+		this.closeChildCase = closeChildCase;
+	}
 }

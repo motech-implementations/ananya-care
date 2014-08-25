@@ -13,38 +13,71 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class AwwRegisterMotherForm extends Form {
 
-	 private Flw flw;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6936500814469523093L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
 	private MotherCase motherCase;
+	@Field
 	private DateTime timeStart;
+	@Field
 	private DateTime timeEnd;
+	@Field
 	private DateTime dateModified;
+	@Field
 	private DateTime creationTime = new DateTime();
+	@Field
 	private DateTime dob;
+	@Field
 	private String fatherName;
+	@Field
 	private String motherName;
+	@Field
 	private String hhNumber;
+	@Field
 	private String wardNumber;
+	@Field
 	private String familyNumber;
+	@Field
 	private String aadharNumber;
+	@Field
 	private Integer mctsId;
+	@Field
 	private String mobileNumber;
+	@Field
 	private String mobileNumberWhose;
+	@Field
 	private String eatsMeat;
+	@Field
 	private String invalidOwner;
+	@Field
 	private String dobKnown;
+	@Field
 	private DateTime dobEntered;
+	@Field
 	private String showAge;
+	@Field
 	private Integer ageCalc;
+	@Field
 	private String updateMctsId;
+	@Field
 	private String updateAadharNumber;
+	@Field
 	private Integer fullMctsId;
+	@Field
 	private String caste;
+	@Field
 	private String resident;
+	@Field
 	private String success;
+	@Field
 	private String ownerIdCalc;
 
-	@Field(name = "user_id")
-    @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return flw;
 	}
@@ -53,9 +86,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.flw = flw;
 	}
 
-	
-	@Field(name = "case_id")
-    @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return motherCase;
 	}
@@ -64,8 +94,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.motherCase = childCase;
 	}
 
-	
-	@Field(name = "time_start")
 	public DateTime getTimeStart() {
 		return timeStart;
 	}
@@ -74,8 +102,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.timeStart = timeStart;
 	}
 
-	
-	@Field(name = "time_end")
 	public DateTime getTimeEnd() {
 		return timeEnd;
 	}
@@ -84,8 +110,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.timeEnd = timeEnd;
 	}
 
-	
-	@Field(name = "date_modified")
 	public DateTime getDateModified() {
 		return dateModified;
 	}
@@ -94,8 +118,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	
-	@Field(name = "creation_time")
 	public DateTime getCreationTime() {
 		return creationTime;
 	}
@@ -104,8 +126,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.creationTime = creationTime;
 	}
 
-	
-	@Field(name = "dob")
 	public DateTime getDob() {
 		return dob;
 	}
@@ -114,16 +134,14 @@ public class AwwRegisterMotherForm extends Form {
 		this.dob = dob;
 	}
 
-    @Field(name = "father_name")
-    public String getFatherName() {
-        return fatherName;
-    }
+	public String getFatherName() {
+		return fatherName;
+	}
 
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
+	public void setFatherName(String fatherName) {
+		this.fatherName = fatherName;
+	}
 
-	@Field(name = "mother_name")
 	public String getMotherName() {
 		return motherName;
 	}
@@ -132,7 +150,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.motherName = motherName;
 	}
 
-	@Field(name = "hh_number")
 	public String getHhNumber() {
 		return hhNumber;
 	}
@@ -141,7 +158,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.hhNumber = hhNumber;
 	}
 
-	@Field(name = "ward_number")
 	public String getWardNumber() {
 		return wardNumber;
 	}
@@ -150,7 +166,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.wardNumber = wardNumber;
 	}
 
-	@Field(name = "family_number")
 	public String getFamilyNumber() {
 		return familyNumber;
 	}
@@ -159,7 +174,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.familyNumber = familyNumber;
 	}
 
-	@Field(name = "aadhar_number")
 	public String getAadharNumber() {
 		return aadharNumber;
 	}
@@ -168,7 +182,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.aadharNumber = aadharNumber;
 	}
 
-	@Field(name = "mcts_id")
 	public Integer getMctsId() {
 		return mctsId;
 	}
@@ -177,7 +190,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.mctsId = mctsId;
 	}
 
-	@Field(name = "mobile_number")
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
@@ -186,7 +198,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.mobileNumber = mobileNumber;
 	}
 
-	@Field(name = "mobile_number_whose")
 	public String getMobileNumberWhose() {
 		return mobileNumberWhose;
 	}
@@ -195,7 +206,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.mobileNumberWhose = mobileNumberWhose;
 	}
 
-	@Field(name = "eats_meat")
 	public String getEatsMeat() {
 		return eatsMeat;
 	}
@@ -204,7 +214,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.eatsMeat = eatsMeat;
 	}
 
-	@Field(name = "invalid_owner")
 	public String getInvalidOwner() {
 		return invalidOwner;
 	}
@@ -213,7 +222,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.invalidOwner = invalidOwner;
 	}
 
-	@Field(name = "dob_known")
 	public String getDobKnown() {
 		return dobKnown;
 	}
@@ -221,8 +229,7 @@ public class AwwRegisterMotherForm extends Form {
 	public void setDobKnown(String dobKnown) {
 		this.dobKnown = dobKnown;
 	}
-	
-	@Field(name = "dob_entered")
+
 	public DateTime getDobEntered() {
 		return dobEntered;
 	}
@@ -231,7 +238,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.dobEntered = dobEntered;
 	}
 
-	@Field(name = "show_age")
 	public String getShowAge() {
 		return showAge;
 	}
@@ -240,7 +246,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.showAge = showAge;
 	}
 
-	@Field(name = "age_calc")
 	public Integer getAgeCalc() {
 		return ageCalc;
 	}
@@ -249,7 +254,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.ageCalc = ageCalc;
 	}
 
-	@Field(name = "update_mcts_id")
 	public String getUpdateMctsId() {
 		return updateMctsId;
 	}
@@ -258,7 +262,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.updateMctsId = updateMctsId;
 	}
 
-	@Field(name = "update_aadhar_number")
 	public String getUpdateAadharNumber() {
 		return updateAadharNumber;
 	}
@@ -267,7 +270,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.updateAadharNumber = updateAadharNumber;
 	}
 
-	@Field(name = "full_mcts_id")
 	public Integer getFullMctsId() {
 		return fullMctsId;
 	}
@@ -276,7 +278,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.fullMctsId = fullMctsId;
 	}
 
-	@Field(name = "caste")
 	public String getCaste() {
 		return caste;
 	}
@@ -285,7 +286,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.caste = caste;
 	}
 
-	@Field(name = "resident")
 	public String getResident() {
 		return resident;
 	}
@@ -294,7 +294,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.resident = resident;
 	}
 
-	@Field(name = "success")
 	public String getSuccess() {
 		return success;
 	}
@@ -303,7 +302,6 @@ public class AwwRegisterMotherForm extends Form {
 		this.success = success;
 	}
 
-	@Field(name = "owner_id_calc")
 	public String getOwnerIdCalc() {
 		return ownerIdCalc;
 	}

@@ -13,7 +13,6 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class MotherEditForm extends Form {
 
-    private int id;
     private Flw flw;
     private MotherCase motherCase;
     private DateTime timeEnd;
@@ -48,7 +47,7 @@ public class MotherEditForm extends Form {
 
     }
 
-    @Field(name = "user_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public Flw getFlw() {
         return this.flw;
@@ -59,7 +58,7 @@ public class MotherEditForm extends Form {
     }
 
     
-    @Field(name = "case_id")
+    @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
         return this.motherCase;
@@ -70,7 +69,7 @@ public class MotherEditForm extends Form {
     }
 
     
-    @Field(name = "time_end")
+    @Field
     public DateTime getTimeEnd() {
         return this.timeEnd;
     }
@@ -80,7 +79,7 @@ public class MotherEditForm extends Form {
     }
 
     
-    @Field(name = "time_start")
+    @Field
     public DateTime getTimeStart() {
         return this.timeStart;
     }
@@ -90,7 +89,7 @@ public class MotherEditForm extends Form {
     }
 
     
-    @Field(name = "date_modified")
+    @Field
     public DateTime getDateModified() {
         return this.dateModified;
     }
@@ -100,7 +99,7 @@ public class MotherEditForm extends Form {
     }
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -109,7 +108,7 @@ public class MotherEditForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "update_husband_name")
+    @Field
     public String getUpdateHusbandName() {
         return updateHusbandName;
     }
@@ -118,7 +117,7 @@ public class MotherEditForm extends Form {
         this.updateHusbandName = updateHusbandName;
     }
 
-    @Field(name = "husband_name")
+    @Field
     public String getHusbandName() {
         return husbandName;
     }
@@ -127,7 +126,7 @@ public class MotherEditForm extends Form {
         this.husbandName = husbandName;
     }
 
-    @Field(name = "update_mobile_number_whose")
+    @Field
     public String getUpdateMobileNumberWhose() {
         return updateMobileNumberWhose;
     }
@@ -136,7 +135,7 @@ public class MotherEditForm extends Form {
         this.updateMobileNumberWhose = updateMobileNumberWhose;
     }
 
-    @Field(name = "mobile_number_whose")
+    @Field
     public String getMobileNumberWhose() {
         return mobileNumberWhose;
     }
@@ -145,7 +144,7 @@ public class MotherEditForm extends Form {
         this.mobileNumberWhose = mobileNumberWhose;
     }
 
-    @Field(name = "age")
+    @Field
     public Integer getAge() {
         return age;
     }
@@ -155,7 +154,7 @@ public class MotherEditForm extends Form {
     }
 
 
-    @Field(name = "update_ward_number")
+    @Field
     public String getUpdateWardNumber() {
         return updateWardNumber;
     }
@@ -164,7 +163,7 @@ public class MotherEditForm extends Form {
         this.updateWardNumber = updateWardNumber;
     }
 
-    @Field(name = "ward_number")
+    @Field
     public Integer getWardNumber() {
         return wardNumber;
     }
@@ -173,7 +172,7 @@ public class MotherEditForm extends Form {
         this.wardNumber = wardNumber;
     }
 
-    @Field(name = "update_mobile_number")
+    @Field
     public String getUpdateMobileNumber() {
         return updateMobileNumber;
     }
@@ -182,7 +181,7 @@ public class MotherEditForm extends Form {
         this.updateMobileNumber = updateMobileNumber;
     }
 
-    @Field(name = "mobile_number")
+    @Field
     public String getMobileNumber() {
         return mobileNumber;
     }
@@ -191,7 +190,7 @@ public class MotherEditForm extends Form {
         this.mobileNumber = mobileNumber;
     }
 
-    @Field(name = "update_family_number")
+    @Field
     public String getUpdateFamilyNumber() {
         return updateFamilyNumber;
     }
@@ -200,7 +199,7 @@ public class MotherEditForm extends Form {
         this.updateFamilyNumber = updateFamilyNumber;
     }
 
-    @Field(name = "family_number")
+    @Field
     public Integer getFamilyNumber() {
         return familyNumber;
     }
@@ -209,7 +208,7 @@ public class MotherEditForm extends Form {
         this.familyNumber = familyNumber;
     }
 
-    @Field(name = "update_mother_dob")
+    @Field
     public String getUpdateMotherDob() {
         return updateMotherDob;
     }
@@ -218,7 +217,7 @@ public class MotherEditForm extends Form {
         this.updateMotherDob = updateMotherDob;
     }
 
-    @Field(name = "mother_dob")
+    @Field
     public DateTime getMotherDob() {
         return motherDob;
     }
@@ -227,7 +226,7 @@ public class MotherEditForm extends Form {
         this.motherDob = motherDob;
     }
 
-    @Field(name = "update_hh_number")
+    @Field
     public String getUpdateHhNumber() {
         return updateHhNumber;
     }
@@ -236,7 +235,7 @@ public class MotherEditForm extends Form {
         this.updateHhNumber = updateHhNumber;
     }
 
-    @Field(name = "hh_number")
+    @Field
     public Integer getHhNumber() {
         return hhNumber;
     }
@@ -245,7 +244,7 @@ public class MotherEditForm extends Form {
         this.hhNumber = hhNumber;
     }
 
-    @Field(name = "update_mother_name")
+    @Field
     public String getUpdateMotherName() {
         return updateMotherName;
     }
@@ -254,7 +253,7 @@ public class MotherEditForm extends Form {
         this.updateMotherName = updateMotherName;
     }
 
-    @Field(name = "mother_name")
+    @Field
     public String getMotherName() {
         return motherName;
     }
@@ -263,7 +262,7 @@ public class MotherEditForm extends Form {
         this.motherName = motherName;
     }
 
-    @Field(name = "case_name")
+    @Field
     public String getCaseName() {
         return caseName;
     }
@@ -272,7 +271,7 @@ public class MotherEditForm extends Form {
         this.caseName = caseName;
     }
 
-    @Field(name = "mcts_id")
+    @Field
     public Integer getMctsId() {
         return mctsId;
     }
@@ -281,7 +280,7 @@ public class MotherEditForm extends Form {
         this.mctsId = mctsId;
     }
 
-    @Field(name = "update_mcts_id")
+    @Field
     public String getUpdateMctsId() {
         return updateMctsId;
     }
@@ -290,7 +289,7 @@ public class MotherEditForm extends Form {
         this.updateMctsId = updateMctsId;
     }
 
-    @Field(name = "update_aadhar_number")
+    @Field
     public String getUpdateAadharNumber() {
         return updateAadharNumber;
     }
@@ -299,7 +298,7 @@ public class MotherEditForm extends Form {
         this.updateAadharNumber = updateAadharNumber;
     }
 
-    @Field(name = "aadhar_number")
+    @Field
     public String getAadharNumber() {
         return aadharNumber;
     }
@@ -308,7 +307,7 @@ public class MotherEditForm extends Form {
         this.aadharNumber = aadharNumber;
     }
 
-    @Field(name = "full_mcts_id")
+    @Field
     public String getFullMctsId() {
         return fullMctsId;
     }

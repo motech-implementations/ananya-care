@@ -67,7 +67,7 @@ public class EbfChildForm extends Form {
     public EbfChildForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -78,7 +78,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -89,7 +89,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -99,7 +99,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -109,7 +109,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -118,7 +118,7 @@ public class EbfChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "add_vaccinations")
+	@Field
 	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
@@ -127,7 +127,7 @@ public class EbfChildForm extends Form {
 		this.addVaccinations = addVaccinations;
 	}
 
-	@Field(name = "at_night")
+	@Field
 	public String getAtNight() {
 		return this.atNight;
 	}
@@ -136,7 +136,7 @@ public class EbfChildForm extends Form {
 		this.atNight = atNight;
 	}
 
-	@Field(name = "baby_bcg")
+	@Field
 	public String getBabyBcg() {
 		return this.babyBcg;
 	}
@@ -145,7 +145,7 @@ public class EbfChildForm extends Form {
 		this.babyBcg = babyBcg;
 	}
 
-	@Field(name = "baby_dpt1")
+	@Field
 	public String getBabyDpt1() {
 		return this.babyDpt1;
 	}
@@ -154,7 +154,7 @@ public class EbfChildForm extends Form {
 		this.babyDpt1 = babyDpt1;
 	}
 
-	@Field(name = "baby_dpt2")
+	@Field
 	public String getBabyDpt2() {
 		return this.babyDpt2;
 	}
@@ -163,7 +163,7 @@ public class EbfChildForm extends Form {
 		this.babyDpt2 = babyDpt2;
 	}
 
-	@Field(name = "baby_dpt3")
+	@Field
 	public String getBabyDpt3() {
 		return this.babyDpt3;
 	}
@@ -172,7 +172,7 @@ public class EbfChildForm extends Form {
 		this.babyDpt3 = babyDpt3;
 	}
 
-	@Field(name = "baby_hep_b_0")
+	@Field
 	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
@@ -181,7 +181,7 @@ public class EbfChildForm extends Form {
 		this.babyHepB0 = babyHepB0;
 	}
 
-	@Field(name = "baby_hep_b_1")
+	@Field
 	public String getBabyHepB1() {
 		return this.babyHepB1;
 	}
@@ -190,7 +190,7 @@ public class EbfChildForm extends Form {
 		this.babyHepB1 = babyHepB1;
 	}
 
-	@Field(name = "baby_hep_b_2")
+	@Field
 	public String getBabyHepB2() {
 		return this.babyHepB2;
 	}
@@ -199,7 +199,7 @@ public class EbfChildForm extends Form {
 		this.babyHepB2 = babyHepB2;
 	}
 
-	@Field(name = "baby_hep_b_3")
+	@Field
 	public String getBabyHepB3() {
 		return this.babyHepB3;
 	}
@@ -208,7 +208,7 @@ public class EbfChildForm extends Form {
 		this.babyHepB3 = babyHepB3;
 	}
 
-	@Field(name = "baby_opv0")
+	@Field
 	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
@@ -217,7 +217,7 @@ public class EbfChildForm extends Form {
 		this.babyOpv0 = babyOpv0;
 	}
 
-	@Field(name = "baby_opv1")
+	@Field
 	public String getBabyOpv1() {
 		return this.babyOpv1;
 	}
@@ -226,7 +226,7 @@ public class EbfChildForm extends Form {
 		this.babyOpv1 = babyOpv1;
 	}
 
-	@Field(name = "baby_opv2")
+	@Field
 	public String getBabyOpv2() {
 		return this.babyOpv2;
 	}
@@ -235,7 +235,7 @@ public class EbfChildForm extends Form {
 		this.babyOpv2 = babyOpv2;
 	}
 
-	@Field(name = "baby_opv3")
+	@Field
 	public String getBabyOpv3() {
 		return this.babyOpv3;
 	}
@@ -245,7 +245,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "bcg_date")
+	@Field
 	public DateTime getBcgDateTime() {
 		return this.bcgDate;
 	}
@@ -254,7 +254,7 @@ public class EbfChildForm extends Form {
 		this.bcgDate = bcgDate;
 	}
 
-	@Field(name = "breastfeeding")
+	@Field
 	public String getBreastfeeding() {
 		return this.breastfeeding;
 	}
@@ -263,7 +263,7 @@ public class EbfChildForm extends Form {
 		this.breastfeeding = breastfeeding;
 	}
 
-	@Field(name = "case_name")
+	@Field
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -272,7 +272,7 @@ public class EbfChildForm extends Form {
 		this.caseName = caseName;
 	}
 
-	@Field(name = "child_name")
+	@Field
 	public String getChildName() {
 		return this.childName;
 	}
@@ -281,7 +281,7 @@ public class EbfChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Field(name = "counsel_adequate_bf")
+	@Field
 	public String getCounselAdequateBf() {
 		return this.counselAdequateBf;
 	}
@@ -290,7 +290,7 @@ public class EbfChildForm extends Form {
 		this.counselAdequateBf = counselAdequateBf;
 	}
 
-	@Field(name = "counsel_only_milk")
+	@Field
 	public String getCounselOnlyMilk() {
 		return this.counselOnlyMilk;
 	}
@@ -299,7 +299,7 @@ public class EbfChildForm extends Form {
 		this.counselOnlyMilk = counselOnlyMilk;
 	}
 
-	@Field(name = "counsel_stop_bottle")
+	@Field
 	public String getCounselStopBottle() {
 		return this.counselStopBottle;
 	}
@@ -309,7 +309,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_1_date")
+	@Field
 	public DateTime getDpt1DateTime() {
 		return this.dpt1Date;
 	}
@@ -319,7 +319,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_2_date")
+	@Field
 	public DateTime getDpt2DateTime() {
 		return this.dpt2Date;
 	}
@@ -329,7 +329,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_3_date")
+	@Field
 	public DateTime getDpt3DateTime() {
 		return this.dpt3Date;
 	}
@@ -338,7 +338,7 @@ public class EbfChildForm extends Form {
 		this.dpt3Date = dpt3Date;
 	}
 
-	@Field(name = "eating")
+	@Field
 	public String getEating() {
 		return this.eating;
 	}
@@ -347,7 +347,7 @@ public class EbfChildForm extends Form {
 		this.eating = eating;
 	}
 
-	@Field(name = "emptying")
+	@Field
 	public String getEmptying() {
 		return this.emptying;
 	}
@@ -356,7 +356,7 @@ public class EbfChildForm extends Form {
 		this.emptying = emptying;
 	}
 
-	@Field(name = "feeding_bottle")
+	@Field
 	public String getFeedingBottle() {
 		return this.feedingBottle;
 	}
@@ -366,7 +366,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_0_date")
+	@Field
 	public DateTime getHepB0DateTime() {
 		return this.hepB0Date;
 	}
@@ -376,7 +376,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_1_date")
+	@Field
 	public DateTime getHepB1DateTime() {
 		return this.hepB1Date;
 	}
@@ -386,7 +386,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_2_date")
+	@Field
 	public DateTime getHepB2DateTime() {
 		return this.hepB2Date;
 	}
@@ -396,7 +396,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_3_date")
+	@Field
 	public DateTime getHepB3DateTime() {
 		return this.hepB3Date;
 	}
@@ -405,7 +405,7 @@ public class EbfChildForm extends Form {
 		this.hepB3Date = hepB3Date;
 	}
 
-	@Field(name = "more_feeding_less_six")
+	@Field
 	public String getMoreFeedingLessSix() {
 		return this.moreFeedingLessSix;
 	}
@@ -414,8 +414,8 @@ public class EbfChildForm extends Form {
 		this.moreFeedingLessSix = moreFeedingLessSix;
 	}
 
-	@Field(name = "name_update")
-	public String getNameupdate() {
+	@Field
+	public String getNameUpdate() {
 		return this.nameUpdate;
 	}
 
@@ -423,7 +423,7 @@ public class EbfChildForm extends Form {
 		this.nameUpdate = nameUpdate;
 	}
 
-	@Field(name = "not_breasfeeding")
+	@Field
 	public String getNotBreasfeeding() {
 		return this.notBreasfeeding;
 	}
@@ -432,7 +432,7 @@ public class EbfChildForm extends Form {
 		this.notBreasfeeding = notBreasfeeding;
 	}
 
-	@Field(name = "on_demand")
+	@Field
 	public String getOnDemand() {
 		return this.onDemand;
 	}
@@ -442,7 +442,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_0_date")
+	@Field
 	public DateTime getOpv0DateTime() {
 		return this.opv0Date;
 	}
@@ -452,7 +452,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_1_date")
+	@Field
 	public DateTime getOpv1DateTime() {
 		return this.opv1Date;
 	}
@@ -462,7 +462,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_2_date")
+	@Field
 	public DateTime getOpv2DateTime() {
 		return this.opv2Date;
 	}
@@ -472,7 +472,7 @@ public class EbfChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_3_date")
+	@Field
 	public DateTime getOpv3DateTime() {
 		return this.opv3Date;
 	}
@@ -481,7 +481,7 @@ public class EbfChildForm extends Form {
 		this.opv3Date = opv3Date;
 	}
 
-	@Field(name = "recent_fever")
+	@Field
 	public String getRecentFever() {
 		return this.recentFever;
 	}
@@ -490,7 +490,7 @@ public class EbfChildForm extends Form {
 		this.recentFever = recentFever;
 	}
 
-	@Field(name = "tea_other")
+	@Field
 	public String getTeaOther() {
 		return this.teaOther;
 	}
@@ -499,7 +499,7 @@ public class EbfChildForm extends Form {
 		this.teaOther = teaOther;
 	}
 
-	@Field(name = "treated_less_six")
+	@Field
 	public String getTreatedLessSix() {
 		return this.treatedLessSix;
 	}
@@ -508,7 +508,7 @@ public class EbfChildForm extends Form {
 		this.treatedLessSix = treatedLessSix;
 	}
 
-	@Field(name = "water_or_milk")
+	@Field
 	public String getWaterOrMilk() {
 		return this.waterOrMilk;
 	}
@@ -518,7 +518,7 @@ public class EbfChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

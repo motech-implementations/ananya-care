@@ -15,260 +15,260 @@ import org.slf4j.LoggerFactory;
 
 
 @Entity(name = "mother_case")
-public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Serializable {
+public class MotherCase/* extends SelfUpdatable<MotherCase> */implements java.io.Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-    @Field(name = "user_id")
+    @Field
     @Cascade(persist = true, update = true, delete = true)
     private Flw flw;
     
-    @Field(name = "owner_id")
+    @Field
     @Cascade(persist = true, update = true, delete = true)
 	private FlwGroup flwGroup;
     
     @ExternalPrimaryKey
-	@Field(name = "case_id")
+	@Field
 	@Unique
 	private String caseId;
     
-	@Field(name = "case_name")
+	@Field
 	private String caseName;
 
-	@Field(name = "case_type")
+	@Field
 	private String caseType;
 
-	@Field(name = "DateTime_modified")
+	@Field
 	private DateTime DateTimeModified;
 
-	@Field(name = "server_DateTime_modified")
+	@Field
 	private DateTime serverDateTimeModified;
 
-    @Field(name = "family_number")
+    @Field
     private Integer familyNumber;
-	@Field(name = "hh_number")
+	@Field
 	private Integer hhNumber;
-	@Field(name = "husband_name")
+	@Field
 	private String husbandName;
-    @Field(name = "last_visit_type")
+    @Field
 	private String lastVisitType;
-    @Field(name = "mother_alive")
+    @Field
 	private String motherAlive;
 
-	@Field(name = "mother_dob")
+	@Field
 	private DateTime motherDob;
-	@Field(name = "mother_name")
+	@Field
 	private String motherName;
 
-	@Field(name = "closed_on")
+	@Field
 	private DateTime closedOn;
 
-	@Field(name = "add")
+	@Field
 	private DateTime add;
-	@Field(name = "age")
+	@Field
 	private int age;
-	@Field(name = "birth_place")
+	@Field
 	private String birthPlace;
-	@Field(name = "complications")
+	@Field
 	private String complications;
 
-	@Field(name = "DateTime_next_bp")
+	@Field
 	private DateTime DateTimeNextBp;
 
-	@Field(name = "DateTime_next_cf")
+	@Field
 	private DateTime DateTimeNextCf;
 
-	@Field(name = "DateTime_next_eb")
+	@Field
 	private DateTime DateTimeNextEb;
 
-	@Field(name = "DateTime_next_pnc")
+	@Field
 	private DateTime DateTimeNextPnc;
-	@Field(name = "eats_meat")
+	@Field
 	private String eatsMeat;
 
-	@Field(name = "edd")
+	@Field
 	private DateTime edd;
-	@Field(name = "enrolled_in_kilkari")
+	@Field
 	private String enrolledInKilkari;
-	@Field(name = "family_planning_type")
+	@Field
 	private String familyPlanningType;
-	@Field(name = "how_many_children")
+	@Field
 	private int howManyChildren;
-	@Field(name = "interest_in_kilkari")
+	@Field
 	private String interestInKilkari;
-	@Field(name = "last_preg_tt")
+	@Field
 	private String lastPregTt;
 
-	@Field(name = "lmp")
+	@Field
 	private DateTime lmp;
-	@Field(name = "mobile_number")
+	@Field
 	private String mobileNumber;
-	@Field(name = "num_boys")
+	@Field
 	private int numBoys;
 
-	@Field(name = "DateTime_cf_1")
+	@Field
 	private DateTime DateTimeCf1;
 
-	@Field(name = "DateTime_cf_2")
+	@Field
 	private DateTime DateTimeCf2;
 
-	@Field(name = "DateTime_cf_3")
+	@Field
 	private DateTime DateTimeCf3;
 
-	@Field(name = "DateTime_cf_4")
+	@Field
 	private DateTime DateTimeCf4;
 
-	@Field(name = "DateTime_cf_5")
+	@Field
 	private DateTime DateTimeCf5;
 
-	@Field(name = "DateTime_cf_6")
+	@Field
 	private DateTime DateTimeCf6;
 
-	@Field(name = "DateTime_eb_1")
+	@Field
 	private DateTime DateTimeEb1;
 
-	@Field(name = "DateTime_eb_2")
+	@Field
 	private DateTime DateTimeEb2;
 
-	@Field(name = "DateTime_eb_3")
+	@Field
 	private DateTime DateTimeEb3;
 
-	@Field(name = "DateTime_eb_4")
+	@Field
 	private DateTime DateTimeEb4;
 
-	@Field(name = "DateTime_eb_5")
+	@Field
 	private DateTime DateTimeEb5;
 
-	@Field(name = "DateTime_eb_6")
+	@Field
 	private DateTime DateTimeEb6;
-	@Field(name = "all_pnc_on_time")
+	@Field
 	private String allPncOnTime;
 
-	@Field(name = "DateTime_pnc_1")
+	@Field
 	private DateTime DateTimePnc1;
 
-	@Field(name = "DateTime_pnc_2")
+	@Field
 	private DateTime DateTimePnc2;
 
-	@Field(name = "DateTime_pnc_3")
+	@Field
 	private DateTime DateTimePnc3;
-	@Field(name = "first_pnc_time")
+	@Field
 	private String firstPncTime;
-	@Field(name = "pnc_1_days_late")
+	@Field
 	private Integer pnc1DaysLate;
-	@Field(name = "pnc_2_days_late")
+	@Field
 	private Integer pnc2DaysLate;
-	@Field(name = "pnc_3_days_late")
+	@Field
 	private Integer pnc3DaysLate;
 
-	@Field(name = "tt_booster_DateTime")
+	@Field
 	private DateTime ttBoosterDateTime;
-	@Field(name = "sba")
+	@Field
 	private String sba;
-	@Field(name = "sba_phone")
+	@Field
 	private String sbaPhone;
-	@Field(name = "accompany")
+	@Field
 	private String accompany;
 
-	@Field(name = "anc_1_DateTime")
+	@Field
 	private DateTime anc1DateTime;	
 
-	@Field(name = "anc_2_DateTime")
+	@Field
 	private DateTime anc2DateTime;	
 
-	@Field(name = "anc_3_DateTime")
+	@Field
 	private DateTime anc3DateTime;	
 
-	@Field(name = "anc_4_DateTime")
+	@Field
 	private DateTime anc4DateTime;
-	@Field(name = "clean_cloth")
+	@Field
 	private String cleanCloth;
-	@Field(name = "couple_interested")
+	@Field
 	private String coupleInterested;
 
-	@Field(name = "DateTime_bp_1")
+	@Field
 	private DateTime DateTimeBp1;
 
-	@Field(name = "DateTime_bp_2")
+	@Field
 	private DateTime DateTimeBp2;
 
-	@Field(name = "DateTime_bp_3")
+	@Field
 	private DateTime DateTimeBp3;
 
-	@Field(name = "DateTime_last_visit")
+	@Field
 	private DateTime DateTimeLastVisit;
-	@Field(name = "delivery_type")
+	@Field
 	private String deliveryType;
-	@Field(name = "ifa_tablets")
+	@Field
 	private int ifaTablets;
 
-	@Field(name = "ifa_tablets_100")
+	@Field
 	private DateTime ifaTablets100;
-	@Field(name = "materials")
+	@Field
 	private String materials;
-	@Field(name = "maternal_emergency")
+	@Field
 	private String maternalEmergency;
-	@Field(name = "maternal_emergency_number")
+	@Field
 	private String maternalEmergencyNumber;
-	@Field(name = "phone_vehicle")
+	@Field
 	private String phoneVehicle;
-	@Field(name = "saving_money")
+	@Field
 	private String savingMoney;
 
-	@Field(name = "tt_1_DateTime")
+	@Field
 	private DateTime tt1DateTime;
 
-	@Field(name = "tt_2_DateTime")
+	@Field
 	private DateTime tt2DateTime;
-	@Field(name = "vehicle")
+	@Field
 	private String vehicle;
-	@Field(name = "birth_status")
+	@Field
 	private String birthStatus;
 
-	@Field(name = "migrate_out_DateTime")
+	@Field
 	private DateTime migrateOutDateTime;
-	@Field(name = "migrated_status")
+	@Field
 	private String migratedStatus;
-	@Field(name = "status")
+	@Field
 	private String status;
-	@Field(name = "term")
+	@Field
 	private String term;
 
-	@Field(name = "DateTime_cf_7")
+	@Field
 	private DateTime DateTimeCf7;
 
-	@Field(name = "DateTime_del_fu")
+	@Field
     private DateTime DateTimeDelFu;
 
-	@Field(name = "DateTime_next_reg")
+	@Field
     private DateTime DateTimeNextReg;
-	@Field(name = "institutional")
+	@Field
     private String institutional;
 
-	@Field(name = "dob")
+	@Field
     private DateTime dob;
-	@Field(name = "closed")
+	@Field
     private Boolean closed;
 
-    @Field(name = "creation_time")
+    @Field
     private DateTime creationTime;
 
-    @Field(name = "last_modified_time")
+    @Field
     private DateTime lastModifiedTime;
-    @Field(name = "closed_by")
+    @Field
     @Cascade(persist = true, update = true, delete = true)
     private Flw closedBy;
-    @Field(name = "mobile_number_whose")
+    @Field
     private String mobileNumberWhose;
-    @Field(name = "bp_visit_num")
+    @Field
     private Integer bpVisitNum;
-    @Field(name = "ward_number")
+    @Field
     private Integer wardNumber;
-    @Field(name = "eb_visit_num")
+    @Field
     private Integer ebVisitNum;    
-    @Field(name = "pnc_visit_num")
+    @Field
     private Integer pncVisitNum;
-    @Field(name = "cf_visit_num")
+    @Field
     private Integer cfVisitNum;
 
     public MotherCase() {
@@ -1063,7 +1063,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
         this.closedBy = closedBy;
     }
 
-    @Override
+   /* @Override
     public void updateToLatest(MotherCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
 
@@ -1077,7 +1077,7 @@ public class MotherCase extends SelfUpdatable<MotherCase> implements java.io.Ser
     @Override
     public void updateLastModifiedTime() {
         this.lastModifiedTime = new DateTime();
-    }
+    }*/
 
     private boolean isLatest(MotherCase updatedObject) {
         if (this.serverDateTimeModified == null)

@@ -48,7 +48,7 @@ public class CloseMotherForm extends Form {
     public CloseMotherForm() {
 	}
 	
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -59,7 +59,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -70,7 +70,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -80,7 +80,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -90,7 +90,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -100,7 +100,7 @@ public class CloseMotherForm extends Form {
 	}
 
 
-    @Field(name = "close_mother")
+    @Field
 	public String getCloseMother() {
 		return this.closeMother;
 	}
@@ -109,7 +109,7 @@ public class CloseMotherForm extends Form {
 		this.closeMother = closeMother;
 	}
 
-	@Field(name = "confirm_close")
+	@Field
 	public String getConfirmClose() {
 		return this.confirmClose;
 	}
@@ -118,7 +118,7 @@ public class CloseMotherForm extends Form {
 		this.confirmClose = confirmClose;
 	}
 
-	@Field(name = "death_village")
+	@Field
 	public String getDeathVillage() {
 		return this.deathVillage;
 	}
@@ -127,7 +127,7 @@ public class CloseMotherForm extends Form {
 		this.deathVillage = deathVillage;
 	}
 
-	@Field(name = "died_village")
+	@Field
 	public String getDiedVillage() {
 		return this.diedVillage;
 	}
@@ -136,7 +136,7 @@ public class CloseMotherForm extends Form {
 		this.diedVillage = diedVillage;
 	}	
     
-    @Field(name = "place_death")
+    @Field
 	public String getPlaceDeath() {
 		return this.placeDeath;
 	}
@@ -145,7 +145,7 @@ public class CloseMotherForm extends Form {
 		this.placeDeath = placeDeath;
 	}
 
-	@Field(name = "dupe_reg")
+	@Field
 	public String getDupeReg() {
 		return this.dupeReg;
 	}
@@ -154,7 +154,7 @@ public class CloseMotherForm extends Form {
 		this.dupeReg = dupeReg;
 	}
 
-	@Field(name = "finished_continuum")
+	@Field
 	public String getFinishedContinuum() {
 		return this.finishedContinuum;
 	}
@@ -163,7 +163,7 @@ public class CloseMotherForm extends Form {
 		this.finishedContinuum = finishedContinuum;
 	}
 
-	@Field(name = "num_children")
+	@Field
 	public int getNumChildren() {
 		return this.numChildren;
 	}
@@ -172,7 +172,7 @@ public class CloseMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Field(name = "mother_alive")
+	@Field
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -181,7 +181,7 @@ public class CloseMotherForm extends Form {
 		this.motherAlive = motherAlive;
 	}
 
-	@Field(name = "moved")
+	@Field
 	public String getMoved() {
 		return this.moved;
 	}
@@ -190,7 +190,7 @@ public class CloseMotherForm extends Form {
 		this.moved = moved;
 	}
 
-	@Field(name = "migrated")
+	@Field
 	public String getMigrated() {
 		return this.migrated;
 	}
@@ -200,7 +200,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_learned")
+	@Field
 	public DateTime getDateLearned() {
 		return this.dateLearned;
 	}
@@ -210,7 +210,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_left")
+	@Field
 	public DateTime getDateLeft() {
 		return this.dateLeft;
 	}
@@ -219,7 +219,7 @@ public class CloseMotherForm extends Form {
 		this.dateLeft = dateLeft;
 	}
 
-	@Field(name = "migration_note")
+	@Field
 	public String getMigrationNote() {
 		return this.migrationNote;
 	}
@@ -228,7 +228,7 @@ public class CloseMotherForm extends Form {
 		this.migrationNote = migrationNote;
 	}
 
-	@Field(name = "died")
+	@Field
 	public String getDied() {
 		return this.died;
 	}
@@ -238,7 +238,7 @@ public class CloseMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_death")
+	@Field
 	public DateTime getDateDeath() {
 		return this.dateDeath;
 	}
@@ -247,7 +247,7 @@ public class CloseMotherForm extends Form {
 		this.dateDeath = dateDeath;
 	}
 
-	@Field(name = "site_death")
+	@Field
 	public String getSiteDeath() {
 		return this.siteDeath;
 	}
@@ -256,7 +256,7 @@ public class CloseMotherForm extends Form {
 		this.siteDeath = siteDeath;
 	}
 
-    @Field(name = "status")
+    @Field
     public String getStatus() {
         return this.status;
     }
@@ -265,7 +265,7 @@ public class CloseMotherForm extends Form {
         this.status = status;
     }
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return this.close;
     }
@@ -275,7 +275,7 @@ public class CloseMotherForm extends Form {
     }
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -289,7 +289,7 @@ public class CloseMotherForm extends Form {
         return FormToString.toString(this);
     }
 
-    @Field(name = "owner_id")
+    @Field
     public String getOwnerId() {
         return ownerId;
     }
@@ -298,7 +298,7 @@ public class CloseMotherForm extends Form {
         this.ownerId = ownerId;
     }
 
-    @Field(name = "confirm_transfer")
+    @Field
     public String getConfirmTransfer() {
         return confirmTransfer;
     }
@@ -307,7 +307,7 @@ public class CloseMotherForm extends Form {
         this.confirmTransfer = confirmTransfer;
     }
 
-    @Field(name = "invalid_groups_transfer")
+    @Field
     public String getInvalidGroupsTransfer() {
         return invalidGroupsTransfer;
     }
@@ -316,7 +316,7 @@ public class CloseMotherForm extends Form {
         this.invalidGroupsTransfer = invalidGroupsTransfer;
     }
 
-    @Field(name = "new_owner")
+    @Field
     public String getNewOwner() {
         return newOwner;
     }

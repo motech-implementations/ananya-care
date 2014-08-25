@@ -4,8 +4,10 @@ import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
+@Entity(name = "form")
 public class Form implements java.io.Serializable {
     @ExternalPrimaryKey
     private String instanceId;
@@ -19,7 +21,7 @@ public class Form implements java.io.Serializable {
     public Form() {
     }
 
-    @Field(name = "instance_id")
+    @Field
     @Unique
     public String getInstanceId() {
         return this.instanceId;
@@ -29,7 +31,7 @@ public class Form implements java.io.Serializable {
         this.instanceId = instanceId;
     }
 
-    @Field(name = "app_version")
+    @Field
     public String getAppVersion() {
         return this.appVersion;
     }
@@ -39,7 +41,7 @@ public class Form implements java.io.Serializable {
     }
 
     
-    @Field(name = "server_date_modified")
+    @Field
     public DateTime getServerDateModified() {
         return serverDateModified;
     }
@@ -49,7 +51,7 @@ public class Form implements java.io.Serializable {
     }
 
 
-    @Field(name = "delivery_offset_days")
+    @Field
     public Integer getDeliveryOffsetDays() {
         return this.deliveryOffsetDays;
     }

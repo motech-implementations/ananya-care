@@ -37,7 +37,7 @@ public class CloseChildForm extends Form {
     public CloseChildForm() {
 	}
     
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -48,7 +48,7 @@ public class CloseChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -59,7 +59,7 @@ public class CloseChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -69,7 +69,7 @@ public class CloseChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -79,7 +79,7 @@ public class CloseChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -88,7 +88,7 @@ public class CloseChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return close;
     }
@@ -98,7 +98,7 @@ public class CloseChildForm extends Form {
     }
 
 
-    @Field(name = "child_alive")
+    @Field
 	public String getChildAlive() {
 		return this.childAlive;
 	}
@@ -107,7 +107,7 @@ public class CloseChildForm extends Form {
 		this.childAlive = childAlive;
 	}
 
-	@Field(name = "close_child")
+	@Field
 	public String getCloseChild() {
 		return this.closeChild;
 	}
@@ -116,7 +116,7 @@ public class CloseChildForm extends Form {
 		this.closeChild = closeChild;
 	}
 
-	@Field(name = "confirm_close")
+	@Field
 	public String getConfirmClose() {
 		return this.confirmClose;
 	}
@@ -126,7 +126,7 @@ public class CloseChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_death")
+	@Field
 	public DateTime getDateDeath() {
 		return this.dateDeath;
 	}
@@ -135,7 +135,7 @@ public class CloseChildForm extends Form {
 		this.dateDeath = dateDeath;
 	}
 
-	@Field(name = "died")
+	@Field
 	public String getDied() {
 		return this.died;
 	}
@@ -144,7 +144,7 @@ public class CloseChildForm extends Form {
 		this.died = died;
 	}
 
-	@Field(name = "died_village")
+	@Field
 	public String getDiedVillage() {
 		return this.diedVillage;
 	}
@@ -153,7 +153,7 @@ public class CloseChildForm extends Form {
 		this.diedVillage = diedVillage;
 	}
 
-	@Field(name = "dupe_reg")
+	@Field
 	public String getDupeReg() {
 		return this.dupeReg;
 	}
@@ -162,7 +162,7 @@ public class CloseChildForm extends Form {
 		this.dupeReg = dupeReg;
 	}
 
-	@Field(name = "finished_continuum")
+	@Field
 	public String getFinishedContinuum() {
 		return this.finishedContinuum;
 	}
@@ -171,7 +171,7 @@ public class CloseChildForm extends Form {
 		this.finishedContinuum = finishedContinuum;
 	}
 
-	@Field(name = "site_death")
+	@Field
 	public String getSiteDeath() {
 		return this.siteDeath;
 	}
@@ -180,7 +180,7 @@ public class CloseChildForm extends Form {
 		this.siteDeath = siteDeath;
 	}
 
-	@Field(name = "place_death")
+	@Field
 	public String getPlaceDeath() {
 		return this.placeDeath;
 	}
@@ -190,7 +190,7 @@ public class CloseChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -204,7 +204,7 @@ public class CloseChildForm extends Form {
         return FormToString.toString(this);
     }
 
-    @Field(name = "owner_id")
+    @Field
     public String getOwnerId() {
         return ownerId;
     }

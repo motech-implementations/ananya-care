@@ -34,7 +34,7 @@ public class DeathMotherForm extends Form {
     public DeathMotherForm() {
 	}
 	
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -45,7 +45,7 @@ public class DeathMotherForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
@@ -56,7 +56,7 @@ public class DeathMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -66,7 +66,7 @@ public class DeathMotherForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -76,7 +76,7 @@ public class DeathMotherForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -85,7 +85,7 @@ public class DeathMotherForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "mother_alive")
+	@Field
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -94,7 +94,7 @@ public class DeathMotherForm extends Form {
 		this.motherAlive = motherAlive;
 	}
 
-	@Field(name = "status")
+	@Field
 	public String getStatus() {
 		return this.status;
 	}
@@ -103,7 +103,7 @@ public class DeathMotherForm extends Form {
 		this.status = status;
 	}
 
-	@Field(name = "cast_num_children")
+	@Field
 	public int getCastNumChildren() {
 		return this.castNumChildren;
 	}
@@ -113,7 +113,7 @@ public class DeathMotherForm extends Form {
 	}
 
     
-	@Field(name = "date_death")
+	@Field
 	public DateTime getDateDeath() {
 		return this.dateDeath;
 	}
@@ -122,7 +122,7 @@ public class DeathMotherForm extends Form {
 		this.dateDeath = dateDeath;
 	}
 
-	@Field(name = "death_village")
+	@Field
 	public String getDeathVillage() {
 		return this.deathVillage;
 	}
@@ -131,7 +131,7 @@ public class DeathMotherForm extends Form {
 		this.deathVillage = deathVillage;
 	}
 
-	@Field(name = "num_children")
+	@Field
 	public int getNumChildren() {
 		return this.numChildren;
 	}
@@ -140,7 +140,7 @@ public class DeathMotherForm extends Form {
 		this.numChildren = numChildren;
 	}
 
-	@Field(name = "place_death")
+	@Field
 	public String getPlaceDeath() {
 		return this.placeDeath;
 	}
@@ -149,7 +149,7 @@ public class DeathMotherForm extends Form {
 		this.placeDeath = placeDeath;
 	}
 
-	@Field(name = "site_death")
+	@Field
 	public String getSiteDeath() {
 		return this.siteDeath;
 	}
@@ -159,7 +159,7 @@ public class DeathMotherForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
@@ -168,7 +168,7 @@ public class DeathMotherForm extends Form {
         this.creationTime = creationTime;
     }
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return close;
     }

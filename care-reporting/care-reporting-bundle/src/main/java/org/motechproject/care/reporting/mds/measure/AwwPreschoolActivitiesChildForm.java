@@ -10,137 +10,138 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "aww_preschool_activities_child_form")
-@Unique(members = {"instance_id","case_id"})
+@Unique(members = { "instance_id", "case_id" })
 public class AwwPreschoolActivitiesChildForm extends Form {
 
-    private Integer id;
-    private AwwPreschoolActivitiesForm form;
-    private ChildCase childCase;
-    private Flw flw;
-    private DateTime dateModified;
-    private DateTime timeStart;
-    private DateTime timeEnd;
-    private DateTime creationTime = new DateTime();
-    private String caseId;
-    private String childAttend;
-    private String breakfast;
-    private String participated;
-    private String lunch;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2958896328819030338L;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private AwwPreschoolActivitiesForm form;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private ChildCase childCase;
+	@Field
+	@Cascade(persist = true, update = true, delete = false)
+	private Flw flw;
+	@Field
+	private DateTime dateModified;
+	@Field
+	private DateTime timeStart;
+	@Field
+	private DateTime timeEnd;
+	@Field
+	private DateTime creationTime = new DateTime();
+	@Field
+	private String caseId;
+	@Field
+	private String childAttend;
+	@Field
+	private String breakfast;
+	@Field
+	private String participated;
+	@Field
+	private String lunch;
 
-    public AwwPreschoolActivitiesChildForm() {
+	public AwwPreschoolActivitiesChildForm() {
 
-    }
-    
-    @Field(name = "form_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public AwwPreschoolActivitiesForm getForm() {
-        return form;
-    }
+	}
 
-    public void setForm(AwwPreschoolActivitiesForm form) {
-        this.form = form;
-    }
+	public AwwPreschoolActivitiesForm getForm() {
+		return form;
+	}
 
-    
-    @Field(name = "case_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public ChildCase getChildCase() {
-        return this.childCase;
-    }
+	public void setForm(AwwPreschoolActivitiesForm form) {
+		this.form = form;
+	}
 
-    public void setChildCase(ChildCase childCase) {
-        this.childCase = childCase;
-    }
+	public ChildCase getChildCase() {
+		return this.childCase;
+	}
 
-    
-    @Field(name = "user_id")
-    @Cascade(persist = true, update = true, delete = false)
-    public Flw getFlw() {
-        return this.flw;
-    }
+	public void setChildCase(ChildCase childCase) {
+		this.childCase = childCase;
+	}
 
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
+	public Flw getFlw() {
+		return this.flw;
+	}
 
-    @Field(name = "date_modified")
-    public DateTime getDateModified() {
-        return dateModified;
-    }
+	public void setFlw(Flw flw) {
+		this.flw = flw;
+	}
 
-    public void setDateModified(DateTime dateModified) {
-        this.dateModified = dateModified;
-    }
+	public DateTime getDateModified() {
+		return dateModified;
+	}
 
-    @Field(name = "time_start")
-    public DateTime getTimeStart() {
-        return timeStart;
-    }
+	public void setDateModified(DateTime dateModified) {
+		this.dateModified = dateModified;
+	}
 
-    public void setTimeStart(DateTime timeStart) {
-        this.timeStart = timeStart;
-    }
+	public DateTime getTimeStart() {
+		return timeStart;
+	}
 
-    @Field(name = "time_end")
-    public DateTime getTimeEnd() {
-        return timeEnd;
-    }
+	public void setTimeStart(DateTime timeStart) {
+		this.timeStart = timeStart;
+	}
 
-    public void setTimeEnd(DateTime timeEnd) {
-        this.timeEnd = timeEnd;
-    }
+	public DateTime getTimeEnd() {
+		return timeEnd;
+	}
 
-    @Field(name = "creation_time")
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
+	public void setTimeEnd(DateTime timeEnd) {
+		this.timeEnd = timeEnd;
+	}
 
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+	public DateTime getCreationTime() {
+		return creationTime;
+	}
 
-    @Field(name = "caseid")
-    public String getCaseId() {
-        return caseId;
-    }
+	public void setCreationTime(DateTime creationTime) {
+		this.creationTime = creationTime;
+	}
 
-    public void setCaseId(String caseId) {
-        this.caseId = caseId;
-    }
+	public String getCaseId() {
+		return caseId;
+	}
 
-    @Field(name = "child_attend")
-    public String getChildAttend() {
-        return childAttend;
-    }
+	public void setCaseId(String caseId) {
+		this.caseId = caseId;
+	}
 
-    public void setChildAttend(String childAttend) {
-        this.childAttend = childAttend;
-    }
+	public String getChildAttend() {
+		return childAttend;
+	}
 
-    @Field(name = "breakfast")
-    public String getBreakfast() {
-        return breakfast;
-    }
+	public void setChildAttend(String childAttend) {
+		this.childAttend = childAttend;
+	}
 
-    public void setBreakfast(String breakfast) {
-        this.breakfast = breakfast;
-    }
+	public String getBreakfast() {
+		return breakfast;
+	}
 
-    @Field(name = "participated")
-    public String getParticipated() {
-        return participated;
-    }
+	public void setBreakfast(String breakfast) {
+		this.breakfast = breakfast;
+	}
 
-    public void setParticipated(String participated) {
-        this.participated = participated;
-    }
+	public String getParticipated() {
+		return participated;
+	}
 
-    @Field(name = "lunch")
-    public String getLunch() {
-        return lunch;
-    }
+	public void setParticipated(String participated) {
+		this.participated = participated;
+	}
 
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
-    }
+	public String getLunch() {
+		return lunch;
+	}
+
+	public void setLunch(String lunch) {
+		this.lunch = lunch;
+	}
 }

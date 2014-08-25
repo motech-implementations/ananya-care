@@ -10,11 +10,11 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = {"state", "district", "block"})
 public class LocationDimension implements java.io.Serializable {
 
-	@Field(name = "state")
+	@Field
     private String state;
-    @Field(name = "district")
+    @Field
     private String district;
-    @Field(name = "block")
+    @Field
 	private String block;
 
     public LocationDimension() {

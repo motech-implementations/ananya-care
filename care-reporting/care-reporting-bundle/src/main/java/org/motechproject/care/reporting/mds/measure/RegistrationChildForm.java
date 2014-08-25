@@ -65,7 +65,7 @@ public class RegistrationChildForm extends Form {
     public RegistrationChildForm() {
 	}
 
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -75,7 +75,7 @@ public class RegistrationChildForm extends Form {
 		this.flw = flw;
 	}
 
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -86,7 +86,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -96,7 +96,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -106,7 +106,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -115,7 +115,7 @@ public class RegistrationChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	@Field(name = "abnormalities")
+	@Field
 	public String getAbnormalities() {
 		return this.abnormalities;
 	}
@@ -124,7 +124,7 @@ public class RegistrationChildForm extends Form {
 		this.abnormalities = abnormalities;
 	}
 
-	@Field(name = "add_vaccinations")
+	@Field
 	public String getAddVaccinations() {
 		return this.addVaccinations;
 	}
@@ -133,7 +133,7 @@ public class RegistrationChildForm extends Form {
 		this.addVaccinations = addVaccinations;
 	}
 
-	@Field(name = "baby_bcg")
+	@Field
 	public String getBabyBcg() {
 		return this.babyBcg;
 	}
@@ -142,7 +142,7 @@ public class RegistrationChildForm extends Form {
 		this.babyBcg = babyBcg;
 	}
 
-	@Field(name = "baby_dpt1")
+	@Field
 	public String getBabyDpt1() {
 		return this.babyDpt1;
 	}
@@ -151,7 +151,7 @@ public class RegistrationChildForm extends Form {
 		this.babyDpt1 = babyDpt1;
 	}
 
-	@Field(name = "baby_dpt2")
+	@Field
 	public String getBabyDpt2() {
 		return this.babyDpt2;
 	}
@@ -160,7 +160,7 @@ public class RegistrationChildForm extends Form {
 		this.babyDpt2 = babyDpt2;
 	}
 
-	@Field(name = "baby_dpt3")
+	@Field
 	public String getBabyDpt3() {
 		return this.babyDpt3;
 	}
@@ -169,7 +169,7 @@ public class RegistrationChildForm extends Form {
 		this.babyDpt3 = babyDpt3;
 	}
 
-	@Field(name = "baby_hep_b_0")
+	@Field
 	public String getBabyHepB0() {
 		return this.babyHepB0;
 	}
@@ -178,7 +178,7 @@ public class RegistrationChildForm extends Form {
 		this.babyHepB0 = babyHepB0;
 	}
 
-	@Field(name = "baby_hep_b_1")
+	@Field
 	public String getBabyHepB1() {
 		return this.babyHepB1;
 	}
@@ -187,7 +187,7 @@ public class RegistrationChildForm extends Form {
 		this.babyHepB1 = babyHepB1;
 	}
 
-	@Field(name = "baby_hep_b_2")
+	@Field
 	public String getBabyHepB2() {
 		return this.babyHepB2;
 	}
@@ -196,7 +196,7 @@ public class RegistrationChildForm extends Form {
 		this.babyHepB2 = babyHepB2;
 	}
 
-	@Field(name = "baby_hep_b_3")
+	@Field
 	public String getBabyHepB3() {
 		return this.babyHepB3;
 	}
@@ -205,7 +205,7 @@ public class RegistrationChildForm extends Form {
 		this.babyHepB3 = babyHepB3;
 	}
 
-	@Field(name = "baby_measles")
+	@Field
 	public String getBabyMeasles() {
 		return this.babyMeasles;
 	}
@@ -214,7 +214,7 @@ public class RegistrationChildForm extends Form {
 		this.babyMeasles = babyMeasles;
 	}
 
-	@Field(name = "baby_opv0")
+	@Field
 	public String getBabyOpv0() {
 		return this.babyOpv0;
 	}
@@ -223,7 +223,7 @@ public class RegistrationChildForm extends Form {
 		this.babyOpv0 = babyOpv0;
 	}
 
-	@Field(name = "baby_opv1")
+	@Field
 	public String getBabyOpv1() {
 		return this.babyOpv1;
 	}
@@ -232,7 +232,7 @@ public class RegistrationChildForm extends Form {
 		this.babyOpv1 = babyOpv1;
 	}
 
-	@Field(name = "baby_opv2")
+	@Field
 	public String getBabyOpv2() {
 		return this.babyOpv2;
 	}
@@ -241,7 +241,7 @@ public class RegistrationChildForm extends Form {
 		this.babyOpv2 = babyOpv2;
 	}
 
-	@Field(name = "baby_opv3")
+	@Field
 	public String getBabyOpv3() {
 		return this.babyOpv3;
 	}
@@ -250,7 +250,7 @@ public class RegistrationChildForm extends Form {
 		this.babyOpv3 = babyOpv3;
 	}
 
-	@Field(name = "baby_vita1")
+	@Field
 	public String getBabyVita1() {
 		return this.babyVita1;
 	}
@@ -259,7 +259,7 @@ public class RegistrationChildForm extends Form {
 		this.babyVita1 = babyVita1;
 	}
 
-	@Field(name = "case_name")
+	@Field
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -268,7 +268,7 @@ public class RegistrationChildForm extends Form {
 		this.caseName = caseName;
 	}
 
-	@Field(name = "case_type")
+	@Field
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -278,7 +278,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "bcg_date")
+	@Field
 	public DateTime getBcgDateTime() {
 		return this.bcgDate;
 	}
@@ -287,7 +287,7 @@ public class RegistrationChildForm extends Form {
 		this.bcgDate = bcgDate;
 	}
 
-	@Field(name = "birth_status")
+	@Field
 	public String getBirthStatus() {
 		return this.birthStatus;
 	}
@@ -297,7 +297,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "dob")
+	@Field
 	public DateTime getDob() {
 		return this.dob;
 	}
@@ -307,7 +307,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_1_date")
+	@Field
 	public DateTime getDpt1DateTime() {
 		return this.dpt1Date;
 	}
@@ -317,7 +317,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_2_date")
+	@Field
 	public DateTime getDpt2DateTime() {
 		return this.dpt2Date;
 	}
@@ -327,7 +327,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "dpt_3_date")
+	@Field
 	public DateTime getDpt3DateTime() {
 		return this.dpt3Date;
 	}
@@ -336,7 +336,7 @@ public class RegistrationChildForm extends Form {
 		this.dpt3Date = dpt3Date;
 	}
 
-	@Field(name = "gender")
+	@Field
 	public String getGender() {
 		return this.gender;
 	}
@@ -346,7 +346,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_0_date")
+	@Field
 	public DateTime getHepB0DateTime() {
 		return this.hepB0Date;
 	}
@@ -356,7 +356,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_1_date")
+	@Field
 	public DateTime getHepB1DateTime() {
 		return this.hepB1Date;
 	}
@@ -366,7 +366,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_2_date")
+	@Field
 	public DateTime getHepB2DateTime() {
 		return this.hepB2Date;
 	}
@@ -376,7 +376,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "hep_b_3_date")
+	@Field
 	public DateTime getHepB3DateTime() {
 		return this.hepB3Date;
 	}
@@ -386,7 +386,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "measles_date")
+	@Field
 	public DateTime getMeaslesDateTime() {
 		return this.measlesDate;
 	}
@@ -396,7 +396,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_0_date")
+	@Field
 	public DateTime getOpv0DateTime() {
 		return this.opv0Date;
 	}
@@ -406,7 +406,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_1_date")
+	@Field
 	public DateTime getOpv1DateTime() {
 		return this.opv1Date;
 	}
@@ -416,7 +416,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_2_date")
+	@Field
 	public DateTime getOpv2DateTime() {
 		return this.opv2Date;
 	}
@@ -426,7 +426,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "opv_3_date")
+	@Field
 	public DateTime getOpv3DateTime() {
 		return this.opv3Date;
 	}
@@ -436,7 +436,7 @@ public class RegistrationChildForm extends Form {
 	}
 
 	
-	@Field(name = "vit_a_1_date")
+	@Field
 	public DateTime getVitA1DateTime() {
 		return this.vitA1Date;
 	}
@@ -445,7 +445,7 @@ public class RegistrationChildForm extends Form {
 		this.vitA1Date = vitA1Date;
 	}
 
-	@Field(name = "child_have_a_name")
+	@Field
 	public String getChildHaveAName() {
 		return this.childHaveAName;
 	}
@@ -454,7 +454,7 @@ public class RegistrationChildForm extends Form {
 		this.childHaveAName = childHaveAName;
 	}
 
-	@Field(name = "child_name")
+	@Field
 	public String getChildName() {
 		return this.childName;
 	}
@@ -463,7 +463,7 @@ public class RegistrationChildForm extends Form {
 		this.childName = childName;
 	}
 
-	@Field(name = "weight")//TODO: , precision = 131089, scale = 0)
+	@Field
 	public int getWeight() {
 		return this.weight;
 	}
@@ -473,7 +473,7 @@ public class RegistrationChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }

@@ -31,7 +31,7 @@ public class DeathChildForm extends Form {
     public DeathChildForm() {
 	}
 	
-	@Field(name = "user_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public Flw getFlw() {
 		return this.flw;
@@ -42,7 +42,7 @@ public class DeathChildForm extends Form {
 	}
 
 	
-	@Field(name = "case_id")
+	@Field
     @Cascade(persist = true, update = true, delete = false)
 	public ChildCase getChildCase() {
 		return this.childCase;
@@ -53,7 +53,7 @@ public class DeathChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_end")
+	@Field
 	public DateTime getTimeEnd() {
 		return this.timeEnd;
 	}
@@ -63,7 +63,7 @@ public class DeathChildForm extends Form {
 	}
 
 	
-	@Field(name = "time_start")
+	@Field
 	public DateTime getTimeStart() {
 		return this.timeStart;
 	}
@@ -73,7 +73,7 @@ public class DeathChildForm extends Form {
 	}
 
 	
-	@Field(name = "date_modified")
+	@Field
 	public DateTime getDateModified() {
 		return this.dateModified;
 	}
@@ -82,7 +82,7 @@ public class DeathChildForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-    @Field(name = "close")
+    @Field
     public Boolean getClose() {
         return this.close;
     }
@@ -91,7 +91,7 @@ public class DeathChildForm extends Form {
         this.close = close;
     }
 
-    @Field(name = "child_alive")
+    @Field
 	public String getChildAlive() {
 		return this.childAlive;
 	}
@@ -100,7 +100,7 @@ public class DeathChildForm extends Form {
 		this.childAlive = childAlive;
 	}
 
-	@Field(name = "child_died_village")
+	@Field
 	public String getChildDiedVillage() {
 		return this.childDiedVillage;
 	}
@@ -109,7 +109,7 @@ public class DeathChildForm extends Form {
 		this.childDiedVillage = childDiedVillage;
 	}
 
-	@Field(name = "child_place_death")
+	@Field
 	public String getChildPlaceDeath() {
 		return this.childPlaceDeath;
 	}
@@ -118,7 +118,7 @@ public class DeathChildForm extends Form {
 		this.childPlaceDeath = childPlaceDeath;
 	}
 
-	@Field(name = "child_site_death")
+	@Field
 	public String getChildSiteDeath() {
 		return this.childSiteDeath;
 	}
@@ -128,7 +128,7 @@ public class DeathChildForm extends Form {
 	}
 
 	
-	@Field(name = "chld_date_death")
+	@Field
 	public DateTime getChldDateDeath() {
 		return this.chldDateDeath;
 	}
@@ -138,7 +138,7 @@ public class DeathChildForm extends Form {
 	}
 
     
-    @Field(name = "creation_time")
+    @Field
     public DateTime getCreationTime() {
         return creationTime;
     }
