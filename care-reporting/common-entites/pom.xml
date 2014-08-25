@@ -8,13 +8,11 @@
 
     <properties>
         <motech.version>0.24-SNAPSHOT</motech.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <postgres-driver.version>9.1-901.jdbc4</postgres-driver.version>
     </properties>
 
     <dependencies>
         <!-- to configure your module properties -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>properties-maven-plugin</artifactId>
             <version>1.0-alpha-2</version>
@@ -37,15 +35,15 @@
                     <artifactId>motech-platform-dataservices-migration</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency> -->
         <!-- to send/receive motech events -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-event</artifactId>
             <version>${motech.version}</version>
-        </dependency>
+        </dependency> -->
         <!-- to schedule jobs on motech -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-scheduler</artifactId>
             <version>${motech.version}</version>
@@ -106,7 +104,7 @@
             <groupId>org.motechproject</groupId>
             <artifactId>commcare-provider-sync</artifactId>
             <version>${motech.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-dataservices</artifactId>

@@ -1,16 +1,21 @@
 package org.motechproject.care.common.entities;
 
-import javax.persistence.*;
+import javax.jdo.annotations.Unique;
+
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 
 
-@Entity
-@Table(name = "location_dimension", uniqueConstraints = @UniqueConstraint(columnNames = {"state", "district", "block"}))
+@Entity(name = "location_dimension")
+@Unique(members = {"state", "district", "block"})
 public class LocationDimension implements java.io.Serializable {
 
-	private int id;
+    @Field
     private String state;
+    @Field
     private String district;
-	private String block;
+    @Field
+    private String block;
 
     public LocationDimension() {
 
@@ -22,19 +27,6 @@ public class LocationDimension implements java.io.Serializable {
         this.block = block;
     }
 
-    @Id
-	@Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-    @Column(name = "state")
     public String getState() {
         return state;
     }
@@ -43,8 +35,6 @@ public class LocationDimension implements java.io.Serializable {
         this.state = state;
     }
 
-
-    @Column(name = "district")
     public String getDistrict() {
         return district;
     }
@@ -53,7 +43,6 @@ public class LocationDimension implements java.io.Serializable {
         this.district = district;
     }
 
-    @Column(name = "block")
     public String getBlock() {
         return block;
     }

@@ -1,97 +1,119 @@
 package org.motechproject.care.common.entities;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Cascade;
+import org.joda.time.DateTime;
+import org.motechproject.mds.annotations.Cascade;
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Entity
-@Table(name = "child_case")
+@Entity(name = "child_case")
 public class ChildCase implements java.io.Serializable {
-    private static final Logger logger = LoggerFactory.getLogger("commcare-common");
 
-	private int id;
+	private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+	
+	@Field
+    @Cascade(persist = true, update = true, delete = true)
 	private Flw flw;
+	//TODO @ManyToOne(fetch = FetchType.EAGER)
+	@Field
+    @Cascade(persist = true, update = true, delete = true)
 	private MotherCase motherCase;
+	
+	@Field
+    @Cascade(persist = true, update = true, delete = true)
 	private FlwGroup flwGroup;
 	@ExternalPrimaryKey
+	@Field
     private String caseId;
+	@Field
 	private String caseName;
-	private Date dateModified;
-	private Date serverDateModified;
+	@Field
+	private DateTime DateTimeModified;
+	@Field
+	private DateTime serverDateTimeModified;
+    @Field
     private String caseType;
+	@Field
 	private String babyMeasles;
-	private Date bcgDate;
+	@Field
+	private DateTime bcgDateTime;
+	@Field
 	private String birthStatus;
-	private Date dob;
-	private Date dpt1Date;
-	private Date dpt2Date;
-	private Date dpt3Date;
+	@Field
+	private DateTime dob;
+	@Field
+	private DateTime dpt1DateTime;
+	@Field
+	private DateTime dpt2DateTime;
+	@Field
+	private DateTime dpt3DateTime;
+	@Field
 	private String gender;
-	private Date hepB0Date;
-	private Date hepB1Date;
-	private Date hepB2Date;
-	private Date hepB3Date;
-	private Date measlesDate;
-	private Date opv0Date;
-	private Date opv1Date;
-	private Date opv2Date;
-	private Date opv3Date;
-	private Date vitA1Date;
+	@Field
+	private DateTime hepB0DateTime;
+	@Field
+	private DateTime hepB1DateTime;
+	@Field
+	private DateTime hepB2DateTime;
+	@Field
+	private DateTime hepB3DateTime;
+	@Field
+	private DateTime measlesDateTime;
+	@Field
+	private DateTime opv0DateTime;
+	@Field
+	private DateTime opv1DateTime;
+	@Field
+	private DateTime opv2DateTime;
+	@Field
+	private DateTime opv3DateTime;
+	@Field
+	private DateTime vitA1DateTime;
+	@Field
 	private String childAlive;
-	private Date dptBoosterDate;
-	private Date opvBoosterDate;
-	private Date dateJe;
-	private Date dateMeaslesBooster;
+	@Field
+	private DateTime dptBoosterDateTime;
+	@Field
+	private DateTime opvBoosterDateTime;
+	@Field
+	private DateTime DateTimeJe;
+	@Field
+	private DateTime DateTimeMeaslesBooster;
+    @Field
 	private String babyWeight;
+	@Field
 	private String name;
+	@Field
 	private String term;
+	@Field
 	private String timeOfBirth;
-	private Date vitA2Date;
-	private Date vitA3Date;
+	@Field
+	private DateTime vitA2DateTime;
+	@Field
+	private DateTime vitA3DateTime;
+    @Field
     private String cordFallen;
+	@Field
 	private Boolean closed;
-	private Date closedOn;
+	@Field
+	private DateTime closedOn;
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
     private Flw closedBy;
-    private Date creationTime;
-    private Date lastModifiedTime;
+    @Field
+    private DateTime creationTime;
+    @Field
+    private DateTime lastModifiedTime;
 
     public ChildCase() {
-        Date date = new Date();
-        creationTime = date;
-        lastModifiedTime = date;
+        DateTime DateTime = new DateTime();
+        creationTime = DateTime;
+        lastModifiedTime = DateTime;
     }
 
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -100,9 +122,6 @@ public class ChildCase implements java.io.Serializable {
 		this.flw = flw;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mother_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public MotherCase getMotherCase() {
 		return this.motherCase;
 	}
@@ -111,9 +130,6 @@ public class ChildCase implements java.io.Serializable {
 		this.motherCase = motherCase;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public FlwGroup getFlwGroup() {
 		return this.flwGroup;
 	}
@@ -122,7 +138,6 @@ public class ChildCase implements java.io.Serializable {
 		this.flwGroup = flwGroup;
 	}
 
-	@Column(name = "case_id")
 	public String getCaseId() {
 		return this.caseId;
 	}
@@ -131,7 +146,6 @@ public class ChildCase implements java.io.Serializable {
 		this.caseId = caseId;
 	}
 
-	@Column(name = "case_name")
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -140,27 +154,22 @@ public class ChildCase implements java.io.Serializable {
 		this.caseName = caseName;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified")
-	public Date getDateModified() {
-		return this.dateModified;
+	public DateTime getDateTimeModified() {
+		return this.DateTimeModified;
 	}
 
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
+	public void setDateTimeModified(DateTime DateTimeModified) {
+		this.DateTimeModified = DateTimeModified;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_modified")
-	public Date getServerDateModified() {
-		return this.serverDateModified;
+	public DateTime getServerDateTimeModified() {
+		return this.serverDateTimeModified;
 	}
 
-	public void setServerDateModified(Date serverDateModified) {
-		this.serverDateModified = serverDateModified;
+	public void setServerDateTimeModified(DateTime serverDateTimeModified) {
+		this.serverDateTimeModified = serverDateTimeModified;
 	}
 
-    @Column(name = "case_type")
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -169,7 +178,6 @@ public class ChildCase implements java.io.Serializable {
 		this.caseType = caseType;
 	}
 
-	@Column(name = "baby_measles")
 	public String getBabyMeasles() {
 		return this.babyMeasles;
 	}
@@ -178,17 +186,14 @@ public class ChildCase implements java.io.Serializable {
 		this.babyMeasles = babyMeasles;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "bcg_date")
-	public Date getBcgDate() {
-		return this.bcgDate;
+	public DateTime getBcgDateTime() {
+		return this.bcgDateTime;
 	}
 
-	public void setBcgDate(Date bcgDate) {
-		this.bcgDate = bcgDate;
+	public void setBcgDateTime(DateTime bcgDateTime) {
+		this.bcgDateTime = bcgDateTime;
 	}
 
-	@Column(name = "birth_status")
 	public String getBirthStatus() {
 		return this.birthStatus;
 	}
@@ -197,47 +202,38 @@ public class ChildCase implements java.io.Serializable {
 		this.birthStatus = birthStatus;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dob")
-	public Date getDob() {
+	public DateTime getDob() {
 		return this.dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(DateTime dob) {
 		this.dob = dob;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_1_date")
-	public Date getDpt1Date() {
-		return this.dpt1Date;
+	public DateTime getDpt1DateTime() {
+		return this.dpt1DateTime;
 	}
 
-	public void setDpt1Date(Date dpt1Date) {
-		this.dpt1Date = dpt1Date;
+	public void setDpt1DateTime(DateTime dpt1DateTime) {
+		this.dpt1DateTime = dpt1DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_2_date")
-	public Date getDpt2Date() {
-		return this.dpt2Date;
+	public DateTime getDpt2DateTime() {
+		return this.dpt2DateTime;
 	}
 
-	public void setDpt2Date(Date dpt2Date) {
-		this.dpt2Date = dpt2Date;
+	public void setDpt2DateTime(DateTime dpt2DateTime) {
+		this.dpt2DateTime = dpt2DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_3_date")
-	public Date getDpt3Date() {
-		return this.dpt3Date;
+	public DateTime getDpt3DateTime() {
+		return this.dpt3DateTime;
 	}
 
-	public void setDpt3Date(Date dpt3Date) {
-		this.dpt3Date = dpt3Date;
+	public void setDpt3DateTime(DateTime dpt3DateTime) {
+		this.dpt3DateTime = dpt3DateTime;
 	}
 
-	@Column(name = "gender")
 	public String getGender() {
 		return this.gender;
 	}
@@ -246,107 +242,86 @@ public class ChildCase implements java.io.Serializable {
 		this.gender = gender;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_0_date")
-	public Date getHepB0Date() {
-		return this.hepB0Date;
+	public DateTime getHepB0DateTime() {
+		return this.hepB0DateTime;
 	}
 
-	public void setHepB0Date(Date hepB0Date) {
-		this.hepB0Date = hepB0Date;
+	public void setHepB0DateTime(DateTime hepB0DateTime) {
+		this.hepB0DateTime = hepB0DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_1_date")
-	public Date getHepB1Date() {
-		return this.hepB1Date;
+	public DateTime getHepB1DateTime() {
+		return this.hepB1DateTime;
 	}
 
-	public void setHepB1Date(Date hepB1Date) {
-		this.hepB1Date = hepB1Date;
+	public void setHepB1DateTime(DateTime hepB1DateTime) {
+		this.hepB1DateTime = hepB1DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_2_date")
-	public Date getHepB2Date() {
-		return this.hepB2Date;
+	public DateTime getHepB2DateTime() {
+		return this.hepB2DateTime;
 	}
 
-	public void setHepB2Date(Date hepB2Date) {
-		this.hepB2Date = hepB2Date;
+	public void setHepB2DateTime(DateTime hepB2DateTime) {
+		this.hepB2DateTime = hepB2DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "hep_b_3_date")
-	public Date getHepB3Date() {
-		return this.hepB3Date;
+	public DateTime getHepB3DateTime() {
+		return this.hepB3DateTime;
 	}
 
-	public void setHepB3Date(Date hepB3Date) {
-		this.hepB3Date = hepB3Date;
+	public void setHepB3DateTime(DateTime hepB3DateTime) {
+		this.hepB3DateTime = hepB3DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "measles_date")
-	public Date getMeaslesDate() {
-		return this.measlesDate;
+	public DateTime getMeaslesDateTime() {
+		return this.measlesDateTime;
 	}
 
-	public void setMeaslesDate(Date measlesDate) {
-		this.measlesDate = measlesDate;
+	public void setMeaslesDateTime(DateTime measlesDateTime) {
+		this.measlesDateTime = measlesDateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_0_date")
-	public Date getOpv0Date() {
-		return this.opv0Date;
+	public DateTime getOpv0DateTime() {
+		return this.opv0DateTime;
 	}
 
-	public void setOpv0Date(Date opv0Date) {
-		this.opv0Date = opv0Date;
+	public void setOpv0DateTime(DateTime opv0DateTime) {
+		this.opv0DateTime = opv0DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_1_date")
-	public Date getOpv1Date() {
-		return this.opv1Date;
+	public DateTime getOpv1DateTime() {
+		return this.opv1DateTime;
 	}
 
-	public void setOpv1Date(Date opv1Date) {
-		this.opv1Date = opv1Date;
+	public void setOpv1DateTime(DateTime opv1DateTime) {
+		this.opv1DateTime = opv1DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_2_date")
-	public Date getOpv2Date() {
-		return this.opv2Date;
+	public DateTime getOpv2DateTime() {
+		return this.opv2DateTime;
 	}
 
-	public void setOpv2Date(Date opv2Date) {
-		this.opv2Date = opv2Date;
+	public void setOpv2DateTime(DateTime opv2DateTime) {
+		this.opv2DateTime = opv2DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_3_date")
-	public Date getOpv3Date() {
-		return this.opv3Date;
+	public DateTime getOpv3DateTime() {
+		return this.opv3DateTime;
 	}
 
-	public void setOpv3Date(Date opv3Date) {
-		this.opv3Date = opv3Date;
+	public void setOpv3DateTime(DateTime opv3DateTime) {
+		this.opv3DateTime = opv3DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_1_date")
-	public Date getVitA1Date() {
-		return this.vitA1Date;
+	public DateTime getVitA1DateTime() {
+		return this.vitA1DateTime;
 	}
 
-	public void setVitA1Date(Date vitA1Date) {
-		this.vitA1Date = vitA1Date;
+	public void setVitA1DateTime(DateTime vitA1DateTime) {
+		this.vitA1DateTime = vitA1DateTime;
 	}
 
-	@Column(name = "child_alive")
 	public String getChildAlive() {
 		return this.childAlive;
 	}
@@ -355,47 +330,38 @@ public class ChildCase implements java.io.Serializable {
 		this.childAlive = childAlive;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dpt_booster_date")
-	public Date getDptBoosterDate() {
-		return this.dptBoosterDate;
+	public DateTime getDptBoosterDateTime() {
+		return this.dptBoosterDateTime;
 	}
 
-	public void setDptBoosterDate(Date dptBoosterDate) {
-		this.dptBoosterDate = dptBoosterDate;
+	public void setDptBoosterDateTime(DateTime dptBoosterDateTime) {
+		this.dptBoosterDateTime = dptBoosterDateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "opv_booster_date")
-	public Date getOpvBoosterDate() {
-		return this.opvBoosterDate;
+	public DateTime getOpvBoosterDateTime() {
+		return this.opvBoosterDateTime;
 	}
 
-	public void setOpvBoosterDate(Date opvBoosterDate) {
-		this.opvBoosterDate = opvBoosterDate;
+	public void setOpvBoosterDateTime(DateTime opvBoosterDateTime) {
+		this.opvBoosterDateTime = opvBoosterDateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_je")
-	public Date getDateJe() {
-		return this.dateJe;
+	public DateTime getDateTimeJe() {
+		return this.DateTimeJe;
 	}
 
-	public void setDateJe(Date dateJe) {
-		this.dateJe = dateJe;
+	public void setDateTimeJe(DateTime DateTimeJe) {
+		this.DateTimeJe = DateTimeJe;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_measles_booster")
-	public Date getDateMeaslesBooster() {
-		return this.dateMeaslesBooster;
+	public DateTime getDateTimeMeaslesBooster() {
+		return this.DateTimeMeaslesBooster;
 	}
 
-	public void setDateMeaslesBooster(Date dateMeaslesBooster) {
-		this.dateMeaslesBooster = dateMeaslesBooster;
+	public void setDateTimeMeaslesBooster(DateTime DateTimeMeaslesBooster) {
+		this.DateTimeMeaslesBooster = DateTimeMeaslesBooster;
 	}
 
-    @Column(name = "baby_weight")
     public String getBabyWeight() {
         return babyWeight;
     }
@@ -404,7 +370,6 @@ public class ChildCase implements java.io.Serializable {
         this.babyWeight = babyWeight;
     }
 
-    @Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
@@ -413,7 +378,6 @@ public class ChildCase implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -422,7 +386,6 @@ public class ChildCase implements java.io.Serializable {
 		this.term = term;
 	}
 
-	@Column(name = "time_of_birth")
 	public String getTimeOfBirth() {
 		return this.timeOfBirth;
 	}
@@ -431,27 +394,22 @@ public class ChildCase implements java.io.Serializable {
 		this.timeOfBirth = timeOfBirth;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_2_date")
-	public Date getVitA2Date() {
-		return this.vitA2Date;
+	public DateTime getVitA2DateTime() {
+		return this.vitA2DateTime;
 	}
 
-	public void setVitA2Date(Date vitA2Date) {
-		this.vitA2Date = vitA2Date;
+	public void setVitA2DateTime(DateTime vitA2DateTime) {
+		this.vitA2DateTime = vitA2DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "vit_a_3_date")
-	public Date getVitA3Date() {
-		return this.vitA3Date;
+	public DateTime getVitA3DateTime() {
+		return this.vitA3DateTime;
 	}
 
-	public void setVitA3Date(Date vitA3Date) {
-		this.vitA3Date = vitA3Date;
+	public void setVitA3DateTime(DateTime vitA3DateTime) {
+		this.vitA3DateTime = vitA3DateTime;
 	}
 
-    @Column(name = "cord_fallen")
     public String getCordFallen() {
         return cordFallen;
     }
@@ -460,8 +418,6 @@ public class ChildCase implements java.io.Serializable {
         this.cordFallen = cordFallen;
     }
 
-
-    @Column(name = "closed")
 	public Boolean getClosed() {
 		return this.closed;
 	}
@@ -470,19 +426,14 @@ public class ChildCase implements java.io.Serializable {
 		this.closed = closed;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "closed_on")
-	public Date getClosedOn() {
+	public DateTime getClosedOn() {
 		return this.closedOn;
 	}
 
-	public void setClosedOn(Date closedOn) {
+	public void setClosedOn(DateTime closedOn) {
 		this.closedOn = closedOn;
 	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     public Flw getClosedBy() {
         return closedBy;
     }
@@ -491,32 +442,28 @@ public class ChildCase implements java.io.Serializable {
         this.closedBy = closedBy;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
-    public Date getCreationTime() {
+    public DateTime getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(DateTime creationTime) {
         this.creationTime = creationTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_time")
-    public Date getLastModifiedTime() {
+    public DateTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Date lastModifiedTime) {
+    public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    /*@Override
+   /* @Override
     public void updateToLatest(ChildCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            logger.warn(String.format("Ignoring mother case update with case id: %s since current date modified is %s and given date modified is %s", this.caseId, this.dateModified, updated.dateModified));
+            logger.warn(String.format("Ignoring mother case update with case id: %s since current DateTime modified is %s and given DateTime modified is %s", this.caseId, this.DateTimeModified, updated.DateTimeModified));
             return;
         }
 
@@ -526,14 +473,14 @@ public class ChildCase implements java.io.Serializable {
 
     @Override
     public void updateLastModifiedTime() {
-        this.lastModifiedTime = new Date();
-    }
+        this.lastModifiedTime = new DateTime();
+    }*/
 
     private boolean isLatest(ChildCase updatedObject) {
-        if (this.serverDateModified == null)
+        if (this.serverDateTimeModified == null)
             return true;
-        else if (updatedObject.serverDateModified == null)
+        else if (updatedObject.serverDateTimeModified == null)
             return false;
-        return this.serverDateModified.compareTo(updatedObject.serverDateModified) <= 0;
-    }*/
+        return this.serverDateTimeModified.compareTo(updatedObject.serverDateTimeModified) <= 0;
+    }
 }

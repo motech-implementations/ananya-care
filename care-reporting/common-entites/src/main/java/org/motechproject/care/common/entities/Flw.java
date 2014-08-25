@@ -1,70 +1,90 @@
 package org.motechproject.care.common.entities;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.jdo.annotations.Unique;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.joda.time.DateTime;
+import org.motechproject.mds.annotations.Cascade;
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 
 
-@Entity
-@Table(name = "flw", uniqueConstraints = @UniqueConstraint(columnNames = "flw_id"))
-public class Flw implements java.io.Serializable {
+@Entity(name = "flw")
+public class Flw/* extends SelfUpdatable<Flw> */implements java.io.Serializable {
 
-	private int id;
     @ExternalPrimaryKey
+    @Field
+    @Unique
     private String flwId;
+	@Field
 	private String defaultPhoneNumber;
+	@Field
 	private String email;
+	@Field
 	private String firstName;
+	@Field
 	private String lastName;
+	@Field
 	private String phoneNumber1;
+	@Field
 	private String phoneNumber2;
+	@Field
 	private String assetId;
+	@Field
 	private String awcCode;
+	@Field
     private String role;
+	@Field
 	private String subcentre;
+	@Field
 	private String userType;
+	@Field
 	private String username;
+    @Field
 	private String population;
+	@Field
 	private String education;
+    @Field
 	private String state;
+    @Field
 	private String district;
+    @Field
 	private String block;
+    @Field
 	private String panchayat;
+    @Field
 	private String village;
+    @Field
 	private String ward;
+    @Field
 	private String caste;
+    @Field
 	private String ictcordinator;
+    @Field
 	private String remarks;
-    private Date dob;
-    private Date creationTime;
-    private Date lastModifiedTime;
-    private Set<FlwGroup> flwGroups;
+    @Field
+    private DateTime dob;
+    @Field
+    private DateTime creationTime;
+    @Field
+    private DateTime lastModifiedTime;
+    @ManyToMany
+    @Cascade(persist = true, update = true, delete = false)
+    //TODO: @JoinTable(name="flw_group_map", joinColumns={@JoinColumn(name="flw_id")}, 
+    //inverseJoinColumns={@JoinColumn(name="group_id")})
+ /*   @Persistent(table="flw_group_map")
+    @Join(column="flw_id")
+    @Element(column="group_id")
+    @Field
+    private Set<FlwGroup> flwGroups;*/
+    @Field
     private LocationDimension locationDimension;
 
 	public Flw() {
-        Date date = new Date();
-        creationTime = date;
-        lastModifiedTime = date;
-        flwGroups = new HashSet<>();
+        DateTime DateTime = new DateTime();
+        creationTime = DateTime;
+        lastModifiedTime = DateTime;
+//        flwGroups = new HashSet<>();
     }
 
     public Flw(String flwId,
@@ -73,7 +93,7 @@ public class Flw implements java.io.Serializable {
                String awcCode, String role, String subcentre,
                String userType, String username, String population,
                String education, String state, String district, String block, String panchayat, String village,
-               String ward, String caste, String ictcordinator, String remarks, Date dob, Date creationTime, Date lastModifiedTime, LocationDimension locationDimension) {
+               String ward, String caste, String ictcordinator, String remarks, DateTime dob, DateTime creationTime, DateTime lastModifiedTime, LocationDimension locationDimension) {
         this.flwId = flwId;
         this.defaultPhoneNumber = defaultPhoneNumber;
         this.email = email;
@@ -104,18 +124,6 @@ public class Flw implements java.io.Serializable {
         this.locationDimension = locationDimension;
     }
 
-    @Id
-	@Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-    @Column(name = "flw_id", unique = true)
 	public String getFlwId() {
 		return this.flwId;
 	}
@@ -124,7 +132,6 @@ public class Flw implements java.io.Serializable {
 		this.flwId = flwId;
 	}
 
-	@Column(name = "default_phone_number")
 	public String getDefaultPhoneNumber() {
 		return this.defaultPhoneNumber;
 	}
@@ -133,7 +140,6 @@ public class Flw implements java.io.Serializable {
 		this.defaultPhoneNumber = defaultPhoneNumber;
 	}
 
-	@Column(name = "email")
 	public String getEmail() {
 		return this.email;
 	}
@@ -142,7 +148,6 @@ public class Flw implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "first_name")
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -151,7 +156,6 @@ public class Flw implements java.io.Serializable {
 		this.firstName = firstName;
 	}
 
-	@Column(name = "last_name")
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -160,7 +164,6 @@ public class Flw implements java.io.Serializable {
 		this.lastName = lastName;
 	}
 
-	@Column(name = "phone_number_1")
 	public String getPhoneNumber1() {
 		return this.phoneNumber1;
 	}
@@ -169,7 +172,6 @@ public class Flw implements java.io.Serializable {
 		this.phoneNumber1 = phoneNumber1;
 	}
 
-	@Column(name = "phone_number_2")
 	public String getPhoneNumber2() {
 		return this.phoneNumber2;
 	}
@@ -178,7 +180,6 @@ public class Flw implements java.io.Serializable {
 		this.phoneNumber2 = phoneNumber2;
 	}
 
-	@Column(name = "asset_id")
 	public String getAssetId() {
 		return this.assetId;
 	}
@@ -187,7 +188,6 @@ public class Flw implements java.io.Serializable {
 		this.assetId = assetId;
 	}
 
-	@Column(name = "awc_code")
 	public String getAwcCode() {
 		return this.awcCode;
 	}
@@ -196,7 +196,6 @@ public class Flw implements java.io.Serializable {
 		this.awcCode = awcCode;
 	}
 
-	@Column(name = "role")
 	public String getRole() {
 		return this.role;
 	}
@@ -205,7 +204,6 @@ public class Flw implements java.io.Serializable {
 		this.role = role;
 	}
 
-	@Column(name = "subcentre")
 	public String getSubcentre() {
 		return this.subcentre;
 	}
@@ -214,7 +212,6 @@ public class Flw implements java.io.Serializable {
 		this.subcentre = subcentre;
 	}
 
-	@Column(name = "user_type")
 	public String getUserType() {
 		return this.userType;
 	}
@@ -223,7 +220,6 @@ public class Flw implements java.io.Serializable {
 		this.userType = userType;
 	}
 
-	@Column(name = "username")
 	public String getUsername() {
 		return this.username;
 	}
@@ -232,20 +228,14 @@ public class Flw implements java.io.Serializable {
 		this.username = username;
 	}
 
-    @ManyToMany
-    @Cascade(value = {CascadeType.SAVE_UPDATE})
-    @JoinTable(name="flw_group_map",
-            joinColumns={@JoinColumn(name="flw_id")},
-            inverseJoinColumns={@JoinColumn(name="group_id")})
-    public Set<FlwGroup> getFlwGroups() {
+    /*public Set<FlwGroup> getFlwGroups() {
         return flwGroups;
     }
 
     public void setFlwGroups(Set<FlwGroup> flwGroups) {
         this.flwGroups = flwGroups;
-    }
+    }*/
 
-    @Column(name = "population")
 	public String getPopulation() {
 		return this.population;
 	}
@@ -254,7 +244,6 @@ public class Flw implements java.io.Serializable {
 		this.population = population;
 	}
 
-	@Column(name = "education")
 	public String getEducation() {
 		return this.education;
 	}
@@ -263,8 +252,6 @@ public class Flw implements java.io.Serializable {
 		this.education = education;
 	}
 
-
-    @Column(name = "state")
     public String getState() {
         return state;
     }
@@ -273,7 +260,6 @@ public class Flw implements java.io.Serializable {
         this.state = state;
     }
 
-    @Column(name = "district")
     public String getDistrict() {
         return district;
     }
@@ -282,7 +268,6 @@ public class Flw implements java.io.Serializable {
         this.district = district;
     }
 
-    @Column(name = "block")
     public String getBlock() {
         return block;
     }
@@ -291,7 +276,6 @@ public class Flw implements java.io.Serializable {
         this.block = block;
     }
 
-    @Column(name = "panchayat")
     public String getPanchayat() {
         return panchayat;
     }
@@ -300,7 +284,6 @@ public class Flw implements java.io.Serializable {
         this.panchayat = panchayat;
     }
 
-    @Column(name = "village")
     public String getVillage() {
         return village;
     }
@@ -309,7 +292,6 @@ public class Flw implements java.io.Serializable {
         this.village = village;
     }
 
-    @Column
     public String getWard() {
         return ward;
     }
@@ -318,7 +300,6 @@ public class Flw implements java.io.Serializable {
         this.ward = ward;
     }
 
-    @Column
     public String getCaste() {
         return caste;
     }
@@ -327,7 +308,6 @@ public class Flw implements java.io.Serializable {
         this.caste = caste;
     }
 
-    @Column
     public String getIctcordinator() {
         return ictcordinator;
     }
@@ -336,7 +316,6 @@ public class Flw implements java.io.Serializable {
         this.ictcordinator = ictcordinator;
     }
 
-    @Column
     public String getRemarks() {
         return remarks;
     }
@@ -345,37 +324,31 @@ public class Flw implements java.io.Serializable {
         this.remarks = remarks;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "dob")
-    public Date getDob() {
+    public DateTime getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(DateTime dob) {
         this.dob = dob;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
-    public Date getCreationTime() {
+    public DateTime getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(DateTime creationTime) {
         this.creationTime = creationTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_time")
-    public Date getLastModifiedTime() {
+    public DateTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Date lastModifiedTime) {
+    public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    /*@Override
+   /* @Override
     public void updateToLatest(Flw object) {
         validateIfUpdatable(this.flwId, object.flwId);
 
@@ -384,11 +357,9 @@ public class Flw implements java.io.Serializable {
 
     @Override
     protected void updateLastModifiedTime() {
-        this.lastModifiedTime = new Date();
+        this.lastModifiedTime = new DateTime();
     }*/
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
     public LocationDimension getLocationDimension() {
         return this.locationDimension;
     }

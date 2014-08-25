@@ -1,152 +1,279 @@
 package org.motechproject.care.common.entities;
 
-import java.util.Arrays;
-import java.util.Date;
+import javax.jdo.annotations.Unique;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.annotations.Cascade;
+import org.joda.time.DateTime;
+import org.motechproject.mds.annotations.Cascade;
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@Entity
-@Table(name = "mother_case", uniqueConstraints = @UniqueConstraint(columnNames = "case_id"))
+@Entity(name = "mother_case")
 public class MotherCase implements java.io.Serializable {
-    private static final Logger logger = LoggerFactory.getLogger("commcare-common");
 
-    private int id;
-	private Flw flw;
+	private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    private Flw flw;
+    
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
 	private FlwGroup flwGroup;
+    
     @ExternalPrimaryKey
+	@Field
+	@Unique
 	private String caseId;
+    
+	@Field
 	private String caseName;
+
+	@Field
 	private String caseType;
-	private Date dateModified;
-	private Date serverDateModified;
+
+	@Field
+	private DateTime DateTimeModified;
+
+	@Field
+	private DateTime serverDateTimeModified;
+
+    @Field
     private Integer familyNumber;
+	@Field
 	private Integer hhNumber;
+	@Field
 	private String husbandName;
+    @Field
 	private String lastVisitType;
+    @Field
 	private String motherAlive;
-	private Date motherDob;
+
+	@Field
+	private DateTime motherDob;
+	@Field
 	private String motherName;
-	private Date closedOn;
-	private Date add;
-	private Short age;
+
+	@Field
+	private DateTime closedOn;
+
+	@Field
+	private DateTime add;
+	@Field
+	private int age;
+	@Field
 	private String birthPlace;
+	@Field
 	private String complications;
-	private Date dateNextBp;
-	private Date dateNextCf;
-	private Date dateNextEb;
-	private Date dateNextPnc;
+
+	@Field
+	private DateTime DateTimeNextBp;
+
+	@Field
+	private DateTime DateTimeNextCf;
+
+	@Field
+	private DateTime DateTimeNextEb;
+
+	@Field
+	private DateTime DateTimeNextPnc;
+	@Field
 	private String eatsMeat;
-	private Date edd;
+
+	@Field
+	private DateTime edd;
+	@Field
 	private String enrolledInKilkari;
+	@Field
 	private String familyPlanningType;
-	private Short howManyChildren;
+	@Field
+	private int howManyChildren;
+	@Field
 	private String interestInKilkari;
+	@Field
 	private String lastPregTt;
-	private Date lmp;
+
+	@Field
+	private DateTime lmp;
+	@Field
 	private String mobileNumber;
-	private Short numBoys;
-	private Date dateCf1;
-	private Date dateCf2;
-	private Date dateCf3;
-	private Date dateCf4;
-	private Date dateCf5;
-	private Date dateCf6;
-	private Date dateEb1;
-	private Date dateEb2;
-	private Date dateEb3;
-	private Date dateEb4;
-	private Date dateEb5;
-	private Date dateEb6;
+	@Field
+	private int numBoys;
+
+	@Field
+	private DateTime DateTimeCf1;
+
+	@Field
+	private DateTime DateTimeCf2;
+
+	@Field
+	private DateTime DateTimeCf3;
+
+	@Field
+	private DateTime DateTimeCf4;
+
+	@Field
+	private DateTime DateTimeCf5;
+
+	@Field
+	private DateTime DateTimeCf6;
+
+	@Field
+	private DateTime DateTimeEb1;
+
+	@Field
+	private DateTime DateTimeEb2;
+
+	@Field
+	private DateTime DateTimeEb3;
+
+	@Field
+	private DateTime DateTimeEb4;
+
+	@Field
+	private DateTime DateTimeEb5;
+
+	@Field
+	private DateTime DateTimeEb6;
+	@Field
 	private String allPncOnTime;
-	private Date datePnc1;
-	private Date datePnc2;
-	private Date datePnc3;
+
+	@Field
+	private DateTime DateTimePnc1;
+
+	@Field
+	private DateTime DateTimePnc2;
+
+	@Field
+	private DateTime DateTimePnc3;
+	@Field
 	private String firstPncTime;
+	@Field
 	private Integer pnc1DaysLate;
+	@Field
 	private Integer pnc2DaysLate;
+	@Field
 	private Integer pnc3DaysLate;
-	private Date ttBoosterDate;
+
+	@Field
+	private DateTime ttBoosterDateTime;
+	@Field
 	private String sba;
+	@Field
 	private String sbaPhone;
+	@Field
 	private String accompany;
-	private Date anc1Date;
-	private Date anc2Date;
-	private Date anc3Date;
-	private Date anc4Date;
+
+	@Field
+	private DateTime anc1DateTime;	
+
+	@Field
+	private DateTime anc2DateTime;	
+
+	@Field
+	private DateTime anc3DateTime;	
+
+	@Field
+	private DateTime anc4DateTime;
+	@Field
 	private String cleanCloth;
+	@Field
 	private String coupleInterested;
-	private Date dateBp1;
-	private Date dateBp2;
-	private Date dateBp3;
-	private Date dateLastVisit;
+
+	@Field
+	private DateTime DateTimeBp1;
+
+	@Field
+	private DateTime DateTimeBp2;
+
+	@Field
+	private DateTime DateTimeBp3;
+
+	@Field
+	private DateTime DateTimeLastVisit;
+	@Field
 	private String deliveryType;
-	private Short ifaTablets;
-	private Date ifaTablets100;
+	@Field
+	private int ifaTablets;
+
+	@Field
+	private DateTime ifaTablets100;
+	@Field
 	private String materials;
+	@Field
 	private String maternalEmergency;
+	@Field
 	private String maternalEmergencyNumber;
+	@Field
 	private String phoneVehicle;
+	@Field
 	private String savingMoney;
-	private Date tt1Date;
-	private Date tt2Date;
+
+	@Field
+	private DateTime tt1DateTime;
+
+	@Field
+	private DateTime tt2DateTime;
+	@Field
 	private String vehicle;
+	@Field
 	private String birthStatus;
-	private Date migrateOutDate;
+
+	@Field
+	private DateTime migrateOutDateTime;
+	@Field
 	private String migratedStatus;
+	@Field
 	private String status;
+	@Field
 	private String term;
-	private Date dateCf7;
-    private Date dateDelFu;
-    private Date dateNextReg;
+
+	@Field
+	private DateTime DateTimeCf7;
+
+	@Field
+    private DateTime DateTimeDelFu;
+
+	@Field
+    private DateTime DateTimeNextReg;
+	@Field
     private String institutional;
-    private Date dob;
+
+	@Field
+    private DateTime dob;
+	@Field
     private Boolean closed;
-    private Date creationTime;
-    private Date lastModifiedTime;
+
+    @Field
+    private DateTime creationTime;
+
+    @Field
+    private DateTime lastModifiedTime;
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
     private Flw closedBy;
+    @Field
     private String mobileNumberWhose;
+    @Field
     private Integer bpVisitNum;
+    @Field
     private Integer wardNumber;
-    private Integer ebVisitNum;
+    @Field
+    private Integer ebVisitNum;    
+    @Field
     private Integer pncVisitNum;
+    @Field
     private Integer cfVisitNum;
 
     public MotherCase() {
-        Date date = new Date();
-        creationTime = date;
-        lastModifiedTime = date;
+        DateTime DateTime = new DateTime();
+        creationTime = DateTime;
+        lastModifiedTime = DateTime;
 	}
 
-    @Id
-	@Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    
 	public Flw getFlw() {
 		return this.flw;
 	}
@@ -155,9 +282,6 @@ public class MotherCase implements java.io.Serializable {
 		this.flw = flw;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	public FlwGroup getFlwGroup() {
 		return this.flwGroup;
 	}
@@ -165,8 +289,7 @@ public class MotherCase implements java.io.Serializable {
 	public void setFlwGroup(FlwGroup flwGroup) {
 		this.flwGroup = flwGroup;
 	}
-
-	@Column(name = "case_id", unique = true)
+	
 	public String getCaseId() {
 		return this.caseId;
 	}
@@ -175,7 +298,6 @@ public class MotherCase implements java.io.Serializable {
 		this.caseId = caseId;
 	}
 
-	@Column(name = "case_name")
 	public String getCaseName() {
 		return this.caseName;
 	}
@@ -184,7 +306,6 @@ public class MotherCase implements java.io.Serializable {
 		this.caseName = caseName;
 	}
 
-	@Column(name = "case_type")
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -193,27 +314,22 @@ public class MotherCase implements java.io.Serializable {
 		this.caseType = caseType;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_modified")
-	public Date getDateModified() {
-		return this.dateModified;
+	public DateTime getDateTimeModified() {
+		return this.DateTimeModified;
 	}
 
-	public void setDateModified(Date dateModified) {
-		this.dateModified = dateModified;
+	public void setDateTimeModified(DateTime DateTimeModified) {
+		this.DateTimeModified = DateTimeModified;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "server_date_modified")
-	public Date getServerDateModified() {
-		return this.serverDateModified;
+	public DateTime getServerDateTimeModified() {
+		return this.serverDateTimeModified;
 	}
 
-	public void setServerDateModified(Date serverDateModified) {
-		this.serverDateModified = serverDateModified;
+	public void setServerDateTimeModified(DateTime serverDateTimeModified) {
+		this.serverDateTimeModified = serverDateTimeModified;
 	}
 
-    @Column(name = "family_number")
 	public Integer getFamilyNumber() {
 		return this.familyNumber;
 	}
@@ -222,7 +338,6 @@ public class MotherCase implements java.io.Serializable {
 		this.familyNumber = familyNumber;
 	}
 
-	@Column(name = "hh_number")
 	public Integer getHhNumber() {
 		return this.hhNumber;
 	}
@@ -231,7 +346,6 @@ public class MotherCase implements java.io.Serializable {
 		this.hhNumber = hhNumber;
 	}
 
-	@Column(name = "husband_name")
 	public String getHusbandName() {
 		return this.husbandName;
 	}
@@ -240,7 +354,6 @@ public class MotherCase implements java.io.Serializable {
 		this.husbandName = husbandName;
 	}
 
-    @Column(name = "last_visit_type")
     public String getLastVisitType() {
         return lastVisitType;
     }
@@ -249,7 +362,6 @@ public class MotherCase implements java.io.Serializable {
         this.lastVisitType = lastVisitType;
     }
 
-    @Column(name = "mother_alive")
 	public String getMotherAlive() {
 		return this.motherAlive;
 	}
@@ -258,17 +370,14 @@ public class MotherCase implements java.io.Serializable {
 		this.motherAlive = motherAlive;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "mother_dob")
-	public Date getMotherDob() {
+	public DateTime getMotherDob() {
 		return this.motherDob;
 	}
 
-	public void setMotherDob(Date motherDob) {
+	public void setMotherDob(DateTime motherDob) {
 		this.motherDob = motherDob;
 	}
 
-	@Column(name = "mother_name")
 	public String getMotherName() {
 		return this.motherName;
 	}
@@ -277,36 +386,30 @@ public class MotherCase implements java.io.Serializable {
 		this.motherName = motherName;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "closed_on")
-	public Date getClosedOn() {
+	public DateTime getClosedOn() {
 		return this.closedOn;
 	}
 
-	public void setClosedOn(Date closedOn) {
+	public void setClosedOn(DateTime closedOn) {
 		this.closedOn = closedOn;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "add")
-	public Date getAdd() {
+	public DateTime getAdd() {
 		return this.add;
 	}
 
-	public void setAdd(Date add) {
+	public void setAdd(DateTime add) {
 		this.add = add;
 	}
 
-	@Column(name = "age")
-	public Short getAge() {
+	public int getAge() {
 		return this.age;
 	}
 
-	public void setAge(Short age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
-	@Column(name = "birth_place")
 	public String getBirthPlace() {
 		return this.birthPlace;
 	}
@@ -315,7 +418,6 @@ public class MotherCase implements java.io.Serializable {
 		this.birthPlace = birthPlace;
 	}
 
-	@Column(name = "complications")
 	public String getComplications() {
 		return this.complications;
 	}
@@ -324,47 +426,38 @@ public class MotherCase implements java.io.Serializable {
 		this.complications = complications;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_bp")
-	public Date getDateNextBp() {
-		return this.dateNextBp;
+	public DateTime getDateTimeNextBp() {
+		return this.DateTimeNextBp;
 	}
 
-	public void setDateNextBp(Date dateNextBp) {
-		this.dateNextBp = dateNextBp;
+	public void setDateTimeNextBp(DateTime DateTimeNextBp) {
+		this.DateTimeNextBp = DateTimeNextBp;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_cf")
-	public Date getDateNextCf() {
-		return this.dateNextCf;
+	public DateTime getDateTimeNextCf() {
+		return this.DateTimeNextCf;
 	}
 
-	public void setDateNextCf(Date dateNextCf) {
-		this.dateNextCf = dateNextCf;
+	public void setDateTimeNextCf(DateTime DateTimeNextCf) {
+		this.DateTimeNextCf = DateTimeNextCf;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_eb")
-	public Date getDateNextEb() {
-		return this.dateNextEb;
+	public DateTime getDateTimeNextEb() {
+		return this.DateTimeNextEb;
 	}
 
-	public void setDateNextEb(Date dateNextEb) {
-		this.dateNextEb = dateNextEb;
+	public void setDateTimeNextEb(DateTime DateTimeNextEb) {
+		this.DateTimeNextEb = DateTimeNextEb;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_pnc")
-	public Date getDateNextPnc() {
-		return this.dateNextPnc;
+	public DateTime getDateTimeNextPnc() {
+		return this.DateTimeNextPnc;
 	}
 
-	public void setDateNextPnc(Date dateNextPnc) {
-		this.dateNextPnc = dateNextPnc;
+	public void setDateTimeNextPnc(DateTime DateTimeNextPnc) {
+		this.DateTimeNextPnc = DateTimeNextPnc;
 	}
 
-	@Column(name = "eats_meat")
 	public String getEatsMeat() {
 		return this.eatsMeat;
 	}
@@ -373,17 +466,14 @@ public class MotherCase implements java.io.Serializable {
 		this.eatsMeat = eatsMeat;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "edd")
-	public Date getEdd() {
+	public DateTime getEdd() {
 		return this.edd;
 	}
 
-	public void setEdd(Date edd) {
+	public void setEdd(DateTime edd) {
 		this.edd = edd;
 	}
 
-	@Column(name = "enrolled_in_kilkari")
 	public String getEnrolledInKilkari() {
 		return this.enrolledInKilkari;
 	}
@@ -392,7 +482,6 @@ public class MotherCase implements java.io.Serializable {
 		this.enrolledInKilkari = enrolledInKilkari;
 	}
 
-	@Column(name = "family_planning_type")
 	public String getFamilyPlanningType() {
 		return this.familyPlanningType;
 	}
@@ -401,16 +490,14 @@ public class MotherCase implements java.io.Serializable {
 		this.familyPlanningType = familyPlanningType;
 	}
 
-	@Column(name = "how_many_children")
-	public Short getHowManyChildren() {
+	public int getHowManyChildren() {
 		return this.howManyChildren;
 	}
 
-	public void setHowManyChildren(Short howManyChildren) {
+	public void setHowManyChildren(int howManyChildren) {
 		this.howManyChildren = howManyChildren;
 	}
 
-	@Column(name = "interest_in_kilkari")
 	public String getInterestInKilkari() {
 		return this.interestInKilkari;
 	}
@@ -419,7 +506,6 @@ public class MotherCase implements java.io.Serializable {
 		this.interestInKilkari = interestInKilkari;
 	}
 
-	@Column(name = "last_preg_tt")
 	public String getLastPregTt() {
 		return this.lastPregTt;
 	}
@@ -428,17 +514,14 @@ public class MotherCase implements java.io.Serializable {
 		this.lastPregTt = lastPregTt;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "lmp")
-	public Date getLmp() {
+	public DateTime getLmp() {
 		return this.lmp;
 	}
 
-	public void setLmp(Date lmp) {
+	public void setLmp(DateTime lmp) {
 		this.lmp = lmp;
 	}
 
-	@Column(name = "mobile_number")
 	public String getMobileNumber() {
 		return this.mobileNumber;
 	}
@@ -447,136 +530,110 @@ public class MotherCase implements java.io.Serializable {
 		this.mobileNumber = mobileNumber;
 	}
 
-	@Column(name = "num_boys")
-	public Short getNumBoys() {
+	public int getNumBoys() {
 		return this.numBoys;
 	}
 
-	public void setNumBoys(Short numBoys) {
+	public void setNumBoys(int numBoys) {
 		this.numBoys = numBoys;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_1")
-	public Date getDateCf1() {
-		return this.dateCf1;
+	public DateTime getDateTimeCf1() {
+		return this.DateTimeCf1;
 	}
 
-	public void setDateCf1(Date dateCf1) {
-		this.dateCf1 = dateCf1;
+	public void setDateTimeCf1(DateTime DateTimeCf1) {
+		this.DateTimeCf1 = DateTimeCf1;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_2")
-	public Date getDateCf2() {
-		return this.dateCf2;
+	public DateTime getDateTimeCf2() {
+		return this.DateTimeCf2;
 	}
 
-	public void setDateCf2(Date dateCf2) {
-		this.dateCf2 = dateCf2;
+	public void setDateTimeCf2(DateTime DateTimeCf2) {
+		this.DateTimeCf2 = DateTimeCf2;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_3")
-	public Date getDateCf3() {
-		return this.dateCf3;
+	public DateTime getDateTimeCf3() {
+		return this.DateTimeCf3;
 	}
 
-	public void setDateCf3(Date dateCf3) {
-		this.dateCf3 = dateCf3;
+	public void setDateTimeCf3(DateTime DateTimeCf3) {
+		this.DateTimeCf3 = DateTimeCf3;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_4")
-	public Date getDateCf4() {
-		return this.dateCf4;
+	public DateTime getDateTimeCf4() {
+		return this.DateTimeCf4;
 	}
 
-	public void setDateCf4(Date dateCf4) {
-		this.dateCf4 = dateCf4;
+	public void setDateTimeCf4(DateTime DateTimeCf4) {
+		this.DateTimeCf4 = DateTimeCf4;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_5")
-	public Date getDateCf5() {
-		return this.dateCf5;
+	public DateTime getDateTimeCf5() {
+		return this.DateTimeCf5;
 	}
 
-	public void setDateCf5(Date dateCf5) {
-		this.dateCf5 = dateCf5;
+	public void setDateTimeCf5(DateTime DateTimeCf5) {
+		this.DateTimeCf5 = DateTimeCf5;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_6")
-	public Date getDateCf6() {
-		return this.dateCf6;
+	public DateTime getDateTimeCf6() {
+		return this.DateTimeCf6;
 	}
 
-	public void setDateCf6(Date dateCf6) {
-		this.dateCf6 = dateCf6;
+	public void setDateTimeCf6(DateTime DateTimeCf6) {
+		this.DateTimeCf6 = DateTimeCf6;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_1")
-	public Date getDateEb1() {
-		return this.dateEb1;
+	public DateTime getDateTimeEb1() {
+		return this.DateTimeEb1;
 	}
 
-	public void setDateEb1(Date dateEb1) {
-		this.dateEb1 = dateEb1;
+	public void setDateTimeEb1(DateTime DateTimeEb1) {
+		this.DateTimeEb1 = DateTimeEb1;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_2")
-	public Date getDateEb2() {
-		return this.dateEb2;
+	public DateTime getDateTimeEb2() {
+		return this.DateTimeEb2;
 	}
 
-	public void setDateEb2(Date dateEb2) {
-		this.dateEb2 = dateEb2;
+	public void setDateTimeEb2(DateTime DateTimeEb2) {
+		this.DateTimeEb2 = DateTimeEb2;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_3")
-	public Date getDateEb3() {
-		return this.dateEb3;
+	public DateTime getDateTimeEb3() {
+		return this.DateTimeEb3;
 	}
 
-	public void setDateEb3(Date dateEb3) {
-		this.dateEb3 = dateEb3;
+	public void setDateTimeEb3(DateTime DateTimeEb3) {
+		this.DateTimeEb3 = DateTimeEb3;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_4")
-	public Date getDateEb4() {
-		return this.dateEb4;
+	public DateTime getDateTimeEb4() {
+		return this.DateTimeEb4;
 	}
 
-	public void setDateEb4(Date dateEb4) {
-		this.dateEb4 = dateEb4;
+	public void setDateTimeEb4(DateTime DateTimeEb4) {
+		this.DateTimeEb4 = DateTimeEb4;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_5")
-	public Date getDateEb5() {
-		return this.dateEb5;
+	public DateTime getDateTimeEb5() {
+		return this.DateTimeEb5;
 	}
 
-	public void setDateEb5(Date dateEb5) {
-		this.dateEb5 = dateEb5;
+	public void setDateTimeEb5(DateTime DateTimeEb5) {
+		this.DateTimeEb5 = DateTimeEb5;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_eb_6")
-	public Date getDateEb6() {
-		return this.dateEb6;
+	public DateTime getDateTimeEb6() {
+		return this.DateTimeEb6;
 	}
 
-	public void setDateEb6(Date dateEb6) {
-		this.dateEb6 = dateEb6;
+	public void setDateTimeEb6(DateTime DateTimeEb6) {
+		this.DateTimeEb6 = DateTimeEb6;
 	}
 
-	@Column(name = "all_pnc_on_time")
 	public String getAllPncOnTime() {
 		return this.allPncOnTime;
 	}
@@ -585,37 +642,30 @@ public class MotherCase implements java.io.Serializable {
 		this.allPncOnTime = allPncOnTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_1")
-	public Date getDatePnc1() {
-		return this.datePnc1;
+	public DateTime getDateTimePnc1() {
+		return this.DateTimePnc1;
 	}
 
-	public void setDatePnc1(Date datePnc1) {
-		this.datePnc1 = datePnc1;
+	public void setDateTimePnc1(DateTime DateTimePnc1) {
+		this.DateTimePnc1 = DateTimePnc1;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_2")
-	public Date getDatePnc2() {
-		return this.datePnc2;
+	public DateTime getDateTimePnc2() {
+		return this.DateTimePnc2;
 	}
 
-	public void setDatePnc2(Date datePnc2) {
-		this.datePnc2 = datePnc2;
+	public void setDateTimePnc2(DateTime DateTimePnc2) {
+		this.DateTimePnc2 = DateTimePnc2;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_pnc_3")
-	public Date getDatePnc3() {
-		return this.datePnc3;
+	public DateTime getDateTimePnc3() {
+		return this.DateTimePnc3;
 	}
 
-	public void setDatePnc3(Date datePnc3) {
-		this.datePnc3 = datePnc3;
+	public void setDateTimePnc3(DateTime DateTimePnc3) {
+		this.DateTimePnc3 = DateTimePnc3;
 	}
 
-	@Column(name = "first_pnc_time")
 	public String getFirstPncTime() {
 		return this.firstPncTime;
 	}
@@ -624,7 +674,6 @@ public class MotherCase implements java.io.Serializable {
 		this.firstPncTime = firstPncTime;
 	}
 
-	@Column(name = "pnc_1_days_late")
 	public Integer getPnc1DaysLate() {
 		return this.pnc1DaysLate;
 	}
@@ -633,7 +682,6 @@ public class MotherCase implements java.io.Serializable {
 		this.pnc1DaysLate = pnc1DaysLate;
 	}
 
-	@Column(name = "pnc_2_days_late")
 	public Integer getPnc2DaysLate() {
 		return this.pnc2DaysLate;
 	}
@@ -642,7 +690,6 @@ public class MotherCase implements java.io.Serializable {
 		this.pnc2DaysLate = pnc2DaysLate;
 	}
 
-	@Column(name = "pnc_3_days_late")
 	public Integer getPnc3DaysLate() {
 		return this.pnc3DaysLate;
 	}
@@ -651,17 +698,14 @@ public class MotherCase implements java.io.Serializable {
 		this.pnc3DaysLate = pnc3DaysLate;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_booster_date")
-	public Date getTtBoosterDate() {
-		return this.ttBoosterDate;
+	public DateTime getTtBoosterDateTime() {
+		return this.ttBoosterDateTime;
 	}
 
-	public void setTtBoosterDate(Date ttBoosterDate) {
-		this.ttBoosterDate = ttBoosterDate;
+	public void setTtBoosterDateTime(DateTime ttBoosterDateTime) {
+		this.ttBoosterDateTime = ttBoosterDateTime;
 	}
 
-	@Column(name = "sba")
 	public String getSba() {
 		return this.sba;
 	}
@@ -670,7 +714,6 @@ public class MotherCase implements java.io.Serializable {
 		this.sba = sba;
 	}
 
-	@Column(name = "sba_phone")
 	public String getSbaPhone() {
 		return this.sbaPhone;
 	}
@@ -679,7 +722,6 @@ public class MotherCase implements java.io.Serializable {
 		this.sbaPhone = sbaPhone;
 	}
 
-	@Column(name = "accompany")
 	public String getAccompany() {
 		return this.accompany;
 	}
@@ -688,47 +730,38 @@ public class MotherCase implements java.io.Serializable {
 		this.accompany = accompany;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_1_date")
-	public Date getAnc1Date() {
-		return this.anc1Date;
+	public DateTime getAnc1DateTime() {
+		return this.anc1DateTime;
 	}
 
-	public void setAnc1Date(Date anc1Date) {
-		this.anc1Date = anc1Date;
+	public void setAnc1DateTime(DateTime anc1DateTime) {
+		this.anc1DateTime = anc1DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_2_date")
-	public Date getAnc2Date() {
-		return this.anc2Date;
+	public DateTime getAnc2DateTime() {
+		return this.anc2DateTime;
 	}
 
-	public void setAnc2Date(Date anc2Date) {
-		this.anc2Date = anc2Date;
+	public void setAnc2DateTime(DateTime anc2DateTime) {
+		this.anc2DateTime = anc2DateTime;
+	}
+	
+	public DateTime getAnc3DateTime() {
+		return this.anc3DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_3_date")
-	public Date getAnc3Date() {
-		return this.anc3Date;
+	public void setAnc3DateTime(DateTime anc3DateTime) {
+		this.anc3DateTime = anc3DateTime;
 	}
 
-	public void setAnc3Date(Date anc3Date) {
-		this.anc3Date = anc3Date;
+	public DateTime getAnc4DateTime() {
+		return this.anc4DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "anc_4_date")
-	public Date getAnc4Date() {
-		return this.anc4Date;
+	public void setAnc4DateTime(DateTime anc4DateTime) {
+		this.anc4DateTime = anc4DateTime;
 	}
 
-	public void setAnc4Date(Date anc4Date) {
-		this.anc4Date = anc4Date;
-	}
-
-	@Column(name = "clean_cloth")
 	public String getCleanCloth() {
 		return this.cleanCloth;
 	}
@@ -737,7 +770,6 @@ public class MotherCase implements java.io.Serializable {
 		this.cleanCloth = cleanCloth;
 	}
 
-	@Column(name = "couple_interested")
 	public String getCoupleInterested() {
 		return this.coupleInterested;
 	}
@@ -746,47 +778,38 @@ public class MotherCase implements java.io.Serializable {
 		this.coupleInterested = coupleInterested;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_1")
-	public Date getDateBp1() {
-		return this.dateBp1;
+	public DateTime getDateTimeBp1() {
+		return this.DateTimeBp1;
 	}
 
-	public void setDateBp1(Date dateBp1) {
-		this.dateBp1 = dateBp1;
+	public void setDateTimeBp1(DateTime DateTimeBp1) {
+		this.DateTimeBp1 = DateTimeBp1;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_2")
-	public Date getDateBp2() {
-		return this.dateBp2;
+	public DateTime getDateTimeBp2() {
+		return this.DateTimeBp2;
 	}
 
-	public void setDateBp2(Date dateBp2) {
-		this.dateBp2 = dateBp2;
+	public void setDateTimeBp2(DateTime DateTimeBp2) {
+		this.DateTimeBp2 = DateTimeBp2;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_bp_3")
-	public Date getDateBp3() {
-		return this.dateBp3;
+	public DateTime getDateTimeBp3() {
+		return this.DateTimeBp3;
 	}
 
-	public void setDateBp3(Date dateBp3) {
-		this.dateBp3 = dateBp3;
+	public void setDateTimeBp3(DateTime DateTimeBp3) {
+		this.DateTimeBp3 = DateTimeBp3;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_last_visit")
-	public Date getDateLastVisit() {
-		return this.dateLastVisit;
+	public DateTime getDateTimeLastVisit() {
+		return this.DateTimeLastVisit;
 	}
 
-	public void setDateLastVisit(Date dateLastVisit) {
-		this.dateLastVisit = dateLastVisit;
+	public void setDateTimeLastVisit(DateTime DateTimeLastVisit) {
+		this.DateTimeLastVisit = DateTimeLastVisit;
 	}
 
-	@Column(name = "delivery_type")
 	public String getDeliveryType() {
 		return this.deliveryType;
 	}
@@ -795,26 +818,22 @@ public class MotherCase implements java.io.Serializable {
 		this.deliveryType = deliveryType;
 	}
 
-	@Column(name = "ifa_tablets")
-	public Short getIfaTablets() {
+	public int getIfaTablets() {
 		return this.ifaTablets;
 	}
 
-	public void setIfaTablets(Short ifaTablets) {
+	public void setIfaTablets(int ifaTablets) {
 		this.ifaTablets = ifaTablets;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "ifa_tablets_100")
-	public Date getIfaTablets100() {
+	public DateTime getIfaTablets100() {
 		return this.ifaTablets100;
 	}
 
-	public void setIfaTablets100(Date ifaTablets100) {
+	public void setIfaTablets100(DateTime ifaTablets100) {
 		this.ifaTablets100 = ifaTablets100;
 	}
 
-	@Column(name = "materials")
 	public String getMaterials() {
 		return this.materials;
 	}
@@ -823,7 +842,6 @@ public class MotherCase implements java.io.Serializable {
 		this.materials = materials;
 	}
 
-	@Column(name = "maternal_emergency")
 	public String getMaternalEmergency() {
 		return this.maternalEmergency;
 	}
@@ -832,7 +850,6 @@ public class MotherCase implements java.io.Serializable {
 		this.maternalEmergency = maternalEmergency;
 	}
 
-	@Column(name = "maternal_emergency_number")
 	public String getMaternalEmergencyNumber() {
 		return this.maternalEmergencyNumber;
 	}
@@ -841,7 +858,6 @@ public class MotherCase implements java.io.Serializable {
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
 	}
 
-	@Column(name = "phone_vehicle")
 	public String getPhoneVehicle() {
 		return this.phoneVehicle;
 	}
@@ -850,7 +866,6 @@ public class MotherCase implements java.io.Serializable {
 		this.phoneVehicle = phoneVehicle;
 	}
 
-	@Column(name = "saving_money")
 	public String getSavingMoney() {
 		return this.savingMoney;
 	}
@@ -859,27 +874,22 @@ public class MotherCase implements java.io.Serializable {
 		this.savingMoney = savingMoney;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_1_date")
-	public Date getTt1Date() {
-		return this.tt1Date;
+	public DateTime getTt1DateTime() {
+		return this.tt1DateTime;
 	}
 
-	public void setTt1Date(Date tt1Date) {
-		this.tt1Date = tt1Date;
+	public void setTt1DateTime(DateTime tt1DateTime) {
+		this.tt1DateTime = tt1DateTime;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "tt_2_date")
-	public Date getTt2Date() {
-		return this.tt2Date;
+	public DateTime getTt2DateTime() {
+		return this.tt2DateTime;
 	}
 
-	public void setTt2Date(Date tt2Date) {
-		this.tt2Date = tt2Date;
+	public void setTt2DateTime(DateTime tt2DateTime) {
+		this.tt2DateTime = tt2DateTime;
 	}
 
-	@Column(name = "vehicle")
 	public String getVehicle() {
 		return this.vehicle;
 	}
@@ -888,7 +898,6 @@ public class MotherCase implements java.io.Serializable {
 		this.vehicle = vehicle;
 	}
 
-	@Column(name = "birth_status")
 	public String getBirthStatus() {
 		return this.birthStatus;
 	}
@@ -897,17 +906,14 @@ public class MotherCase implements java.io.Serializable {
 		this.birthStatus = birthStatus;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "migrate_out_date")
-	public Date getMigrateOutDate() {
-		return this.migrateOutDate;
+	public DateTime getMigrateOutDateTime() {
+		return this.migrateOutDateTime;
 	}
 
-	public void setMigrateOutDate(Date migrateOutDate) {
-		this.migrateOutDate = migrateOutDate;
+	public void setMigrateOutDateTime(DateTime migrateOutDateTime) {
+		this.migrateOutDateTime = migrateOutDateTime;
 	}
 
-	@Column(name = "migrated_status")
 	public String getMigratedStatus() {
 		return this.migratedStatus;
 	}
@@ -916,7 +922,7 @@ public class MotherCase implements java.io.Serializable {
 		this.migratedStatus = migratedStatus;
 	}
 
-	@Column(name = "status")
+	
 	public String getStatus() {
 		return this.status;
 	}
@@ -925,7 +931,6 @@ public class MotherCase implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "term")
 	public String getTerm() {
 		return this.term;
 	}
@@ -934,37 +939,30 @@ public class MotherCase implements java.io.Serializable {
 		this.term = term;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_cf_7")
-	public Date getDateCf7() {
-		return this.dateCf7;
+	public DateTime getDateTimeCf7() {
+		return this.DateTimeCf7;
 	}
 
-	public void setDateCf7(Date dateCf7) {
-		this.dateCf7 = dateCf7;
+	public void setDateTimeCf7(DateTime DateTimeCf7) {
+		this.DateTimeCf7 = DateTimeCf7;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_del_fu")
-	public Date getDateDelFu() {
-		return this.dateDelFu;
+	public DateTime getDateTimeDelFu() {
+		return this.DateTimeDelFu;
 	}
 
-	public void setDateDelFu(Date dateDelFu) {
-		this.dateDelFu = dateDelFu;
+	public void setDateTimeDelFu(DateTime DateTimeDelFu) {
+		this.DateTimeDelFu = DateTimeDelFu;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "date_next_reg")
-	public Date getDateNextReg() {
-		return this.dateNextReg;
+	public DateTime getDateTimeNextReg() {
+		return this.DateTimeNextReg;
 	}
 
-	public void setDateNextReg(Date dateNextReg) {
-		this.dateNextReg = dateNextReg;
+	public void setDateTimeNextReg(DateTime DateTimeNextReg) {
+		this.DateTimeNextReg = DateTimeNextReg;
 	}
 
-	@Column(name = "institutional")
 	public String getInstitutional() {
 		return this.institutional;
 	}
@@ -973,17 +971,14 @@ public class MotherCase implements java.io.Serializable {
 		this.institutional = institutional;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "dob")
-	public Date getDob() {
+	public DateTime getDob() {
 		return this.dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(DateTime dob) {
 		this.dob = dob;
 	}
 
-	@Column(name = "closed")
 	public Boolean getClosed() {
 		return this.closed;
 	}
@@ -992,7 +987,6 @@ public class MotherCase implements java.io.Serializable {
 		this.closed = closed;
 	}
 
-    @Column(name = "mobile_number_whose")
     public String getMobileNumberWhose() {
         return this.mobileNumberWhose;
     }
@@ -1001,7 +995,6 @@ public class MotherCase implements java.io.Serializable {
         this.mobileNumberWhose = mobileNumberWhose;
     }
     
-    @Column(name = "ward_number")
     public Integer getWardNumber() {
         return this.wardNumber;
     }
@@ -1010,7 +1003,6 @@ public class MotherCase implements java.io.Serializable {
         this.wardNumber = wardNumber;
     }
     
-    @Column(name = "bp_visit_num")
     public Integer getBpVisitNum() {
         return this.bpVisitNum;
     }
@@ -1019,7 +1011,6 @@ public class MotherCase implements java.io.Serializable {
         this.bpVisitNum = bpVisitNum;
     }
     
-    @Column(name = "eb_visit_num")
     public Integer getEbVisitNum() {
         return this.ebVisitNum;
     }
@@ -1027,8 +1018,7 @@ public class MotherCase implements java.io.Serializable {
     public void setEbVisitNum(Integer ebVisitNum) {
         this.ebVisitNum = ebVisitNum;
     }
-    
-    @Column(name = "pnc_visit_num")
+
     public Integer getPncVisitNum() {
         return this.pncVisitNum;
     }
@@ -1037,7 +1027,6 @@ public class MotherCase implements java.io.Serializable {
         this.pncVisitNum = pncVisitNum;
     }
 
-    @Column(name = "cf_visit_num")
     public Integer getCfVisitNum() {
         return this.cfVisitNum;
     }
@@ -1046,30 +1035,22 @@ public class MotherCase implements java.io.Serializable {
         this.cfVisitNum = cfVisitNum;
     }
     
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
-    public Date getCreationTime() {
+    public DateTime getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(DateTime creationTime) {
         this.creationTime = creationTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_time")
-    public Date getLastModifiedTime() {
+    public DateTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Date lastModifiedTime) {
+    public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closed_by")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     public Flw getClosedBy() {
         return closedBy;
     }
@@ -1078,12 +1059,12 @@ public class MotherCase implements java.io.Serializable {
         this.closedBy = closedBy;
     }
 
-    /*@Override
+   /* @Override
     public void updateToLatest(MotherCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            logger.warn(String.format("Ignoring mother case update with case id: %s since existing server date modified is %s and new server date modified is %s", this.caseId, this.serverDateModified, updated.serverDateModified));
+            logger.warn(String.format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s", this.caseId, this.serverDateTimeModified, updated.serverDateTimeModified));
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime", "closedOn", "closedBy", "closed"));
@@ -1091,14 +1072,14 @@ public class MotherCase implements java.io.Serializable {
 
     @Override
     public void updateLastModifiedTime() {
-        this.lastModifiedTime = new Date();
+        this.lastModifiedTime = new DateTime();
     }*/
 
     private boolean isLatest(MotherCase updatedObject) {
-        if (this.serverDateModified == null)
+        if (this.serverDateTimeModified == null)
             return true;
-        else if (updatedObject.serverDateModified == null)
+        else if (updatedObject.serverDateTimeModified == null)
             return false;
-        return this.serverDateModified.compareTo(updatedObject.serverDateModified) <= 0;
+        return this.serverDateTimeModified.compareTo(updatedObject.serverDateTimeModified) <= 0;
     }
 }

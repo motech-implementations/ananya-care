@@ -1,49 +1,49 @@
 package org.motechproject.care.common.entities;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.jdo.annotations.Unique;
+
+import org.joda.time.DateTime;
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 
 
-@Entity
-@Table(name = "flw_group", uniqueConstraints = @UniqueConstraint(columnNames = "group_id"))
-public class FlwGroup implements java.io.Serializable {
+@Entity(name = "flw_group")
+public class FlwGroup/* extends SelfUpdatable<FlwGroup>*/ implements java.io.Serializable {
 
-	private int id;
     @ExternalPrimaryKey
+	@Field
+    @Unique
 	private String groupId;
+	@Field
 	private Boolean caseSharing;
+	@Field
 	private String domain;
+	@Field
 	private String awcCode;
+	@Field
 	private String name;
+	@Field
 	private Boolean reporting;
-    private Date creationTime;
-    private Date lastModifiedTime;
-    private Set<Flw> flws;
+    @Field
+    private DateTime creationTime;
+    @Field
+    private DateTime lastModifiedTime;
+    /*//TODO: @ManyToMany(mappedBy="flwGroups")
+    @Persistent(mappedBy="flwGroups")
+    private Set<Flw> flws;*/
 
 	public FlwGroup() {
-        Date date = new Date();
-        creationTime = date;
-        lastModifiedTime = date;
-        flws = new HashSet<>(0);
+        DateTime DateTime = new DateTime();
+        creationTime = DateTime;
+        lastModifiedTime = DateTime;
+//        flws = new HashSet<>(0);
 	}
 
-    public FlwGroup(int id, String groupId, Boolean caseSharing, String domain,
+    public FlwGroup(String groupId, Boolean caseSharing, String domain,
                     String awcCode, String name, Boolean reporting,
-                    Date creationTime, Date lastModifiedTime, Set<Flw> flws) {
-        this.id = id;
+                    DateTime creationTime, DateTime lastModifiedTime, Set<Flw> flws) {
 		this.groupId = groupId;
 		this.caseSharing = caseSharing;
 		this.domain = domain;
@@ -52,21 +52,9 @@ public class FlwGroup implements java.io.Serializable {
 		this.reporting = reporting;
         this.creationTime = creationTime;
         this.lastModifiedTime = lastModifiedTime;
-        this.flws = flws;
+//        this.flws = flws;
 	}
 
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Column(name = "group_id", unique = true)
 	public String getGroupId() {
 		return this.groupId;
 	}
@@ -75,7 +63,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.groupId = groupId;
 	}
 
-	@Column(name = "case_sharing")
 	public Boolean getCaseSharing() {
 		return this.caseSharing;
 	}
@@ -84,7 +71,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.caseSharing = caseSharing;
 	}
 
-	@Column(name = "domain")
 	public String getDomain() {
 		return this.domain;
 	}
@@ -93,7 +79,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.domain = domain;
 	}
 
-	@Column(name = "awc_code")
 	public String getAwcCode() {
 		return this.awcCode;
 	}
@@ -102,7 +87,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.awcCode = awcCode;
 	}
 
-	@Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
@@ -111,7 +95,6 @@ public class FlwGroup implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "reporting")
 	public Boolean getReporting() {
 		return this.reporting;
 	}
@@ -120,36 +103,31 @@ public class FlwGroup implements java.io.Serializable {
 		this.reporting = reporting;
 	}
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "creation_time")
-    public Date getCreationTime() {
+    public DateTime getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(DateTime creationTime) {
         this.creationTime = creationTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "last_modified_time")
-    public Date getLastModifiedTime() {
+    public DateTime getLastModifiedTime() {
         return lastModifiedTime;
     }
 
-    public void setLastModifiedTime(Date lastModifiedTime) {
+    public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-    @ManyToMany(mappedBy="flwGroups")
-    public Set<Flw> getFlws() {
+  /*  public Set<Flw> getFlws() {
         return flws;
     }
 
     public void setFlws(Set<Flw> flws) {
         this.flws = flws;
-    }
+    }*/
 
-    /*@Override
+   /* @Override
     public void updateToLatest(FlwGroup other) {
         validateIfUpdatable(this.groupId, other.groupId);
 
@@ -158,6 +136,6 @@ public class FlwGroup implements java.io.Serializable {
 
     @Override
     protected void updateLastModifiedTime() {
-        this.lastModifiedTime = new Date();
+        this.lastModifiedTime = new DateTime();
     }*/
 }

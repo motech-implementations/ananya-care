@@ -1,27 +1,27 @@
 package org.motechproject.care.common.entities;
 
-import java.util.Date;
+import javax.jdo.annotations.Unique;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.joda.time.DateTime;
+import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 
-@MappedSuperclass
+@Entity(name = "form")
 public class Form implements java.io.Serializable {
     @ExternalPrimaryKey
     private String instanceId;
 
     private String appVersion;
 
-    private Date serverDateModified;
+    private DateTime serverDateModified;
 
     private Integer deliveryOffsetDays;
 
     public Form() {
     }
 
-    @Column(name = "instance_id", unique = true)
+    @Field
+    @Unique
     public String getInstanceId() {
         return this.instanceId;
     }
@@ -30,7 +30,7 @@ public class Form implements java.io.Serializable {
         this.instanceId = instanceId;
     }
 
-    @Column(name = "app_version")
+    @Field
     public String getAppVersion() {
         return this.appVersion;
     }
@@ -39,18 +39,16 @@ public class Form implements java.io.Serializable {
         this.appVersion = appVersion;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "server_date_modified")
-    public Date getServerDateModified() {
+    @Field
+    public DateTime getServerDateModified() {
         return serverDateModified;
     }
 
-    public void setServerDateModified(Date serverDateModified) {
+    public void setServerDateModified(DateTime serverDateModified) {
         this.serverDateModified = serverDateModified;
     }
 
-
-    @Column(name = "delivery_offset_days")
+    @Field
     public Integer getDeliveryOffsetDays() {
         return this.deliveryOffsetDays;
     }
