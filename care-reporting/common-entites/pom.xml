@@ -26,7 +26,7 @@
 
     <build>
         <plugins>
-            
+
             <!-- build a OSGI bundle  -->
             <plugin>
                 <groupId>org.apache.felix</groupId>

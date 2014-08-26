@@ -414,9 +414,10 @@ public class EbfChildForm extends Form {
 		this.moreFeedingLessSix = moreFeedingLessSix;
 	}
 
-	@Field
+	
+    @Field
 	public String getNameUpdate() {
-		return this.nameUpdate;
+		return nameUpdate;
 	}
 
 	public void setNameUpdate(String nameUpdate) {

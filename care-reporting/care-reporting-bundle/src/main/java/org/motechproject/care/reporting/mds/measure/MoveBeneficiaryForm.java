@@ -11,8 +11,8 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "move_beneficiary_form")
-@Unique(members = "instance_id")
-public class MoveBeneficiaryForm extends Form{
+@Unique(members = "instanceId")
+public class MoveBeneficiaryForm extends Form {
 
     private Flw flw;
     private MotherCase motherCase;

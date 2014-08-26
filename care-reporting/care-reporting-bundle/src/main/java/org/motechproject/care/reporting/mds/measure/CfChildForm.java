@@ -71,7 +71,7 @@ public class CfChildForm extends Form {
     private String milkCurd;
     private String moreFeedingLessSix;
     private String nameUpdate;
-    private String newName;
+	private String newName;
     private String numberGood;
     private String oilGhee;
     private String recentFever;
@@ -108,6 +108,16 @@ public class CfChildForm extends Form {
     public void setFlw(Flw flw) {
         this.flw = flw;
     }
+    
+    @Field
+    public String getNameUpdate() {
+		return nameUpdate;
+	}
+
+	public void setNameUpdate(String nameUpdate) {
+		this.nameUpdate = nameUpdate;
+	}
+
 
     public ChildCase getChildCase() {
         return this.childCase;
@@ -464,14 +474,6 @@ public class CfChildForm extends Form {
         this.moreFeedingLessSix = moreFeedingLessSix;
     }
 
-    @Field
-    public String getNameupdate() {
-        return this.nameUpdate;
-    }
-
-    public void setNameUpdate(String nameUpdate) {
-        this.nameUpdate = nameUpdate;
-    }
 
     @Field
     public String getNewName() {
