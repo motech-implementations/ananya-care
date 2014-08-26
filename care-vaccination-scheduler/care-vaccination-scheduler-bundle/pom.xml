@@ -14,7 +14,7 @@
 
     <properties>
         <main.basedir>${project.basedir}/..</main.basedir>
-        <motech.version>0.21.1</motech.version>
+        <motech.version>0.24-SNAPSHOT</motech.version>
         <ananya.version>${project.parent.version}</ananya.version>
     </properties>
 
@@ -26,8 +26,8 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
-            <artifactId>motech-http-agent-bundle</artifactId>
-            <version>0.21.1-r2</version>
+            <artifactId>http-agent</artifactId>
+            <version>${motech.version}</version>
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
