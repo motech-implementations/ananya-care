@@ -1,14 +1,15 @@
-package org.motechproject.care.common.entities;
+package org.motechproject.mcts.care.common.mds.dimension;
 
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "location_dimension")
-@Unique(members = {"state", "district", "block"})
+@Unique(members = { "state", "district", "block" })
 public class LocationDimension implements java.io.Serializable {
+
+    private static final long serialVersionUID = -2323462524160633817L;
 
     @Field
     private String state;

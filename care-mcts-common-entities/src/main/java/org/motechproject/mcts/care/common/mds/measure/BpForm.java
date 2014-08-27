@@ -1,9 +1,11 @@
-package org.motechproject.care.common.entities;
+package org.motechproject.mcts.care.common.mds.measure;
 
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.common.utils.FormToString;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.utils.FormToString;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
@@ -12,10 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instance_id")
 public class BpForm extends Form {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1558836102875878836L;
+	
 	@Field
 	@Cascade(persist = true, update = true, delete = false)
 	private Flw flw;

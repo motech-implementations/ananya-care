@@ -1,20 +1,18 @@
-package org.motechproject.care.common.entities;
-
+package org.motechproject.mcts.care.common.mds.dimension;
 
 import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 @Entity(name = "child_case")
 public class ChildCase implements java.io.Serializable {
 
-	private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-	
-	@Field
+    private static final long serialVersionUID = -7655944396275293118L;
+    
+    @Field
     @Cascade(persist = true, update = true, delete = true)
 	private Flw flw;
 	//TODO @ManyToOne(fetch = FetchType.EAGER)
@@ -458,29 +456,4 @@ public class ChildCase implements java.io.Serializable {
         this.lastModifiedTime = lastModifiedTime;
     }
 
-   /* @Override
-    public void updateToLatest(ChildCase updated) {
-        validateIfUpdatable(this.caseId, updated.caseId);
-
-        if (!isLatest(updated)) {
-            logger.warn(String.format("Ignoring mother case update with case id: %s since current DateTime modified is %s and given DateTime modified is %s", this.caseId, this.DateTimeModified, updated.DateTimeModified));
-            return;
-        }
-
-        List<String> fieldsToIgnore = Arrays.asList("id", "caseId", "creationTime", "closedOn", "closedBy", "closed");
-        updateFields(updated, fieldsToIgnore);
-    }
-
-    @Override
-    public void updateLastModifiedTime() {
-        this.lastModifiedTime = new DateTime();
-    }*/
-
-    private boolean isLatest(ChildCase updatedObject) {
-        if (this.serverDateTimeModified == null)
-            return true;
-        else if (updatedObject.serverDateTimeModified == null)
-            return false;
-        return this.serverDateTimeModified.compareTo(updatedObject.serverDateTimeModified) <= 0;
-    }
 }

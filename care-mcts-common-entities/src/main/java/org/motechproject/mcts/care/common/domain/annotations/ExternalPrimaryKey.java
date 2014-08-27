@@ -1,4 +1,4 @@
-package org.motechproject.care.common.entities;
+package org.motechproject.mcts.care.common.domain.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({FIELD})
+@Target({ FIELD })
 @Retention(RUNTIME)
 public @interface ExternalPrimaryKey {
 }

@@ -1,9 +1,10 @@
-package org.motechproject.care.common.utils;
+package org.motechproject.mcts.care.common.utils;
 
 import java.lang.reflect.Field;
 
 public class ReflectionUtils {
-    public static void updateValue(String fieldName, Object source, Object target) {
+    public static void updateValue(String fieldName, Object source,
+            Object target) {
         try {
             Field field = getField(source, fieldName);
             if (java.lang.reflect.Modifier.isStatic(field.getModifiers()))
@@ -26,12 +27,14 @@ public class ReflectionUtils {
         }
     }
 
-    private static Field getField(Object object, String fieldName) throws NoSuchFieldException {
+    private static Field getField(Object object, String fieldName)
+            throws NoSuchFieldException {
         Field field;
         try {
             field = object.getClass().getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {
-            field = object.getClass().getSuperclass().getDeclaredField(fieldName);
+            field = object.getClass().getSuperclass()
+                    .getDeclaredField(fieldName);
         }
         return field;
     }

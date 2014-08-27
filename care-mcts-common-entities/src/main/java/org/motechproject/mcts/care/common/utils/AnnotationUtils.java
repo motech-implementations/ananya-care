@@ -1,10 +1,10 @@
-package org.motechproject.care.common.utils;
+package org.motechproject.mcts.care.common.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.motechproject.care.common.entities.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 
 public class AnnotationUtils {
     public static Object getExternalPrimaryKeyValue(Object object) {
