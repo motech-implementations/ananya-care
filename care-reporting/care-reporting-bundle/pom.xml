@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>care-reporting</artifactId>
-        <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24-SNAPSHOT</version>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+    <version>0.24-SNAPSHOT</version>
     <artifactId>care-reporting-bundle</artifactId>
+    <groupId>org.motechproject.ananya-care</groupId>
     <packaging>bundle</packaging>
 
     <properties>
@@ -75,16 +71,16 @@
             <version>1.8.5</version>
         </dependency>
 
-	<dependency>
-		<groupId>org.motechproject.org.hibernate</groupId>
-		<artifactId>com.springsource.org.hibernate</artifactId>
-		<version>3.6.0.Final-r027</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.servicemix.bundles</groupId>
-		<artifactId>org.apache.servicemix.bundles.ant</artifactId>
-		<version>1.8.1_1</version>
-	</dependency>
+        <dependency>
+            <groupId>org.motechproject.org.hibernate</groupId>
+            <artifactId>com.springsource.org.hibernate</artifactId>
+            <version>3.6.0.Final-r027</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.ant</artifactId>
+            <version>1.8.1_1</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>org.springframework.orm</artifactId>
@@ -222,7 +218,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- build a OSGI bundle  -->
+            <!-- build a OSGI bundle -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -259,7 +255,8 @@
                 </configuration>
             </plugin>
 
-            <!-- copy your bundle to ~/.motech/bundles from where the server can access it -->
+            <!-- copy your bundle to ~/.motech/bundles from where the server can access 
+                it -->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
