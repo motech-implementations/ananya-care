@@ -1,12 +1,12 @@
 package org.motechproject.care.reporting.utils;
 
-import org.junit.Test;
-import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-import org.motechproject.care.reporting.domain.measure.PncChildForm;
+import static junit.framework.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Test;
+import org.motechproject.care.reporting.domain.measure.PncChildForm;
+import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 
 public class AnnotationUtilsTest {
     @Test

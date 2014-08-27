@@ -1,15 +1,17 @@
 package org.motechproject.care.reporting.domain.measure;
 
-import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+
+import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 
 @MappedSuperclass
 public class Form implements java.io.Serializable {
+    
     @ExternalPrimaryKey
     private String instanceId;
 

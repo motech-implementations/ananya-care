@@ -1,13 +1,23 @@
 package org.motechproject.care.reporting.domain.dimension;
 
-import org.motechproject.care.reporting.domain.SelfUpdatable;
-import org.motechproject.care.reporting.domain.annotations.ExternalPrimaryKey;
-
-import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
+import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 
 
 @Entity

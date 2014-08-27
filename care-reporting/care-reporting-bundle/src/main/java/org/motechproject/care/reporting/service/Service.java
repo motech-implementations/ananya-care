@@ -1,10 +1,14 @@
 package org.motechproject.care.reporting.service;
 
-import org.motechproject.care.reporting.domain.SelfUpdatable;
-import org.motechproject.care.reporting.domain.dimension.*;
-
 import java.util.List;
 import java.util.Map;
+
+import org.motechproject.care.reporting.domain.dimension.ChildCase;
+import org.motechproject.care.reporting.domain.dimension.Flw;
+import org.motechproject.care.reporting.domain.dimension.FlwGroup;
+import org.motechproject.care.reporting.domain.dimension.LocationDimension;
+import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 
 public interface Service {
     MotherCase getOrCreateMotherCase(String caseId);

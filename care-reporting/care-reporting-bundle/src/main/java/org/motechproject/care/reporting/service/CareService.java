@@ -1,10 +1,19 @@
 package org.motechproject.care.reporting.service;
 
+import static java.lang.String.format;
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
+import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
-import org.motechproject.care.reporting.domain.SelfUpdatable;
 import org.motechproject.care.reporting.domain.dimension.ChildCase;
 import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.domain.dimension.FlwGroup;
@@ -18,21 +27,12 @@ import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.format;
-import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
-import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
 @Service
 @Transactional
