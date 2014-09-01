@@ -1,9 +1,9 @@
 package org.motechproject.care.reporting.utils;
 
-import org.junit.Test;
-import org.motechproject.care.reporting.domain.measure.PncChildForm;
-
 import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
+import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
 
 public class ReflectionUtilsTest {
     @Test

@@ -5,8 +5,8 @@ import static junit.framework.Assert.assertEquals;
 import java.lang.reflect.Field;
 
 import org.junit.Test;
-import org.motechproject.care.reporting.domain.measure.PncChildForm;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
 
 public class AnnotationUtilsTest {
     @Test

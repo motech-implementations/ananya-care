@@ -1,12 +1,12 @@
 package org.motechproject.care.reporting.factory;
 
-import org.junit.Test;
-import org.motechproject.care.reporting.domain.measure.DeliveryChildForm;
-import org.motechproject.care.reporting.domain.measure.DeliveryMotherForm;
-import org.motechproject.care.reporting.domain.measure.MotherEditForm;
-import org.motechproject.care.reporting.enums.CaseType;
-
 import static junit.framework.Assert.assertEquals;
+
+import org.junit.Test;
+import org.motechproject.care.reporting.enums.CaseType;
+import org.motechproject.mcts.care.common.mds.measure.DeliveryChildForm;
+import org.motechproject.mcts.care.common.mds.measure.DeliveryMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
 
 public class FormFactoryTest{
 
