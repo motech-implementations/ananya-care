@@ -1,16 +1,20 @@
 package org.motechproject.mcts.care.common.mds.dimension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "flw_group")
-public class FlwGroup implements java.io.Serializable {
+public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
 
     private static final long serialVersionUID = 1325270026216609695L;
 
@@ -130,14 +134,21 @@ public class FlwGroup implements java.io.Serializable {
      * public void setFlws(Set<Flw> flws) { this.flws = flws; }
      */
 
-    /*
-     * @Override public void updateToLatest(FlwGroup other) {
-     * validateIfUpdatable(this.groupId, other.groupId);
-     * 
-     * updateFields(other, Arrays.asList("id", "groupId", "creationTime",
-     * "flws")); }
-     * 
-     * @Override protected void updateLastModifiedTime() { this.lastModifiedTime
-     * = new DateTime(); }
-     */
+    @Override
+    public void updateToLatest(FlwGroup other) {
+        validateIfUpdatable(this.groupId, other.groupId);
+
+        updateFields(other,
+                Arrays.asList("id", "groupId", "creationTime", "flws"));
+    }
+    
+    public Boolean validateIfUpdatable(String thisId, String otherId) {
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
+     }
+
+     public void updateFields(FlwGroup source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
+     }
+
+
 }

@@ -1,15 +1,22 @@
 package org.motechproject.mcts.care.common.mds.dimension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.jdo.annotations.Unique;
 
 import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "mother_case")
-public class MotherCase implements java.io.Serializable {
+// TODO selfupdatable
+public class MotherCase implements java.io.Serializable,
+        SelfUpdatable<MotherCase> {
 
     private static final long serialVersionUID = 2017951207352639547L;
 
@@ -1055,4 +1062,38 @@ public class MotherCase implements java.io.Serializable {
         this.closedBy = closedBy;
     }
 
+    public Boolean validateIfUpdatable(String thisId, String otherId) {
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
+     }
+
+     public void updateFields(MotherCase source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
+     }
+
+    @Override
+    public void updateToLatest(MotherCase updated) {
+        validateIfUpdatable(this.caseId, updated.caseId);
+
+        if (!isLatest(updated)) {
+            //TODO add logger
+//            logger.warn(String
+//                    .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
+//                            this.caseId, this.serverDateTimeModified,
+//                            updated.serverDateTimeModified));
+            return;
+        }
+        updateFields(updated, Arrays.asList("id", "caseId", "creationTime",
+                "closedOn", "closedBy", "closed"));
+    }
+
+   
+
+    private boolean isLatest(MotherCase updatedObject) {
+        if (this.serverDateTimeModified == null)
+            return true;
+        else if (updatedObject.serverDateTimeModified == null)
+            return false;
+        return this.serverDateTimeModified
+                .compareTo(updatedObject.serverDateTimeModified) <= 0;
+    }
 }

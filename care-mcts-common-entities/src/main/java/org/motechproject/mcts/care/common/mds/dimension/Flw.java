@@ -1,16 +1,21 @@
 package org.motechproject.mcts.care.common.mds.dimension;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.jdo.annotations.Unique;
 import javax.persistence.ManyToMany;
 
 import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "flw")
-public class Flw implements java.io.Serializable {
+public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
 
     private static final long serialVersionUID = 6447315416364482489L;
 
@@ -355,6 +360,21 @@ public class Flw implements java.io.Serializable {
     public void setLastModifiedTime(DateTime lastModifiedTime) {
         this.lastModifiedTime = lastModifiedTime;
     }
+
+    @Override
+    public void updateToLatest(Flw object) {
+        validateIfUpdatable(this.flwId, object.flwId);
+        updateFields(object, Arrays.asList("id", "flwId", "creationTime"));
+    }
+
+    public Boolean validateIfUpdatable(String thisId, String otherId) {
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
+     }
+
+     public void updateFields(Flw source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
+     }
+
 
     public LocationDimension getLocationDimension() {
         return this.locationDimension;

@@ -44,6 +44,51 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            
+            <!-- copy your bundle to ~/.motech/bundles from where the server can access 
+                it -->
+            <!-- <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy-bundles</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${user.home}/.motech/bundles</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>target</directory>
+                                    <includes>
+                                        <include>*.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> -->
+            
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.4</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            org.motechproject.mcts.care.common.domain;version=${motech.version},
+                            org.motechproject.mcts.care.common.domain.annotations;version=${motech.version},
+                            org.motechproject.mcts.care.common.mds.dimension;version=${motech.version},
+                            org.motechproject.mcts.care.common.mds.measure;version=${motech.version},
+                            org.motechproject.mcts.care.common.utils;version=${motech.version}
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

@@ -6,28 +6,36 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.motechproject.mcts.care.common.utils.ReflectionUtils;
 
-public abstract class SelfUpdatable<T> {
+public interface SelfUpdatable<T> {
 
-    protected Boolean validateIfUpdatable(String thisId, String otherId) {
-        if (StringUtils.equals(thisId, otherId))
-            return true;
-        throw new IllegalArgumentException(
-                String.format(
-                        "Cannot Update %s, Id does not match. Id for source %s, Id for updated %s",
-                        this.getClass().getName(), thisId, otherId));
-    }
+    Boolean validateIfUpdatable(String thisId, String otherId);
 
-    protected void updateFields(T source, List<String> ignoredFields) {
-        for (Field field : this.getClass().getDeclaredFields()) {
-            if (ignoredFields.contains(field.getName())) {
-                continue;
-            }
-            ReflectionUtils.updateValue(field.getName(), source, this);
-        }
-        updateLastModifiedTime();
-    }
+    void updateFields(T source, List<String> ignoredFields);
 
-    public abstract void updateToLatest(T object);
+    public void updateToLatest(T object);
 
-    protected abstract void updateLastModifiedTime();
+    //void updateLastModifiedTime();
+
+    // protected Boolean validateIfUpdatable(String thisId, String otherId) {
+    // if (StringUtils.equals(thisId, otherId))
+    // return true;
+    // throw new IllegalArgumentException(
+    // String.format(
+    // "Cannot Update %s, Id does not match. Id for source %s, Id for updated %s",
+    // this.getClass().getName(), thisId, otherId));
+    // }
+    //
+    // protected void updateFields(T source, List<String> ignoredFields) {
+    // for (Field field : this.getClass().getDeclaredFields()) {
+    // if (ignoredFields.contains(field.getName())) {
+    // continue;
+    // }
+    // ReflectionUtils.updateValue(field.getName(), source, this);
+    // }
+    // //updateLastModifiedTime();
+    // }
+
+    // public abstract void updateToLatest(T object);
+
+    // protected abstract void updateLastModifiedTime();
 }
