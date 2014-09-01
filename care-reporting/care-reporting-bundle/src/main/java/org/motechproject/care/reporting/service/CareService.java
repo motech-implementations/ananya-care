@@ -5,7 +5,6 @@ import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternal
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,20 +13,21 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.LocationDimension;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesChildForm;
-import org.motechproject.care.reporting.domain.measure.AwwPreschoolActivitiesForm;
-import org.motechproject.care.reporting.domain.measure.Form;
+import org.joda.time.DateTime;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesForm;
+import org.motechproject.mcts.care.common.mds.measure.Form;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,13 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     public <T> Integer save(T instance) {
         return dbRepository.save(instance);
     }
-
+    
+    @Override
+    public <T> void saveAll(List<T> instances){
+        dbRepository.saveOrUpdateAll(instances);
+    }
+    
+   
     @Override
     public <T> void update(T entity) {
         dbRepository.update(entity);
@@ -81,6 +87,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
     }
 
+    
     @Override
     public <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> updatedEntities) {
         List<T> existingEntities = findAllByExternalPrimaryKey(clazz, updatedEntities);
@@ -254,7 +261,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             dbRepository.save(currentForm);
             return currentForm;
         } else if (existingForm.getServerDateModified() != null && (currentForm.getServerDateModified() == null ||
-                currentForm.getServerDateModified().before(existingForm.getServerDateModified()))) {
+                currentForm.getServerDateModified().isBefore(existingForm.getServerDateModified()))) {
             logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
         } else {
             logger.info(format("Deleting existing %s form with instance id %s and saving a latest form.", formClass.getName(), instanceId));
@@ -295,9 +302,9 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
-        Date closedOn = careReportingMapper.map(updatedValues.get("closedOn"), Date.class);
+        DateTime closedOn = careReportingMapper.map(updatedValues.get("closedOn"), DateTime.class);
         if (motherCase != null) {
-            Date previouslyClosedOnForMother = motherCase.getClosedOn();
+            DateTime previouslyClosedOnForMother = motherCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
                 careReportingMapper.map(motherCase, updatedValues);
                 update(motherCase);
@@ -308,7 +315,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
                 logger.error(format("[Case Not Found To Close] Cannot find case %s to close.", caseId));
                 return;
             }
-            Date previouslyClosedOnForChild = childCase.getClosedOn();
+            DateTime previouslyClosedOnForChild = childCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForChild)) {
                 careReportingMapper.map(childCase, updatedValues);
                 update(childCase);
@@ -316,7 +323,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
     }
 
-    private boolean canBeClosed(Date closedOn, Date previouslyClosedOn) {
-        return previouslyClosedOn == null || !closedOn.before(previouslyClosedOn);
+    private boolean canBeClosed(DateTime closedOn, DateTime previouslyClosedOn) {
+        
+        return previouslyClosedOn == null || !closedOn.isBefore(previouslyClosedOn);
     }
 }

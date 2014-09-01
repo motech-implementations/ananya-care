@@ -1,15 +1,15 @@
 package org.motechproject.care.reporting.converter;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.service.CareService;
-
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.motechproject.care.reporting.service.CareService;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
 
 public class FlwConverterTest {
     @Mock

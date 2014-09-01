@@ -1,23 +1,23 @@
 package org.motechproject.care.reporting.processors;
 
-import org.joda.time.DateTime;
-import org.junit.Test;
-import org.motechproject.care.reporting.builder.CommcareFormBuilder;
-import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.motechproject.care.reporting.service.Service;
-import org.motechproject.commcare.domain.CommcareForm;
-import org.motechproject.commcare.domain.FormValueElement;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.junit.Assert.assertEquals;
+import static org.motechproject.care.reporting.utils.AssertionUtils.assertContainsAll;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.motechproject.care.reporting.utils.AssertionUtils.assertContainsAll;
+import org.joda.time.DateTime;
+import org.junit.Test;
+import org.motechproject.care.reporting.builder.CommcareFormBuilder;
+import org.motechproject.care.reporting.builder.FormValueElementBuilder;
+import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.care.reporting.service.Service;
+import org.motechproject.commcare.domain.CommcareForm;
+import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MotherFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -165,7 +165,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
     public void shouldParseMotherEditFormWithDeliveryOffset() {
         String motherCaseId = UUID.randomUUID().toString();
         String flwId = "89fda0284e008d2e0c980fb13fa0e5bb";
-        final Date tenDaysBack = DateTime.now().minusDays(10).toDate();
+        final DateTime tenDaysBack = DateTime.now().minusDays(10);
 
 
         MotherCase motherCase = new MotherCase();

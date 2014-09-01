@@ -1,8 +1,10 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.LocationDimension;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.motechproject.care.reporting.mapper.ProviderSyncMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
@@ -10,12 +12,15 @@ import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.provider.sync.response.Group;
 import org.motechproject.commcare.provider.sync.response.Provider;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwAndFlwGroupMapList;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroupMap;
+import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
 
 @Component
 public class ProviderSyncProcessor {
@@ -60,25 +65,37 @@ public class ProviderSyncProcessor {
 
     public void processProviderSync(List<Provider> providers) {
         List<Flw> flws = new ArrayList<>();
+        List<FlwGroupMap> flwGroupMapList = new ArrayList<FlwGroupMap>();
         Map<String, FlwGroup> flwGroups = new HashMap<>();
         for (Provider provider : providers) {
             try {
-                Flw flw = processProvider(flwGroups, provider);
-                flws.add(flw);
+                FlwAndFlwGroupMapList flwAndFlwGroupMapList = processProvider(flwGroups, provider);
+                flws.add(flwAndFlwGroupMapList.getFlw());
+                flwGroupMapList.addAll(flwAndFlwGroupMapList.getFlwGroupMapList());
             } catch (Exception e) {
                 logger.error(String.format("Error occurred while processing provider with id: %s", provider.getId()), e);
             }
         }
         service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
+        service.saveAll(flwGroupMapList);
     }
 
-    private Flw processProvider(Map<String, FlwGroup> flwGroups, Provider provider) {
+    private FlwAndFlwGroupMapList processProvider(Map<String, FlwGroup> flwGroups, Provider provider) {
         logger.info(String.format("Creating/Updating provider with id: %s", provider.getId()));
         Map<String, Object> parsedProvider = providerParser.parse(provider);
         Flw flw = genericMapper.map(Flw.class, parsedProvider);
-        flw.setFlwGroups(new HashSet<>(getAssociatedFlwGroups(provider.getGroups(), flwGroups)));
+        List<FlwGroup> flwGroupsList = getAssociatedFlwGroups(provider.getGroups(), flwGroups);
+        List<FlwGroupMap> flwGroupMapList = new ArrayList<FlwGroupMap>();
+        for(FlwGroup currGroup : flwGroupsList) {
+            FlwGroupMap flwGroupMap = new FlwGroupMap();
+            flwGroupMap.setFlw(flw);
+            flwGroupMap.setFlwGroup(currGroup);
+            flwGroupMapList.add(flwGroupMap);
+        }
+        //TODO remove the below comment after two way relation is supported
+        //flw.setFlwGroups(new HashSet<>(flwGroupsList));
         flw.setLocationDimension(getLocationDimension(parsedProvider));
-        return flw;
+        return new FlwAndFlwGroupMapList(flw,flwGroupMapList);
     }
 
     private LocationDimension getLocationDimension(Map<String, Object> parsedProvider) {

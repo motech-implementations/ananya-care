@@ -3,12 +3,12 @@ package org.motechproject.care.reporting.service;
 import java.util.List;
 import java.util.Map;
 
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.LocationDimension;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public interface Service {
     MotherCase getOrCreateMotherCase(String caseId);
@@ -46,4 +46,6 @@ public interface Service {
     LocationDimension getLocation(String state, String district, String block);
 
     Object execute(String query);
+
+    <T> void saveAll(List<T> instances);
 }

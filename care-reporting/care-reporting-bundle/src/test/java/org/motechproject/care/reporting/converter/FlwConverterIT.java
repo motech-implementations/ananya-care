@@ -1,14 +1,14 @@
 package org.motechproject.care.reporting.converter;
 
-import org.apache.commons.beanutils.BeanUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class FlwConverterIT extends SpringIntegrationTest {
     @Autowired

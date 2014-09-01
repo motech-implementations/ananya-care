@@ -1,31 +1,27 @@
 package org.motechproject.care.reporting.processors;
 
-import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.motechproject.care.reporting.builder.CaseEventBuilder;
-import org.motechproject.care.reporting.builder.ChildCaseBuilder;
-import org.motechproject.care.reporting.builder.FlwBuilder;
-import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.motechproject.commcare.events.CaseEvent;
-import org.springframework.beans.factory.annotation.Autowired;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import org.joda.time.DateTime;
+import org.junit.Test;
+import org.motechproject.care.reporting.builder.CaseEventBuilder;
+import org.motechproject.care.reporting.builder.ChildCaseBuilder;
+import org.motechproject.care.reporting.builder.FlwBuilder;
+import org.motechproject.care.reporting.builder.MotherCaseBuilder;
+import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CloseCaseProcessorIT extends SpringIntegrationTest {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
@@ -136,7 +132,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldNotUpdateClosedFieldsForMotherOnlyIfServerDateModifiedIsOld() {
-        Date serverDateModified = DateTime.parse("2012-01-05").toDate();
+        DateTime serverDateModified = DateTime.parse("2012-01-05");
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
@@ -161,7 +157,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldUpdateClosedFieldsIfServerDateModifiedIsNew() throws ParseException {
-        Date serverDateModified = DateTime.parse("2013-01-05").toDate();
+        DateTime serverDateModified = DateTime.parse("2013-01-05");
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
@@ -188,7 +184,7 @@ public class CloseCaseProcessorIT extends SpringIntegrationTest {
 
     @Test
     public void shouldNotUpdateClosedFieldsForChildOnlyIfSererDateModifiedOld() {
-        Date serverDateModified = DateTime.parse("2012-01-05").toDate();
+        DateTime serverDateModified = DateTime.parse("2012-01-05");
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();

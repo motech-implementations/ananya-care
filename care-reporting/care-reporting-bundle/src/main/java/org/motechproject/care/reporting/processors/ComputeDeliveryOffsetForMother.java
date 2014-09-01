@@ -1,14 +1,13 @@
 package org.motechproject.care.reporting.processors;
 
+import java.util.Map;
+
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.service.Service;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Date;
-import java.util.Map;
 
 public class ComputeDeliveryOffsetForMother implements ComputedFieldsProcessor{
 
@@ -52,7 +51,7 @@ public class ComputeDeliveryOffsetForMother implements ComputedFieldsProcessor{
             return;
         }
 
-        final Date deliveryDate = motherCase.getAdd() == null ? motherCase.getEdd() : motherCase.getAdd();
+        final DateTime deliveryDate = motherCase.getAdd() == null ? motherCase.getEdd() : motherCase.getAdd();
 
         if(deliveryDate == null) {
             logger.info("Mother Case Edd and Add are null when computing Delivery Offset for mother.");

@@ -1,18 +1,20 @@
 package org.motechproject.care.reporting.processors;
 
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.service.Service;
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import org.joda.time.DateTime;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.motechproject.care.reporting.service.Service;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class ComputeDeliveryOffsetForMotherTest {
 
@@ -105,7 +107,7 @@ public class ComputeDeliveryOffsetForMotherTest {
 
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(caseId);
-        motherCase.setEdd(new DateTime().plusDays(10).toDate());
+        motherCase.setEdd(new DateTime().plusDays(10));
         motherCase.setAdd(null);
 
         when(service.getMotherCase(caseId)).thenReturn(motherCase);
@@ -130,7 +132,7 @@ public class ComputeDeliveryOffsetForMotherTest {
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(caseId);
         motherCase.setEdd(null);
-        motherCase.setAdd(new DateTime().minusDays(10).toDate());
+        motherCase.setAdd(new DateTime().minusDays(10));
 
         when(service.getMotherCase(caseId)).thenReturn(motherCase);
 

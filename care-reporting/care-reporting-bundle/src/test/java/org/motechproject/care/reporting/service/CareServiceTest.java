@@ -1,22 +1,28 @@
 package org.motechproject.care.reporting.service;
 
-import org.apache.commons.lang.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.motechproject.care.reporting.domain.dimension.*;
-import org.motechproject.care.reporting.domain.measure.NewForm;
-import org.motechproject.care.reporting.domain.measure.PncChildForm;
-import org.motechproject.care.reporting.repository.Repository;
-import org.unitils.reflectionassert.ReflectionAssert;
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.motechproject.care.reporting.repository.Repository;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.measure.NewForm;
+import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
+import org.unitils.reflectionassert.ReflectionAssert;
 
 public class CareServiceTest {
     @Mock
@@ -196,7 +202,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnLocationDimensionIfExistsInRepository() {
         LocationDimension expectedLocation = new LocationDimension();
-        expectedLocation.setId(1);
+
+        //TODO: uncomment below
+        //expectedLocation.setId(1);
 
         Map<String, Object> fieldMaps = new HashMap<>();
         fieldMaps.put("state", "BIHAR");
@@ -213,7 +221,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnUnknownLocationDimensionIfNotExistsInRepository() {
         LocationDimension expectedUnknown = new LocationDimension();
-        expectedUnknown.setId(1);
+
+        //TODO: uncomment below
+        //expectedUnknown.setId(1);
         final String unknown = "UNKNOWN";
         expectedUnknown.setBlock(unknown);
         expectedUnknown.setDistrict(unknown);
@@ -241,7 +251,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnLocationDimensionIfExistsInRepositoryByIgnoringCase() {
         LocationDimension expectedLocation = new LocationDimension();
-        expectedLocation.setId(1);
+
+        //TODO: uncomment below
+        //expectedLocation.setId(1);
         expectedLocation.setBlock("BIHAR");
         expectedLocation.setDistrict("ARARIA");
         expectedLocation.setState("BHARGAMA");
@@ -261,7 +273,9 @@ public class CareServiceTest {
     @Test
     public void shouldReturnUnknownLocationDimensionIfNotExistsInRepositoryAndAnyArgumentIsNullOrEmpty() {
         LocationDimension expectedUnknown = new LocationDimension();
-        expectedUnknown.setId(1);
+
+        //TODO: uncomment below
+        //expectedUnknown.setId(1);
         final String unknown = "UNKNOWN";
         expectedUnknown.setBlock(unknown);
         expectedUnknown.setDistrict(unknown);

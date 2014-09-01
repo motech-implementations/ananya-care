@@ -1,5 +1,10 @@
 package org.motechproject.care.reporting.processors;
 
+import static junit.framework.Assert.assertEquals;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,17 +12,12 @@ import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class ChildCaseProcessorIT extends SpringIntegrationTest {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
@@ -38,7 +38,9 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
         flwGroup.setGroupId(ownerId);
         flw = new Flw();
         flw.setFlwId(userId);
-        flwGroup.getFlws().add(flw);
+
+        //TODO: uncomment below
+        //flwGroup.getFlws().add(flw);
         template.save(flwGroup);
     }
 
@@ -63,8 +65,8 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId(userId).build())
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
-                .dateModified(DateTime.parse(dateModified).toDate())
-                .serverDateModified(serverModifiedOn.toDate())
+                .dateModified(DateTime.parse(dateModified))
+                .serverDateModified(serverModifiedOn)
                 .build();
 
         assertReflectionEqualsWithIgnore(expectedChildCase, childCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");

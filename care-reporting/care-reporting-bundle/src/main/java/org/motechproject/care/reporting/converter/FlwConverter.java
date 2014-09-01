@@ -1,14 +1,14 @@
 package org.motechproject.care.reporting.converter;
 
+import static java.lang.String.format;
+
 import org.apache.commons.beanutils.converters.AbstractConverter;
-import org.motechproject.care.reporting.domain.dimension.Flw;
 import org.motechproject.care.reporting.service.Service;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import static java.lang.String.format;
 
 @Component
 public class FlwConverter extends AbstractConverter {

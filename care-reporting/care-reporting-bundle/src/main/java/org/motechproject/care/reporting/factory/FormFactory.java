@@ -1,14 +1,49 @@
 package org.motechproject.care.reporting.factory;
 
-import org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm;
-import org.motechproject.care.reporting.domain.measure.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.FormType;
 import org.motechproject.care.reporting.mapper.NamespaceMapper;
 import org.motechproject.care.reporting.utils.Pair;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.motechproject.mcts.care.common.mds.measure.AbortForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwCloseChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwEditChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwGrowthMonitoringChildForm1;
+import org.motechproject.mcts.care.common.mds.measure.AwwGrowthMonitoringChildForm2;
+import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwRegisterChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwRegisterMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwThrChildForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwThrMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.AwwUpdateVaccinationsChildForm;
+import org.motechproject.mcts.care.common.mds.measure.BpForm;
+import org.motechproject.mcts.care.common.mds.measure.CfChildForm;
+import org.motechproject.mcts.care.common.mds.measure.CfMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.CloseChildForm;
+import org.motechproject.mcts.care.common.mds.measure.CloseMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.DeathChildForm;
+import org.motechproject.mcts.care.common.mds.measure.DeathMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.DeliveryChildForm;
+import org.motechproject.mcts.care.common.mds.measure.DeliveryMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.EbfChildForm;
+import org.motechproject.mcts.care.common.mds.measure.EbfMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.GrowthMonitoringChildForm;
+import org.motechproject.mcts.care.common.mds.measure.MiForm;
+import org.motechproject.mcts.care.common.mds.measure.MoForm;
+import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
+import org.motechproject.mcts.care.common.mds.measure.MoveBeneficiaryForm;
+import org.motechproject.mcts.care.common.mds.measure.NewForm;
+import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
+import org.motechproject.mcts.care.common.mds.measure.PncMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.ReferChildForm;
+import org.motechproject.mcts.care.common.mds.measure.ReferMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.RegistrationChildForm;
+import org.motechproject.mcts.care.common.mds.measure.RegistrationMotherForm;
+import org.motechproject.mcts.care.common.mds.measure.UiChildForm;
+import org.motechproject.mcts.care.common.mds.measure.UiMotherForm;
 
 public class FormFactory {
 

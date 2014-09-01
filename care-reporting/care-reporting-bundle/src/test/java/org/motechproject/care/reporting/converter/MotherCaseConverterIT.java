@@ -1,15 +1,14 @@
 package org.motechproject.care.reporting.converter;
 
-import org.hibernate.SessionFactory;
-import org.junit.Test;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import org.hibernate.SessionFactory;
+import org.junit.Test;
+import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MotherCaseConverterIT extends SpringIntegrationTest {
     @Autowired

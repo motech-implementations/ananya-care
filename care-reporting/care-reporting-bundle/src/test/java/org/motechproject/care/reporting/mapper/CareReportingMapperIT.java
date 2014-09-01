@@ -1,19 +1,7 @@
 package org.motechproject.care.reporting.mapper;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.NewForm;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.motechproject.care.reporting.service.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import static junit.framework.Assert.assertEquals;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,9 +9,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.care.reporting.service.Service;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.measure.NewForm;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CareReportingMapperIT extends SpringIntegrationTest {
     @Autowired

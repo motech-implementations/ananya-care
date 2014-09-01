@@ -1,12 +1,11 @@
 package org.motechproject.care.reporting.builder;
 
-import org.joda.time.DateTime;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-
 import java.util.Date;
+
+import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 
 public class ChildCaseBuilder {
 
@@ -14,7 +13,8 @@ public class ChildCaseBuilder {
 
     public ChildCaseBuilder() {
         childCase = new ChildCase();
-        childCase.setFlw(FlwBuilder.buildDefault());
+        //TODO: uncomment below
+        //childCase.setFlw(FlwBuilder.buildDefault());
         childCase.setFlwGroup(new FlwGroupBuilder()
                 .groupId("5ba9a0928dde95d187544babf6c0ad48")
                 .build());
@@ -37,12 +37,12 @@ public class ChildCaseBuilder {
         return this;
     }
 
-    public ChildCaseBuilder dateModified(Date date) {
-        childCase.setDateModified(date);
+    public ChildCaseBuilder dateModified(DateTime date) {
+        childCase.setDateTimeModified(date);
         return this;
     }
 
-    public ChildCaseBuilder creationTime(Date creationTime) {
+    public ChildCaseBuilder creationTime(DateTime creationTime) {
         childCase.setCreationTime(creationTime);
         return this;
     }
@@ -67,7 +67,7 @@ public class ChildCaseBuilder {
     public ChildCaseBuilder close() {
         childCase.setClosed(true);
         childCase.setClosedBy(childCase.getFlw());
-        childCase.setClosedOn(childCase.getServerDateModified());
+        childCase.setClosedOn(childCase.getServerDateTimeModified());
         return this;
     }
 
@@ -76,7 +76,7 @@ public class ChildCaseBuilder {
         return this;
     }
 
-    public ChildCaseBuilder closedDate(Date closedOn) {
+    public ChildCaseBuilder closedDate(DateTime closedOn) {
         childCase.setClosedOn(closedOn);
         return this;
     }
@@ -86,8 +86,8 @@ public class ChildCaseBuilder {
         return this;
     }
 
-    public ChildCaseBuilder serverDateModified(Date serverDateModified) {
-        childCase.setServerDateModified(serverDateModified);
+    public ChildCaseBuilder serverDateModified(DateTime serverDateTimeModified) {
+        childCase.setServerDateTimeModified(serverDateTimeModified);
         return this;
     }
 }

@@ -1,30 +1,30 @@
 package org.motechproject.care.reporting.listener;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.junit.Test;
-import org.motechproject.care.reporting.builder.GroupBuilder;
-import org.motechproject.care.reporting.builder.ProviderBuilder;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.LocationDimension;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
-import org.motechproject.care.reporting.utils.TestUtils;
-import org.motechproject.commcare.provider.sync.constants.EventConstants;
-import org.motechproject.commcare.provider.sync.response.Group;
-import org.motechproject.commcare.provider.sync.response.Provider;
-import org.motechproject.event.MotechEvent;
-import org.springframework.beans.factory.annotation.Autowired;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.motechproject.care.reporting.builder.ProviderBuilder.DEFAULT_DOB;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionContains;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.junit.Test;
+import org.motechproject.care.reporting.builder.GroupBuilder;
+import org.motechproject.care.reporting.builder.ProviderBuilder;
+import org.motechproject.care.reporting.repository.SpringIntegrationTest;
+import org.motechproject.care.reporting.utils.TestUtils;
+import org.motechproject.commcare.provider.sync.constants.EventConstants;
+import org.motechproject.commcare.provider.sync.response.Group;
+import org.motechproject.commcare.provider.sync.response.Provider;
+import org.motechproject.event.MotechEvent;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CommcareProviderSyncIT extends SpringIntegrationTest {
     @Autowired
@@ -86,11 +86,11 @@ public class CommcareProviderSyncIT extends SpringIntegrationTest {
     private Flw flw(String providerId, String defaultPhoneNumber, String phoneNumber1, String phoneNumber2, LocationDimension locationDimension) {
         return new Flw(providerId, defaultPhoneNumber, "a@b.com", "Dr.Pramod", "Kumar Gautam", phoneNumber1, phoneNumber2,
                 "P18", "001", "MOIC", "", "", "8294168471@care-bihar.commcarehq.org", null, null,
-                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, DEFAULT_DOB, null, null, locationDimension);
+                "BIHAR", "", "Delhi", "Kapra", "Kopargoan", "Thiruppalai", null, null, null, new DateTime(), null, null, locationDimension);
     }
 
     private FlwGroup flwGroup(String groupId) {
-        return new FlwGroup(0, groupId, true, "care-bihar", "001", "danny team 1", true, null, null, new HashSet<Flw>());
+        return new FlwGroup(groupId, true, "care-bihar", "001", "danny team 1", true, null, null, new HashSet<Flw>());
     }
 
     private Group group(final String groupId) {

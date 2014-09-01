@@ -1,16 +1,15 @@
 package org.motechproject.care.reporting.builder;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import org.joda.time.LocalDate;
 import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.response.Provider;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 public class ProviderBuilder {
-    public static final Date DEFAULT_DOB = new LocalDate(1980, 1, 1).toDate();
+    public static final LocalDate DEFAULT_DOB = new LocalDate(1980, 1, 1);
     private Provider provider;
 
 

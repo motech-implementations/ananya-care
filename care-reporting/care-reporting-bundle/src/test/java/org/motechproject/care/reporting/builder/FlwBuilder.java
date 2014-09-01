@@ -1,10 +1,11 @@
 package org.motechproject.care.reporting.builder;
 
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-
 import java.util.Date;
 import java.util.HashSet;
+
+import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 
 public class FlwBuilder {
     Flw flw;
@@ -23,17 +24,18 @@ public class FlwBuilder {
         return this;
     }
 
-    public FlwBuilder flwGroups(HashSet<FlwGroup> flwGroups) {
-        flw.setFlwGroups(flwGroups);
-        return this;
-    }
-
     public Flw build() {
         return flw;
     }
 
-    public FlwBuilder creationTime(Date creationTime) {
+     public FlwBuilder creationTime(DateTime creationTime) {
         flw.setCreationTime(creationTime);
+        return this;
+    }
+   //TODO: uncomment below
+     /*
+    public FlwBuilder flwGroups(HashSet<FlwGroup> flwGroups) {
+        flw.setFlwGroups(flwGroups);
         return this;
     }
 
@@ -43,5 +45,5 @@ public class FlwBuilder {
                 .firstName("FirstName1")
                 .flwGroups(FlwGroupBuilder.buildDefaultSet())
                 .build();
-    }
+    }*/
 }

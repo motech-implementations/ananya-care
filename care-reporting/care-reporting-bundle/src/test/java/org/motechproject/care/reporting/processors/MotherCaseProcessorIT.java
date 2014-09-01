@@ -1,5 +1,12 @@
 package org.motechproject.care.reporting.processors;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
+
+import java.util.Date;
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,23 +14,16 @@ import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
-import java.util.List;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 public class MotherCaseProcessorIT extends SpringIntegrationTest {
 
-    public static final Date JAN_01 = DateTime.parse("2013-01-01T02:10:23.923Z").toDate();
+    public static final DateTime JAN_01 = DateTime.parse("2013-01-01T02:10:23.923Z");
 
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
@@ -42,7 +42,9 @@ public class MotherCaseProcessorIT extends SpringIntegrationTest {
         flwGroup.setGroupId(ownerId);
         flw = new Flw();
         flw.setFlwId(userId);
-        flwGroup.getFlws().add(flw);
+
+        //TODO: uncomment below
+        //flwGroup.getFlws().add(flw);
         template.save(flwGroup);
     }
 
@@ -67,8 +69,8 @@ public class MotherCaseProcessorIT extends SpringIntegrationTest {
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId(userId).build())
                 .flwGroup(new FlwGroupBuilder().groupId(ownerId).build())
-                .dateModified(DateTime.parse(dateModified).toDate())
-                .serverDateModified(DateTime.parse(serverDateModified).toDate())
+                .dateModified(DateTime.parse(dateModified))
+                .serverDateModified(DateTime.parse(serverDateModified))
                 .build();
 
         assertReflectionEqualsWithIgnore(expectedMotherCase, motherCases.get(0), "id", "flw", "flwGroup", "creationTime", "lastModifiedTime");

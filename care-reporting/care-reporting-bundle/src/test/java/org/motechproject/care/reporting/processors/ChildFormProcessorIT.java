@@ -1,26 +1,24 @@
 package org.motechproject.care.reporting.processors;
 
+import static junit.framework.Assert.assertEquals;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
-import org.motechproject.care.reporting.domain.measure.DeathChildForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ChildFormProcessorIT extends SpringIntegrationTest {
     @Autowired
@@ -137,7 +135,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         final String childCase1Id = "3e8998ce-b19f-4fa7-b1a1-721b6951e3cf";
         final String childCase2Id = "59ab28e0-2d2d-4bc7-933f-09dcacf70d61";
 
-        final Date tenDaysBack = DateTime.now().minusDays(10).toDate();
+        final DateTime tenDaysBack = DateTime.now().minusDays(10);
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(motherCaseId);
         motherCase.setAdd(tenDaysBack);

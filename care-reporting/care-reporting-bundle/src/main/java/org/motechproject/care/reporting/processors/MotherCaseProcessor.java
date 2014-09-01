@@ -1,6 +1,11 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
+import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -8,16 +13,11 @@ import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
 @Component
 public class MotherCaseProcessor {

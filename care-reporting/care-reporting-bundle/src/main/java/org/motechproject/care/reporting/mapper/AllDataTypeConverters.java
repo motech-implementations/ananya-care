@@ -1,20 +1,20 @@
 package org.motechproject.care.reporting.mapper;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.motechproject.care.reporting.converter.ChildCaseConverter;
 import org.motechproject.care.reporting.converter.FlwConverter;
 import org.motechproject.care.reporting.converter.FlwGroupConverter;
 import org.motechproject.care.reporting.converter.MotherCaseConverter;
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
-import org.motechproject.care.reporting.domain.dimension.Flw;
-import org.motechproject.care.reporting.domain.dimension.FlwGroup;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.service.Service;
 import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.motechproject.care.reporting.utils.CareTypeConverter;
-
-import java.math.BigDecimal;
-import java.util.Date;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class AllDataTypeConverters {
 

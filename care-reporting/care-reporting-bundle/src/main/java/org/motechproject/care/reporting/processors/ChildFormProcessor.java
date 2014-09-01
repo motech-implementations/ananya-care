@@ -1,6 +1,14 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.domain.dimension.ChildCase;
+import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_CHILD_CASE_POST_PROCESSOR;
+import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_USER_ID_AS_FLW;
+import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
+import static org.motechproject.care.reporting.processors.ComputedFieldsProcessor.Utils.applyComputedFields;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.motechproject.care.reporting.enums.FormSegment;
 import org.motechproject.care.reporting.parser.ChildInfoParser;
 import org.motechproject.care.reporting.parser.ClosedFormPostProcessor;
@@ -12,15 +20,6 @@ import org.motechproject.care.reporting.service.Service;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.motechproject.care.reporting.parser.PostProcessor.COPY_CASE_ID_AS_CHILD_CASE_POST_PROCESSOR;
-import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_USER_ID_AS_FLW;
-import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
-import static org.motechproject.care.reporting.processors.ComputedFieldsProcessor.Utils.applyComputedFields;
 
 @Component
 public class ChildFormProcessor {

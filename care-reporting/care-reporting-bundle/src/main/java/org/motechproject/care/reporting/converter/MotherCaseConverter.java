@@ -1,8 +1,8 @@
 package org.motechproject.care.reporting.converter;
 
 import org.apache.commons.beanutils.converters.AbstractConverter;
-import org.motechproject.care.reporting.domain.dimension.MotherCase;
 import org.motechproject.care.reporting.service.Service;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
