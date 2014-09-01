@@ -1,19 +1,20 @@
 package org.motechproject.care.reporting.processors;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.domain.measure.MotherEditForm;
-import org.motechproject.care.reporting.domain.measure.MoveBeneficiaryForm;
 import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
+import org.motechproject.mcts.care.common.mds.measure.MoveBeneficiaryForm;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class FormProcessorIT extends SpringIntegrationTest {
 
