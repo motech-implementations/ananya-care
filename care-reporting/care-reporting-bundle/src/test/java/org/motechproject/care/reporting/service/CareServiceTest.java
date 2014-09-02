@@ -14,7 +14,6 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -22,11 +21,12 @@ import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.NewForm;
 import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
+import org.motechproject.mcts.care.common.mds.repository.MDSRepository;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 public class CareServiceTest {
     @Mock
-    private Repository dbRepository;
+    private MDSRepository dbRepository;
 
     private CareService service;
 
