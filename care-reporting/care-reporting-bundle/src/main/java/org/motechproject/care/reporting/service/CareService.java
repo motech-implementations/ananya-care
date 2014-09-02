@@ -17,7 +17,6 @@ import org.joda.time.DateTime;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
-import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.utils.ObjectUtils;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
@@ -28,6 +27,7 @@ import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesChildForm;
 import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesForm;
 import org.motechproject.mcts.care.common.mds.measure.Form;
+import org.motechproject.mcts.care.common.mds.repository.MDSRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +39,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class CareService implements org.motechproject.care.reporting.service.Service {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-    private Repository dbRepository;
+    private MDSRepository dbRepository;
     private CareReportingMapper careReportingMapper;
 
     @Autowired
-    public CareService(Repository dbRepository) {
+    public CareService(MDSRepository dbRepository) {
         this.dbRepository = dbRepository;
         this.careReportingMapper = CareReportingMapper.getInstance(this);
     }
@@ -78,7 +78,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     private <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
-        T persistedObject = dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
+        T persistedObject = (T) dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
         if (persistedObject == null)
             dbRepository.save(entity);
         else {
@@ -163,7 +163,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
 
         Map<String, Object> fieldMaps = getLocationMap(state, district, block);
-        LocationDimension locationDimension = dbRepository.get(LocationDimension.class, fieldMaps, null);
+        LocationDimension locationDimension = (LocationDimension) dbRepository.get(LocationDimension.class, fieldMaps, null);
 
         return locationDimension == null ? getUnknownLocation() : locationDimension;
     }
@@ -172,7 +172,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         final String unknownLocation = "UNKNOWN";
         LocationDimension locationDimension;
         Map<String, Object> unknownMap = getLocationMap(unknownLocation, unknownLocation, unknownLocation);
-        locationDimension = dbRepository.get(LocationDimension.class, unknownMap, null);
+        locationDimension = (LocationDimension) dbRepository.get(LocationDimension.class, unknownMap, null);
         return locationDimension;
     }
 
@@ -190,7 +190,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public <T> T getOrCreateNew(Class<T> type, String fieldName, String value) {
-        T instance = dbRepository.get(type, fieldName, value);
+        T instance = (T) dbRepository.get(type, fieldName, value);
         if (null != instance)
             return instance;
 
@@ -208,12 +208,12 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public <T> T get(Class<T> type, String fieldName, Object value) {
-        return dbRepository.get(type, fieldName, value);
+        return (T) dbRepository.get(type, fieldName, value);
     }
 
     @Override
     public <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
-        return dbRepository.get(type, fieldMap, aliasMapping);
+        return (T) dbRepository.get(type, fieldMap, aliasMapping);
     }
 
     @Override

@@ -2,10 +2,9 @@ package org.motechproject.mcts.care.common.mds.repository;
 
 import static org.motechproject.mcts.care.common.utils.AnnotationUtils.getExternalPrimaryKeyField;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import javax.jdo.Query;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.motechproject.mds.query.EqualProperty;
 import org.motechproject.mds.query.Property;
 import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.mds.query.QueryExecution;
@@ -20,7 +20,6 @@ import org.motechproject.mds.query.QueryExecutor;
 import org.motechproject.mds.query.SetProperty;
 import org.motechproject.mds.service.DefaultMotechDataService;
 import org.motechproject.mds.util.InstanceSecurityRestriction;
-import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -33,7 +32,6 @@ public  class MDSRepository<T> extends DefaultMotechDataService<T> {
         return id;
     }
 
-   
     public void saveOrUpdateAll(List<T> instances) {
         for (T instance : instances) {
             update(instance);
@@ -56,9 +54,7 @@ public  class MDSRepository<T> extends DefaultMotechDataService<T> {
         executeQuery(new QueryExecution<List>() {
             @Override
             public List execute(Query query, InstanceSecurityRestriction restriction) {
-                query.setFilter("someString == param0");
-                query.declareParameters("java.lang.String param0");
-                return (List) QueryExecutor.execute(query, "anotherString", restriction);
+                return (List) QueryExecutor.execute(query, restriction);
             }
         });
         final ResultSet[] resultSet = new ResultSet[1];
@@ -104,28 +100,39 @@ public  class MDSRepository<T> extends DefaultMotechDataService<T> {
     }
 
    
-    public T get(Class<T> entityClass, String fieldName, Object value) {
-        return retrieve(fieldName, value);
+    public <T> T get(Class<T> entityClass, String fieldName, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(fieldName, value);
+
+        return get(entityClass, map, new HashMap<String, String>());
     }
 
-   //TODO: change the implementation
     public <T> T get(Class<T> entityClass, Map<String, Object> fieldMap,
             Map<String, String> aliasMapping) {
-        /*DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
+        
+        List<Property> properties = null;
 
-        if(MapUtils.isNotEmpty(aliasMapping)) {
-            for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
-                criteria.createAlias(alias.getKey(), alias.getValue());
+        EqualProperty<T> equalProperty;
+        if (MapUtils.isNotEmpty(fieldMap)) {
+            for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
+                equalProperty = (EqualProperty<T>) PropertyBuilder.create(entry.getKey(), entry.getValue());
+                if (properties == null) {
+                    properties = new ArrayList<>();
+                }
+                properties.add(equalProperty);
             }
         }
-
-        for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
-            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+        if (MapUtils.isNotEmpty(aliasMapping)) {
+            for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
+                equalProperty = (EqualProperty<T>) PropertyBuilder.create(alias.getKey(), alias.getValue());
+                if (properties == null) {
+                    properties = new ArrayList<>();
+                }
+                properties.add(equalProperty);
+            }
         }
-
         @SuppressWarnings("unchecked")
-        List<T> resultFromDb = template.findByCriteria(criteria);
-        return CollectionUtils.isEmpty(resultFromDb) ? null : resultFromDb.get(0);*/
-        return null;
+        List<T> resultFromDb = (List<T>) retrieveAll(properties);
+        return CollectionUtils.isEmpty(resultFromDb) ? null : resultFromDb.get(0);
     }
 }
