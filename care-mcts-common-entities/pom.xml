@@ -84,6 +84,7 @@
                             org.motechproject.mcts.care.common.domain.annotations;version=${motech.version},
                             org.motechproject.mcts.care.common.mds.dimension;version=${motech.version},
                             org.motechproject.mcts.care.common.mds.measure;version=${motech.version},
+                            org.motechproject.mcts.care.common.mds.repository;version=${motech.version},
                             org.motechproject.mcts.care.common.utils;version=${motech.version}
                         </Export-Package>
                     </instructions>
