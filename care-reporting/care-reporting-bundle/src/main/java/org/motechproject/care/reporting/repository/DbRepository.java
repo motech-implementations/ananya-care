@@ -1,114 +1,156 @@
 package org.motechproject.care.reporting.repository;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.jdbc.Work;
-import org.motechproject.care.reporting.utils.ListUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.stereotype.Repository;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.motechproject.mcts.care.common.mds.service.MdsServiceFactory;
+import org.motechproject.mcts.care.common.utils.AnnotationUtils;
+import org.motechproject.mds.query.EqualProperty;
+import org.motechproject.mds.query.Property;
+import org.motechproject.mds.query.PropertyBuilder;
+import org.motechproject.mds.query.QueryExecution;
+import org.motechproject.mds.query.QueryExecutor;
+import org.motechproject.mds.query.SetProperty;
+import org.motechproject.mds.service.MotechDataService;
+import org.motechproject.mds.util.InstanceSecurityRestriction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class DbRepository implements org.motechproject.care.reporting.repository.Repository {
+    
     @Autowired
-    private DataAccessTemplate template;
-
+    private MdsServiceFactory mdsServiceFactory;
+    
     @Override
     public <T> Integer save(T instance) {
-        return (Integer) template.save(instance);
-    }
-
-    @Override
-    public <T> void saveOrUpdateAll(List<T> instances) {
-        template.saveOrUpdateAll(instances);
-    }
-
-    @Override
-    public <T> void update(T instance) {
-        template.update(instance);
-    }
-
-    @Override
-    public <T> void delete(T instance) {
-        template.delete(instance);
-        template.flush();
-    }
-
-    @Override
-    public Object execute(final String query) {
-        final ResultSet[] resultSet = new ResultSet[1];
-        final Object result = template.executeWithNativeSession(new HibernateCallback<Object>() {
-            @Override
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
-                session.doWork(new Work() {
-                    @Override
-                    public void execute(Connection connection) throws SQLException {
-                        resultSet[0] = connection.prepareCall(query).executeQuery();
-                    }
-                });
-                return resultSet[0] == null || !resultSet[0].next() ? null : resultSet[0].getObject(1);
-            }
-        });
-        template.flush();
-        return result;
-
-    }
-
-    @Override
-    public <T> List<T> findAllByField(Class<T> clazz, List<String> values, String fieldName) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
-        criteria.add(Restrictions.in(fieldName, values));
-        return template.findByCriteria(criteria);
-    }
-
-    @Override
-    public <T> T findByExternalPrimaryKey(Class<T> clazz, Object value) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(clazz);
-        criteria.add(Restrictions.eq(getExternalPrimaryKeyField(clazz).getName(), value));
-        List<T> results = template.findByCriteria(criteria);
-        return ListUtils.safeGet(results, 0);
+        if (instance == null) {
+            return -1;
+        }
+        MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instance.getClass());
+        if (service == null) {
+            return null;
+        }
+        T created = service.create(instance);
+        return (Integer) service.getDetachedField(created, "id");
     }
 
     @Override
     public <T> T get(Class<T> entityClass, String fieldName, Object value) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(fieldName, value);
-
-        return get(entityClass, map, new HashMap<String, String>());
+        MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(entityClass);
+        if (service == null) {
+            return null;
+        }
+        T entity = (T) service.retrieve(fieldName, value);
+        return entity;
     }
 
     @Override
-    public <T> T get(Class<T> entityClass, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(entityClass);
-
-        if(MapUtils.isNotEmpty(aliasMapping)) {
-            for (Map.Entry<String, String> alias : aliasMapping.entrySet()) {
-                criteria.createAlias(alias.getKey(), alias.getValue());
+    public <T> void saveOrUpdateAll(List<T> instances) {
+        MotechDataService<T> service;
+        
+        //TODO: is there a better way of doing this???
+        if (instances != null && instances.size() > 0) {
+            service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instances.getClass());
+            if (service == null) {
+                return;
+            }
+            for (T instance : instances) {
+                service.create(instance);
             }
         }
-
-        for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
-            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-        }
-
-        @SuppressWarnings("unchecked")
-        List<T> resultFromDb = template.findByCriteria(criteria);
-        return CollectionUtils.isEmpty(resultFromDb) ? null : resultFromDb.get(0);
     }
+
+    @Override
+    public <T> void update(T instance) {
+        if (instance != null) {
+            MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instance.getClass());
+            if (service == null) {
+                return;
+            }
+            service.update(instance);
+        }
+    }
+
+    @Override
+    public <T> List<T> findAllByField(Class<T> clazz,
+            final List<String> values, final String fieldName) {
+        MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(clazz);
+
+        if (service == null) {
+            return null;
+        }
+        final List<T> results = service.executeQuery(new QueryExecution<List>() {
+            @Override
+            public List execute(javax.jdo.Query query,
+                    InstanceSecurityRestriction restriction) {
+                List<Property> properties = new ArrayList<Property>();
+                SetProperty<T> setProperty = (SetProperty<T>) PropertyBuilder
+                        .create(fieldName, new HashSet<>(values));
+                properties.add(setProperty);
+                return (List) QueryExecutor.executeWithArray(query, properties);
+            }
+        });
+        return results;
+    }
+
+    @Override
+    public <T> T findByExternalPrimaryKey(Class<T> clazz, Object value) {
+        return (T) get(clazz, AnnotationUtils.getExternalPrimaryKeyField(clazz).getName(), value);
+    }
+
+    @Override
+    public <T> T get(Class<T> entityClass, final Map<String, Object> fieldMap,
+            final Map<String, String> aliasMapping) {
+        MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(entityClass);
+
+        if (service == null) {
+            return null;
+        }
+        final List<T> results = service.executeQuery(new QueryExecution<List>() {
+            @Override
+            public List execute(javax.jdo.Query query,
+                    InstanceSecurityRestriction restriction) {
+                List<Property> properties = new ArrayList<Property>();
+                if(MapUtils.isNotEmpty(fieldMap)) {
+                    for (Map.Entry<String, Object> entry : fieldMap.entrySet()) {
+                        EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder.create(entry.getKey(), entry.getValue());
+                        properties.add(equalProperty);
+                    }
+                }
+                if(MapUtils.isNotEmpty(aliasMapping)) {
+                    for (Map.Entry<String, String> entry : aliasMapping.entrySet()) {
+                        EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder.create(entry.getKey(), entry.getValue());
+                        properties.add(equalProperty);
+                    }
+                }
+                return (List) QueryExecutor.executeWithArray(query, properties);
+            }
+        });
+        return CollectionUtils.isEmpty(results) ? null : results.get(0);
+    }
+
+    @Override
+    public <T> void delete(T instance) {
+        if (instance != null) {
+            MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instance.getClass());
+            if (service == null) {
+                return;
+            }
+            service.delete(instance);
+        }
+    }
+
+    @Override
+    public Object execute(String query) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    
 }
 

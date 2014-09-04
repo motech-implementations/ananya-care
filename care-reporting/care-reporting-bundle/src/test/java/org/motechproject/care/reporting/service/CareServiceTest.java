@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -21,12 +22,11 @@ import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.NewForm;
 import org.motechproject.mcts.care.common.mds.measure.PncChildForm;
-import org.motechproject.mcts.care.common.mds.repository.MDSRepository;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 public class CareServiceTest {
     @Mock
-    private MDSRepository dbRepository;
+    private Repository dbRepository;
 
     private CareService service;
 
@@ -161,7 +161,7 @@ public class CareServiceTest {
         MotherCase motherCase = new MotherCase();
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(motherCase);
 
-        MotherCase actualMotherCase = service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
+        MotherCase actualMotherCase = (MotherCase) service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(motherCase, actualMotherCase);
@@ -173,7 +173,7 @@ public class CareServiceTest {
         String fieldValue = "fieldValue";
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue)).thenReturn(null);
 
-        MotherCase actualMotherCase = service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
+        MotherCase actualMotherCase = (MotherCase) service.getOrCreateNew(MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualMotherCase.getCaseId());
@@ -194,7 +194,7 @@ public class CareServiceTest {
         aliasMapping.put("childCase", "cc");
         when(dbRepository.get(PncChildForm.class, fieldMap, aliasMapping)).thenReturn(pncChildForm);
 
-        PncChildForm actualPncChildForm = service.get(PncChildForm.class, fieldMap, aliasMapping);
+        PncChildForm actualPncChildForm = (PncChildForm) service.get(PncChildForm.class, fieldMap, aliasMapping);
 
         ReflectionAssert.assertReflectionEquals(pncChildForm, actualPncChildForm);
     }

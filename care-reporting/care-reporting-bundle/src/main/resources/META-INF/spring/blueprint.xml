@@ -21,4 +21,8 @@
 
     <osgi:reference id="schedulerDiagnosticsServiceOsgi"
                     interface="org.motechproject.commcare.provider.sync.diagnostics.scheduler.SchedulerDiagnosticsService"/>
+                    
+    <osgi:reference id="mdsServiceFactory"
+        interface="org.motechproject.mcts.care.common.mds.service" />
+        
 </beans>

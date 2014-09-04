@@ -14,7 +14,6 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "mother_case")
-// TODO selfupdatable
 public class MotherCase implements java.io.Serializable,
         SelfUpdatable<MotherCase> {
 
