@@ -12,7 +12,7 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "mi_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class MiForm extends Form {
 
 	 private Flw flw;

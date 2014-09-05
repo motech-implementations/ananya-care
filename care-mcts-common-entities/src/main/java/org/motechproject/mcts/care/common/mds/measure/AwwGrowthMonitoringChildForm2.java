@@ -11,7 +11,7 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "aww_growth_monitoring_2_child_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class AwwGrowthMonitoringChildForm2 extends Form {
 
 	/**

@@ -12,7 +12,7 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "refer_child_form")
-@Unique(members = {"instance_id","case_id"})
+@Unique(members = {"instanceId","childCase"})
 public class ReferChildForm extends Form {
 
 	 private Flw flw;

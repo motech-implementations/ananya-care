@@ -12,7 +12,7 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "ui_mother_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class UiMotherForm extends Form {
 
 	@Field

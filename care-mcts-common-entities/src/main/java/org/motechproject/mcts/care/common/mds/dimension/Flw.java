@@ -91,6 +91,9 @@ public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
      */
     @Field
     private LocationDimension locationDimension;
+    
+    @Field
+    private String locationCode;
 
     public Flw() {
         DateTime DateTime = new DateTime();
@@ -383,5 +386,15 @@ public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
     public void setLocationDimension(LocationDimension locationDimension) {
         this.locationDimension = locationDimension;
     }
+
+	public String getLocationCode() {
+		return locationCode;
+	}
+
+	public void setLocationCode(String locationCode) {
+		this.locationCode = locationCode;
+	}
+    
+    
 
 }

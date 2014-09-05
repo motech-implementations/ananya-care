@@ -12,7 +12,7 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "death_child_form")
-@Unique(members = {"instance_id","case_id"})
+@Unique(members = {"instanceId","childCase"})
 public class DeathChildForm extends Form {
 
 	 private Flw flw;

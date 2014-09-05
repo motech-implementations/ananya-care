@@ -11,7 +11,7 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "mother_edit_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class MotherEditForm extends Form {
 
     private Flw flw;

@@ -12,7 +12,7 @@ import org.motechproject.mds.annotations.Field;
 
 
 @Entity(name = "ebf_mother_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class EbfMotherForm extends Form {
 
 	 private Flw flw;

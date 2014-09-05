@@ -11,7 +11,7 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "bp_form")
-@Unique(members = "instance_id")
+@Unique(members = "instanceId")
 public class BpForm extends Form {
 
 	private static final long serialVersionUID = -1558836102875878836L;

@@ -11,7 +11,7 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "aww_preschool_activities_child_form")
-@Unique(members = { "instance_id", "case_id" })
+@Unique(members = { "instanceId", "childCase" })
 public class AwwPreschoolActivitiesChildForm extends Form {
 
 	/**
