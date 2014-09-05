@@ -10,6 +10,7 @@
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.motechproject.mcts.care.common.mds.service"/>
+    <context:component-scan base-package="org.motechproject.mcts.care.common.mds.repository"/>
 
 	<bean id="mdsServiceFactory" class="org.motechproject.mcts.care.common.mds.service.MdsServiceFactoryImpl"></bean>
 </beans>

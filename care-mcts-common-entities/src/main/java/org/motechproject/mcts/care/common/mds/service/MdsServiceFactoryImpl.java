@@ -51,9 +51,7 @@ import org.motechproject.mcts.care.common.mds.measure.UiChildForm;
 import org.motechproject.mcts.care.common.mds.measure.UiMotherForm;
 import org.motechproject.mds.service.MotechDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service(value = "mdsServiceFactory")
 public class MdsServiceFactoryImpl implements MdsServiceFactory {
 
     private static Map<Class<?>, MotechDataService<?>> mapper = new HashMap<Class<?>, MotechDataService<?>>();
@@ -195,6 +193,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.uiMotherFormMDSService = uiMotherFormMDSService;
     }
 
+    @PostConstruct
     public void createEntityServiceMap() {
 
         mapper.put(AbortForm.class, abortFormMDSService);
@@ -257,5 +256,10 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             createEntityServiceMap();
         }
         return (MotechDataService<?>) mapper.get(clazz);
+    }
+    
+    @Override
+    public MotechDataService<?> fetchDefaultServiceInterface() {
+        return this.abortFormMDSService;
     }
 }

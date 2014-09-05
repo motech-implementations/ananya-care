@@ -1,9 +1,11 @@
-package org.motechproject.care.reporting.repository;
+package org.motechproject.mcts.care.common.mds.repository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+
+import javax.jdo.Query;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
@@ -15,13 +17,14 @@ import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.mds.query.QueryExecution;
 import org.motechproject.mds.query.QueryExecutor;
 import org.motechproject.mds.query.SetProperty;
+import org.motechproject.mds.query.SqlQueryExecution;
 import org.motechproject.mds.service.MotechDataService;
 import org.motechproject.mds.util.InstanceSecurityRestriction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
-public class DbRepository implements org.motechproject.care.reporting.repository.Repository {
+@Service(value = "dbRepository")
+public class MdsRepository implements org.motechproject.mcts.care.common.mds.repository.Repository {
     
     @Autowired
     private MdsServiceFactory mdsServiceFactory;
@@ -145,11 +148,29 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     }
 
     @Override
-    public Object execute(String query) {
-        // TODO Auto-generated method stub
+    public Object execute(final String query) {
+        MotechDataService<?> service = (MotechDataService<?>) mdsServiceFactory.fetchDefaultServiceInterface();
+        service.executeSQLQuery(new SqlQueryExecution<List<String>>() {
+            @Override
+            public List<String> execute(Query query) {
+                query.execute();
+                return null;
+            }
+
+            @Override
+            public String getSqlQuery() {
+                return query;
+            }
+        });
         return null;
     }
 
-    
+    @Override
+    public <T> Object executeJDO(QueryExecution<?> query) {
+        MotechDataService<?> service = (MotechDataService<?>) mdsServiceFactory.fetchDefaultServiceInterface();
+        //TODO: implement this
+        return null;
+    }
+
 }
 

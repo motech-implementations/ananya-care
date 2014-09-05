@@ -1,13 +1,12 @@
 package org.motechproject.care.reporting.job;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.initMocks;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.repository.Repository;
 import org.motechproject.care.reporting.service.Service;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ComputeFieldsJobTest {
 

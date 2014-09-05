@@ -25,6 +25,7 @@ import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.NewForm;
+import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -32,7 +33,7 @@ import org.unitils.reflectionassert.ReflectionAssert;
 public class DbRepositoryIT extends SpringIntegrationTest {
 
     @Autowired
-    private Repository repository;
+    private Repository dbRepository;
 
     @Before
     @After
@@ -49,9 +50,9 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         NewForm form = new NewForm();
         form.setCaseName("mother");
         form.setInstanceId("abcd");
-        repository.save(form);
+        dbRepository.save(form);
 
-        NewForm newForm = repository.get(NewForm.class, "caseName", "mother");
+        NewForm newForm = dbRepository.get(NewForm.class, "caseName", "mother");
 
         assertEquals("abcd", newForm.getInstanceId());
         assertEquals("mother", newForm.getCaseName());
@@ -60,7 +61,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
     @Test
     public void shouldGetByNonMatchingCriteria(){
 
-        NewForm newForm = repository.get(NewForm.class, "caseName", "father");
+        NewForm newForm = dbRepository.get(NewForm.class, "caseName", "father");
 
         assertNull(newForm);
     }
@@ -100,7 +101,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         template.save(existingFlwGroup);
         existingFlwGroup.setName("changedGroupName");
 
-        repository.saveOrUpdateAll(flwGroups);
+        dbRepository.saveOrUpdateAll(flwGroups);
 
         List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
         assertEquals(2, flwGroupsFromDb.size());
@@ -118,7 +119,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
                 flwGroup2,
                 flwGroup3));
 
-        List<FlwGroup> groupsFromDb = repository.findAllByField(FlwGroup.class, Arrays.asList("5ba9a0928dde95d187544babf6c0ad24","5ba9a0928dde95d187544babf6c0af36"), "groupId");
+        List<FlwGroup> groupsFromDb = dbRepository.findAllByField(FlwGroup.class, Arrays.asList("5ba9a0928dde95d187544babf6c0ad24","5ba9a0928dde95d187544babf6c0af36"), "groupId");
 
         assertEquals(2, groupsFromDb.size());
         assertReflectionContains(flwGroup1, groupsFromDb);
@@ -144,7 +145,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         expectedMother.setFlw(flw);
         expectedMother.setFlwGroup(flwGroup);
 
-        repository.save(expectedMother);
+        dbRepository.save(expectedMother);
 
         List<MotherCase> motherCases = template.loadAll(MotherCase.class);
         assertEquals(1, motherCases.size());
@@ -159,14 +160,14 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         Flw flw = new FlwBuilder().flwId("5ba9a0928dde95d187544babf6c0ad24").build();
         template.save(flw);
 
-        Flw flwFromDb = repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad24");
+        Flw flwFromDb = dbRepository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad24");
 
         assertReflectionEqualsWithIgnore(flw, flwFromDb);
     }
 
     @Test
     public void shouldReturnNullIfCannotFindByExternalPrimaryKey() throws Exception {
-        assertNull(repository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad00"));
+        assertNull(dbRepository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad00"));
     }
 
     @Test
@@ -187,7 +188,7 @@ public class DbRepositoryIT extends SpringIntegrationTest {
             put("motherCase", "mc");
         }};
 
-        NewForm actualFormFromDb = repository.get(NewForm.class, fieldMap, aliasMapping);
+        NewForm actualFormFromDb = dbRepository.get(NewForm.class, fieldMap, aliasMapping);
 
         assertEquals(instanceId, actualFormFromDb.getInstanceId());
         assertEquals(caseId, actualFormFromDb.getMotherCase().getCaseId());
@@ -198,21 +199,21 @@ public class DbRepositoryIT extends SpringIntegrationTest {
         NewForm form = new NewForm();
         form.setCaseName("mother");
         form.setInstanceId("abcd");
-        repository.save(form);
+        dbRepository.save(form);
 
-        NewForm newFormBeforeDelete = repository.get(NewForm.class, "caseName", "mother");
+        NewForm newFormBeforeDelete = dbRepository.get(NewForm.class, "caseName", "mother");
         assertNotNull(newFormBeforeDelete);
 
-        repository.delete(form);
+        dbRepository.delete(form);
 
-        NewForm newFormAfterDelete = repository.get(NewForm.class, "caseName", "mother");
+        NewForm newFormAfterDelete = dbRepository.get(NewForm.class, "caseName", "mother");
         assertNull(newFormAfterDelete);
     }
 
 
     @Test
     public void shouldExecuteSQL(){
-        Object result = repository.execute("Select 10");
+        Object result = dbRepository.execute("Select 10");
         ReflectionAssert.assertReflectionEquals(10, result);
     }
 

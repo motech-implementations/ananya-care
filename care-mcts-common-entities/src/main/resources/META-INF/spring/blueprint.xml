@@ -140,8 +140,8 @@
 	<osgi:reference id="uiMotherFormMDSService"
 		interface="org.motechproject.mcts.care.common.mds.service.UiMotherFormMDSService" />
 
-	<osgi:service ref="mdsServiceFactory" 
-		interface="org.motechproject.mcts.care.common.mds.service.MdsServiceFactory"
+	<osgi:service ref="dbRepository" 
+		interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"
 		auto-export="interfaces" />
 
 

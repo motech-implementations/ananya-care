@@ -1,7 +1,9 @@
-package org.motechproject.care.reporting.repository;
+package org.motechproject.mcts.care.common.mds.repository;
 
 import java.util.List;
 import java.util.Map;
+
+import org.motechproject.mds.query.QueryExecution;
 
 public interface Repository {
     <T> Integer save(T instance);
@@ -21,4 +23,6 @@ public interface Repository {
     <T> void delete(T instance);
 
     Object execute(String query);
+
+    <T> Object executeJDO(QueryExecution<?> query);
 }

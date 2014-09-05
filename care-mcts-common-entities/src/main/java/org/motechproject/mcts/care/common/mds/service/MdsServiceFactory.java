@@ -6,4 +6,6 @@ public interface MdsServiceFactory {
 
     MotechDataService<?> fetchServiceInterface(Class<?> clazz);
 
+    MotechDataService<?> fetchDefaultServiceInterface();
+
 }
