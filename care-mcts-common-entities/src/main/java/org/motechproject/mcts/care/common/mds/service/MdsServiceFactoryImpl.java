@@ -53,211 +53,209 @@ import org.motechproject.mds.service.MotechDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(value = "mdsServiceFactory")
 public class MdsServiceFactoryImpl implements MdsServiceFactory {
 
-    @Autowired
+    private static Map<Class<?>, MotechDataService<?>> mapper = new HashMap<Class<?>, MotechDataService<?>>();
+
     private AbortFormMDSService abortFormMDSService;
-
-    @Autowired
     private AwwCloseChildFormMDSService awwCloseChildFormMDSService;
-
-    @Autowired
     private AwwEditChildFormMDSService awwEditChildFormMDSService;
-
-    @Autowired
     private AwwGrowthMonitoringChildForm1MDSService awwGrowthMonitoringChildForm1MDSService;
-
-    @Autowired
     private AwwGrowthMonitoringChildForm2MDSService awwGrowthMonitoringChildForm2MDSService;
-
-    @Autowired
     private AwwPreschoolActivitiesChildFormMDSService awwPreschoolActivitiesChildFormMDSService;
-
-    @Autowired
     private AwwPreschoolActivitiesFormMDSService awwPreschoolActivitiesFormMDSService;
-
-    @Autowired
     private AwwRegisterChildFormMDSService awwRegisterChildFormMDSService;
-
-    @Autowired
     private AwwRegisterMotherFormMDSService awwRegisterMotherFormMDSService;
-
-    @Autowired
     private AwwThrChildFormMDSService awwThrChildFormMDSService;
-
-    @Autowired
     private AwwThrMotherFormMDSService awwThrMotherFormMDSService;
-
-    @Autowired
     private AwwUpdateVaccinationsChildFormMDSService awwUpdateVaccinationsChildFormMDSService;
-
-    @Autowired
     private BpFormMDSService bpFormMDSService;
-
-    @Autowired
     private CfChildFormMDSService cfChildFormMDSService;
-
-    @Autowired
     private CfMotherFormMDSService cfMotherFormMDSService;
-
-    @Autowired
     private ChildCaseMDSService childCaseMDSService;
-
-    @Autowired
     private CloseChildFormMDSService closeChildFormMDSService;
-
-    @Autowired
     private CloseMotherFormMDSService closeMotherFormMDSService;
-
-    @Autowired
     private DeathChildFormMDSService deathChildFormMDSService;
-
-    @Autowired
     private DeathMotherFormMDSService deathMotherFormMDSService;
-
-    @Autowired
     private DeliveryChildFormMDSService deliveryChildFormMDSService;
-
-    @Autowired
     private DeliveryMotherFormMDSService deliveryMotherFormMDSService;
-
-    @Autowired
     private EbfChildFormMDSService ebfChildFormMDSService;
-
-    @Autowired
     private EbfMotherFormMDSService ebfMotherFormMDSService;
-
-    @Autowired
     private FlwGroupMapMDSService flwGroupMapMDSService;
-
-    @Autowired
     private FlwGroupMDSService flwGroupMDSService;
-
-    @Autowired
     private FlwMDSService flwMDSService;
-
-    @Autowired
     private FormMDSService formMDSService;
-
-    @Autowired
     private GrowthMonitoringChildFormMDSService growthMonitoringChildFormMDSService;
-
-    @Autowired
     private LocationDimensionMDSService locationDimensionMDSService;
-
-    @Autowired
     private MiFormMDSService miFormMDSService;
-
-    @Autowired
     private MoFormMDSService moFormMDSService;
-
-    @Autowired
     private MotherCaseMDSService motherCaseMDSService;
-
-    @Autowired
     private MotherEditFormMDSService motherEditFormMDSService;
-
-    @Autowired
     private MoveBeneficiaryFormMDSService moveBeneficiaryFormMDSService;
-
-    @Autowired
     private NewFormMDSService newFormMDSService;
-
-    @Autowired
     private PncChildFormMDSService pncChildFormMDSService;
-
-    @Autowired
     private PncMotherFormMDSService pncMotherFormMDSService;
-
-    @Autowired
     private ReferChildFormMDSService referChildFormMDSService;
-
-    @Autowired
     private ReferMotherFormMDSService referMotherFormMDSService;
-
-    @Autowired
     private RegistrationChildFormMDSService registrationChildFormMDSService;
-
-    @Autowired
     private RegistrationMotherFormMDSService registrationMotherFormMDSService;
-
-    @Autowired
     private UiChildFormMDSService uiChildFormMDSService;
+    private UiMotherFormMDSService uiMotherFormMDSService;
 
     @Autowired
-    private UiMotherFormMDSService uiMotherFormMDSService;
-    
-    private static Map<Class<?>, MotechDataService<?>> mapper;
+    public MdsServiceFactoryImpl(
+            AbortFormMDSService abortFormMDSService,
+            AwwCloseChildFormMDSService awwCloseChildFormMDSService,
+            AwwEditChildFormMDSService awwEditChildFormMDSService,
+            AwwGrowthMonitoringChildForm1MDSService awwGrowthMonitoringChildForm1MDSService,
+            AwwGrowthMonitoringChildForm2MDSService awwGrowthMonitoringChildForm2MDSService,
+            AwwPreschoolActivitiesChildFormMDSService awwPreschoolActivitiesChildFormMDSService,
+            AwwPreschoolActivitiesFormMDSService awwPreschoolActivitiesFormMDSService,
+            AwwRegisterChildFormMDSService awwRegisterChildFormMDSService,
+            AwwRegisterMotherFormMDSService awwRegisterMotherFormMDSService,
+            AwwThrChildFormMDSService awwThrChildFormMDSService,
+            AwwThrMotherFormMDSService awwThrMotherFormMDSService,
+            AwwUpdateVaccinationsChildFormMDSService awwUpdateVaccinationsChildFormMDSService,
+            BpFormMDSService bpFormMDSService,
+            CfChildFormMDSService cfChildFormMDSService,
+            CfMotherFormMDSService cfMotherFormMDSService,
+            ChildCaseMDSService childCaseMDSService,
+            CloseChildFormMDSService closeChildFormMDSService,
+            CloseMotherFormMDSService closeMotherFormMDSService,
+            DeathChildFormMDSService deathChildFormMDSService,
+            DeathMotherFormMDSService deathMotherFormMDSService,
+            DeliveryChildFormMDSService deliveryChildFormMDSService,
+            DeliveryMotherFormMDSService deliveryMotherFormMDSService,
+            EbfChildFormMDSService ebfChildFormMDSService,
+            EbfMotherFormMDSService ebfMotherFormMDSService,
+            FlwGroupMapMDSService flwGroupMapMDSService,
+            FlwGroupMDSService flwGroupMDSService,
+            FlwMDSService flwMDSService,
+            FormMDSService formMDSService,
+            GrowthMonitoringChildFormMDSService growthMonitoringChildFormMDSService,
+            LocationDimensionMDSService locationDimensionMDSService,
+            MiFormMDSService miFormMDSService,
+            MoFormMDSService moFormMDSService,
+            MotherCaseMDSService motherCaseMDSService,
+            MotherEditFormMDSService motherEditFormMDSService,
+            MoveBeneficiaryFormMDSService moveBeneficiaryFormMDSService,
+            NewFormMDSService newFormMDSService,
+            PncChildFormMDSService pncChildFormMDSService,
+            PncMotherFormMDSService pncMotherFormMDSService,
+            ReferChildFormMDSService referChildFormMDSService,
+            ReferMotherFormMDSService referMotherFormMDSService,
+            RegistrationChildFormMDSService registrationChildFormMDSService,
+            RegistrationMotherFormMDSService registrationMotherFormMDSService,
+            UiChildFormMDSService uiChildFormMDSService,
+            UiMotherFormMDSService uiMotherFormMDSService) {
+        this.abortFormMDSService = abortFormMDSService;
+        this.awwCloseChildFormMDSService = awwCloseChildFormMDSService;
+        this.awwEditChildFormMDSService = awwEditChildFormMDSService;
+        this.awwGrowthMonitoringChildForm1MDSService = awwGrowthMonitoringChildForm1MDSService;
+        this.awwGrowthMonitoringChildForm2MDSService = awwGrowthMonitoringChildForm2MDSService;
+        this.awwPreschoolActivitiesChildFormMDSService = awwPreschoolActivitiesChildFormMDSService;
+        this.awwPreschoolActivitiesFormMDSService = awwPreschoolActivitiesFormMDSService;
+        this.awwRegisterChildFormMDSService = awwRegisterChildFormMDSService;
+        this.awwRegisterMotherFormMDSService = awwRegisterMotherFormMDSService;
+        this.awwThrChildFormMDSService = awwThrChildFormMDSService;
+        this.awwThrMotherFormMDSService = awwThrMotherFormMDSService;
+        this.awwUpdateVaccinationsChildFormMDSService = awwUpdateVaccinationsChildFormMDSService;
+        this.bpFormMDSService = bpFormMDSService;
+        this.cfChildFormMDSService = cfChildFormMDSService;
+        this.cfMotherFormMDSService = cfMotherFormMDSService;
+        this.childCaseMDSService = childCaseMDSService;
+        this.closeChildFormMDSService = closeChildFormMDSService;
+        this.closeMotherFormMDSService = closeMotherFormMDSService;
+        this.deathChildFormMDSService = deathChildFormMDSService;
+        this.deliveryChildFormMDSService = deliveryChildFormMDSService;
+        this.deathMotherFormMDSService = deathMotherFormMDSService;
+        this.deliveryMotherFormMDSService = deliveryMotherFormMDSService;
+        this.ebfChildFormMDSService = ebfChildFormMDSService;
+        this.ebfMotherFormMDSService = ebfMotherFormMDSService;
+        this.flwGroupMapMDSService = flwGroupMapMDSService;
+        this.flwGroupMDSService = flwGroupMDSService;
+        this.flwMDSService = flwMDSService;
+        this.formMDSService = formMDSService;
+        this.growthMonitoringChildFormMDSService = growthMonitoringChildFormMDSService;
+        this.locationDimensionMDSService = locationDimensionMDSService;
+        this.miFormMDSService = miFormMDSService;
+        this.moFormMDSService = moFormMDSService;
+        this.motherCaseMDSService = motherCaseMDSService;
+        this.motherEditFormMDSService = motherEditFormMDSService;
+        this.moveBeneficiaryFormMDSService = moveBeneficiaryFormMDSService;
+        this.newFormMDSService = newFormMDSService;
+        this.pncChildFormMDSService = pncChildFormMDSService;
+        this.pncMotherFormMDSService = pncMotherFormMDSService;
+        this.referChildFormMDSService = referChildFormMDSService;
+        this.referMotherFormMDSService = referMotherFormMDSService;
+        this.registrationChildFormMDSService = registrationChildFormMDSService;
+        this.registrationMotherFormMDSService = registrationMotherFormMDSService;
+        this.uiChildFormMDSService = uiChildFormMDSService;
+        this.uiMotherFormMDSService = uiMotherFormMDSService;
+    }
 
-    @PostConstruct
     public void createEntityServiceMap() {
-        mapper = new HashMap<Class<?>, MotechDataService<?>>() {
 
-            private static final long serialVersionUID = -2300514640910721151L;
-
-            {
-                put(AbortForm.class, abortFormMDSService);
-                put(AwwCloseChildForm.class, awwCloseChildFormMDSService);
-                put(AwwEditChildForm.class, awwEditChildFormMDSService);
-                put(AwwGrowthMonitoringChildForm1.class,
-                        awwGrowthMonitoringChildForm1MDSService);
-                put(AwwGrowthMonitoringChildForm2.class,
-                        awwGrowthMonitoringChildForm2MDSService);
-                put(AwwPreschoolActivitiesChildForm.class,
-                        awwPreschoolActivitiesChildFormMDSService);
-                put(AwwPreschoolActivitiesForm.class,
-                        awwPreschoolActivitiesFormMDSService);
-                put(AwwRegisterChildForm.class, awwRegisterChildFormMDSService);
-                put(AwwRegisterMotherForm.class,
-                        awwRegisterMotherFormMDSService);
-                put(AwwThrChildForm.class, awwThrChildFormMDSService);
-                put(AwwThrMotherForm.class, awwThrMotherFormMDSService);
-                put(AwwUpdateVaccinationsChildForm.class,
-                        awwUpdateVaccinationsChildFormMDSService);
-                put(BpForm.class, bpFormMDSService);
-                put(CfChildForm.class, cfChildFormMDSService);
-                put(CfMotherForm.class, cfMotherFormMDSService);
-                put(ChildCase.class, childCaseMDSService);
-                put(CloseChildForm.class, closeChildFormMDSService);
-                put(CloseMotherForm.class, closeMotherFormMDSService);
-                put(DeathChildForm.class, deathChildFormMDSService);
-                put(DeathMotherForm.class, deathMotherFormMDSService);
-                put(DeliveryChildForm.class, deliveryChildFormMDSService);
-                put(DeliveryMotherForm.class, deliveryMotherFormMDSService);
-                put(EbfChildForm.class, ebfChildFormMDSService);
-                put(EbfMotherForm.class, ebfMotherFormMDSService);
-                put(FlwGroupMap.class, flwGroupMapMDSService);
-                put(FlwGroup.class, flwGroupMDSService);
-                put(Flw.class, flwMDSService);
-                put(Form.class, formMDSService);
-                put(GrowthMonitoringChildForm.class,
-                        growthMonitoringChildFormMDSService);
-                put(LocationDimension.class, locationDimensionMDSService);
-                put(MiForm.class, miFormMDSService);
-                put(MoForm.class, moFormMDSService);
-                put(MotherCase.class, motherCaseMDSService);
-                put(MotherEditForm.class, motherEditFormMDSService);
-                put(MoveBeneficiaryForm.class, moveBeneficiaryFormMDSService);
-                put(NewForm.class, newFormMDSService);
-                put(PncChildForm.class, pncChildFormMDSService);
-                put(PncMotherForm.class, pncMotherFormMDSService);
-                put(ReferChildForm.class, referChildFormMDSService);
-                put(ReferMotherForm.class, referMotherFormMDSService);
-                put(RegistrationChildForm.class,
-                        registrationChildFormMDSService);
-                put(RegistrationMotherForm.class,
-                        registrationMotherFormMDSService);
-                put(UiChildForm.class, uiChildFormMDSService);
-                put(UiMotherForm.class, uiMotherFormMDSService);
-
-            }
-        };
+        mapper.put(AbortForm.class, abortFormMDSService);
+        mapper.put(AwwCloseChildForm.class, awwCloseChildFormMDSService);
+        mapper.put(AwwEditChildForm.class, awwEditChildFormMDSService);
+        mapper.put(AwwGrowthMonitoringChildForm1.class,
+                awwGrowthMonitoringChildForm1MDSService);
+        mapper.put(AwwGrowthMonitoringChildForm2.class,
+                awwGrowthMonitoringChildForm2MDSService);
+        mapper.put(AwwPreschoolActivitiesChildForm.class,
+                awwPreschoolActivitiesChildFormMDSService);
+        mapper.put(AwwPreschoolActivitiesForm.class,
+                awwPreschoolActivitiesFormMDSService);
+        mapper.put(AwwRegisterChildForm.class, awwRegisterChildFormMDSService);
+        mapper.put(AwwRegisterMotherForm.class, awwRegisterMotherFormMDSService);
+        mapper.put(AwwThrChildForm.class, awwThrChildFormMDSService);
+        mapper.put(AwwThrMotherForm.class, awwThrMotherFormMDSService);
+        mapper.put(AwwUpdateVaccinationsChildForm.class,
+                awwUpdateVaccinationsChildFormMDSService);
+        mapper.put(BpForm.class, bpFormMDSService);
+        mapper.put(CfChildForm.class, cfChildFormMDSService);
+        mapper.put(CfMotherForm.class, cfMotherFormMDSService);
+        mapper.put(ChildCase.class, childCaseMDSService);
+        mapper.put(CloseChildForm.class, closeChildFormMDSService);
+        mapper.put(CloseMotherForm.class, closeMotherFormMDSService);
+        mapper.put(DeathChildForm.class, deathChildFormMDSService);
+        mapper.put(DeathMotherForm.class, deathMotherFormMDSService);
+        mapper.put(DeliveryChildForm.class, deliveryChildFormMDSService);
+        mapper.put(DeliveryMotherForm.class, deliveryMotherFormMDSService);
+        mapper.put(EbfChildForm.class, ebfChildFormMDSService);
+        mapper.put(EbfMotherForm.class, ebfMotherFormMDSService);
+        mapper.put(FlwGroupMap.class, flwGroupMapMDSService);
+        mapper.put(FlwGroup.class, flwGroupMDSService);
+        mapper.put(Flw.class, flwMDSService);
+        mapper.put(Form.class, formMDSService);
+        mapper.put(GrowthMonitoringChildForm.class,
+                growthMonitoringChildFormMDSService);
+        mapper.put(LocationDimension.class, locationDimensionMDSService);
+        mapper.put(MiForm.class, miFormMDSService);
+        mapper.put(MoForm.class, moFormMDSService);
+        mapper.put(MotherCase.class, motherCaseMDSService);
+        mapper.put(MotherEditForm.class, motherEditFormMDSService);
+        mapper.put(MoveBeneficiaryForm.class, moveBeneficiaryFormMDSService);
+        mapper.put(NewForm.class, newFormMDSService);
+        mapper.put(PncChildForm.class, pncChildFormMDSService);
+        mapper.put(PncMotherForm.class, pncMotherFormMDSService);
+        mapper.put(ReferChildForm.class, referChildFormMDSService);
+        mapper.put(ReferMotherForm.class, referMotherFormMDSService);
+        mapper.put(RegistrationChildForm.class, registrationChildFormMDSService);
+        mapper.put(RegistrationMotherForm.class,
+                registrationMotherFormMDSService);
+        mapper.put(UiChildForm.class, uiChildFormMDSService);
+        mapper.put(UiMotherForm.class, uiMotherFormMDSService);
 
     }
 
     @Override
     public MotechDataService<?> fetchServiceInterface(Class<?> clazz) {
+        if (mapper == null) {
+            createEntityServiceMap();
+        }
         return (MotechDataService<?>) mapper.get(clazz);
     }
 }

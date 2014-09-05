@@ -53,9 +53,8 @@ public class DbRepository implements org.motechproject.care.reporting.repository
     public <T> void saveOrUpdateAll(List<T> instances) {
         MotechDataService<T> service;
         
-        //TODO: is there a better way of doing this???
         if (instances != null && instances.size() > 0) {
-            service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instances.getClass());
+            service = (MotechDataService<T>) mdsServiceFactory.fetchServiceInterface(instances.get(0).getClass());
             if (service == null) {
                 return;
             }

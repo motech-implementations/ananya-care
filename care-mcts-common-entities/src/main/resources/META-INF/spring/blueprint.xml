@@ -1,146 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.eclipse.org/gemini/blueprint/schema/blueprint"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
 
-    <import resource="classpath:META-INF/motech/applicationCommonEntities.xml"/>
-    
-    <osgi:service id="mdsServiceFactory"
-        interface="org.motechproject.mcts.care.common.mds.service" />
-        
-    <osgi:reference id="abortFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AbortFormMDSService" />
-    
-    <osgi:reference id="awwCloseChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwCloseChildFormMDSService" />
-    
-    <osgi:reference id="awwEditChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwEditChildFormMDSService" />
-    
-    <osgi:reference id="awwGrowthMonitoringChildForm1MDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwGrowthMonitoringChildForm1MDSService" />
-    
-    <osgi:reference id="awwGrowthMonitoringChildForm2MDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwGrowthMonitoringChildForm2MDSService" />
-    
-    <osgi:reference id="awwPreschoolActivitiesChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwPreschoolActivitiesChildFormMDSService" />
-    
-    <osgi:reference id="awwPreschoolActivitiesFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwPreschoolActivitiesFormMDSService" />
-    
-    <osgi:reference id="awwRegisterChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwRegisterChildFormMDSService" />
-    
-    <osgi:reference id="awwRegisterMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwRegisterMotherFormMDSService" />
-    
-    <osgi:reference id="awwThrChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwThrChildFormMDSService" />
-    
-    <osgi:reference id="awwThrMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwThrMotherFormMDSService" />
-    
-    <osgi:reference id="awwUpdateVaccinationsChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.AwwUpdateVaccinationsChildFormMDSService" />
-    
-    <osgi:reference id="bpFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.BpFormMDSService" />
-    
-    <osgi:reference id="cfChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.CfChildFormMDSService" />
-    
-    <osgi:reference id="cfMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.CfMotherFormMDSService" />
-    
-    <osgi:reference id="childCaseMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.ChildCaseMDSService" />
-    
-    <osgi:reference id="closeChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.CloseChildFormMDSService" />
-    
-    <osgi:reference id="closeMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.CloseMotherFormMDSService" />
-    
-    <osgi:reference id="deathChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DeathChildFormMDSService" />
-    
-    <osgi:reference id="deathMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DeathMotherFormMDSService" />
-    
-    <osgi:reference id="deliveryChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DeliveryChildFormMDSService" />
-    
-    <osgi:reference id="deliveryMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DeliveryMotherFormMDSService" />
-    
-    <osgi:reference id="ebfChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.EbfChildFormMDSService" />
-    
-    <osgi:reference id="ebfMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.EbfMotherFormMDSService" />
-    
-    <osgi:reference id="flwGroupMapMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMapMDSService" />
-    
-    <osgi:reference id="flwGroupMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMDSService" />
-    
-    <osgi:reference id="flwMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.FlwMDSService" />
-    
-    <osgi:reference id="formMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.FormMDSService" />
-    
-    <osgi:reference id="growthMonitoringChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.GrowthMonitoringChildFormMDSService" />
-    
-    <osgi:reference id="locationDimensionMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.LocationDimensionMDSService" />
-    
-    <osgi:reference id="miFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MiFormMDSService" />
-    
-    <osgi:reference id="moFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MoFormMDSService" />
-    
-    <osgi:reference id="motherCaseMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MotherCaseMDSService" />
-    
-    <osgi:reference id="motherEditFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MotherEditFormMDSService" />
-    
-    <osgi:reference id="moveBeneficiaryFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MoveBeneficiaryFormMDSService" />
-    
-    <osgi:reference id="newFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.NewFormMDSService" />
-    
-    <osgi:reference id="pncChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.PncChildFormMDSService" />
-    
-    <osgi:reference id="pncMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.PncMotherFormMDSService" />
-    
-    <osgi:reference id="referChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.ReferChildFormMDSService" />
-    
-    <osgi:reference id="referMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.ReferMotherFormMDSService" />
-    
-    <osgi:reference id="registrationChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.RegistrationChildFormMDSService" />
-    
-    <osgi:reference id="registrationMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.RegistrationMotherFormMDSService" />
-    
-    <osgi:reference id="uiChildFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UiChildFormMDSService" />
-    
-    <osgi:reference id="uiMotherFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UiMotherFormMDSService" />
-                            
+	<import resource="classpath:META-INF/motech/applicationCommonEntities.xml" />
+
+
+	<osgi:reference id="abortFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AbortFormMDSService" />
+
+	<osgi:reference id="awwCloseChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwCloseChildFormMDSService" />
+
+	<osgi:reference id="awwEditChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwEditChildFormMDSService" />
+
+	<osgi:reference id="awwGrowthMonitoringChildForm1MDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwGrowthMonitoringChildForm1MDSService" />
+
+	<osgi:reference id="awwGrowthMonitoringChildForm2MDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwGrowthMonitoringChildForm2MDSService" />
+
+	<osgi:reference id="awwPreschoolActivitiesChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwPreschoolActivitiesChildFormMDSService" />
+
+	<osgi:reference id="awwPreschoolActivitiesFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwPreschoolActivitiesFormMDSService" />
+
+	<osgi:reference id="awwRegisterChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwRegisterChildFormMDSService" />
+
+	<osgi:reference id="awwRegisterMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwRegisterMotherFormMDSService" />
+
+	<osgi:reference id="awwThrChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwThrChildFormMDSService" />
+
+	<osgi:reference id="awwThrMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwThrMotherFormMDSService" />
+
+	<osgi:reference id="awwUpdateVaccinationsChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.AwwUpdateVaccinationsChildFormMDSService" />
+
+	<osgi:reference id="bpFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.BpFormMDSService" />
+
+	<osgi:reference id="cfChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.CfChildFormMDSService" />
+
+	<osgi:reference id="cfMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.CfMotherFormMDSService" />
+
+	<osgi:reference id="childCaseMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.ChildCaseMDSService" />
+
+	<osgi:reference id="closeChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.CloseChildFormMDSService" />
+
+	<osgi:reference id="closeMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.CloseMotherFormMDSService" />
+
+	<osgi:reference id="deathChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.DeathChildFormMDSService" />
+
+	<osgi:reference id="deathMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.DeathMotherFormMDSService" />
+
+	<osgi:reference id="deliveryChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.DeliveryChildFormMDSService" />
+
+	<osgi:reference id="deliveryMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.DeliveryMotherFormMDSService" />
+
+	<osgi:reference id="ebfChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.EbfChildFormMDSService" />
+
+	<osgi:reference id="ebfMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.EbfMotherFormMDSService" />
+
+	<osgi:reference id="flwGroupMapMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMapMDSService" />
+
+	<osgi:reference id="flwGroupMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMDSService" />
+
+	<osgi:reference id="flwMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.FlwMDSService" />
+
+	<osgi:reference id="formMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.FormMDSService" />
+
+	<osgi:reference id="growthMonitoringChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.GrowthMonitoringChildFormMDSService" />
+
+	<osgi:reference id="locationDimensionMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.LocationDimensionMDSService" />
+
+	<osgi:reference id="miFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MiFormMDSService" />
+
+	<osgi:reference id="moFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MoFormMDSService" />
+
+	<osgi:reference id="motherCaseMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MotherCaseMDSService" />
+
+	<osgi:reference id="motherEditFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MotherEditFormMDSService" />
+
+	<osgi:reference id="moveBeneficiaryFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MoveBeneficiaryFormMDSService" />
+
+	<osgi:reference id="newFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.NewFormMDSService" />
+
+	<osgi:reference id="pncChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.PncChildFormMDSService" />
+
+	<osgi:reference id="pncMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.PncMotherFormMDSService" />
+
+	<osgi:reference id="referChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.ReferChildFormMDSService" />
+
+	<osgi:reference id="referMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.ReferMotherFormMDSService" />
+
+	<osgi:reference id="registrationChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.RegistrationChildFormMDSService" />
+
+	<osgi:reference id="registrationMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.RegistrationMotherFormMDSService" />
+
+	<osgi:reference id="uiChildFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.UiChildFormMDSService" />
+
+	<osgi:reference id="uiMotherFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.UiMotherFormMDSService" />
+
+	<osgi:service ref="mdsServiceFactory" 
+		interface="org.motechproject.mcts.care.common.mds.service.MdsServiceFactory"
+		auto-export="interfaces" />
+
+
 </beans>
