@@ -186,7 +186,38 @@ public class MdsRepository implements
 		return (T) get(clazz, AnnotationUtils.getExternalPrimaryKeyField(clazz)
 				.getName(), value);
 	}
+	
+	@Override
+	public <T> List<T> getListOfObject(Class<T> entityClass, final Map<String, Object> fieldMap) {
+		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
+				.fetchServiceInterface(entityClass);
 
+		if (service == null) {
+			return null;
+		}
+		@SuppressWarnings("unchecked")
+		final List<T> results = service
+				.executeQuery(new QueryExecution<List>() {
+					@Override
+					public List execute(javax.jdo.Query query,
+							InstanceSecurityRestriction restriction) {
+						List<Property> properties = new ArrayList<Property>();
+						if (MapUtils.isNotEmpty(fieldMap)) {
+							for (Map.Entry<String, Object> entry : fieldMap
+									.entrySet()) {
+								EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
+										.create(entry.getKey(),
+												entry.getValue());
+								properties.add(equalProperty);
+							}
+						}
+						return (List) QueryExecutor.executeWithArray(query,
+								properties);
+					}
+				});
+		return CollectionUtils.isEmpty(results) ? null : results;
+	}
+	
 	@Override
 	public <T> T get(Class<T> entityClass, final Map<String, Object> fieldMap,
 			final Map<String, String> aliasMapping) {

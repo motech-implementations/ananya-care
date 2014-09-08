@@ -36,4 +36,5 @@ public interface Repository {
     <T> List<T> findEntityByFieldWithConstarint(Class<T> entityClass,
 			String fieldName, Object lowerFieldValue,
 			Object higherFieldValue);
+    <T> List<T> getListOfObject(Class<T> entityClass, final Map<String, Object> fieldMap);
 }
