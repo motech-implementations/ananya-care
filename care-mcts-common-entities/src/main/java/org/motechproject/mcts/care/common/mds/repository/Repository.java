@@ -24,5 +24,16 @@ public interface Repository {
 
     Object execute(String query);
 
-    <T> Object executeJDO(QueryExecution<?> query);
+    <T> Object executeJDO(Class<T> clazz, QueryExecution<?> query);
+    
+    <T> List<T> findListOfEntitiesByField(Class<T> entityClass,
+			String fieldName, Object fieldValue);
+    
+    <T> T getObjectByPrimaryKey(Class<T> clazz, Integer primaryId);
+    
+    <T> Integer getDetachedFieldId(T instance);
+    
+    <T> List<T> findEntityByFieldWithConstarint(Class<T> entityClass,
+			String fieldName, Object lowerFieldValue,
+			Object higherFieldValue);
 }

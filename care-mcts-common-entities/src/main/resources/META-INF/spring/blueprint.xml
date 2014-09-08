@@ -163,14 +163,17 @@
     <osgi:reference id="mctsVillageMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.MctsVillageMDSService" />
         
-    <osgi:reference id="unapprovedToDiscussFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UnapprovedToDiscussFormMDSService" />
-        
-    <osgi:reference id="unmappedToReviewFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UnmappedToReviewFormMDSService" />
-        
-    <osgi:reference id="dontKnowFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DontKnowFormMDSService" />
+    <osgi:reference id="mctsHealthblockMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthblockMDSService" />
+
+	 <osgi:reference id="mctsHealthworkerMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthworkerMDSService" />
+
+	 <osgi:reference id="mctsPregnantMotherErrorLogMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherErrorLogMDSService" />
+
+	 <osgi:reference id="mctsPregnantMotherServiceUpdateMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherServiceUpdateMDSService" />
         
     <osgi:reference id="motherCaseMctsUpdateMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.MotherCaseMctsUpdateMDSService" />
@@ -178,8 +181,21 @@
    	<osgi:reference id="hubTransactionMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.HubTransactionMDSService" />  
         
-    <osgi:reference id="caseAlreadyClosedFormMDSService.java"
+    <osgi:reference id="dontKnowFormMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.DontKnowFormMDSService" />
+        
+    <osgi:reference id="caseAlreadyClosedFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.CaseAlreadyClosedFormMDSService" /> 
+        
+    <osgi:reference id="unapprovedToDiscussFormMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.UnapprovedToDiscussFormMDSService" />
+        
+    <osgi:reference id="unmappedToReviewFormMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.UnmappedToReviewFormMDSService" />
+        
+    <osgi:reference id="mctsHealthblockMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthblockMDSService" />
+     
         
 	<osgi:service ref="dbRepository" 
 		interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"
