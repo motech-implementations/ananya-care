@@ -193,8 +193,8 @@
     <osgi:reference id="unmappedToReviewFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.UnmappedToReviewFormMDSService" />
         
-    <osgi:reference id="mctsHealthblockMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthblockMDSService" />
+    <osgi:reference id="mctsHealthWorkerErrorLogMDSService"
+        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthWorkerErrorLogMDSService" />
      
         
 	<osgi:service ref="dbRepository" 

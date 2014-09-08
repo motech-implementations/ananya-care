@@ -263,8 +263,22 @@ public class MdsRepository implements
 	public <T> List<T> executeJDO(Class<T> clazz, QueryExecution<?> query) {
 		MotechDataService<?> service = mdsServiceFactory
 				.fetchServiceInterface(clazz);
+		if (service == null) {
+			return null;
+		}
 		List<T> list = (List<T>) service.executeQuery(query);
 
+		return list;
+	}
+	
+	public <T> List<T> executeJDO(Class<T> clazz, List<Property> properties) {
+		MotechDataService<?> service = mdsServiceFactory
+				.fetchServiceInterface(clazz);
+		if (service == null) {
+			return null;
+		}
+		
+		List<T> list = (List<T>) service.retrieveAll(properties);
 		return list;
 	}
 
