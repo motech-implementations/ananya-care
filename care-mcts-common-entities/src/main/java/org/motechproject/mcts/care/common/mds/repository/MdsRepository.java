@@ -17,6 +17,7 @@ import org.motechproject.mds.query.Property;
 import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.mds.query.QueryExecution;
 import org.motechproject.mds.query.QueryExecutor;
+import org.motechproject.mds.query.QueryParams;
 import org.motechproject.mds.query.RangeProperty;
 import org.motechproject.mds.query.SetProperty;
 import org.motechproject.mds.query.SqlQueryExecution;
@@ -87,7 +88,7 @@ public class MdsRepository implements
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public <T> List<T> findListOfEntitiesByField(Class<T> entityClass,
+	public <T> List<T> findEntitiesByField(Class<T> entityClass,
 			final String fieldName, final Object fieldValue) {
 		@SuppressWarnings("unchecked")
 		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -139,7 +140,7 @@ public class MdsRepository implements
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public <T> List<T> findEntityByFieldWithConstarint(Class<T> entityClass,
+	public <T> List<T> findEntitiesByFieldWithConstraint(Class<T> entityClass,
 			final String fieldName, final Object lowerFieldValue,
 			final Object higherFieldValue) {
 		@SuppressWarnings("unchecked")
@@ -195,7 +196,7 @@ public class MdsRepository implements
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public <T> List<T> getListOfObject(Class<T> entityClass, final Map<String, Object> fieldMap) {
+	public <T> List<T> getListOfObjects(Class<T> entityClass, final Map<String, Object> fieldMap) {
 		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
 				.fetchServiceInterface(entityClass);
 
@@ -249,7 +250,8 @@ public class MdsRepository implements
 								properties.add(equalProperty);
 							}
 						}
-						if (MapUtils.isNotEmpty(aliasMapping)) {
+						//TODO: use aliasMapping
+						/*if (MapUtils.isNotEmpty(aliasMapping)) {
 							for (Map.Entry<String, String> entry : aliasMapping
 									.entrySet()) {
 								EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
@@ -257,7 +259,7 @@ public class MdsRepository implements
 												entry.getValue());
 								properties.add(equalProperty);
 							}
-						}
+						}*/
 						return (List) QueryExecutor.executeWithArray(query,
 								properties);
 					}

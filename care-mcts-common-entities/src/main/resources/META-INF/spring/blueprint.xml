@@ -5,8 +5,8 @@
        http://www.eclipse.org/gemini/blueprint/schema/blueprint http://www.eclipse.org/gemini/blueprint/schema/blueprint/gemini-blueprint.xsd">
 
 
-    <import resource="classpath:META-INF/motech/applicationCommonEntities.xml"/>
-    
+	<import resource="classpath:META-INF/motech/applicationCommonEntities.xml" />
+
 	<osgi:reference id="abortFormMDSService"
 		interface="org.motechproject.mcts.care.common.mds.service.AbortFormMDSService" />
 
@@ -138,66 +138,65 @@
 
 	<osgi:reference id="uiMotherFormMDSService"
 		interface="org.motechproject.mcts.care.common.mds.service.UiMotherFormMDSService" />
-    
-    <osgi:reference id="mctsPregnantMotherMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherMDSService" />
-        
+
+	<osgi:reference id="mctsPregnantMotherMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherMDSService" />
+
 	<osgi:reference id="mctsLocationErrorLogMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsLocationErrorLogMDSService" />
-        
+		interface="org.motechproject.mcts.care.common.mds.service.MctsLocationErrorLogMDSService" />
+
 	<osgi:reference id="mctsDistrictMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsDistrictMDSService" />
-        
+		interface="org.motechproject.mcts.care.common.mds.service.MctsDistrictMDSService" />
+
 	<osgi:reference id="mctsPhcMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsPhcMDSService" />
-        
-    <osgi:reference id="mctsStateMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsStateMDSService" />
-        
-    <osgi:reference id="mctsSubcenterMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsSubcenterMDSService" />
-        
-    <osgi:reference id="mctsTalukMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsTalukMDSService" />
-        
-    <osgi:reference id="mctsVillageMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsVillageMDSService" />
-        
-    <osgi:reference id="mctsHealthblockMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthblockMDSService" />
+		interface="org.motechproject.mcts.care.common.mds.service.MctsPhcMDSService" />
 
-	 <osgi:reference id="mctsHealthworkerMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthworkerMDSService" />
+	<osgi:reference id="mctsStateMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsStateMDSService" />
 
-	 <osgi:reference id="mctsPregnantMotherErrorLogMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherErrorLogMDSService" />
+	<osgi:reference id="mctsSubcenterMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsSubcenterMDSService" />
 
-	 <osgi:reference id="mctsPregnantMotherServiceUpdateMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherServiceUpdateMDSService" />
-        
-    <osgi:reference id="motherCaseMctsUpdateMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MotherCaseMctsUpdateMDSService" />
-        
-   	<osgi:reference id="hubTransactionMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.HubTransactionMDSService" />  
-        
-    <osgi:reference id="dontKnowFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DontKnowFormMDSService" />
-        
-    <osgi:reference id="caseAlreadyClosedFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.CaseAlreadyClosedFormMDSService" /> 
-        
-    <osgi:reference id="unapprovedToDiscussFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UnapprovedToDiscussFormMDSService" />
-        
-    <osgi:reference id="unmappedToReviewFormMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.UnmappedToReviewFormMDSService" />
-        
-    <osgi:reference id="mctsHealthWorkerErrorLogMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MctsHealthWorkerErrorLogMDSService" />
-     
-        
-	<osgi:service ref="dbRepository" 
+	<osgi:reference id="mctsTalukMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsTalukMDSService" />
+
+	<osgi:reference id="mctsVillageMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsVillageMDSService" />
+
+	<osgi:reference id="mctsHealthblockMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsHealthblockMDSService" />
+
+	<osgi:reference id="mctsHealthworkerMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsHealthworkerMDSService" />
+
+	<osgi:reference id="mctsPregnantMotherErrorLogMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherErrorLogMDSService" />
+
+	<osgi:reference id="mctsPregnantMotherServiceUpdateMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsPregnantMotherServiceUpdateMDSService" />
+
+	<osgi:reference id="motherCaseMctsUpdateMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MotherCaseMctsUpdateMDSService" />
+
+	<osgi:reference id="hubTransactionMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.HubTransactionMDSService" />
+
+	<osgi:reference id="dontKnowFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.DontKnowFormMDSService" />
+
+	<osgi:reference id="caseAlreadyClosedFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.CaseAlreadyClosedFormMDSService" />
+
+	<osgi:reference id="unapprovedToDiscussFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.UnapprovedToDiscussFormMDSService" />
+
+	<osgi:reference id="unmappedToReviewFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.UnmappedToReviewFormMDSService" />
+
+	<osgi:reference id="mctsHealthWorkerErrorLogMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MctsHealthWorkerErrorLogMDSService" />
+
+	<osgi:service ref="dbRepository"
 		interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"
 		auto-export="interfaces" />
 

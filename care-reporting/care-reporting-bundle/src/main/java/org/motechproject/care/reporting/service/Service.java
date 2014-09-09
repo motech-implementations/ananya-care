@@ -25,7 +25,7 @@ public interface Service {
 
     <T> Integer save(T instance);
 
-    <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class clazz, List<T> instances);
+    <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class<T> clazz, List<T> instances);
 
     <T> T getOrCreateNew(Class<T> type, String fieldName, String value);
 
