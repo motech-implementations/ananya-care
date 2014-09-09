@@ -14,10 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class AbortForm extends Form {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2726077642537636852L;
+	
 	@Field
 	@Cascade(persist = true, update = true, delete = false)
 	private Flw flw;

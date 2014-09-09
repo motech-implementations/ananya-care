@@ -101,10 +101,9 @@ public class MdsRepository implements
 		@SuppressWarnings("unchecked")
 		EqualProperty<T> rp = (EqualProperty<T>) PropertyBuilder.create(
 				fieldName, fieldValue);
-		List<Property> proeprties = new ArrayList<Property>();
-		proeprties.add(rp);
-		final List<T> results = service.retrieveAll(proeprties);
-
+		List<Property> properties = new ArrayList<Property>();
+		properties.add(rp);
+		final List<T> results = service.retrieveAll(properties);
 		return results;
 	}
 

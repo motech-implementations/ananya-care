@@ -74,9 +74,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * This is a factory class which stores the mapping between various entities
  * versus their corresponding Mds service interfaces.
- *
+ * 
  * @author anuranjan
- *
+ * 
  */
 public class MdsServiceFactoryImpl implements MdsServiceFactory {
 
@@ -147,6 +147,12 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     private CaseAlreadyClosedFormMDSService caseAlreadyClosedFormMDSService;
     private MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService;
 
+    private CareCaseTaskMDSService careCaseTaskMDSService;
+    private ChildMDSService childMDSService;
+    private ClientMDSService clientMDSService;
+    private MotherMDSService motherMDSService;
+    private WindowMDSService windowMDSService;
+
     @Autowired
     public MdsServiceFactoryImpl(
             AbortFormMDSService abortFormMDSService,
@@ -211,7 +217,10 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             MotherCaseMctsUpdateMDSService motherCaseMctsUpdateMDSService,
             HubTransactionMDSService hubTransactionMDSService,
             CaseAlreadyClosedFormMDSService caseAlreadyClosedFormMDSService,
-            MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService) {
+            MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService,
+            CareCaseTaskMDSService careCaseTaskMDSService,
+            ChildMDSService childMDSService, ClientMDSService clientMDSService,
+            MotherMDSService motherMDSService, WindowMDSService windowMDSService) {
         this.abortFormMDSService = abortFormMDSService;
         this.awwCloseChildFormMDSService = awwCloseChildFormMDSService;
         this.awwEditChildFormMDSService = awwEditChildFormMDSService;
@@ -277,6 +286,12 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.caseAlreadyClosedFormMDSService = caseAlreadyClosedFormMDSService;
         this.mctsHealthWorkerErrorLogMDSService = mctsHealthWorkerErrorLogMDSService;
 
+        this.careCaseTaskMDSService = careCaseTaskMDSService;
+        this.childMDSService = childMDSService;
+        this.clientMDSService = clientMDSService;
+        this.motherMDSService = motherMDSService;
+        this.windowMDSService = windowMDSService;
+        
     }
 
     @PostConstruct
@@ -357,6 +372,13 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         mapper.put(CaseAlreadyClosedForm.class, caseAlreadyClosedFormMDSService);
         mapper.put(MctsHealthworkerErrorLog.class,
                 mctsHealthWorkerErrorLogMDSService);
+
+        mapper.put(CareCaseTaskMDSService.class, careCaseTaskMDSService);
+        mapper.put(ChildMDSService.class, childMDSService);
+        mapper.put(ClientMDSService.class, clientMDSService);
+        mapper.put(MotherMDSService.class, motherMDSService);
+        mapper.put(WindowMDSService.class, windowMDSService);
+        
     }
 
     @Override
