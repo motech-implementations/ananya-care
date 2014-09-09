@@ -10,7 +10,6 @@ import javax.jdo.Query;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.motechproject.commons.api.Range;
-import org.motechproject.mcts.care.common.mds.model.MctsDistrict;
 import org.motechproject.mcts.care.common.mds.service.MdsServiceFactory;
 import org.motechproject.mcts.care.common.utils.AnnotationUtils;
 import org.motechproject.mds.query.EqualProperty;
@@ -25,7 +24,6 @@ import org.motechproject.mds.service.MotechDataService;
 import org.motechproject.mds.util.InstanceSecurityRestriction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service(value = "dbRepository")
 public class MdsRepository implements
@@ -34,6 +32,7 @@ public class MdsRepository implements
 	@Autowired
 	private MdsServiceFactory mdsServiceFactory;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Integer save(T instance) {
 		if (instance == null) {
@@ -48,6 +47,7 @@ public class MdsRepository implements
 		return (int) (long) service.getDetachedField(created, "id");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getObjectByPrimaryKey(Class<T> clazz, Integer primaryId) {
 		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -59,6 +59,7 @@ public class MdsRepository implements
 		return entity;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> Integer getDetachedFieldId(T instance) {
 		if (instance == null) {
@@ -72,6 +73,7 @@ public class MdsRepository implements
 		return (int) (long) service.getDetachedField(instance, "id");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T get(Class<T> entityClass, String fieldName, Object value) {
 		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -83,6 +85,7 @@ public class MdsRepository implements
 		return entity;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public <T> List<T> findListOfEntitiesByField(Class<T> entityClass,
 			final String fieldName, final Object fieldValue) {
@@ -104,6 +107,7 @@ public class MdsRepository implements
 		return results;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void saveOrUpdateAll(List<T> instances) {
 		MotechDataService<T> service;
@@ -120,6 +124,7 @@ public class MdsRepository implements
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void update(T instance) {
 		if (instance != null) {
@@ -132,6 +137,7 @@ public class MdsRepository implements
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public <T> List<T> findEntityByFieldWithConstarint(Class<T> entityClass,
 			final String fieldName, final Object lowerFieldValue,
@@ -155,6 +161,7 @@ public class MdsRepository implements
 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public <T> List<T> findAllByField(Class<T> clazz,
 			final List<String> values, final String fieldName) {
@@ -164,7 +171,6 @@ public class MdsRepository implements
 		if (service == null) {
 			return null;
 		}
-		@SuppressWarnings("unchecked")
 		final List<T> results = service
 				.executeQuery(new QueryExecution<List>() {
 					@Override
@@ -187,6 +193,7 @@ public class MdsRepository implements
 				.getName(), value);
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public <T> List<T> getListOfObject(Class<T> entityClass, final Map<String, Object> fieldMap) {
 		MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -195,7 +202,6 @@ public class MdsRepository implements
 		if (service == null) {
 			return null;
 		}
-		@SuppressWarnings("unchecked")
 		final List<T> results = service
 				.executeQuery(new QueryExecution<List>() {
 					@Override
@@ -218,6 +224,7 @@ public class MdsRepository implements
 		return CollectionUtils.isEmpty(results) ? null : results;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public <T> T get(Class<T> entityClass, final Map<String, Object> fieldMap,
 			final Map<String, String> aliasMapping) {
@@ -227,7 +234,6 @@ public class MdsRepository implements
 		if (service == null) {
 			return null;
 		}
-		@SuppressWarnings("unchecked")
 		final List<T> results = service
 				.executeQuery(new QueryExecution<List>() {
 					@Override
@@ -259,6 +265,7 @@ public class MdsRepository implements
 		return CollectionUtils.isEmpty(results) ? null : results.get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void delete(T instance) {
 		if (instance != null) {
@@ -290,6 +297,7 @@ public class MdsRepository implements
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> List<T> executeJDO(Class<T> clazz, QueryExecution<?> query) {
 		MotechDataService<?> service = mdsServiceFactory
@@ -302,6 +310,7 @@ public class MdsRepository implements
 		return list;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> List<T> executeJDO(Class<T> clazz, List<Property> properties) {
 		MotechDataService<?> service = mdsServiceFactory
 				.fetchServiceInterface(clazz);
