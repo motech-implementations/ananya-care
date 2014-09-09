@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-@Entity
+@Entity (name = "Window")
 public class Window implements java.io.Serializable {
 
     private static final long serialVersionUID = 7444463723641717920L;

@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-@Entity
+@Entity (name = "Client")
 public class Client implements java.io.Serializable {
 
     private static final long serialVersionUID = -5140470554942711265L;

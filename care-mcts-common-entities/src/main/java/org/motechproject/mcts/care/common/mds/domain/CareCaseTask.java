@@ -15,6 +15,7 @@ public class CareCaseTask implements java.io.Serializable {
 
     private String ownerId;
 
+    //TODO: add getter and setter for mother and child fields
     private Mother mother;
     
     private Child child;
