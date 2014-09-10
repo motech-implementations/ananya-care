@@ -21,7 +21,7 @@ public class CareCaseTask implements java.io.Serializable {
     private Child child;
     
     //TODO: remove this field and use Mother and Child Objects
-    //private String caseId;
+    private String clientCaseId;
 
     private String motechUserId;
 
@@ -35,7 +35,7 @@ public class CareCaseTask implements java.io.Serializable {
 
     private String clientCaseType;
 
-    private String clientCaseId;
+    private String caseId;
 
     private Boolean isOpen = true;
 
