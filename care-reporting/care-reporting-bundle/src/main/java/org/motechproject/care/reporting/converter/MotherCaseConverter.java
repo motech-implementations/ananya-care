@@ -6,7 +6,7 @@ import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Service
 public class MotherCaseConverter extends AbstractConverter {
     private Service careService;
 

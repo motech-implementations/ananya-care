@@ -8,7 +8,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-@Component
+@Service
 @Scope(value = "prototype")
 public class DataAccessTemplate extends HibernateTemplate {
 

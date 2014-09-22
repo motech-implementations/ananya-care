@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <version>0.24-SNAPSHOT</version>
+    <version>0.24</version>
     <artifactId>care-reporting-bundle</artifactId>
     <groupId>org.motechproject.ananya-care</groupId>
     <packaging>bundle</packaging>
 
     <properties>
-        <motech.version>0.24-SNAPSHOT</motech.version>
+        <motech.version>0.24</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <postgres-driver.version>9.1-901.jdbc4</postgres-driver.version>
     </properties>
@@ -54,7 +54,7 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
-            <artifactId>motech-commcare-api</artifactId>
+            <artifactId>commcare</artifactId>
             <version>${motech.version}</version>
         </dependency>
 
@@ -272,7 +272,7 @@
 
             <!-- copy your bundle to ~/.motech/bundles from where the server can access 
                 it -->
-            <plugin>
+           <!--  <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
                 <executions>
@@ -295,7 +295,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

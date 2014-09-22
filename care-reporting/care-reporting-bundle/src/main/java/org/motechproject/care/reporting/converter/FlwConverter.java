@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Service
 public class FlwConverter extends AbstractConverter {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 

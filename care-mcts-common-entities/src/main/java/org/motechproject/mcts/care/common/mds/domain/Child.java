@@ -3,10 +3,10 @@ package org.motechproject.mcts.care.common.mds.domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 import org.motechproject.commons.date.util.DateUtil;
-import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 @Entity(name = "Child")
 public class Child extends Client {
@@ -31,7 +31,7 @@ public class Child extends Client {
     private DateTime opv3Date;
     private DateTime opvBoosterDate;
     private String motherCaseId;
-    private String caseType = CaseType.Child.getType();
+    //private String caseType = CaseType.Child.getType();
 
     @Field
     public DateTime getHep0Date() {
@@ -159,14 +159,14 @@ public class Child extends Client {
         this.motherCaseId = motherCaseId;
     }
 
-    @Field
+    /*@Field
     public String getCaseType() {
         return caseType;
     }
 
     public void setCaseType(String caseType) {
         this.caseType = caseType;
-    }
+    }*/
 
     @Field
     public DateTime getDOB() {
