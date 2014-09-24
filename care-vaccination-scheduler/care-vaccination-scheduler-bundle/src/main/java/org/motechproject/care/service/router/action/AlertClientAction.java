@@ -11,6 +11,7 @@ import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
 import org.motechproject.scheduletracking.api.events.MilestoneEvent;
 import org.motechproject.commons.date.util.DateUtil;
 
+import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -42,7 +43,10 @@ public abstract class AlertClientAction {
         String commcarePassword = ananyaCareProperties.getProperty("commcare.hq.password");
         Integer redeliveryCount = Integer.parseInt(ananyaCareProperties.getProperty("commcare.hq.redelivery.count"));
         CareCaseTask careCaseTask = createCaseTask(alertWindow, externalId, milestoneName, client);
-        allCareCaseTasks.add(careCaseTask);
+        List<CareCaseTask> existingTasks = allCareCaseTasks.findTasksByClientCaseIdAndMilestoneName(careCaseTask.getClientCaseId(), careCaseTask.getMilestoneName());
+        if (!existingTasks.contains(careCaseTask)) {
+            allCareCaseTasks.add(careCaseTask);
+        }
         logger.info(String.format("Notifying commcare -- TaskId: %s, ExternalId: %s, EligibleDate: %s, ExpiryDate: %s ",
                 careCaseTask.getTaskId(), careCaseTask.getClientCaseId(), careCaseTask.getDateEligible(), careCaseTask.getDateExpires()));
         commcareCaseGateway.submitCase(commcareUrl, careCaseTask.toCaseTask(), commcareUsername, commcarePassword, redeliveryCount);

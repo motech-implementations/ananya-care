@@ -120,5 +120,15 @@ public class CareCaseTask extends MotechBaseDataObject{
     public void setCurrentTime(String currentTime) {
         this.currentTime  = currentTime;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && obj instanceof CareCaseTask) {
+            CareCaseTask task = (CareCaseTask) obj;
+            return this.clientCaseId.equals(task.clientCaseId) && this.milestoneName.equals(task.milestoneName) &&
+                    this.dateEligible.equals(task.dateEligible) && this.taskId.equals(task.taskId) && this.caseType.equals(task.caseType);
+        }
+        return false;
+    }
 }
 
