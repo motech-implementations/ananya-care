@@ -9,7 +9,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @Scope(value = "prototype")
 @Ignore
 public class TestDataAccessTemplate extends HibernateTemplate {

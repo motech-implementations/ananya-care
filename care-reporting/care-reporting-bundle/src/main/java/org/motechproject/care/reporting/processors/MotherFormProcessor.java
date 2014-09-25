@@ -25,7 +25,7 @@ import static org.motechproject.care.reporting.parser.PostProcessor.FORM_COPY_US
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 import static org.motechproject.care.reporting.processors.ComputedFieldsProcessor.Utils.applyComputedFields;
 
-@Service
+@Component
 public class MotherFormProcessor {
 
     private static List<PostProcessor> MOTHER_FORM_POST_PROCESSORS = new ArrayList<PostProcessor>() {{

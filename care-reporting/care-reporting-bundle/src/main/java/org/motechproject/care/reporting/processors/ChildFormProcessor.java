@@ -21,7 +21,7 @@ import org.motechproject.commcare.domain.CommcareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ChildFormProcessor {
 
     public static final List<PostProcessor> CHILD_CASE_POST_PROCESSORS = new ArrayList<PostProcessor>() {{

@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static java.lang.String.format;
 
-@Service
+@Component
 public class CloseCaseProcessor {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 

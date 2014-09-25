@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
 public class CommcareProviderSyncListener {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");

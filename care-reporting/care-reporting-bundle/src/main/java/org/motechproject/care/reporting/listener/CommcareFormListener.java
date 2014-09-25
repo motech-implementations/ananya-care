@@ -9,7 +9,7 @@ import org.motechproject.event.listener.annotations.MotechListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CommcareFormListener {
     @Autowired
     FormProcessor formProcessor;

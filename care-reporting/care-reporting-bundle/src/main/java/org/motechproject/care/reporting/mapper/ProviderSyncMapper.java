@@ -2,7 +2,7 @@ package org.motechproject.care.reporting.mapper;
 
 import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ProviderSyncMapper extends Mapper {
 
     public ProviderSyncMapper() {

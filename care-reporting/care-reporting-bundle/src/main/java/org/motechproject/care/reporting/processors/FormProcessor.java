@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component
 public class FormProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");

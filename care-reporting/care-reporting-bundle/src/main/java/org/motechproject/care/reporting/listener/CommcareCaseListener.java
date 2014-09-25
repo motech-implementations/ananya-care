@@ -17,7 +17,7 @@ import java.util.Locale;
 
 import static java.lang.String.format;
 
-@Service
+@Component
 public class CommcareCaseListener {
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
