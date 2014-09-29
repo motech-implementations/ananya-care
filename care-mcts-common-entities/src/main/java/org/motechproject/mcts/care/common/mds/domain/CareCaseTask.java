@@ -38,7 +38,7 @@ public class CareCaseTask implements java.io.Serializable {
 
     private Boolean isOpen = true;
 
-    /*@Field
+   /* @Field
     public String getCaseType() {
         return caseType;
     }

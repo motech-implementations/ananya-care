@@ -21,7 +21,7 @@ public class Mother extends Client {
     private DateTime anc3Date;
     private DateTime anc4Date;
     private DateTime ttBoosterDate;
-    //private String caseType = CaseType.Child.getType();
+ //   private String caseType = CaseType.Child.getType();
 
     public Mother(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime edd, DateTime add, DateTime tt1Date, DateTime tt2Date, boolean lastPregTt, DateTime anc1Date, DateTime anc2Date, DateTime anc3Date, DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
         super(isAlive);
@@ -122,7 +122,7 @@ public class Mother extends Client {
         this.add = add;
     }
 
-    /*public String getCaseType() {
+   /* public String getCaseType() {
         return caseType;
     }
 
