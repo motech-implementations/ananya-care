@@ -302,6 +302,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
+        // To seprate between MM/dd/yyyy use '/' as seprator and for dd-MM-yyyy use '-' as a seprator
         DateTime closedOn = careReportingMapper.map(updatedValues.get("closedOn"), DateTime.class);
         if (motherCase != null) {
             DateTime previouslyClosedOnForMother = motherCase.getClosedOn();

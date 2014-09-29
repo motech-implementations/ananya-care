@@ -1,8 +1,11 @@
 package org.motechproject.care.reporting.mapper;
 
-import org.apache.commons.beanutils.BeanUtilsBean;
-
 import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.Converter;
+import org.joda.time.DateTime;
+import org.motechproject.care.reporting.converter.JodaTimeConverter;
 
 public class Mapper {
     protected BeanUtilsBean beanUtils = new BeanUtilsBean();
@@ -36,6 +39,9 @@ public class Mapper {
     }
 
     public <T> T map(String from, Class<T> to) {
+    	if (to == DateTime.class) {
+    		beanUtils.getConvertUtils().register(new JodaTimeConverter(), DateTime.class);
+    	}
         return (T) beanUtils.getConvertUtils().convert(from, to);
     }
 
