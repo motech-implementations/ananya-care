@@ -31,7 +31,7 @@ public class Child extends Client {
     private DateTime opv3Date;
     private DateTime opvBoosterDate;
     private String motherCaseId;
-    //private String caseType = CaseType.Child.getType();
+//    private String caseType = CaseType.Child.getType();
 
     @Field
     public DateTime getHep0Date() {
@@ -159,7 +159,7 @@ public class Child extends Client {
         this.motherCaseId = motherCaseId;
     }
 
-    /*@Field
+   /* @Field
     public String getCaseType() {
         return caseType;
     }

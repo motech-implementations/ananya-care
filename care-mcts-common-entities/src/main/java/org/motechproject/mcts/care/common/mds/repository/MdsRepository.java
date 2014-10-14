@@ -17,7 +17,6 @@ import org.motechproject.mds.query.Property;
 import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.mds.query.QueryExecution;
 import org.motechproject.mds.query.QueryExecutor;
-import org.motechproject.mds.query.QueryParams;
 import org.motechproject.mds.query.RangeProperty;
 import org.motechproject.mds.query.SetProperty;
 import org.motechproject.mds.query.SqlQueryExecution;
@@ -47,6 +46,7 @@ public class MdsRepository implements
 		T created = service.create(instance);
 		return (int) (long) service.getDetachedField(created, "id");
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
