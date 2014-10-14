@@ -64,7 +64,7 @@ public class MotherCase implements java.io.Serializable,
     private DateTime closedOn;
 
     @Field
-    private DateTime add;
+    private DateTime actualDeliveryDate;
     @Field
     private int age;
     @Field
@@ -397,12 +397,12 @@ public class MotherCase implements java.io.Serializable,
         this.closedOn = closedOn;
     }
 
-    public DateTime getAdd() {
-        return this.add;
+    public DateTime getActualDeliveryDate() {
+        return this.actualDeliveryDate;
     }
 
-    public void setAdd(DateTime add) {
-        this.add = add;
+    public void setActualDeliveryDate(DateTime actualDeliveryDate) {
+        this.actualDeliveryDate = actualDeliveryDate;
     }
 
     public int getAge() {
@@ -1062,30 +1062,30 @@ public class MotherCase implements java.io.Serializable,
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {
-        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
-     }
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId,
+                this.getClass());
+    }
 
-     public void updateFields(MotherCase source, List<String> ignoredFields) {
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
-     }
+    public void updateFields(MotherCase source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
+                this);
+    }
 
     @Override
     public void updateToLatest(MotherCase updated) {
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            //TODO add logger
-//            logger.warn(String
-//                    .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
-//                            this.caseId, this.serverDateTimeModified,
-//                            updated.serverDateTimeModified));
+            // TODO add logger
+            // logger.warn(String
+            // .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
+            // this.caseId, this.serverDateTimeModified,
+            // updated.serverDateTimeModified));
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime",
                 "closedOn", "closedBy", "closed"));
     }
-
-   
 
     private boolean isLatest(MotherCase updatedObject) {
         if (this.serverDateTimeModified == null)

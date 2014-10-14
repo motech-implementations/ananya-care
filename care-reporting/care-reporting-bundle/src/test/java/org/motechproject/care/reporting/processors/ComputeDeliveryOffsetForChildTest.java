@@ -108,7 +108,7 @@ public class ComputeDeliveryOffsetForChildTest {
 
         MotherCase motherCase = new MotherCase();
         motherCase.setEdd(new DateTime().plusDays(10));
-        motherCase.setAdd(null);
+        motherCase.setActualDeliveryDate(null);
 
         ChildCase childCase = new ChildCase();
         childCase.setCaseId(caseId);
@@ -135,7 +135,7 @@ public class ComputeDeliveryOffsetForChildTest {
 
         MotherCase motherCase = new MotherCase();
         motherCase.setEdd(null);
-        motherCase.setAdd(new DateTime().minusDays(10));
+        motherCase.setActualDeliveryDate(new DateTime().minusDays(10));
 
         ChildCase childCase = new ChildCase();
         childCase.setCaseId(caseId);

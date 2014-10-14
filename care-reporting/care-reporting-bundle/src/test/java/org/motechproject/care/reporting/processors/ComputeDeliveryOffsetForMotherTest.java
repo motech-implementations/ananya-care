@@ -108,7 +108,7 @@ public class ComputeDeliveryOffsetForMotherTest {
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(caseId);
         motherCase.setEdd(new DateTime().plusDays(10));
-        motherCase.setAdd(null);
+        motherCase.setActualDeliveryDate(null);
 
         when(service.getMotherCase(caseId)).thenReturn(motherCase);
 
@@ -132,7 +132,7 @@ public class ComputeDeliveryOffsetForMotherTest {
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(caseId);
         motherCase.setEdd(null);
-        motherCase.setAdd(new DateTime().minusDays(10));
+        motherCase.setActualDeliveryDate(new DateTime().minusDays(10));
 
         when(service.getMotherCase(caseId)).thenReturn(motherCase);
 

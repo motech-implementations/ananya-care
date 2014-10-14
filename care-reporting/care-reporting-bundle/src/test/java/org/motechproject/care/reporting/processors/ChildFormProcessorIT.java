@@ -2,7 +2,6 @@ package org.motechproject.care.reporting.processors;
 
 import static junit.framework.Assert.assertEquals;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -138,7 +137,7 @@ public class ChildFormProcessorIT extends SpringIntegrationTest {
         final DateTime tenDaysBack = DateTime.now().minusDays(10);
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(motherCaseId);
-        motherCase.setAdd(tenDaysBack);
+        motherCase.setActualDeliveryDate(tenDaysBack);
 
         service.save(motherCase);
 

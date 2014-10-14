@@ -60,7 +60,7 @@ public class ComputeDeliveryOffsetForChild implements ComputedFieldsProcessor{
         }
 
         //final Date deliveryDate = motherCase.getAdd() == null ? motherCase.getEdd() : motherCase.getAdd();
-        final DateTime deliveryDate = motherCase.getAdd() == null ? motherCase.getEdd() : motherCase.getAdd();
+        final DateTime deliveryDate = motherCase.getActualDeliveryDate() == null ? motherCase.getEdd() : motherCase.getActualDeliveryDate();
 
         if(deliveryDate == null) {
             logger.info("Mother Case Edd and Add are null when computing Delivery Offset for child.");

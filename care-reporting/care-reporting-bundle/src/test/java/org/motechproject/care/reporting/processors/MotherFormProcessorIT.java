@@ -170,7 +170,7 @@ public class MotherFormProcessorIT extends SpringIntegrationTest {
 
         MotherCase motherCase = new MotherCase();
         motherCase.setCaseId(motherCaseId);
-        motherCase.setAdd(tenDaysBack);
+        motherCase.setActualDeliveryDate(tenDaysBack);
 
         service.save(motherCase);
 
