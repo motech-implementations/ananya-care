@@ -110,7 +110,7 @@ public class MctsPregnantMother implements java.io.Serializable {
 
 	}
 
-	@Field
+	@Field(required = true, defaultValue = "")
 	public String getMctsPersonaCaseUId() {
 		return mctsPersonaCaseUId;
 	}
@@ -399,7 +399,7 @@ public class MctsPregnantMother implements java.io.Serializable {
 		this.familyNumber = familyNumber;
 	}
 
-	@Field
+	@Field(required=true, defaultValue = "")
 	public String getOwnerId() {
 		return this.ownerId;
 	}

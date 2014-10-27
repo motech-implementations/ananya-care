@@ -8,6 +8,7 @@ import javax.jdo.annotations.Unique;
 import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.lookup.MCTSPregnantMotherCaseAuthorisedStatus;
 import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -270,6 +271,14 @@ public class MotherCase implements java.io.Serializable,
     private Integer pncVisitNum;
     @Field
     private Integer cfVisitNum;
+    @Field
+    private String mctsId;
+    @Field
+	private MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus;
+	@Field
+	private String fullMctsId;
+	@Field
+	private String dateModified;
 
     public MotherCase() {
         DateTime DateTime = new DateTime();
@@ -1060,8 +1069,41 @@ public class MotherCase implements java.io.Serializable,
     public void setClosedBy(Flw closedBy) {
         this.closedBy = closedBy;
     }
+    
+    public String getMctsId() {
+		return mctsId;
+	}
 
-    public Boolean validateIfUpdatable(String thisId, String otherId) {
+	public void setMctsId(String mctsId) {
+		this.mctsId = mctsId;
+	}
+
+	public MCTSPregnantMotherCaseAuthorisedStatus getmCTSPregnantMotherCaseAuthorisedStatus() {
+		return mCTSPregnantMotherCaseAuthorisedStatus;
+	}
+
+	public void setmCTSPregnantMotherCaseAuthorisedStatus(
+			MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus) {
+		this.mCTSPregnantMotherCaseAuthorisedStatus = mCTSPregnantMotherCaseAuthorisedStatus;
+	}
+
+	public String getFullMctsId() {
+		return fullMctsId;
+	}
+
+	public void setFullMctsId(String fullMctsId) {
+		this.fullMctsId = fullMctsId;
+	}
+
+	public String getDateModified() {
+		return dateModified;
+	}
+
+	public void setDateModified(String dateModified) {
+		this.dateModified = dateModified;
+	}
+
+	public Boolean validateIfUpdatable(String thisId, String otherId) {
         return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId,
                 this.getClass());
     }
