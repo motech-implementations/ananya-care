@@ -27,6 +27,9 @@ public class JodaTimeConverter extends AbstractConverter {
 		if (type == null) {
 			type = getDefaultType();
 		}
+		if (value == null) {
+			return null;
+		}
 		if (value instanceof Timestamp) {
 			Long milli = ((Timestamp) value).getTime();
 			Date normalDate = new Date(milli);

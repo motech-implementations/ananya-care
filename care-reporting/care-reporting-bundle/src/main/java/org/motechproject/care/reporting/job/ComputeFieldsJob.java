@@ -17,7 +17,6 @@ public class ComputeFieldsJob implements Job {
     }
 
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-
     @Override
     public void run() {
         logger.info("Starting Computed Fields Population");
