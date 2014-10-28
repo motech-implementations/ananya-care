@@ -17,6 +17,7 @@ import org.motechproject.mds.query.Property;
 import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.mds.query.QueryExecution;
 import org.motechproject.mds.query.QueryExecutor;
+import org.motechproject.mds.query.QueryUtil;
 import org.motechproject.mds.query.RangeProperty;
 import org.motechproject.mds.query.SetProperty;
 import org.motechproject.mds.query.SqlQueryExecution;
@@ -24,8 +25,10 @@ import org.motechproject.mds.service.MotechDataService;
 import org.motechproject.mds.util.InstanceSecurityRestriction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service(value = "dbRepository")
+@Transactional
 public class MdsRepository implements
 		org.motechproject.mcts.care.common.mds.repository.Repository {
 
@@ -180,6 +183,7 @@ public class MdsRepository implements
 						SetProperty<T> setProperty = (SetProperty<T>) PropertyBuilder
 								.create(fieldName, new HashSet<>(values));
 						properties.add(setProperty);
+						QueryUtil.useFilter(query, properties, restriction);
 						return (List) QueryExecutor.executeWithArray(query,
 								properties);
 					}
@@ -217,6 +221,7 @@ public class MdsRepository implements
 								properties.add(equalProperty);
 							}
 						}
+						QueryUtil.useFilter(query, properties, restriction);
 						return (List) QueryExecutor.executeWithArray(query,
 								properties);
 					}
@@ -246,9 +251,11 @@ public class MdsRepository implements
 								EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
 										.create(entry.getKey(),
 												entry.getValue());
+								
 								properties.add(equalProperty);
 							}
 						}
+						QueryUtil.useFilter(query, properties, restriction);
 						//TODO: use aliasMapping
 						/*if (MapUtils.isNotEmpty(aliasMapping)) {
 							for (Map.Entry<String, String> entry : aliasMapping
@@ -263,6 +270,8 @@ public class MdsRepository implements
 								properties);
 					}
 				});
+		
+		
 		return CollectionUtils.isEmpty(results) ? null : results.get(0);
 	}
 

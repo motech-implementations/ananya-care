@@ -35,7 +35,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class CareService implements org.motechproject.care.reporting.service.Service {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
@@ -249,7 +248,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
             logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
             return null;
         }
-
+        
+        
         final Form existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
         final Form currentForm = (Form) careReportingMapper.map(formClass, formValues);
 
@@ -292,8 +292,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         fieldMap.put("instanceId", instanceId);
         Map<String, String> aliasMap = new HashMap<>();
         if (CaseType.CHILD.equals(caseType)) {
-            fieldMap.put("cc.caseId", caseId);
-            aliasMap.put("childCase", "cc");
+            fieldMap.put("childCase.caseId", caseId);
         }
 
         return (Form) get(type, fieldMap, aliasMap);

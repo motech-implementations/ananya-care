@@ -24,7 +24,7 @@ public class ComputeFieldsEventListener {
     @MotechListener(subjects = {EventConstants.COMPUTE_FIELDS})
     @SuppressWarnings("unused - motechEvent expected as parameter by cron invoker")
     public synchronized void handleComputeFieldsEvent(MotechEvent motechEvent) {
-   //     computeFieldsJob.run();    TODO : remove
+        computeFieldsJob.run();
     }
 
 }
