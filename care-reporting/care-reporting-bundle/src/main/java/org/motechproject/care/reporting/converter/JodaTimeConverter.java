@@ -43,6 +43,10 @@ public class JodaTimeConverter extends AbstractConverter {
 			if (format == null) { // If the date does not have a known format it returns null
 				return null;
 			}
+			if ("yyyy-MM-dd'T'HH:mm:ss.XXX+HH:mm".equals(format)) {
+				DateTime dt = DateTime.parse(value.toString());
+				return dt;
+			}
 			DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
 			DateTime dt = formatter.parseDateTime(dateInString);
 			return dt;
