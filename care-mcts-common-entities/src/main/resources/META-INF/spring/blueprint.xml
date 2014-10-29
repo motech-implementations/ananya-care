@@ -208,6 +208,9 @@
 	<osgi:reference id="motherMDSService"
 		interface="org.motechproject.mcts.care.common.mds.service.MotherMDSService" />
 
+    <osgi:reference id="mappingToApproveFormMDSService"
+		interface="org.motechproject.mcts.care.common.mds.service.MappingToApproveFormMDSService" />
+    
 	<osgi:reference id="windowMDSService"
 		interface="org.motechproject.mcts.care.common.mds.service.WindowMDSService" />
 

@@ -38,6 +38,7 @@ import org.motechproject.mcts.care.common.mds.measure.EbfChildForm;
 import org.motechproject.mcts.care.common.mds.measure.EbfMotherForm;
 import org.motechproject.mcts.care.common.mds.measure.Form;
 import org.motechproject.mcts.care.common.mds.measure.GrowthMonitoringChildForm;
+import org.motechproject.mcts.care.common.mds.measure.MappingToApproveForm;
 import org.motechproject.mcts.care.common.mds.measure.MiForm;
 import org.motechproject.mcts.care.common.mds.measure.MoForm;
 import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
@@ -145,6 +146,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     private MotherCaseMctsUpdateMDSService motherCaseMctsUpdateMDSService;
     private HubTransactionMDSService hubTransactionMDSService;
     private CaseAlreadyClosedFormMDSService caseAlreadyClosedFormMDSService;
+    private MappingToApproveFormMDSService mappingToApproveFormMDSService;
     private MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService;
 
     private CareCaseTaskMDSService careCaseTaskMDSService;
@@ -214,6 +216,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             UnapprovedToDiscussFormMDSService unapprovedToDiscussFormMDSService,
             UnmappedToReviewFormMDSService unmappedToReviewFormMDSService,
             DontKnowFormMDSService dontKnowFormMDSService,
+            MappingToApproveFormMDSService mappingToApproveFormMDSService,
             MotherCaseMctsUpdateMDSService motherCaseMctsUpdateMDSService,
             HubTransactionMDSService hubTransactionMDSService,
             CaseAlreadyClosedFormMDSService caseAlreadyClosedFormMDSService,
@@ -281,6 +284,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.unapprovedToDiscussFormMDSService = unapprovedToDiscussFormMDSService;
         this.unmappedToReviewFormMDSService = unmappedToReviewFormMDSService;
         this.dontKnowFormMDSService = dontKnowFormMDSService;
+        this.mappingToApproveFormMDSService = mappingToApproveFormMDSService;
         this.motherCaseMctsUpdateMDSService = motherCaseMctsUpdateMDSService;
         this.hubTransactionMDSService = hubTransactionMDSService;
         this.caseAlreadyClosedFormMDSService = caseAlreadyClosedFormMDSService;
@@ -367,6 +371,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
                 unapprovedToDiscussFormMDSService);
         mapper.put(UnmappedToReviewForm.class, unmappedToReviewFormMDSService);
         mapper.put(DontKnowForm.class, dontKnowFormMDSService);
+        mapper.put(MappingToApproveForm.class, mappingToApproveFormMDSService);
         mapper.put(MotherCaseMctsUpdate.class, motherCaseMctsUpdateMDSService);
         mapper.put(HubTransaction.class, hubTransactionMDSService);
         mapper.put(CaseAlreadyClosedForm.class, caseAlreadyClosedFormMDSService);
