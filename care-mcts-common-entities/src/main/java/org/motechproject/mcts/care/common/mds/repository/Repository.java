@@ -3,6 +3,7 @@ package org.motechproject.mcts.care.common.mds.repository;
 import java.util.List;
 import java.util.Map;
 
+import org.motechproject.mcts.care.common.mds.measure.DomainMetadata;
 import org.motechproject.mds.query.QueryExecution;
 
 public interface Repository {

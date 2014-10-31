@@ -20,8 +20,9 @@ public class ComputeFieldsEventListenerTest {
 
     @Test
     public void shouldInvokeComputeFieldsJob() {
-        ComputeFieldsEventListener eventListener = new ComputeFieldsEventListener(computeFieldsJob);
-        
+        ComputeFieldsEventListener eventListener = new ComputeFieldsEventListener(
+                computeFieldsJob);
+
         eventListener.handleComputeFieldsEvent(null);
 
         verify(computeFieldsJob).run();

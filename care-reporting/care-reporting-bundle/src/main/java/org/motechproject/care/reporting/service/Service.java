@@ -25,7 +25,8 @@ public interface Service {
 
     <T> Integer save(T instance);
 
-    <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class<T> clazz, List<T> instances);
+    <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(
+            Class<T> clazz, List<T> instances);
 
     <T> T getOrCreateNew(Class<T> type, String fieldName, String value);
 
@@ -33,13 +34,17 @@ public interface Service {
 
     <T> T get(Class<T> type, String fieldName, Object value);
 
-    <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping);
+    <T> T get(Class<T> type, Map<String, Object> fieldMap,
+            Map<String, String> aliasMapping);
 
-    void processAndSaveForms(Map<String, String> motherForm, List<Map<String,String>> childForms);
+    void processAndSaveForms(Map<String, String> motherForm,
+            List<Map<String, String>> childForms);
 
-    void processAndSaveManyToManyForm(Map<String, String> formValues, List<Map<String,String>> childFormValues);
+    void processAndSaveManyToManyForm(Map<String, String> formValues,
+            List<Map<String, String>> childFormValues);
 
-    <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values);
+    <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(
+            Class<T> entityClass, Map<String, String> values);
 
     void closeCase(String caseId, Map<String, String> updatedValues);
 
