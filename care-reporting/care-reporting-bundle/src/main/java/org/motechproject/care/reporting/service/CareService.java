@@ -32,11 +32,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CareService implements org.motechproject.care.reporting.service.Service {
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+public class CareService implements
+        org.motechproject.care.reporting.service.Service {
+    private static final Logger logger = LoggerFactory
+            .getLogger("commcare-reporting-mapper");
 
     private Repository dbRepository;
     private CareReportingMapper careReportingMapper;
@@ -51,13 +52,12 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     public <T> Integer save(T instance) {
         return dbRepository.save(instance);
     }
-    
+
     @Override
-    public <T> void saveAll(List<T> instances){
+    public <T> void saveAll(List<T> instances) {
         dbRepository.saveOrUpdateAll(instances);
     }
-    
-   
+
     @Override
     public <T> void update(T entity) {
         dbRepository.update(entity);
@@ -68,16 +68,19 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return dbRepository.execute(query);
     }
 
-
     @Override
-    public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(Class<T> entityClass, Map<String, String> values) {
+    public <T extends SelfUpdatable<T>> T saveByExternalPrimaryKey(
+            Class<T> entityClass, Map<String, String> values) {
         T entity = careReportingMapper.map(entityClass, values);
         saveOrUpdateByExternalPrimaryKey(entity);
         return entity;
     }
 
-    private <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(T entity) {
-        T persistedObject = (T) dbRepository.findByExternalPrimaryKey(((Class<T>) entity.getClass()), getExternalPrimaryKeyValue(entity));
+    private <T extends SelfUpdatable<T>> void saveOrUpdateByExternalPrimaryKey(
+            T entity) {
+        T persistedObject = (T) dbRepository.findByExternalPrimaryKey(
+                ((Class<T>) entity.getClass()),
+                getExternalPrimaryKeyValue(entity));
         if (persistedObject == null)
             dbRepository.save(entity);
         else {
@@ -86,23 +89,28 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
     }
 
-    
     @Override
-    public <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(Class<T> clazz, List<T> updatedEntities) {
-        List<T> existingEntities = findAllByExternalPrimaryKey(clazz, updatedEntities);
-        List<T> toBeSavedEntities = processToBeSavedEntities(updatedEntities, existingEntities);
+    public <T extends SelfUpdatable<T>> void saveOrUpdateAllByExternalPrimaryKey(
+            Class<T> clazz, List<T> updatedEntities) {
+        List<T> existingEntities = findAllByExternalPrimaryKey(clazz,
+                updatedEntities);
+        List<T> toBeSavedEntities = processToBeSavedEntities(updatedEntities,
+                existingEntities);
         dbRepository.saveOrUpdateAll(toBeSavedEntities);
     }
 
-    private <T extends SelfUpdatable> List<T> processToBeSavedEntities(List<T> updatedEntities, List<T> existingEntities) {
+    private <T extends SelfUpdatable> List<T> processToBeSavedEntities(
+            List<T> updatedEntities, List<T> existingEntities) {
         List<T> toBeSavedEntities = new ArrayList<>();
         for (final T updatedEntity : updatedEntities) {
-            T existing = (T) CollectionUtils.find(existingEntities, new Predicate() {
-                @Override
-                public boolean evaluate(Object object) {
-                    return getExternalPrimaryKeyValue(object).equals(getExternalPrimaryKeyValue(updatedEntity));
-                }
-            });
+            T existing = (T) CollectionUtils.find(existingEntities,
+                    new Predicate() {
+                        @Override
+                        public boolean evaluate(Object object) {
+                            return getExternalPrimaryKeyValue(object).equals(
+                                    getExternalPrimaryKeyValue(updatedEntity));
+                        }
+                    });
             if (existing != null) {
                 existing.updateToLatest(updatedEntity);
                 toBeSavedEntities.add(existing);
@@ -113,7 +121,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return toBeSavedEntities;
     }
 
-    private <T> List<T> findAllByExternalPrimaryKey(Class clazz, List<T> entities) {
+    private <T> List<T> findAllByExternalPrimaryKey(Class clazz,
+            List<T> entities) {
         List<String> externalPrimaryKeyValues = new ArrayList<>();
         CollectionUtils.collect(entities, new Transformer() {
             @Override
@@ -121,7 +130,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
                 return getExternalPrimaryKeyValue(input);
             }
         }, externalPrimaryKeyValues);
-        return dbRepository.findAllByField(clazz, externalPrimaryKeyValues, getExternalPrimaryKeyField(clazz).getName());
+        return dbRepository.findAllByField(clazz, externalPrimaryKeyValues,
+                getExternalPrimaryKeyField(clazz).getName());
     }
 
     @Override
@@ -155,36 +165,46 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public LocationDimension getLocation(String state, String district, String block) {
+    public LocationDimension getLocation(String state, String district,
+            String block) {
 
         if (containsNullOrEmpty(state, district, block)) {
             return getUnknownLocation();
         }
 
         Map<String, Object> fieldMaps = getLocationMap(state, district, block);
-        LocationDimension locationDimension = (LocationDimension) dbRepository.get(LocationDimension.class, fieldMaps, null);
+        LocationDimension locationDimension = (LocationDimension) dbRepository
+                .get(LocationDimension.class, fieldMaps, null);
 
-        return locationDimension == null ? getUnknownLocation() : locationDimension;
+        return locationDimension == null ? getUnknownLocation()
+                : locationDimension;
     }
 
     private LocationDimension getUnknownLocation() {
         final String unknownLocation = "UNKNOWN";
         LocationDimension locationDimension;
-        Map<String, Object> unknownMap = getLocationMap(unknownLocation, unknownLocation, unknownLocation);
-        locationDimension = (LocationDimension) dbRepository.get(LocationDimension.class, unknownMap, null);
+        Map<String, Object> unknownMap = getLocationMap(unknownLocation,
+                unknownLocation, unknownLocation);
+        locationDimension = (LocationDimension) dbRepository.get(
+                LocationDimension.class, unknownMap, null);
         return locationDimension;
     }
 
-    private Map<String, Object> getLocationMap(final String state, final String district, final String block) {
-        return new HashMap<String, Object>() {{
-            put("state", StringUtils.upperCase(state));
-            put("district", StringUtils.upperCase(district));
-            put("block", StringUtils.upperCase(block));
-        }};
+    private Map<String, Object> getLocationMap(final String state,
+            final String district, final String block) {
+        return new HashMap<String, Object>() {
+            {
+                put("state", StringUtils.upperCase(state));
+                put("district", StringUtils.upperCase(district));
+                put("block", StringUtils.upperCase(block));
+            }
+        };
     }
 
-    private boolean containsNullOrEmpty(final String state, final String district, final String block) {
-        return StringUtils.isEmpty(state) || StringUtils.isEmpty(district) || StringUtils.isEmpty(block);
+    private boolean containsNullOrEmpty(final String state,
+            final String district, final String block) {
+        return StringUtils.isEmpty(state) || StringUtils.isEmpty(district)
+                || StringUtils.isEmpty(block);
     }
 
     @Override
@@ -211,12 +231,14 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     @Override
-    public <T> T get(Class<T> type, Map<String, Object> fieldMap, Map<String, String> aliasMapping) {
+    public <T> T get(Class<T> type, Map<String, Object> fieldMap,
+            Map<String, String> aliasMapping) {
         return (T) dbRepository.get(type, fieldMap, aliasMapping);
     }
 
     @Override
-    public void processAndSaveForms(Map<String, String> motherFormValues, List<Map<String, String>> childFormValues) {
+    public void processAndSaveForms(Map<String, String> motherFormValues,
+            List<Map<String, String>> childFormValues) {
 
         if (motherFormValues != null) {
             saveForm(CaseType.MOTHER, motherFormValues, null);
@@ -229,7 +251,7 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
 
     @Override
     public void processAndSaveManyToManyForm(Map<String, String> formValues,
-                                             List<Map<String, String>> childFormValues) {
+            List<Map<String, String>> childFormValues) {
         Form form = null;
         if (formValues != null) {
             form = saveForm(CaseType.MOTHER, formValues, null);
@@ -240,18 +262,22 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         }
     }
 
-    private Form saveForm(CaseType caseType, Map<String, String> formValues, Form parentForm) {
+    private Form saveForm(CaseType caseType, Map<String, String> formValues,
+            Form parentForm) {
         String xmlns = formValues.get("xmlns");
         String instanceId = formValues.get("instanceId");
         Class<?> formClass = FormFactory.getForm(xmlns, caseType);
         if (formClass == null) {
-            logger.warn(String.format("No form found for xmlns:%s, instanceId:%s", xmlns, instanceId));
+            logger.warn(String.format(
+                    "No form found for xmlns:%s, instanceId:%s", xmlns,
+                    instanceId));
             return null;
         }
-        
-        
-        final Form existingForm = getForm(caseType, formClass, instanceId, formValues.get("caseId"));
-        final Form currentForm = (Form) careReportingMapper.map(formClass, formValues);
+
+        final Form existingForm = getForm(caseType, formClass, instanceId,
+                formValues.get("caseId"));
+        final Form currentForm = (Form) careReportingMapper.map(formClass,
+                formValues);
 
         if (parentForm != null) {
             updateManyToManyForm(currentForm, parentForm, formValues);
@@ -260,11 +286,17 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         if (existingForm == null) {
             dbRepository.save(currentForm);
             return currentForm;
-        } else if (existingForm.getServerDateModified() != null && (currentForm.getServerDateModified() == null ||
-                currentForm.getServerDateModified().isBefore(existingForm.getServerDateModified()))) {
-            logger.warn(format("Cannot save form. Latest %s form with instance id %s already exists.", formClass.getName(), instanceId));
+        } else if (existingForm.getServerDateModified() != null
+                && (currentForm.getServerDateModified() == null || currentForm
+                        .getServerDateModified().isBefore(
+                                existingForm.getServerDateModified()))) {
+            logger.warn(format(
+                    "Cannot save form. Latest %s form with instance id %s already exists.",
+                    formClass.getName(), instanceId));
         } else {
-            logger.info(format("Deleting existing %s form with instance id %s and saving a latest form.", formClass.getName(), instanceId));
+            logger.info(format(
+                    "Deleting existing %s form with instance id %s and saving a latest form.",
+                    formClass.getName(), instanceId));
             dbRepository.delete(existingForm);
             dbRepository.save(currentForm);
             return currentForm;
@@ -273,21 +305,28 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         return null;
     }
 
-    private void updateManyToManyForm(Form currentForm, Form parentForm, Map<String, String> formValues) {
-        if (AwwPreschoolActivitiesChildForm.class.isAssignableFrom(currentForm.getClass())
-                && AwwPreschoolActivitiesForm.class.isAssignableFrom(parentForm.getClass())) {
-            ((AwwPreschoolActivitiesChildForm) currentForm).setForm((AwwPreschoolActivitiesForm) parentForm);
+    private void updateManyToManyForm(Form currentForm, Form parentForm,
+            Map<String, String> formValues) {
+        if (AwwPreschoolActivitiesChildForm.class.isAssignableFrom(currentForm
+                .getClass())
+                && AwwPreschoolActivitiesForm.class.isAssignableFrom(parentForm
+                        .getClass())) {
+            ((AwwPreschoolActivitiesChildForm) currentForm)
+                    .setForm((AwwPreschoolActivitiesForm) parentForm);
 
             if (formValues.containsKey("caseid")) {
                 String caseId = formValues.get("caseid");
                 ChildCase childCase = getOrCreateChildCase(caseId);
-                ((AwwPreschoolActivitiesChildForm) currentForm).setChildCase(childCase);
-                ((AwwPreschoolActivitiesChildForm) currentForm).setCaseId(caseId);
+                ((AwwPreschoolActivitiesChildForm) currentForm)
+                        .setChildCase(childCase);
+                ((AwwPreschoolActivitiesChildForm) currentForm)
+                        .setCaseId(caseId);
             }
         }
     }
 
-    private Form getForm(CaseType caseType, Class<?> type, String instanceId, String caseId) {
+    private Form getForm(CaseType caseType, Class<?> type, String instanceId,
+            String caseId) {
         Map<String, Object> fieldMap = new HashMap<>();
         fieldMap.put("instanceId", instanceId);
         Map<String, String> aliasMap = new HashMap<>();
@@ -301,8 +340,10 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     @Override
     public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
-        // To seprate between MM/dd/yyyy use '/' as seprator and for dd-MM-yyyy use '-' as a seprator
-        DateTime closedOn = careReportingMapper.map(updatedValues.get("closedOn"), DateTime.class);
+        // To seprate between MM/dd/yyyy use '/' as seprator and for dd-MM-yyyy
+        // use '-' as a seprator
+        DateTime closedOn = careReportingMapper.map(updatedValues
+                .get("closedOn"), DateTime.class);
         if (motherCase != null) {
             DateTime previouslyClosedOnForMother = motherCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
@@ -312,7 +353,9 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
         } else {
             ChildCase childCase = getChildCase(caseId);
             if (childCase == null) {
-                logger.error(format("[Case Not Found To Close] Cannot find case %s to close.", caseId));
+                logger.error(format(
+                        "[Case Not Found To Close] Cannot find case %s to close.",
+                        caseId));
                 return;
             }
             DateTime previouslyClosedOnForChild = childCase.getClosedOn();
@@ -324,7 +367,8 @@ public class CareService implements org.motechproject.care.reporting.service.Ser
     }
 
     private boolean canBeClosed(DateTime closedOn, DateTime previouslyClosedOn) {
-        
-        return previouslyClosedOn == null || !closedOn.isBefore(previouslyClosedOn);
+
+        return previouslyClosedOn == null
+                || !closedOn.isBefore(previouslyClosedOn);
     }
 }

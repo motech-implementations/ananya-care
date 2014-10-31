@@ -28,186 +28,186 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class MotechAPIHttpClient {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(MotechAPIHttpClient.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(MotechAPIHttpClient.class);
 
-	private final Properties platformProperties;
-	private EndpointStatisticsCollector statisticsCollector;
-	private RestTemplate restTemplate;
+    private final Properties platformProperties;
+    private EndpointStatisticsCollector statisticsCollector;
+    private RestTemplate restTemplate;
 
-	public RestTemplate getRestTemplate() {
-		return restTemplate;
-	}
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
 
-	public void setRestTemplate(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
-	}
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
-	@Autowired
-	public MotechAPIHttpClient(
-			@Qualifier("platformProperties") Properties platformProperties,
-			MigrationStatisticsCollector migrationStatisticsCollector,
-			@Qualifier("restTemplate") RestTemplate restTemplate) {
-		this.platformProperties = platformProperties;
-		this.statisticsCollector = migrationStatisticsCollector
-				.motechEndpoint();
-		this.restTemplate = restTemplate;
-		logConfig();
-	}
+    @Autowired
+    public MotechAPIHttpClient(
+            @Qualifier("platformProperties") Properties platformProperties,
+            MigrationStatisticsCollector migrationStatisticsCollector,
+            @Qualifier("restTemplate") RestTemplate restTemplate) {
+        this.platformProperties = platformProperties;
+        this.statisticsCollector = migrationStatisticsCollector
+                .motechEndpoint();
+        this.restTemplate = restTemplate;
+        logConfig();
+    }
 
-	public void postForm(CommcareResponseWrapper form) {
-		postContent(form, getFormUpdateUrl());
-	}
+    public void postForm(CommcareResponseWrapper form) {
+        postContent(form, getFormUpdateUrl());
+    }
 
-	public void postCase(CommcareResponseWrapper aCase) {
-		postContent(aCase, getCaseUpdateUrl());
-	}
+    public void postCase(CommcareResponseWrapper aCase) {
+        postContent(aCase, getCaseUpdateUrl());
+    }
 
-	ResponseEntity<Void> getLogin() {
-		ResponseEntity<Void> response = new ResponseEntity<Void>(null);
-		try {
+    ResponseEntity<Void> getLogin() {
+        ResponseEntity<Void> response = new ResponseEntity<Void>(null);
+        try {
 
-			response = restTemplate.postForEntity(getMotechPlatformLoginUrl(),
-					getMotechPlatformLoginForm(), null);
+            response = restTemplate.postForEntity(getMotechPlatformLoginUrl(),
+                    getMotechPlatformLoginForm(), null);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return response;
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
 
-	private String getMotechPlatformLoginUrl() {
-		return String.format("%s/%s",
-				platformProperties.getProperty("motech.platform.base.url"),
-				platformProperties.getProperty("motech.platform.login.url"));
-	}
+    private String getMotechPlatformLoginUrl() {
+        return String.format("%s/%s", platformProperties
+                .getProperty("motech.platform.base.url"), platformProperties
+                .getProperty("motech.platform.login.url"));
+    }
 
-	private MultiValueMap<String, String> getMotechPlatformLoginForm() {
-		MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
-		form.add("j_username",
-				platformProperties.getProperty("motech.platform.username"));
-		form.add("j_password",
-				platformProperties.getProperty("motech.platform.password"));
-		return form;
-	}
+    private MultiValueMap<String, String> getMotechPlatformLoginForm() {
+        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        form.add("j_username", platformProperties
+                .getProperty("motech.platform.username"));
+        form.add("j_password", platformProperties
+                .getProperty("motech.platform.password"));
+        return form;
+    }
 
-	void postContent(CommcareResponseWrapper responseWrapper, String url) {
-		final RequestTimer requestTimer = statisticsCollector.newRequest();
-		boolean success = false;
-		try {
-			
-			// addHeader(postMethod, responseWrapper.getHeaders());
-			// postMethod.setRequestEntity(new
-			// "text/xml; charset=UTF-8", "UTF-8"));
+    void postContent(CommcareResponseWrapper responseWrapper, String url) {
+        final RequestTimer requestTimer = statisticsCollector.newRequest();
+        boolean success = false;
+        try {
 
-			final int maxRetries = getMaxRetries();
-			final int sleepTime = getSleepTimeBeforeRetries();
-			/*
-			 * postMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER
-			 * , new HttpMethodRetryHandler() {
-			 * 
-			 * @Override public boolean retryMethod(HttpMethod method,
-			 * IOException exception, int executionCount) {
-			 * requestTimer.retried(); boolean retry = executionCount <=
-			 * maxRetries;
-			 * 
-			 * logger.error("Exception occurred while posting data to motech",
-			 * exception);
-			 * logger.error(String.format("Execution Count: %s, Retrying again: %s"
-			 * , executionCount, retry));
-			 * 
-			 * if(!retry) { return false; }
-			 * 
-			 * try { Thread.sleep(sleepTime); } catch (InterruptedException
-			 * ignored) { } return true; } });
-			 */
+            // addHeader(postMethod, responseWrapper.getHeaders());
+            // postMethod.setRequestEntity(new
+            // "text/xml; charset=UTF-8", "UTF-8"));
 
-			// requestTimer.start();
-			ResponseEntity<Void> loginresponse = getLogin();
-			if (getMotechLoginRedirectUrl().equals(
-					loginresponse.getHeaders().getLocation().toString())) {
-				MultiValueMap<String, String> requestHeaders = new HttpHeaders();
-				Map<String, String> headers = responseWrapper.getHeaders();
-				for (Map.Entry<String, String> header : headers.entrySet()) {
-					requestHeaders.add(header.getKey(), header.getValue());
-				}
-				HttpEntity requestEntity = (HttpEntity) new HttpEntity<String>(responseWrapper.getResponseBody(), requestHeaders);
-				ResponseEntity<Void> response = restTemplate.postForEntity(
-						url, requestEntity,
-						null);
-				int statusCode = response.getStatusCode().value();
-				if (statusCode != HttpStatus.SC_OK) {
-					BadResponseException e = new BadResponseException(url,
-							statusCode, response.toString());
-					logger.error(e.getMessage(), e);
-					throw e;
-				}
-				success = true;
-			} else {
-				logger.error("login unsuccessfull");
-			}
+            final int maxRetries = getMaxRetries();
+            final int sleepTime = getSleepTimeBeforeRetries();
+            /*
+             * postMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER
+             * , new HttpMethodRetryHandler() {
+             * 
+             * @Override public boolean retryMethod(HttpMethod method,
+             * IOException exception, int executionCount) {
+             * requestTimer.retried(); boolean retry = executionCount <=
+             * maxRetries;
+             * 
+             * logger.error("Exception occurred while posting data to motech",
+             * exception);
+             * logger.error(String.format("Execution Count: %s, Retrying again: %s"
+             * , executionCount, retry));
+             * 
+             * if(!retry) { return false; }
+             * 
+             * try { Thread.sleep(sleepTime); } catch (InterruptedException
+             * ignored) { } return true; } });
+             */
 
-		} finally {
-			if (success) {
-				requestTimer.successful();
-			} else {
-				requestTimer.failed();
-			}
-		}
-	}
+            // requestTimer.start();
+            ResponseEntity<Void> loginresponse = getLogin();
+            if (getMotechLoginRedirectUrl().equals(
+                    loginresponse.getHeaders().getLocation().toString())) {
+                MultiValueMap<String, String> requestHeaders = new HttpHeaders();
+                Map<String, String> headers = responseWrapper.getHeaders();
+                for (Map.Entry<String, String> header : headers.entrySet()) {
+                    requestHeaders.add(header.getKey(), header.getValue());
+                }
+                HttpEntity requestEntity = (HttpEntity) new HttpEntity<String>(
+                        responseWrapper.getResponseBody(), requestHeaders);
+                ResponseEntity<Void> response = restTemplate.postForEntity(url,
+                        requestEntity, null);
+                int statusCode = response.getStatusCode().value();
+                if (statusCode != HttpStatus.SC_OK) {
+                    BadResponseException e = new BadResponseException(url,
+                            statusCode, response.toString());
+                    logger.error(e.getMessage(), e);
+                    throw e;
+                }
+                success = true;
+            } else {
+                logger.error("login unsuccessfull");
+            }
 
-	private String getMotechLoginRedirectUrl() {
-		return String.format("%s/%s", platformProperties
-				.getProperty("motech.platform.base.url"), platformProperties
-				.getProperty("motech.platform.login.redirect.url"));
-	}
+        } finally {
+            if (success) {
+                requestTimer.successful();
+            } else {
+                requestTimer.failed();
+            }
+        }
+    }
 
-	private void addHeader(PostMethod postMethod, Map<String, String> headers) {
-		for (Map.Entry<String, String> header : headers.entrySet()) {
-			postMethod.addRequestHeader(header.getKey(), header.getValue());
-		}
-	}
+    private String getMotechLoginRedirectUrl() {
+        return String.format("%s/%s", platformProperties
+                .getProperty("motech.platform.base.url"), platformProperties
+                .getProperty("motech.platform.login.redirect.url"));
+    }
 
-	private String readResponse(PostMethod postMethod) throws IOException {
-		InputStream responseStream = postMethod.getResponseBodyAsStream();
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(responseStream));
-		StringBuffer sb = new StringBuffer();
-		String line;
-		while ((line = bufferedReader.readLine()) != null) {
-			sb.append(line);
-		}
-		return sb.toString();
-	}
+    private void addHeader(PostMethod postMethod, Map<String, String> headers) {
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            postMethod.addRequestHeader(header.getKey(), header.getValue());
+        }
+    }
 
-	private String getFormUpdateUrl() {
-		return String.format("%s/%s",
-				platformProperties.getProperty("app.url"),
-				platformProperties.getProperty("app.form.endpoint"));
-	}
+    private String readResponse(PostMethod postMethod) throws IOException {
+        InputStream responseStream = postMethod.getResponseBodyAsStream();
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(responseStream));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();
+    }
 
-	private String getCaseUpdateUrl() {
-		return String.format("%s/%s",
-				platformProperties.getProperty("app.url"),
-				platformProperties.getProperty("app.case.endpoint"));
-	}
+    private String getFormUpdateUrl() {
+        return String.format("%s/%s",
+                platformProperties.getProperty("app.url"), platformProperties
+                        .getProperty("app.form.endpoint"));
+    }
 
-	private int getSleepTimeBeforeRetries() {
-		return Integer.parseInt(platformProperties
-				.getProperty("retry.sleep.time.in.ms"));
-	}
+    private String getCaseUpdateUrl() {
+        return String.format("%s/%s",
+                platformProperties.getProperty("app.url"), platformProperties
+                        .getProperty("app.case.endpoint"));
+    }
 
-	private int getMaxRetries() {
-		return Integer.parseInt(platformProperties.getProperty("retry.count"));
-	}
+    private int getSleepTimeBeforeRetries() {
+        return Integer.parseInt(platformProperties
+                .getProperty("retry.sleep.time.in.ms"));
+    }
 
-	private void logConfig() {
-		logger.info(String.format("Motech case update endpoint: %s",
-				getCaseUpdateUrl()));
-		logger.info(String.format("Motech form update Endpoint: %s",
-				getFormUpdateUrl()));
-		logger.info(String.format(
-				"Motech maximumm retries: %s; with sleep time: %s",
-				getMaxRetries(), getSleepTimeBeforeRetries()));
-	}
+    private int getMaxRetries() {
+        return Integer.parseInt(platformProperties.getProperty("retry.count"));
+    }
+
+    private void logConfig() {
+        logger.info(String.format("Motech case update endpoint: %s",
+                getCaseUpdateUrl()));
+        logger.info(String.format("Motech form update Endpoint: %s",
+                getFormUpdateUrl()));
+        logger.info(String.format(
+                "Motech maximumm retries: %s; with sleep time: %s",
+                getMaxRetries(), getSleepTimeBeforeRetries()));
+    }
 }

@@ -1,88 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-	<bean id="commcareHttpConnectionManager"
-		class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
-		<property name="params">
-			<bean
-				class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
-				<property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
-				<property name="maxTotalConnections" value="${migration.threadpool.size}" />
-				<property name="connectionTimeout" value="${httpclient.timeout}" />
-				<property name="soTimeout" value="${httpclient.timeout}" />
-			</bean>
-		</property>
-	</bean>
-	<bean id="commcareHttpClient" class="org.apache.commons.httpclient.HttpClient">
-		<constructor-arg ref="commcareHttpConnectionManager" />
-	</bean>
-	<bean id="motechHttpConnectionManager"
-		class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
-		<property name="params">
-			<bean
-				class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
-				<property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
-				<property name="maxTotalConnections" value="${migration.threadpool.size}" />
-				<property name="connectionTimeout" value="${httpclient.timeout}" />
-				<property name="soTimeout" value="${httpclient.timeout}" />
-			</bean>
-		</property>
-	</bean>
-	<bean id="motechHttpClient" class="org.apache.commons.httpclient.HttpClient">
-		<constructor-arg ref="motechHttpConnectionManager" />
-	</bean>
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<constructor-arg ref="httpClientFactory"/> 
-	</bean>
-	<!-- <bean id="httpComponentsClientHttpRequestFactory"
-		class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory" />  -->
-	<bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
-		<constructor-arg ref="httpClientParams" />
-		<!-- <property name="state" ref="httpState" /> -->
-	</bean>
+    <bean id="commcareHttpConnectionManager"
+        class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+        <property name="params">
+            <bean
+                class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
+                <property name="maxTotalConnections" value="${migration.threadpool.size}" />
+                <property name="connectionTimeout" value="${httpclient.timeout}" />
+                <property name="soTimeout" value="${httpclient.timeout}" />
+            </bean>
+        </property>
+    </bean>
 
-	<bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
-		<property name="authenticationPreemptive" value="true" />
-		<property name="connectionManagerClass"
-			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
-	</bean>
+    <bean id="commcareHttpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="commcareHttpConnectionManager" />
+    </bean>
+    <bean id="motechHttpConnectionManager"
+        class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager">
+        <property name="params">
+            <bean
+                class="org.apache.commons.httpclient.params.HttpConnectionManagerParams">
+                <property name="defaultMaxConnectionsPerHost" value="${migration.threadpool.size}" />
+                <property name="maxTotalConnections" value="${migration.threadpool.size}" />
+                <property name="connectionTimeout" value="${httpclient.timeout}" />
+                <property name="soTimeout" value="${httpclient.timeout}" />
+            </bean>
+        </property>
+    </bean>
+    <bean id="motechHttpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="motechHttpConnectionManager" />
+    </bean>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="httpClientFactory" />
+    </bean>
+    <bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
+        <constructor-arg ref="httpClientParams" />
+        <!-- <property name="state" ref="httpState" /> -->
+    </bean>
 
-	<!-- <bean id="httpState"
-		class="org.motechproject.care.reporting.migration.util.CustomHttpState">
-		<property name="credentials" ref="credentials" />
-	</bean>
+    <bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+        <property name="authenticationPreemptive" value="true" />
+        <property name="connectionManagerClass"
+            value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
+    </bean>
 
-	<bean id="credentials"
-		class="org.apache.commons.httpclient.UsernamePasswordCredentials">
-		<constructor-arg value="admin" />
-		<constructor-arg value="password" />
-	</bean> -->
+    <bean id="httpClientFactory"
+        class="org.springframework.http.client.CommonsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient" />
+    </bean>
 
-	<bean id="httpClientFactory"
-		class="org.springframework.http.client.CommonsClientHttpRequestFactory">
-		<constructor-arg ref="httpClient" />
-	</bean>
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>migration.properties</value>
+            </list>
+        </property>
+    </bean>
+    <util:properties id="migrationProperties" location="classpath:migration.properties" />
+    <util:properties id="commcareProperties" location="classpath:commcareAPI.properties" />
+    <util:properties id="platformProperties" location="classpath:platform.properties" />
 
-
-
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>migration.properties</value>
-			</list>
-		</property>
-	</bean>
-	<util:properties id="migrationProperties" location="classpath:migration.properties" />
-	<util:properties id="commcareProperties" location="classpath:commcareAPI.properties" />
-	<util:properties id="platformProperties" location="classpath:platform.properties" />
-
-	<context:annotation-config />
-	<context:component-scan base-package="org.motechproject.care.reporting.migration" />
+    <context:annotation-config />
+    <context:component-scan base-package="org.motechproject.care.reporting.migration" />
 </beans>

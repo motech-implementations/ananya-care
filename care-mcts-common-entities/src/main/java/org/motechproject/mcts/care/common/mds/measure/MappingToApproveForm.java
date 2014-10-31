@@ -48,7 +48,7 @@ public class MappingToApproveForm {
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
     }
-    
+
     @Field
     public boolean isClose() {
         return close;
@@ -57,8 +57,6 @@ public class MappingToApproveForm {
     public void setClose(boolean close) {
         this.close = close;
     }
-
-
 
     @Field
     public String getDateAuthorized() {
@@ -122,7 +120,7 @@ public class MappingToApproveForm {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
@@ -132,7 +130,7 @@ public class MappingToApproveForm {
     public void setMotherCase(MotherCase motherCase) {
         this.motherCase = motherCase;
     }
-    
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MctsPregnantMother getMctsPregnantMother() {

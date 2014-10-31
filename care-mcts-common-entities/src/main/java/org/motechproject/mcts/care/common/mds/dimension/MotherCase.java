@@ -13,12 +13,17 @@ import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity(name = "mother_case")
 public class MotherCase implements java.io.Serializable,
         SelfUpdatable<MotherCase> {
 
     private static final long serialVersionUID = 2017951207352639547L;
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MotherCase.class);
 
     @Field
     @Cascade(persist = true, update = true, delete = true)
@@ -274,11 +279,11 @@ public class MotherCase implements java.io.Serializable,
     @Field
     private String mctsId;
     @Field
-	private MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus;
-	@Field
-	private String fullMctsId;
-	@Field
-	private String dateModified;
+    private MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus;
+    @Field
+    private String fullMctsId;
+    @Field
+    private String dateModified;
 
     public MotherCase() {
         DateTime DateTime = new DateTime();
@@ -1069,43 +1074,43 @@ public class MotherCase implements java.io.Serializable,
     public void setClosedBy(Flw closedBy) {
         this.closedBy = closedBy;
     }
-    
+
     public String getMctsId() {
-		return mctsId;
-	}
+        return mctsId;
+    }
 
-	public void setMctsId(String mctsId) {
-		this.mctsId = mctsId;
-	}
+    public void setMctsId(String mctsId) {
+        this.mctsId = mctsId;
+    }
 
-	public MCTSPregnantMotherCaseAuthorisedStatus getmCTSPregnantMotherCaseAuthorisedStatus() {
-		return mCTSPregnantMotherCaseAuthorisedStatus;
-	}
+    public MCTSPregnantMotherCaseAuthorisedStatus getmCTSPregnantMotherCaseAuthorisedStatus() {
+        return mCTSPregnantMotherCaseAuthorisedStatus;
+    }
 
-	public void setmCTSPregnantMotherCaseAuthorisedStatus(
-			MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus) {
-		this.mCTSPregnantMotherCaseAuthorisedStatus = mCTSPregnantMotherCaseAuthorisedStatus;
-	}
+    public void setmCTSPregnantMotherCaseAuthorisedStatus(
+            MCTSPregnantMotherCaseAuthorisedStatus mCTSPregnantMotherCaseAuthorisedStatus) {
+        this.mCTSPregnantMotherCaseAuthorisedStatus = mCTSPregnantMotherCaseAuthorisedStatus;
+    }
 
-	public String getFullMctsId() {
-		return fullMctsId;
-	}
+    public String getFullMctsId() {
+        return fullMctsId;
+    }
 
-	public void setFullMctsId(String fullMctsId) {
-		this.fullMctsId = fullMctsId;
-	}
+    public void setFullMctsId(String fullMctsId) {
+        this.fullMctsId = fullMctsId;
+    }
 
-	public String getDateModified() {
-		return dateModified;
-	}
+    public String getDateModified() {
+        return dateModified;
+    }
 
-	public void setDateModified(String dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	public Boolean validateIfUpdatable(String thisId, String otherId) {
-        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId,
-                this.getClass());
+    public Boolean validateIfUpdatable(String thisId, String otherId) {
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this
+                .getClass());
     }
 
     public void updateFields(MotherCase source, List<String> ignoredFields) {
@@ -1118,11 +1123,11 @@ public class MotherCase implements java.io.Serializable,
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            // TODO add logger
-            // logger.warn(String
-            // .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
-            // this.caseId, this.serverDateTimeModified,
-            // updated.serverDateTimeModified));
+
+            LOGGER.warn(String
+                    .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
+                            this.caseId, this.serverDateTimeModified,
+                            updated.serverDateTimeModified));
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime",

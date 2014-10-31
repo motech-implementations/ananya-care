@@ -3,7 +3,6 @@ package org.motechproject.care.reporting.mapper;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.Converter;
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.converter.JodaTimeConverter;
 
@@ -13,7 +12,8 @@ public class Mapper {
 
     public Mapper(String[] allowedDateFormats) {
         allDataTypeConverters = new AllDataTypeConverters();
-        allDataTypeConverters.registerBaseConverters(beanUtils.getConvertUtils(), allowedDateFormats);
+        allDataTypeConverters.registerBaseConverters(beanUtils
+                .getConvertUtils(), allowedDateFormats);
     }
 
     public <T, U> T map(Class<T> type, Map<String, U> keyStore) {
@@ -39,19 +39,21 @@ public class Mapper {
     }
 
     public <T> T map(String from, Class<T> to) {
-    	if (to == DateTime.class) {
-    		beanUtils.getConvertUtils().register(new JodaTimeConverter(), DateTime.class);
-    	}
+        if (to == DateTime.class) {
+            beanUtils.getConvertUtils().register(new JodaTimeConverter(),
+                    DateTime.class);
+        }
         return (T) beanUtils.getConvertUtils().convert(from, to);
     }
 
     private void set(Object object, String fieldName, Object fieldValue) {
         try {
-        	if (fieldValue != null)
-            beanUtils.setProperty(object, fieldName, fieldValue);
-        } 
-        catch (Exception ex) {
-            throw new RuntimeException(String.format("Exception when setting %s to %s", fieldValue, fieldName), ex);
+            if (fieldValue != null)
+                beanUtils.setProperty(object, fieldName, fieldValue);
+        } catch (Exception ex) {
+            throw new RuntimeException(String.format(
+                    "Exception when setting %s to %s", fieldValue, fieldName),
+                    ex);
         }
     }
 }
