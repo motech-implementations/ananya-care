@@ -16,44 +16,5 @@
     <bean id="mdsServiceFactory"
         class="org.motechproject.mcts.care.common.mds.service.MdsServiceFactoryImpl"
         init-method="initializeMetadata">
-        <property name="motherFormTables">
-            <list>
-                <value>CARE_MCTS_COMMON_ENTITIES_MOTHEREDITFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_MOVEBENEFICIARYFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_MIFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_MOFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_ABORTFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_UIMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_REFERMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_CLOSEMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_DEATHMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_DELIVERYMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_CFMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_EBFMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_PNCMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_BPFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_REGISTRATIONMOTHERFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_NEWFORM</value>
-            </list>
-        </property>
-        <property name="childFormTables">
-            <list>
-                <value>CARE_MCTS_COMMON_ENTITIES_UICHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_REFERCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_CLOSECHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_DEATHCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_DELIVERYCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_CFCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_EBFCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_PNCCHILDFORM</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_REGISTRATIONCHILDFORM</value>
-            </list>
-        </property>
-        <property name="caseTables">
-            <list>
-                <value>CARE_MCTS_COMMON_ENTITIES_MOTHERCASE</value>
-                <value>CARE_MCTS_COMMON_ENTITIES_CHILDCASE</value>
-            </list>
-        </property>
     </bean>
 </beans>

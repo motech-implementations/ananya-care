@@ -72,9 +72,6 @@
     <osgi:reference id="deliveryMotherFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.DeliveryMotherFormMDSService" />
 
-    <osgi:reference id="domainMetadataMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.DomainMetadataMDSService" />
-
     <osgi:reference id="ebfChildFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.EbfChildFormMDSService" />
 

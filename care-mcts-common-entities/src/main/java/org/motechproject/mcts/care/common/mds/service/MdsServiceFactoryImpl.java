@@ -1,12 +1,10 @@
 package org.motechproject.mcts.care.common.mds.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -40,14 +38,13 @@ import org.motechproject.mcts.care.common.mds.measure.DeathChildForm;
 import org.motechproject.mcts.care.common.mds.measure.DeathMotherForm;
 import org.motechproject.mcts.care.common.mds.measure.DeliveryChildForm;
 import org.motechproject.mcts.care.common.mds.measure.DeliveryMotherForm;
-import org.motechproject.mcts.care.common.mds.measure.DomainMetadata;
 import org.motechproject.mcts.care.common.mds.measure.DontKnowForm;
 import org.motechproject.mcts.care.common.mds.measure.EbfChildForm;
 import org.motechproject.mcts.care.common.mds.measure.EbfMotherForm;
 import org.motechproject.mcts.care.common.mds.measure.Form;
 import org.motechproject.mcts.care.common.mds.measure.GrowthMonitoringChildForm;
-import org.motechproject.mcts.care.common.mds.measure.MappingToApproveForm;
 import org.motechproject.mcts.care.common.mds.measure.JobMetadata;
+import org.motechproject.mcts.care.common.mds.measure.MappingToApproveForm;
 import org.motechproject.mcts.care.common.mds.measure.MiForm;
 import org.motechproject.mcts.care.common.mds.measure.MoForm;
 import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
@@ -84,22 +81,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * This is a factory class which stores the mapping between various entities
  * versus their corresponding Mds service interfaces.
- * 
+ *
  * @author anuranjan
- * 
  */
 public class MdsServiceFactoryImpl implements MdsServiceFactory {
 
     private static Map<Class<?>, MotechDataService<?>> mapper = new HashMap<Class<?>, MotechDataService<?>>();
-
-    private static List<String> motherFormTables;
-    private static List<String> childFormTables;
-    private static List<String> caseTables;
-
-    private final static String MOTHER = "mother";
-    private final static String CHILD = "child";
-    private final static String CASE = "case";
-    private final static String FORM = "form";
 
     private AbortFormMDSService abortFormMDSService;
     private AwwCloseChildFormMDSService awwCloseChildFormMDSService;
@@ -123,7 +110,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     private DeathMotherFormMDSService deathMotherFormMDSService;
     private DeliveryChildFormMDSService deliveryChildFormMDSService;
     private DeliveryMotherFormMDSService deliveryMotherFormMDSService;
-    private DomainMetadataMDSService domainMetadataMDSService;
     private EbfChildFormMDSService ebfChildFormMDSService;
     private EbfMotherFormMDSService ebfMotherFormMDSService;
     private FlwGroupMapMDSService flwGroupMapMDSService;
@@ -199,7 +185,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             DeathMotherFormMDSService deathMotherFormMDSService,
             DeliveryChildFormMDSService deliveryChildFormMDSService,
             DeliveryMotherFormMDSService deliveryMotherFormMDSService,
-            DomainMetadataMDSService domainMetadataMDSService,
             EbfChildFormMDSService ebfChildFormMDSService,
             EbfMotherFormMDSService ebfMotherFormMDSService,
             FlwGroupMapMDSService flwGroupMapMDSService,
@@ -268,7 +253,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.deliveryChildFormMDSService = deliveryChildFormMDSService;
         this.deathMotherFormMDSService = deathMotherFormMDSService;
         this.deliveryMotherFormMDSService = deliveryMotherFormMDSService;
-        this.domainMetadataMDSService = domainMetadataMDSService;
         this.ebfChildFormMDSService = ebfChildFormMDSService;
         this.ebfMotherFormMDSService = ebfMotherFormMDSService;
         this.flwGroupMapMDSService = flwGroupMapMDSService;
@@ -352,7 +336,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         mapper.put(DeathMotherForm.class, deathMotherFormMDSService);
         mapper.put(DeliveryChildForm.class, deliveryChildFormMDSService);
         mapper.put(DeliveryMotherForm.class, deliveryMotherFormMDSService);
-        mapper.put(DomainMetadata.class, domainMetadataMDSService);
         mapper.put(EbfChildForm.class, ebfChildFormMDSService);
         mapper.put(EbfMotherForm.class, ebfMotherFormMDSService);
         mapper.put(FlwGroupMap.class, flwGroupMapMDSService);
@@ -426,47 +409,9 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     }
 
     public void initializeMetadata() {
-        DomainMetadata domainMetadata;
-        for (String tableName : motherFormTables) {
-            domainMetadata = new DomainMetadata(tableName, FORM, MOTHER);
-            domainMetadataMDSService.create(domainMetadata);
-        }
-        for (String tableName : childFormTables) {
-            domainMetadata = new DomainMetadata(tableName, FORM, CHILD);
-            domainMetadataMDSService.create(domainMetadata);
-        }
-        for (String tableName : caseTables) {
-            domainMetadata = new DomainMetadata(tableName, CASE, tableName
-                    .contains(MOTHER.toUpperCase()) ? MOTHER : CHILD);
-            domainMetadataMDSService.create(domainMetadata);
-        }
         JobMetadata jobMetadata = new JobMetadata(
-                "populate_delivery_offset_days", new DateTime());
+                "populate_delivery_offset_days", null);
         jobMetadataMDSService.create(jobMetadata);
-    }
-
-    public static List<String> getMotherFormTables() {
-        return motherFormTables;
-    }
-
-    public static void setMotherFormTables(List<String> motherFormTables) {
-        MdsServiceFactoryImpl.motherFormTables = motherFormTables;
-    }
-
-    public static List<String> getChildFormTables() {
-        return childFormTables;
-    }
-
-    public static void setChildFormTables(List<String> childFormTables) {
-        MdsServiceFactoryImpl.childFormTables = childFormTables;
-    }
-
-    public static List<String> getCaseTables() {
-        return caseTables;
-    }
-
-    public static void setCaseTables(List<String> caseTables) {
-        MdsServiceFactoryImpl.caseTables = caseTables;
     }
 
 }

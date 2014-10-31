@@ -11,6 +11,7 @@ import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public interface Service {
+
     MotherCase getOrCreateMotherCase(String caseId);
 
     MotherCase getMotherCase(String caseId);
@@ -53,4 +54,6 @@ public interface Service {
     Object execute(String query);
 
     <T> void saveAll(List<T> instances);
+
+    public void computeFieldsJob();
 }

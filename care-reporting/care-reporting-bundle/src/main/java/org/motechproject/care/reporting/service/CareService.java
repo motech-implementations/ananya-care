@@ -1,11 +1,16 @@
 package org.motechproject.care.reporting.service;
 
 import static java.lang.String.format;
+import static org.motechproject.care.reporting.constants.PropertyConstants.CHILD;
+import static org.motechproject.care.reporting.constants.PropertyConstants.DEFAULT_DATE_FORMAT;
+import static org.motechproject.care.reporting.constants.PropertyConstants.FORM;
+import static org.motechproject.care.reporting.constants.PropertyConstants.MOTHER;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +19,10 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
 import org.motechproject.care.reporting.enums.CaseType;
+import org.motechproject.care.reporting.enums.DomainMetadata;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
 import org.motechproject.care.reporting.utils.ObjectUtils;
@@ -27,7 +35,9 @@ import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesChildForm;
 import org.motechproject.mcts.care.common.mds.measure.AwwPreschoolActivitiesForm;
 import org.motechproject.mcts.care.common.mds.measure.Form;
+import org.motechproject.mcts.care.common.mds.measure.JobMetadata;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
+import org.motechproject.mcts.care.common.mds.service.JobMetadataMDSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +51,14 @@ public class CareService implements
 
     private Repository dbRepository;
     private CareReportingMapper careReportingMapper;
+    private JobMetadataMDSService jobMetadataMDSService;
 
     @Autowired
-    public CareService(Repository dbRepository) {
+    public CareService(Repository dbRepository,
+            JobMetadataMDSService jobMetadataMDSService) {
         this.dbRepository = dbRepository;
         this.careReportingMapper = CareReportingMapper.getInstance(this);
+        this.jobMetadataMDSService = jobMetadataMDSService;
     }
 
     @Override
@@ -370,5 +383,86 @@ public class CareService implements
 
         return previouslyClosedOn == null
                 || !closedOn.isBefore(previouslyClosedOn);
+    }
+
+    public void computeFieldsJob() {
+
+        for (DomainMetadata metadata : DomainMetadata.values()) {
+            String tableName = metadata.getTableName();
+            String type = metadata.getType();
+            String category = metadata.getCategory();
+            String query;
+            if (type.equalsIgnoreCase(FORM)) {
+                if (category.equalsIgnoreCase(MOTHER)) {
+                    query = "SELECT mc.add, mc.edd, "
+                            + tableName
+                            + ".serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun "
+                            + "WHERE mc.id = "
+                            + tableName
+                            + ".motherCase_id_OID AND md.jobName = 'populate_delivery_offset_days'";
+                    computeFieldsJob(tableName, query);
+                } else if (category.equalsIgnoreCase(CHILD)) {
+                    query = "SELECT mc.add, mc.edd, "
+                            + tableName
+                            + ".serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) "
+                            + "WHERE cc.id = "
+                            + tableName
+                            + ".motherCase_id_OID AND md.jobName = 'populate_delivery_offset_days'";
+                    computeFieldsJob(tableName, query);
+                }
+            }
+        }
+
+        JobMetadata jobMetadata = jobMetadataMDSService
+                .findByJobName("populate_delivery_offset_days");
+        if (jobMetadata == null) {
+            jobMetadata = new JobMetadata("populate_delivery_offset_days",
+                    new DateTime());
+        } else {
+            jobMetadata.setLastRun(new DateTime());
+        }
+        jobMetadataMDSService.update(jobMetadata);
+    }
+
+    private void computeFieldsJob(String tableName, String query) {
+
+        List<Object[]> result = (List<Object[]>) dbRepository.execute(query);
+        Iterator<Object[]> it = result.iterator();
+        while (it.hasNext()) {
+            Object[] resultSet = it.next();
+            updateComputedFields(resultSet, tableName);
+        }
+    }
+
+    private void updateComputedFields(Object[] resultSet, String tableName) {
+        int deliveryOffsetDays = 0;
+        DateTime add = null;
+        DateTime edd = null;
+        DateTime serverDateModified = null;
+        if (resultSet[0] != null) {
+            add = parseDateTime(resultSet[0]);
+        }
+        if (resultSet[1] != null) {
+            edd = parseDateTime(resultSet[1]);
+        }
+        if (resultSet[2] != null) {
+            serverDateModified = parseDateTime(resultSet[2]);
+        }
+        if (add != null && serverDateModified != null) {
+            deliveryOffsetDays = Days.daysBetween(serverDateModified, add)
+                    .getDays();
+        } else if (edd != null && serverDateModified != null) {
+            deliveryOffsetDays = Days.daysBetween(serverDateModified, edd)
+                    .getDays();
+        }
+        String updateQuery = "UPDATE " + tableName
+                + " SET deliveryOffsetDays = "
+                + String.valueOf(deliveryOffsetDays);
+        dbRepository.execute(updateQuery);
+    }
+
+    private DateTime parseDateTime(Object dateTimeObject) {
+        return DateTime.parse((String) dateTimeObject, DateTimeFormat
+                .forPattern(DEFAULT_DATE_FORMAT));
     }
 }

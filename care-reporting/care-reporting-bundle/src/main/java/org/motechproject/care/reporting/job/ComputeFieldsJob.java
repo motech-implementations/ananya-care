@@ -23,7 +23,8 @@ public class ComputeFieldsJob implements Job {
     public void run() {
         logger.info("Starting Computed Fields Population");
         long startTime = System.currentTimeMillis();
-        service.execute("SELECT report.populate_computed_fields()");
+        service.computeFieldsJob();
+        //service.execute("SELECT report.populate_computed_fields()");
         long endTime = System.currentTimeMillis();
         logger.info(String.format(
                 "Completed Computed Fields Population in %s seconds",
