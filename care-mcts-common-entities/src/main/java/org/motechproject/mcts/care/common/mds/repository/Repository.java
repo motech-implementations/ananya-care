@@ -40,7 +40,7 @@ public interface Repository {
 	 * 
 	 * @param instance
 	 */
-	<T> void update(T instance);
+	<T> T update(T instance);
 
 	/**
 	 * Deletes the instance received

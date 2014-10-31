@@ -1,20 +1,31 @@
 package org.motechproject.mcts.care.common.utils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
 
 public class ReflectionUtils {
+	protected static BeanUtilsBean beanUtils = new BeanUtilsBean();
     public static void updateValue(String fieldName, Object source,
             Object target) {
-        try {
-            Field field = getField(source, fieldName);
-            if (java.lang.reflect.Modifier.isStatic(field.getModifiers()))
-                return;
-            field.setAccessible(true);
-            Object updatedValue = field.get(source);
-            field.set(target, updatedValue);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+            try {
+            	Field field = getField(source, fieldName);
+                if (java.lang.reflect.Modifier.isStatic(field.getModifiers()))
+                    return;
+                field.setAccessible(true);
+                Object updatedValue = beanUtils.getProperty(source, fieldName);
+                beanUtils.setProperty(target, fieldName, updatedValue);
+            } catch(NoSuchMethodException e) {
+            	throw new RuntimeException(e);
+            } catch(InvocationTargetException e) {
+            	throw new RuntimeException(e);
+            } catch(IllegalAccessException e) {
+            	throw new RuntimeException(e);
+            } catch(NoSuchFieldException e) {
+            	throw new RuntimeException(e);
+            }
+    	    
     }
 
     public static Object getValue(Object object, String fieldName) {

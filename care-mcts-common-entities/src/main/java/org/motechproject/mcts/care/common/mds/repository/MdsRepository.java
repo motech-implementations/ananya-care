@@ -129,15 +129,16 @@ public class MdsRepository implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> void update(T instance) {
+	public <T> T update(T instance) {
 		if (instance != null) {
 			MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
 					.fetchServiceInterface(instance.getClass());
 			if (service == null) {
-				return;
+				return null;
 			}
-			service.update(instance);
+			return  service.update(instance);
 		}
+		return null;
 	}
 
 	@SuppressWarnings("rawtypes")
