@@ -91,16 +91,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MdsServiceFactoryImpl implements MdsServiceFactory {
 
     private static Map<Class<?>, MotechDataService<?>> mapper = new HashMap<Class<?>, MotechDataService<?>>();
-    
+
     private static List<String> motherFormTables;
     private static List<String> childFormTables;
     private static List<String> caseTables;
-    
+
     private final static String MOTHER = "mother";
     private final static String CHILD = "child";
     private final static String CASE = "case";
     private final static String FORM = "form";
-    
 
     private AbortFormMDSService abortFormMDSService;
     private AwwCloseChildFormMDSService awwCloseChildFormMDSService;
@@ -437,10 +436,12 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             domainMetadataMDSService.create(domainMetadata);
         }
         for (String tableName : caseTables) {
-            domainMetadata = new DomainMetadata(tableName, CASE, tableName.contains(MOTHER.toUpperCase()) ? MOTHER : CHILD);
+            domainMetadata = new DomainMetadata(tableName, CASE, tableName
+                    .contains(MOTHER.toUpperCase()) ? MOTHER : CHILD);
             domainMetadataMDSService.create(domainMetadata);
         }
-        JobMetadata jobMetadata = new JobMetadata("populate_delivery_offset_days", new DateTime());
+        JobMetadata jobMetadata = new JobMetadata(
+                "populate_delivery_offset_days", new DateTime());
         jobMetadataMDSService.create(jobMetadata);
     }
 
