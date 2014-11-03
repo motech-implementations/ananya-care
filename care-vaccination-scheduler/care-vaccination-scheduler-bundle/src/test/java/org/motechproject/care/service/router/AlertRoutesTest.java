@@ -9,10 +9,10 @@ import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.router.action.*;
-import org.motechproject.scheduletracking.api.domain.Milestone;
-import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
-import org.motechproject.scheduletracking.api.domain.WindowName;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.domain.Milestone;
+import org.motechproject.scheduletracking.domain.MilestoneAlert;
+import org.motechproject.scheduletracking.domain.WindowName;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 
 import static org.joda.time.Period.weeks;
 import static org.mockito.Matchers.any;

@@ -1,22 +1,22 @@
 package org.motechproject.care.service.router.action;
 
 import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.motechproject.care.domain.CareCaseTask;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.request.CaseType;
 import org.motechproject.casexml.domain.CaseTask;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
-import org.motechproject.scheduletracking.api.domain.Milestone;
-import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.repository.Repository;
+import org.motechproject.scheduletracking.domain.Milestone;
+import org.motechproject.scheduletracking.domain.MilestoneAlert;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.motechproject.commons.date.util.DateUtil;
 
 import java.util.Properties;
@@ -34,9 +34,7 @@ public class AlertChildActionTest {
     @Mock
     private CommcareCaseGateway commcareCaseGateway;
     @Mock
-    private AllChildren allChildren;
-    @Mock
-    private AllCareCaseTasks allCareCaseTasks;
+    private Repository dbRepository;
     @Mock
     private Properties ananyaCareProperties;
 
@@ -46,7 +44,7 @@ public class AlertChildActionTest {
     @Before
     public void setUp() {
         initMocks(this);
-        this.alertChildAction = new AlertChildAction(allChildren, commcareCaseGateway, allCareCaseTasks, ananyaCareProperties);
+        this.alertChildAction = new AlertChildAction(commcareCaseGateway,ananyaCareProperties);
     }
 
     @Test
@@ -66,7 +64,7 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
         Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         String commCareUrl = "commCareUrl";
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(commCareUrl);
@@ -75,7 +73,8 @@ public class AlertChildActionTest {
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl),argumentCaptor.capture(), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl),argumentCaptor.capture(), anyString(), anyString(),null);
         CaseTask task = argumentCaptor.getValue();
 
         assertNotNull(task.getTaskId());
@@ -107,19 +106,19 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
         Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("motech.user.id")).thenReturn(motechUserId);
 
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CareCaseTask> captor = ArgumentCaptor.forClass(CareCaseTask.class);
-        verify(allCareCaseTasks).add(captor.capture());
+        verify(dbRepository).save(captor.capture());
 
         CareCaseTask task = captor.getValue();
         Assert.assertNotNull(task.getCurrentTime());
         assertEquals(milestoneName, task.getMilestoneName());
-        assertEquals("task", task.getCaseType());
+        assertEquals("task", task.getClientCaseType());
         assertEquals(now.plusWeeks(5).toString("yyyy-MM-dd"), task.getDateEligible());
         assertEquals(now.plusWeeks(25).toString("yyyy-MM-dd"), task.getDateExpires());
         assertEquals("measles",task.getTaskId());
@@ -146,11 +145,12 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(),null);
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(now.toString("yyyy-MM-dd"), task.getDateEligible());
@@ -174,11 +174,12 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(),null);
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(dob.plusMonths(20).toString("yyyy-MM-dd"), task.getDateEligible());
@@ -202,10 +203,11 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
     }
 
     @Test
@@ -226,10 +228,11 @@ public class AlertChildActionTest {
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", startOfSchedule, null);
 
         Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
     }
 
     @Test
@@ -250,10 +253,11 @@ public class AlertChildActionTest {
 
         Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
         client.setClosedByCommcare(true);
-        when(allChildren.findByCaseId(childCaseId)).thenReturn(client);
+        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
     }
 
     public static Period weeks(int numberOfWeeks) {

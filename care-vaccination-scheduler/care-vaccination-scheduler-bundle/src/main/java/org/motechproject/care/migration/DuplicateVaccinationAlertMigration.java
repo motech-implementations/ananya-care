@@ -3,15 +3,13 @@ package org.motechproject.care.migration;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.domain.Mother;
-import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.care.repository.AllChildren;
-import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.ScheduleService;
-import org.motechproject.scheduletracking.api.repository.AllEnrollments;
-import org.motechproject.scheduletracking.api.service.impl.EnrollmentAlertService;
-
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.repository.AllEnrollments;
+import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -25,20 +23,15 @@ import java.util.List;
 public class DuplicateVaccinationAlertMigration {
 
     Logger logger = Logger.getLogger(DuplicateVaccinationAlertMigration.class);
-    private AllCareCaseTasks allCareCaseTasks;
-    private AllMothers allMothers;
-    private AllChildren allChildren;
     private ScheduleService scheduleService;
     private EnrollmentAlertService enrollmentAlertService;
     private AllEnrollments allEnrollments;
+    @Autowired
+    private MdsRepository dbRepository;
 
 
-
-    public DuplicateVaccinationAlertMigration(AllCareCaseTasks allCareCaseTasks, ScheduleService scheduleService, AllMothers allMothers, AllChildren allChildren, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
-        this.allCareCaseTasks = allCareCaseTasks;
+    public DuplicateVaccinationAlertMigration(ScheduleService scheduleService, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
         this.scheduleService = scheduleService;
-        this.allMothers = allMothers;
-        this.allChildren = allChildren;
         this.enrollmentAlertService = enrollmentAlertService;
         this.allEnrollments = allEnrollments;
     }
@@ -60,12 +53,12 @@ public class DuplicateVaccinationAlertMigration {
 
         if (StringUtils.isNotEmpty(clientCaseID)) {
 
-            DuplicateVaccinationAlertService duplicateVaccinationAlertService = new DuplicateVaccinationAlertService(allMothers, allCareCaseTasks, allChildren, allEnrollments, enrollmentAlertService);
-            Mother mother = allMothers.findByCaseId(clientCaseID);
+            DuplicateVaccinationAlertService duplicateVaccinationAlertService = new DuplicateVaccinationAlertService(allEnrollments, enrollmentAlertService);
+            Mother mother = dbRepository.get(Mother.class,"caseId",clientCaseID);
             if (mother != null) {
                 duplicateVaccinationAlertService.deleteCareTasksForGivenMotherCase(clientCaseID);
             } else {
-                Child child = allChildren.findByCaseId(clientCaseID);
+                Child child = dbRepository.get(Child.class,"caseId",clientCaseID);
                 if (child != null) {
                     duplicateVaccinationAlertService.deleteCareTasksForGivenChildCase(clientCaseID);
                 }

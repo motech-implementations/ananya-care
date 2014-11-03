@@ -3,6 +3,7 @@ package org.motechproject.mcts.care.common.mds.domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 import org.motechproject.commons.date.util.DateUtil;
+import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mds.annotations.Entity;
 
@@ -21,7 +22,6 @@ public class Mother extends Client {
     private DateTime anc3Date;
     private DateTime anc4Date;
     private DateTime ttBoosterDate;
- //   private String caseType = CaseType.Child.getType();
 
     public Mother(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime edd, DateTime add, DateTime tt1Date, DateTime tt2Date, boolean lastPregTt, DateTime anc1Date, DateTime anc2Date, DateTime anc3Date, DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
         super(isAlive);
@@ -40,6 +40,11 @@ public class Mother extends Client {
         this.anc3Date = anc3Date;
         this.anc4Date = anc4Date;
         this.ttBoosterDate = ttBoosterDate;
+        this.caseType = CaseType.MOTHER;
+    }
+
+    public Mother() {
+        this.caseType=CaseType.MOTHER;
     }
 
     public DateTime getTt1Date() {
@@ -122,14 +127,14 @@ public class Mother extends Client {
         this.add = add;
     }
 
-   /* public String getCaseType() {
+    /*public String getCaseType() {
         return caseType;
     }
 
     public void setCaseType(String caseType) {
         this.caseType=caseType;
-    }*/
-
+    }
+*/
     public void setValuesFrom(Mother mother) {
         try{
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();

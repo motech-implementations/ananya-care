@@ -5,8 +5,8 @@ import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.router.action.*;
-import org.motechproject.scheduletracking.api.domain.WindowName;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.domain.WindowName;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

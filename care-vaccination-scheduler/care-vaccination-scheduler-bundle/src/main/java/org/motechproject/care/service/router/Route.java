@@ -1,7 +1,7 @@
 package org.motechproject.care.service.router;
 
 import org.motechproject.care.service.router.action.Action;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 
 public class Route {
     private final Matcher scheduleMatcher;

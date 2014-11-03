@@ -5,8 +5,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.ChildService;
@@ -16,8 +14,10 @@ import org.motechproject.care.service.schedule.DptService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.scheduletracking.api.domain.EnrollmentStatus;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.EnrollmentStatus;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,7 +31,7 @@ public class DptIntegrationTest extends SpringIntegrationTest {
     @Autowired
     private DptService dptService;
     @Autowired
-    private AllChildren allChildren;
+    MdsRepository dbRepository;
     private String dptScheduleName = ChildVaccinationSchedule.DPT.getName();
     private String caseId;
     private ChildService childService;
@@ -41,12 +41,12 @@ public class DptIntegrationTest extends SpringIntegrationTest {
         caseId = CaseUtils.getUniqueCaseId();
         List<VaccinationService> vaccinationServices = Arrays.asList((VaccinationService) dptService);
         VaccinationProcessor childVaccinationProcessor = new VaccinationProcessor(vaccinationServices);
-        childService = new ChildService(allChildren, childVaccinationProcessor);
+        childService = new ChildService(childVaccinationProcessor);
     }
 
     @After
     public void tearDown() {
-        allChildren.removeAll();
+        dbRepository.deleteAll(Child.class);
     }
 
     @Test

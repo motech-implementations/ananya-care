@@ -4,6 +4,7 @@ package org.motechproject.care.domain;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
+import org.motechproject.mcts.care.common.mds.domain.Window;
 
 public class WindowTest {
 

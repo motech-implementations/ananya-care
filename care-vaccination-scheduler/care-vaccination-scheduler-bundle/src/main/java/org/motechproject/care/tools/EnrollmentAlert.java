@@ -1,7 +1,7 @@
 package org.motechproject.care.tools;
 
 import org.motechproject.commons.date.model.Time;
-import org.motechproject.scheduletracking.api.domain.Enrollment;
+import org.motechproject.scheduletracking.domain.Enrollment;
 
 public class EnrollmentAlert {
     private Enrollment enrollment;

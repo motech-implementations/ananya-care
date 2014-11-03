@@ -1,10 +1,10 @@
 package org.motechproject.care.service.schedule;
 
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.domain.Client;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.service.CareCaseTaskService;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

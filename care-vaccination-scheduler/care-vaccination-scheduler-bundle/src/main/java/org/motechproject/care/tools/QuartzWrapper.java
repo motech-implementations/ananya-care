@@ -2,10 +2,10 @@ package org.motechproject.care.tools;
 
 import org.joda.time.LocalDate;
 import org.motechproject.scheduler.factory.MotechSchedulerFactoryBean;
-import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
-import org.motechproject.scheduletracking.api.events.constants.EventDataKeys;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
-import org.motechproject.scheduletracking.api.service.ScheduleTrackingService;
+import org.motechproject.scheduletracking.domain.MilestoneAlert;
+import org.motechproject.scheduletracking.events.constants.EventDataKeys;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
+import org.motechproject.scheduletracking.service.ScheduleTrackingService;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;

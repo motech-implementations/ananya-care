@@ -4,8 +4,6 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.ChildService;
@@ -15,8 +13,10 @@ import org.motechproject.care.service.schedule.OpvBoosterService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.scheduletracking.api.domain.EnrollmentStatus;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.EnrollmentStatus;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,7 +32,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
     @Autowired
     private OpvBoosterService opvBoosterService;
     @Autowired
-    private AllChildren allChilden;
+    MdsRepository dbRepository;
 
     private String caseId;
     private ChildService childService;
@@ -40,7 +40,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        allChilden.removeAll();
+        dbRepository.deleteAll(Child.class);
     }
 
     @Before
@@ -48,7 +48,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
         caseId = CaseUtils.getUniqueCaseId();
         List<VaccinationService> ancServices = Arrays.asList((VaccinationService) opvBoosterService);
         VaccinationProcessor childVaccinationProcessor = new VaccinationProcessor(ancServices);
-        childService = new ChildService(allChilden, childVaccinationProcessor);
+        childService = new ChildService(childVaccinationProcessor);
     }
 
     @Test

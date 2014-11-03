@@ -1,29 +1,31 @@
 package org.motechproject.care.domain;
 
 import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 
 public class MotherTest {
 
     @Test
     public void shouldBeSetToActiveIfAliveAndNoADDIsPresentAndNotClosedByCommcare() {
         Mother mother = new Mother();
-        mother.setAlive(true);
+        mother.setIsAlive(true);
         Assert.assertTrue(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
         Mother mother = new Mother();
-        mother.setAlive(false);
+        mother.setIsAlive(false);
         Assert.assertFalse(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNoADDIsPresent() {
         Mother mother = new Mother();
-        mother.setAlive(true);
+        mother.setIsAlive(true);
         mother.setAdd(new DateTime());
         Assert.assertFalse(mother.isActive());
     }
@@ -31,7 +33,7 @@ public class MotherTest {
     @Test
     public void shouldBeSetToInActiveIfCaseClosedByCommCare() {
         Mother mother = new Mother();
-        mother.setAlive(true);
+        mother.setIsAlive(true);
         mother.setClosedByCommcare(true);
         Assert.assertFalse(mother.isActive());
     }

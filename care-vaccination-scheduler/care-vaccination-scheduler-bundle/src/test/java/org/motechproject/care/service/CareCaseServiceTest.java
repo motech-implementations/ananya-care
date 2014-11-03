@@ -1,6 +1,7 @@
 package org.motechproject.care.service;
 
 import junit.framework.Assert;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
@@ -9,14 +10,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.domain.Mother;
 import org.motechproject.care.request.CareCase;
 import org.motechproject.casexml.service.CaseService;
 import org.motechproject.casexml.service.exception.CaseException;
 import org.motechproject.casexml.parser.CommcareCaseParser;
 import org.motechproject.casexml.exception.CaseParserException;
 import org.motechproject.casexml.builder.ResponseMessageBuilder;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 import org.springframework.http.HttpEntity;
 
 import java.io.File;

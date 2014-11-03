@@ -7,9 +7,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.motechproject.care.domain.Child;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
+import org.motechproject.mcts.care.common.mds.domain.Child;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;

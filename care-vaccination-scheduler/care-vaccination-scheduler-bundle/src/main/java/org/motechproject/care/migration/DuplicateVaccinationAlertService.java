@@ -2,13 +2,12 @@ package org.motechproject.care.migration;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
-import org.motechproject.care.domain.CareCaseTask;
-import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.care.repository.AllChildren;
-import org.motechproject.care.repository.AllMothers;
-import org.motechproject.scheduletracking.api.domain.Enrollment;
-import org.motechproject.scheduletracking.api.repository.AllEnrollments;
-import org.motechproject.scheduletracking.api.service.impl.EnrollmentAlertService;
+import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.Enrollment;
+import org.motechproject.scheduletracking.repository.AllEnrollments;
+import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -16,20 +15,15 @@ import java.util.*;
 public class DuplicateVaccinationAlertService {
 
     Logger logger = Logger.getLogger(DuplicateVaccinationAlertService.class);
-    private AllChildren allChildren;
-    private AllMothers allMothers;
-    private AllCareCaseTasks allCareCaseTasks;
     private AllEnrollments allEnrollments;
     private EnrollmentAlertService enrollmentAlertService;
     private HashMap<String, String> vaccinationScheduleName;
     private List<String> childVaccinations = new ArrayList();
     private List<String> motherVaccinations = new ArrayList();
+    @Autowired
+    private MdsRepository dbRepository;
 
-
-    public DuplicateVaccinationAlertService(AllMothers allMothers, AllCareCaseTasks allCareCaseTasks, AllChildren allChildren, AllEnrollments allEnrollments, EnrollmentAlertService enrollmentAlertService) {
-        this.allCareCaseTasks = allCareCaseTasks;
-        this.allChildren = allChildren;
-        this.allMothers = allMothers;
+    public DuplicateVaccinationAlertService(AllEnrollments allEnrollments, EnrollmentAlertService enrollmentAlertService) {
         this.allEnrollments = allEnrollments;
         this.enrollmentAlertService = enrollmentAlertService;
         populateVaccinationScheduleName();
@@ -101,7 +95,10 @@ public class DuplicateVaccinationAlertService {
 
         for (String vaccination : childVaccinations) {
             logger.info("deleting details for the child case Id for vaccination : " + vaccination);
-            careCaseTasks = allCareCaseTasks.findTasksByClientCaseIdAndMilestoneName(clientCaseID, vaccination);
+            Map paramsMap = new HashMap<String, String>();
+            paramsMap.put("clientCaseID", clientCaseID);
+            paramsMap.put("milestoneName", vaccination);
+            careCaseTasks = (List<CareCaseTask>) dbRepository.get(CareCaseTask.class, paramsMap, null);
             careCaseTasks = sortCareCaseTasksBasedOnCurrentTime(careCaseTasks);
             boolean allTasksOpen = false;
             boolean deleteAllTasks = true;
@@ -120,7 +117,10 @@ public class DuplicateVaccinationAlertService {
         List<CareCaseTask> careCaseTasks;
         for (String vaccination : motherVaccinations) {
             logger.info("deleting details for the mother case Id for vaccination : " + vaccination);
-            careCaseTasks = allCareCaseTasks.findTasksByClientCaseIdAndMilestoneName(clientCaseID, vaccination);
+            Map paramsMap = new HashMap<String, String>();
+            paramsMap.put("clientCaseID", clientCaseID);
+            paramsMap.put("milestoneName", vaccination);
+            careCaseTasks = (List<CareCaseTask>) dbRepository.get(CareCaseTask.class, paramsMap, null);
             careCaseTasks = sortCareCaseTasksBasedOnCurrentTime(careCaseTasks);
             boolean allTasksOpen = false;
             boolean deleteAllTasks = true;
@@ -149,7 +149,7 @@ public class DuplicateVaccinationAlertService {
         List<CareCaseTask> duplicateTasksAllOpen = new ArrayList();
         List<CareCaseTask> careCaseTasksClosed = new ArrayList();
         for (CareCaseTask careCaseTask : careCaseTasks) {
-            if (careCaseTask.getOpen() == true) {
+            if (careCaseTask.getIsOpen() == true) {
                 duplicateTasksAllOpen.add(careCaseTask);
             } else {
                 careCaseTasksClosed.add(careCaseTask);
@@ -178,17 +178,17 @@ public class DuplicateVaccinationAlertService {
                 careCaseTasksForDelete.add(careCaseTasks.get(i));
             }
             logger.info("deleting duplicate care case tasks for the case Id");
-            allCareCaseTasks.deleteDuplicateCareTasksIfOpen(careCaseTasksForDelete);
+            dbRepository.deleteAll(careCaseTasksForDelete);
             unScheduleAlertTasks(clientCaseID, vaccination);
         }
     }
 
     private void unScheduleAlertTasks(String clientCaseID, String vaccination) {
         String scheduleName = vaccinationScheduleName.get(vaccination);
-        Enrollment activeEnrollment = allEnrollments.getActiveEnrollment(clientCaseID, scheduleName);
-        if (activeEnrollment != null) {
+       //TODO mmds Enrollment activeEnrollment = allEnrollments.getActiveEnrollment(clientCaseID, scheduleName);
+       /** if (activeEnrollment != null) {
             logger.info("un schedule all alerts for the  Id  " + activeEnrollment.getId());
             enrollmentAlertService.unscheduleAllAlerts(activeEnrollment);
-        }
+        }*/
     }
 }

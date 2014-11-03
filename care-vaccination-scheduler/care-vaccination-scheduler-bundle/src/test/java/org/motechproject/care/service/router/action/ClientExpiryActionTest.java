@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.service.ChildService;
 import org.motechproject.care.service.MotherService;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;

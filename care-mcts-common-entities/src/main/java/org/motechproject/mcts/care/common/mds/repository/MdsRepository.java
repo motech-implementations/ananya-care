@@ -331,4 +331,41 @@ public class MdsRepository implements
         return list;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> List<T> retrieveAll(Class<T> clazz) {
+        MotechDataService<?> service = mdsServiceFactory
+                .fetchServiceInterface(clazz);
+        final List<T> results = (List<T>) service.retrieveAll();
+        return results;
+    }
+
+    @Override
+    public <T> void deleteAll(List<T> instances) {
+        // TODO Auto-generated method stub
+        if(instances!=null) {
+            for(T instance : instances) {
+                if (instance != null) {
+                    @SuppressWarnings("unchecked")
+                    MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
+                            .fetchServiceInterface(instance.getClass());
+                    if (service == null) {
+                        return;
+                    }
+                    service.delete(instance);
+                }
+            } 
+        }
+    
+    }
+
+    @Override
+    public <T> void deleteAll(Class<T> entityClass) {
+        @SuppressWarnings("unchecked")
+        MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
+                .fetchServiceInterface(entityClass);
+        
+        service.deleteAll();
+    }
+
 }

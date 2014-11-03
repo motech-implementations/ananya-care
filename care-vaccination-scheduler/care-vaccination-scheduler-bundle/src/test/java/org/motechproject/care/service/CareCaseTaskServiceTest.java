@@ -7,12 +7,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.motechproject.care.domain.CareCaseTask;
-import org.motechproject.care.repository.AllCareCaseTasks;
+import org.motechproject.care.service.util.CommcareTask;
 import org.motechproject.casexml.domain.CaseTask;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.commons.date.util.DateUtil;
+import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
+import org.motechproject.mcts.care.common.mds.repository.Repository;
 
+import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.Assert.assertFalse;
@@ -28,23 +30,25 @@ import static org.mockito.Mockito.never;
 public class CareCaseTaskServiceTest {
 
     private CareCaseTaskService careCaseTaskService;
-    @Mock
-    AllCareCaseTasks allCareCaseTasks;
+    
     @Mock
     CommcareCaseGateway commcareCaseGateway;
 
     @Mock
     Properties ananyaCareProperties;
-
+    
+    @Mock
+    Repository dbRepository;
     @Before
     public void setUp(){
-        careCaseTaskService=new CareCaseTaskService(allCareCaseTasks,commcareCaseGateway,ananyaCareProperties);
+        careCaseTaskService=new CareCaseTaskService(commcareCaseGateway,ananyaCareProperties);
     }
 
     @Test
     public void shouldNotCloseACaseIfNoCareTaskExistsForIt(){
         careCaseTaskService.close("clientCaseId", "milestoneName");
-        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class), anyString(), anyString());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway, never()).closeCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
     }
 
     @Test
@@ -52,18 +56,18 @@ public class CareCaseTaskServiceTest {
         String clientCaseId = "clientCaseId";
         String milestoneName = "milestoneName";
         CareCaseTask careCaseTask = mock(CareCaseTask.class);
-        when(careCaseTask.getOpen()).thenReturn(true);
+        when(careCaseTask.getIsOpen()).thenReturn(true);
 
         CaseTask caseTask = new CaseTask();
         String url = "someurl";
 
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(url);
-        when(careCaseTask.toCaseTask()).thenReturn(caseTask);
-        when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        when(CommcareTask.toCaseTask(careCaseTask)).thenReturn(caseTask);
+        when(dbRepository.get(CareCaseTask.class, any(Map.class), null)).thenReturn(careCaseTask);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
-
-        verify(commcareCaseGateway).closeCase(url, caseTask, null, null);
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway).closeCase(url, caseTask, null, null,null);
     }
 
     @Test
@@ -71,13 +75,14 @@ public class CareCaseTaskServiceTest {
         String clientCaseId = "clientCaseId";
         String milestoneName = "milestoneName";
         CareCaseTask careCaseTask = mock(CareCaseTask.class);
-        when(careCaseTask.getOpen()).thenReturn(false);
+        when(careCaseTask.getIsOpen()).thenReturn(false);
 
-        when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        when(dbRepository.get(CareCaseTask.class, any(Map.class), null)).thenReturn(careCaseTask);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
-        verify(allCareCaseTasks,never()).update(Matchers.<CareCaseTask>any());
-        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString());
+        verify(dbRepository,never()).update(Matchers.<CareCaseTask>any());
+      //TODO added null as 5th argument in below method(check what it should be)
+        verify(commcareCaseGateway, never()).closeCase(Matchers.<String>any(), Matchers.<CaseTask>any(), anyString(), anyString(),null);
     }
 
     @Test
@@ -85,17 +90,17 @@ public class CareCaseTaskServiceTest {
         String clientCaseId = "clientCaseId";
         String milestoneName = "milestoneName";
         CareCaseTask careCaseTask = new CareCaseTask();
-        careCaseTask.setOpen(true);
+        careCaseTask.setIsOpen(true);
         String currentTime = DateUtil.now().toString();
         careCaseTask.setCurrentTime(currentTime);
-        when(allCareCaseTasks.findByClientCaseIdAndMilestoneName(clientCaseId, milestoneName)).thenReturn(careCaseTask);
+        when(dbRepository.get(CareCaseTask.class, any(Map.class), null)).thenReturn(careCaseTask);
 
         careCaseTaskService.close(clientCaseId, milestoneName);
         ArgumentCaptor<CareCaseTask> captor = ArgumentCaptor.forClass(CareCaseTask.class);
-        verify(allCareCaseTasks).update(captor.capture());
+        verify(dbRepository).update(captor.capture());
 
         CareCaseTask value = captor.getValue();
-        assertFalse(value.getOpen());
+        assertFalse(value.getIsOpen());
         assertNotSame(currentTime,careCaseTask.getCurrentTime());
     }
 }

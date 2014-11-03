@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.motechproject.scheduletracking.api.domain.Milestone;
-import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.domain.Milestone;
+import org.motechproject.scheduletracking.domain.MilestoneAlert;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 
 import java.util.Properties;
 

@@ -1,7 +1,7 @@
 package org.motechproject.care.service;
 
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllClients;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,13 @@ public class ChildService extends BaseService<Child> {
 
 
     @Autowired
-    public ChildService(AllClients<Child> allChildren, @Qualifier("childVaccinationProcessor") VaccinationProcessor vaccinationProcessor) {
-        super(allChildren, vaccinationProcessor);
+    public ChildService(@Qualifier("childVaccinationProcessor") VaccinationProcessor vaccinationProcessor) {
+        super(vaccinationProcessor);
     }
-
+    @Autowired
+    MdsRepository dbRepository;
     protected void onProcess(Child child) {
-        Child childFromDb = allClients.findByCaseId(child.getCaseId());
+        Child childFromDb = dbRepository.get(Child.class, "caseId", child.getCaseId());
 
         if(childFromDb == null)
             processNew(child);
@@ -25,7 +26,7 @@ public class ChildService extends BaseService<Child> {
     }
 
     private void processNew(Child child) {
-        allClients.add(child);
+        dbRepository.save(child);
         if(child.shouldEnrollForSchedules()) {
             vaccinationProcessor.enrollUpdateVaccines(child);
         }
@@ -33,7 +34,7 @@ public class ChildService extends BaseService<Child> {
 
     private void processExisting(Child childFromDb, Child child) {
         childFromDb.setValuesFrom(child);
-        allClients.update(childFromDb);
+        dbRepository.update(childFromDb);
 
         if(childFromDb.isActive()) {
             vaccinationProcessor.enrollUpdateVaccines(childFromDb);

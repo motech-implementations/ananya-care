@@ -1,15 +1,16 @@
 package org.motechproject.care.service;
 
-import org.motechproject.care.domain.Client;
-import org.motechproject.care.repository.AllClients;
+
+import org.motechproject.mcts.care.common.mds.domain.Client;
+import org.motechproject.mcts.care.common.mds.repository.Repository;
 
 public abstract class BaseService<T extends Client> {
+	
+	private Repository dbRepository;
     protected final VaccinationProcessor vaccinationProcessor;
-    protected final AllClients<T> allClients;
 
-    public BaseService(AllClients<T> allClients, VaccinationProcessor vaccinationProcessor) {
+    public BaseService(VaccinationProcessor vaccinationProcessor) {
         this.vaccinationProcessor = vaccinationProcessor;
-        this.allClients = allClients;
     }
 
     public void process(T client) {
@@ -23,12 +24,12 @@ public abstract class BaseService<T extends Client> {
 
     public boolean closeCase(String caseId) {
         synchronized (getLockName(caseId)) {
-            T client = allClients.findByCaseId(caseId);
+            T client = (T) dbRepository.get(Client.class,"caseId",caseId);
             if(client == null)
                 return false;
 
             client.setClosedByCommcare(true);
-            allClients.update(client);
+            dbRepository.update(client);
             vaccinationProcessor.closeSchedules(client);
             return true;
         }
@@ -36,11 +37,11 @@ public abstract class BaseService<T extends Client> {
 
     public boolean expireCase(String caseId) {
         synchronized (getLockName(caseId)) {
-            T client = allClients.findByCaseId(caseId);
+            T client = (T) dbRepository.get(Client.class,"caseId",caseId);
             if(client == null)
                 return false;
             client.setExpired(true);
-            allClients.update(client);
+            dbRepository.update(client);
             return true;
         }
     }

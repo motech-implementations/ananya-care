@@ -2,7 +2,7 @@ package org.motechproject.care.service.builder;
 
 
 import org.joda.time.DateTime;
-import org.motechproject.care.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Child;
 
 public class ChildBuilder {
 
@@ -44,7 +44,7 @@ public class ChildBuilder {
         child.setCaseId(caseId);
         child.setGroupId(groupId);
         child.setDOB(dob);
-        child.setAlive(isAlive);
+        child.setIsAlive(isAlive);
         child.setMotherCaseId(motherCaseId);
         child.setDateModified(dateModified);
 

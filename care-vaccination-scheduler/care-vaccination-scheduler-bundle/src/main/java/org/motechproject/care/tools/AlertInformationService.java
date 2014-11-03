@@ -2,11 +2,11 @@ package org.motechproject.care.tools;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.io.IOUtils;
-import org.motechproject.care.domain.CareCaseTask;
-import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.scheduletracking.api.domain.Enrollment;
-import org.motechproject.scheduletracking.api.repository.AllEnrollments;
-import org.motechproject.scheduletracking.api.service.impl.EnrollmentAlertService;
+import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.Enrollment;
+import org.motechproject.scheduletracking.repository.AllEnrollments;
+import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/diagnostics/**")
@@ -26,14 +29,13 @@ public class AlertInformationService {
 
     private EnrollmentAlertService enrollmentAlertService;
     private AllEnrollments allEnrollments;
-    private AllCareCaseTasks allCareCaseTasks;
     private QuartzWrapper quartzWrapper;
-
     @Autowired
-    public AlertInformationService(EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments, AllCareCaseTasks allCareCaseTasks, QuartzWrapper quartzWrapper) throws IOException {
+    MdsRepository dbRepository;
+    @Autowired
+    public AlertInformationService(EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments, QuartzWrapper quartzWrapper) throws IOException {
         this.enrollmentAlertService = enrollmentAlertService;
         this.allEnrollments = allEnrollments;
-        this.allCareCaseTasks = allCareCaseTasks;
         this.quartzWrapper = quartzWrapper;
 
 
@@ -64,7 +66,10 @@ public class AlertInformationService {
 
     private EnrollmentAlert getEnrollmentAlert(String externalId, Enrollment enrollment) throws SchedulerException, IOException {
         String nextAlertDetails;
-        CareCaseTask careCaseTask = allCareCaseTasks.findByClientCaseIdAndMilestoneName(externalId, enrollment.getCurrentMilestoneName());
+        Map careFieldMap = new HashMap<String, String>();
+        careFieldMap.put("clientCaseId", externalId);
+        careFieldMap.put("milestoneName", enrollment.getCurrentMilestoneName());
+        CareCaseTask careCaseTask = dbRepository.get(CareCaseTask.class, careFieldMap, null);
         if (careCaseTask != null)
             nextAlertDetails = "An alert for this milestone has already been raised.";
 

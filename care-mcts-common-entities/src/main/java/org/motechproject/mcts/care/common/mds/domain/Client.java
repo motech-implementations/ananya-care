@@ -14,12 +14,15 @@ public class Client implements java.io.Serializable {
     protected String flwId;
     protected String name;
     protected String groupId;
-    private String caseType;
+    protected String caseType;
     private DateTime docCreateTime;
     private Boolean closedByCommcare;
     private Boolean expired;
     protected Boolean isAlive;
     
+    public Client() {
+        
+    }
     public Client(Boolean isAlive) {
         this.isAlive = isAlive;
     }

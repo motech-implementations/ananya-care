@@ -2,8 +2,8 @@ package org.motechproject.care.service.mapper;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
-import org.motechproject.care.domain.Mother;
 import org.motechproject.care.request.CareCase;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 
 public class MotherMapper {
 

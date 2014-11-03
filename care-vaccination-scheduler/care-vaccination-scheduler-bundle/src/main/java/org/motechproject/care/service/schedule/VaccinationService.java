@@ -1,11 +1,11 @@
 package org.motechproject.care.service.schedule;
 
 import org.joda.time.DateTime;
-import org.motechproject.care.domain.Client;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
+import org.motechproject.mcts.care.common.mds.domain.Client;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
 
 public abstract class VaccinationService {
 

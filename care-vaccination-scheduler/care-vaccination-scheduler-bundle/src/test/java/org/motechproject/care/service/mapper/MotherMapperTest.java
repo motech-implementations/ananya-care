@@ -1,11 +1,12 @@
 package org.motechproject.care.service.mapper;
 
 import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.care.domain.Mother;
 import org.motechproject.care.request.CareCase;
 import org.motechproject.care.service.builder.MotherCareCaseBuilder;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 
 import static junit.framework.Assert.*;
 
@@ -62,19 +63,19 @@ public class MotherMapperTest {
     @Test
     public void shouldInferMotherAliveCorrectly(){
         Mother mother = MotherMapper.map(new MotherCareCaseBuilder().withMotherAlive("").build());
-        assertTrue(mother.isAlive());
+        assertTrue(mother.getIsAlive());
 
         mother = MotherMapper.map(new MotherCareCaseBuilder().withMotherAlive(null).build());
-        assertTrue(mother.isAlive());
+        assertTrue(mother.getIsAlive());
 
         mother = MotherMapper.map(new MotherCareCaseBuilder().withMotherAlive("yes").build());
-        assertTrue(mother.isAlive());
+        assertTrue(mother.getIsAlive());
 
         mother = MotherMapper.map(new MotherCareCaseBuilder().withMotherAlive("random").build());
-        assertTrue(mother.isAlive());
+        assertTrue(mother.getIsAlive());
 
         mother = MotherMapper.map(new MotherCareCaseBuilder().withMotherAlive("no").build());
-        assertFalse(mother.isAlive());
+        assertFalse(mother.getIsAlive());
     }
 
     @Test

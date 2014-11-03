@@ -2,7 +2,7 @@ package org.motechproject.care.service.router.action;
 
 import org.motechproject.care.service.ChildService;
 import org.motechproject.care.service.MotherService;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

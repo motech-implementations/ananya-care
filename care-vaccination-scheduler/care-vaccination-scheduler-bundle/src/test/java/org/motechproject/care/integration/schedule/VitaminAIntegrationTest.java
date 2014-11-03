@@ -4,9 +4,6 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllChildren;
-import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.ChildService;
@@ -16,9 +13,12 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.schedule.VitaService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.scheduletracking.api.domain.EnrollmentStatus;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
-import org.motechproject.scheduletracking.api.service.EnrollmentsQuery;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.EnrollmentStatus;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
+import org.motechproject.scheduletracking.service.EnrollmentsQuery;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,17 +33,15 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
     @Autowired
     private VitaService vitaService;
     @Autowired
-    private AllChildren allChildren;
-    @Autowired
-    private AllMothers allMothers;
+    MdsRepository dbRepository;
 
     private String caseId;
     private ChildService childService;
 
     @After
     public void tearDown() {
-        allChildren.removeAll();
-        allMothers.removeAll();
+        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(Child.class);
     }
 
     @Before
@@ -51,7 +49,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         caseId = CaseUtils.getUniqueCaseId();
         List<VaccinationService> vaccinationServices = Arrays.asList((VaccinationService) vitaService);
         VaccinationProcessor childVaccinationProcessor = new VaccinationProcessor(vaccinationServices);
-        childService = new ChildService(allChildren, childVaccinationProcessor);
+        childService = new ChildService(childVaccinationProcessor);
     }
 
     @Test
@@ -75,8 +73,8 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         assertEquals(dob, enrollment.getReferenceDateTime().withTimeAtStartOfDay());
         assertEquals(dob.plusMonths(9), enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
         assertEquals(dob.plusMonths(24), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
-
-        Child childFromDb = allChildren.findByCaseId(caseId);
+        
+        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDOB());
         assertNull(childFromDb.getVitamin1Date());
     }
@@ -95,7 +93,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
 
         assertNull(trackingService.getEnrollment(caseId, vitaScheduleName));
 
-        Child childFromDb = allChildren.findByCaseId(caseId);
+        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDOB());
         assertEquals(vitaTaken, childFromDb.getVitamin1Date());
     }

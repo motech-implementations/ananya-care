@@ -3,10 +3,10 @@ package org.motechproject.mcts.care.common.mds.domain;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 import org.motechproject.commons.date.util.DateUtil;
+import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
-import org.motechproject.mcts.care.common.mds.domain.Client;
 
 @Entity(name = "Child")
 public class Child extends Client {
@@ -31,7 +31,47 @@ public class Child extends Client {
     private DateTime opv3Date;
     private DateTime opvBoosterDate;
     private String motherCaseId;
-//    private String caseType = CaseType.Child.getType();
+    
+    
+    public Child(String caseId, DateTime dateModified, String flwId,
+            String name, String groupId, DateTime DOB, DateTime measlesDate,
+            DateTime bcgDate, DateTime vitamin1Date, String motherCaseId,
+            DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
+            DateTime hep3Date, DateTime dpt1Date, DateTime dpt2Date,
+            DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date,
+            DateTime opv1Date, DateTime opv2Date, DateTime opv3Date,
+            DateTime opvBoosterDate, Boolean isAlive) {
+        super(isAlive);
+        this.motherCaseId = motherCaseId;
+        this.caseId = caseId;
+        this.dateModified = dateModified;
+        this.flwId = flwId;
+        this.name = name;
+        this.groupId = groupId;
+        this.DOB = DOB;
+        this.measlesDate = measlesDate;
+        this.bcgDate = bcgDate;
+        this.vitamin1Date = vitamin1Date;
+        this.hep0Date = hep0Date;
+        this.hep1Date = hep1Date;
+        this.hep2Date = hep2Date;
+        this.hep3Date = hep3Date;
+        this.dpt1Date = dpt1Date;
+        this.dpt2Date = dpt2Date;
+        this.dpt3Date = dpt3Date;
+        this.dptBoosterDate = dptBoosterDate;
+        this.opv0Date = opv0Date;
+        this.opv1Date = opv1Date;
+        this.opv2Date = opv2Date;
+        this.opv3Date = opv3Date;
+        this.opvBoosterDate = opvBoosterDate;
+        this.caseType = CaseType.CHILD;
+    }
+
+    public Child() {
+        this.caseType = CaseType.CHILD;
+    }
+
 
     @Field
     public DateTime getHep0Date() {
@@ -159,7 +199,7 @@ public class Child extends Client {
         this.motherCaseId = motherCaseId;
     }
 
-   /* @Field
+    /*@Field
     public String getCaseType() {
         return caseType;
     }
@@ -204,40 +244,7 @@ public class Child extends Client {
         this.vitamin1Date = vitamin1Date;
     }
 
-    public Child(String caseId, DateTime dateModified, String flwId,
-            String name, String groupId, DateTime DOB, DateTime measlesDate,
-            DateTime bcgDate, DateTime vitamin1Date, String motherCaseId,
-            DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
-            DateTime hep3Date, DateTime dpt1Date, DateTime dpt2Date,
-            DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date,
-            DateTime opv1Date, DateTime opv2Date, DateTime opv3Date,
-            DateTime opvBoosterDate, Boolean isAlive) {
-        super(isAlive);
-        this.motherCaseId = motherCaseId;
-        this.caseId = caseId;
-        this.dateModified = dateModified;
-        this.flwId = flwId;
-        this.name = name;
-        this.groupId = groupId;
-        this.DOB = DOB;
-        this.measlesDate = measlesDate;
-        this.bcgDate = bcgDate;
-        this.vitamin1Date = vitamin1Date;
-        this.hep0Date = hep0Date;
-        this.hep1Date = hep1Date;
-        this.hep2Date = hep2Date;
-        this.hep3Date = hep3Date;
-        this.dpt1Date = dpt1Date;
-        this.dpt2Date = dpt2Date;
-        this.dpt3Date = dpt3Date;
-        this.dptBoosterDate = dptBoosterDate;
-        this.opv0Date = opv0Date;
-        this.opv1Date = opv1Date;
-        this.opv2Date = opv2Date;
-        this.opv3Date = opv3Date;
-        this.opvBoosterDate = opvBoosterDate;
-    }
-
+   
     public void setValuesFrom(Child child) {
         try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();

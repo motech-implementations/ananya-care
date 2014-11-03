@@ -5,11 +5,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.motechproject.care.domain.Child;
 import org.motechproject.care.service.schedule.BcgService;
 import org.motechproject.care.service.schedule.MeaslesService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.schedule.VitaService;
+import org.motechproject.mcts.care.common.mds.domain.Child;
 
 import java.util.Arrays;
 

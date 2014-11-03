@@ -2,7 +2,7 @@ package org.motechproject.care.service.builder;
 
 
 import org.joda.time.DateTime;
-import org.motechproject.care.domain.Mother;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 
 public class MotherBuilder {
 
@@ -35,7 +35,7 @@ public class MotherBuilder {
         mother.setDateModified(dateModified);
         mother.setAdd(add);
         mother.setEdd(edd);
-        mother.setAlive(isAlive);
+        mother.setIsAlive(isAlive);
 
         mother.setAnc1Date(anc1Date);
         mother.setAnc2Date(anc2Date);

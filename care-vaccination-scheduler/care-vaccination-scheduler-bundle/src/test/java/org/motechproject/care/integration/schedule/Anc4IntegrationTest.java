@@ -4,8 +4,6 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.domain.Mother;
-import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.MotherService;
@@ -16,8 +14,10 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.scheduletracking.api.domain.EnrollmentStatus;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.EnrollmentStatus;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,23 +32,23 @@ public class Anc4IntegrationTest extends SpringIntegrationTest {
 
     @Autowired
     private Anc4Service anc4Service;
-    @Autowired
-    private AllMothers allMothers;
-
+    @Autowired 
+    MdsRepository dbRepository;
+    
     private final String caseId = CaseUtils.getUniqueCaseId();
     private MotherService motherService;
     private String scheduleName = MotherVaccinationSchedule.Anc4.getName();
 
     @After
     public void tearDown() {
-        allMothers.removeAll();
+        dbRepository.deleteAll(Mother.class);
     }
 
     @Before
     public void setUp(){
         List<VaccinationService> ancServices = Arrays.asList((VaccinationService) anc4Service);
         VaccinationProcessor motherVaccinationProcessor = new VaccinationProcessor(ancServices);
-        motherService = new MotherService(allMothers, motherVaccinationProcessor);
+        motherService = new MotherService(motherVaccinationProcessor);
     }
 
     @Test

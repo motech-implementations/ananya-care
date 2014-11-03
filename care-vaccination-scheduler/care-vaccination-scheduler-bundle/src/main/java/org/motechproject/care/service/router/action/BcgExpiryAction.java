@@ -1,9 +1,9 @@
 package org.motechproject.care.service.router.action;
 
-import org.motechproject.care.domain.Child;
-import org.motechproject.care.repository.AllChildren;
 import org.motechproject.care.service.schedule.BcgService;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
+import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,18 +11,17 @@ import org.springframework.stereotype.Component;
 public class BcgExpiryAction implements Action {
 
     private BcgService bcgService;
-    private AllChildren allChildren;
-
     @Autowired
-    public BcgExpiryAction(BcgService bcgService, AllChildren allChildren) {
+    MdsRepository dbRepository;
+    @Autowired
+    public BcgExpiryAction(BcgService bcgService) {
         this.bcgService = bcgService;
-        this.allChildren = allChildren;
     }
 
     @Override
     public void invoke(MilestoneEvent event) {
         String externalId = event.getExternalId();
-        Child child = allChildren.findByCaseId(externalId);
+        Child child = dbRepository.get(Child.class, "caseId", externalId);
         bcgService.close(child);
     }
 }

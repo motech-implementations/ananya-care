@@ -1,7 +1,8 @@
 package org.motechproject.care.service;
 
-import org.motechproject.care.domain.Client;
+
 import org.motechproject.care.service.schedule.VaccinationService;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import java.util.List;
 

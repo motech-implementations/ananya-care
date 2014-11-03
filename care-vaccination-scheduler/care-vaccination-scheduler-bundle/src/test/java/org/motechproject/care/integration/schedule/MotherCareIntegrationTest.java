@@ -4,8 +4,6 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.motechproject.care.domain.Mother;
-import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.service.MotherService;
@@ -16,10 +14,12 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.scheduletracking.api.domain.EnrollmentStatus;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
-import org.motechproject.scheduletracking.api.service.EnrollmentsQuery;
-import org.motechproject.scheduletracking.api.service.ScheduleTrackingService;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.scheduletracking.domain.EnrollmentStatus;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
+import org.motechproject.scheduletracking.service.EnrollmentsQuery;
+import org.motechproject.scheduletracking.service.ScheduleTrackingService;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,14 +36,13 @@ public class MotherCareIntegrationTest extends SpringIntegrationTest {
     @Autowired
     private ScheduleTrackingService scheduleTrackingService;
     @Autowired
-
-    private AllMothers allMothers;
+    MdsRepository dbRepository;
     private String caseId;
     private MotherService motherService;
 
     @After
     public void tearDown() {
-        allMothers.removeAll();
+        dbRepository.deleteAll(Mother.class);
     }
 
     @Before
@@ -51,7 +50,7 @@ public class MotherCareIntegrationTest extends SpringIntegrationTest {
         caseId = CaseUtils.getUniqueCaseId();
         List<VaccinationService> ttServices = Arrays.asList((VaccinationService) motherCareService);
         VaccinationProcessor motherVaccinationProcessor = new VaccinationProcessor(ttServices);
-        motherService = new MotherService(allMothers, motherVaccinationProcessor);
+        motherService = new MotherService(motherVaccinationProcessor);
     }
 
     @Test

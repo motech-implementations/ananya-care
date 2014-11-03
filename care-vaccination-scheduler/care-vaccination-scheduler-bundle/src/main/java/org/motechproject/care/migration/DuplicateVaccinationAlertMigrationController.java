@@ -5,13 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.motechproject.care.repository.AllCareCaseTasks;
-import org.motechproject.care.repository.AllChildren;
-import org.motechproject.care.repository.AllMothers;
 import org.motechproject.care.schedule.service.ScheduleService;
-import org.motechproject.scheduler.MotechSchedulerService;
-import org.motechproject.scheduletracking.api.repository.AllEnrollments;
-import org.motechproject.scheduletracking.api.service.impl.EnrollmentAlertService;
+import org.motechproject.scheduler.service.MotechSchedulerService;
+import org.motechproject.scheduletracking.repository.AllEnrollments;
+import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/migrate")
 
 public class DuplicateVaccinationAlertMigrationController {
-    private AllCareCaseTasks allCareCaseTasks;
-    private AllMothers allMothers;
-    private AllChildren allChildren;
+    
     private ScheduleService scheduleService;
     private EnrollmentAlertService enrollmentAlertService;
     private AllEnrollments allEnrollments;
@@ -36,18 +31,15 @@ public class DuplicateVaccinationAlertMigrationController {
     private CloseOldTasks closeOldTasks;
 
     @Autowired
-    public DuplicateVaccinationAlertMigrationController(AllCareCaseTasks allCareCaseTasks, ScheduleService scheduleService, AllMothers allMothers, AllChildren allChildren, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
-        this.allCareCaseTasks = allCareCaseTasks;
+    public DuplicateVaccinationAlertMigrationController(ScheduleService scheduleService, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
         this.scheduleService = scheduleService;
-        this.allMothers = allMothers;
-        this.allChildren = allChildren;
         this.enrollmentAlertService = enrollmentAlertService;
         this.allEnrollments = allEnrollments;
     }
 
     @RequestMapping(value = "/deleteDuplicateVaccinations/{fileName}", method = RequestMethod.GET)
     public void deleteDuplicateVaccinationAlerts(@PathVariable String fileName) {
-        DuplicateVaccinationAlertMigration duplicateVaccinationAlertMigration = new DuplicateVaccinationAlertMigration(allCareCaseTasks, scheduleService, allMothers, allChildren, enrollmentAlertService, allEnrollments);
+        DuplicateVaccinationAlertMigration duplicateVaccinationAlertMigration = new DuplicateVaccinationAlertMigration(scheduleService,enrollmentAlertService, allEnrollments);
         logger.info("Starting to load Case Ids from CSV...");
         duplicateVaccinationAlertMigration.loadCaseIdsFromCSVAndDeleteDuplicateTasks(fileName);
     }

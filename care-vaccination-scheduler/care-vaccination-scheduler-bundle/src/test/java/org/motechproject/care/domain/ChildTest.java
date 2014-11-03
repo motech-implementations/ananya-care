@@ -1,22 +1,24 @@
 package org.motechproject.care.domain;
 
 import junit.framework.Assert;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.motechproject.mcts.care.common.mds.domain.Child;
 
 public class ChildTest {
 
     @Test
     public void shouldBeSetToIsActiveByDefault() {
         Child child = new Child();
-        child.setAlive(true);
+        child.setIsAlive(true);
         Assert.assertTrue(child.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
         Child child = new Child();
-        child.setAlive(false);
+        child.setIsAlive(false);
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
     }
@@ -24,7 +26,7 @@ public class ChildTest {
     @Test
     public void shouldBeInactiveIfClosedByCommcare() {
         Child child = new Child();
-        child.setAlive(true);
+        child.setIsAlive(true);
         child.setClosedByCommcare(true);
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
@@ -52,7 +54,7 @@ public class ChildTest {
     public void shouldSetEnrollForSchedulesToTrueIfChildIsNotOlderThanAYearAndIsActive(){
         Child child = new Child();
         child.setDOB(DateTime.now());
-        child.setAlive(true);
+        child.setIsAlive(true);
         Assert.assertTrue(child.shouldEnrollForSchedules());
     }
 }

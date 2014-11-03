@@ -1,20 +1,23 @@
 package org.motechproject.care.service;
 
-import org.motechproject.care.domain.Mother;
-import org.motechproject.care.repository.AllClients;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MotherService extends BaseService<Mother> {
+    
     @Autowired
-    public MotherService(AllClients<Mother> allMothers, @Qualifier("motherVaccinationProcessor") VaccinationProcessor vaccinationProcessor) {
-        super(allMothers, vaccinationProcessor);
+    MdsRepository dbRepository;
+    @Autowired
+    public MotherService(@Qualifier("motherVaccinationProcessor") VaccinationProcessor vaccinationProcessor) {
+        super(vaccinationProcessor);
     }
 
     protected void onProcess(Mother mother) {
-        Mother motherFromDb = allClients.findByCaseId(mother.getCaseId());
+        Mother motherFromDb = dbRepository.get(Mother.class, "caseId",  mother.getCaseId());
 
         if(motherFromDb == null)
             processNew(mother);
@@ -23,14 +26,14 @@ public class MotherService extends BaseService<Mother> {
     }
 
     private void processNew(Mother mother) {
-        allClients.add(mother);
+        dbRepository.save(mother);
         if(mother.isActive())
             vaccinationProcessor.enrollUpdateVaccines(mother);
     }
 
     private void processExisting(Mother motherFromDb, Mother mother) {
         motherFromDb.setValuesFrom(mother);
-        allClients.update(motherFromDb);
+        dbRepository.update(mother);
 
         if(motherFromDb.isActive())
             vaccinationProcessor.enrollUpdateVaccines(motherFromDb);

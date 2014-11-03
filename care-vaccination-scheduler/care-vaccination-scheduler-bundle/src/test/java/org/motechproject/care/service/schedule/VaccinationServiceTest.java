@@ -6,12 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.motechproject.care.domain.Client;
-import org.motechproject.care.domain.Mother;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.scheduletracking.api.service.EnrollmentRecord;
+import org.motechproject.mcts.care.common.mds.domain.Client;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.scheduletracking.service.EnrollmentRecord;
 
 import static org.mockito.Mockito.*;
 

@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>org.motechproject</groupId>
-            <artifactId>motech-scheduletracking-api</artifactId>
+            <artifactId>schedule-tracking</artifactId>
             <version>${motech.version}</version>
         </dependency>
         <dependency>

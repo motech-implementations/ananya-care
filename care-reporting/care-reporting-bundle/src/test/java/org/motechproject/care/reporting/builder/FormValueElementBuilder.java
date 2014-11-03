@@ -12,7 +12,7 @@ public class FormValueElementBuilder {
 
     private FormValueElement element = new FormValueElement();
     private Map<String, String> attributes = new HashMap<>();
-    private Multimap<String, FormValueElement> subElements = HashMultimap.create();
+    private Multimap<String, FormValueElement> subElements = (Multimap<String, FormValueElement>) new HashMap();
     private String elementName = "form";
 
     public FormValueElementBuilder withName(String elementName) {

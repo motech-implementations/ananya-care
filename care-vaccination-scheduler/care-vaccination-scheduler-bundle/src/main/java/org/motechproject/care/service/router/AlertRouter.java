@@ -2,9 +2,9 @@ package org.motechproject.care.service.router;
 
 import org.apache.log4j.Logger;
 import org.motechproject.event.MotechEvent;
-import org.motechproject.scheduletracking.api.domain.MilestoneAlert;
-import org.motechproject.scheduletracking.api.events.MilestoneEvent;
-import org.motechproject.scheduletracking.api.events.constants.EventSubjects;
+import org.motechproject.scheduletracking.domain.MilestoneAlert;
+import org.motechproject.scheduletracking.events.MilestoneEvent;
+import org.motechproject.scheduletracking.events.constants.EventSubjects;
 import org.motechproject.event.listener.annotations.MotechListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
