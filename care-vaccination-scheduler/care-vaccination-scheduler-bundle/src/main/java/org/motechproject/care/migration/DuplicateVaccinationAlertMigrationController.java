@@ -31,10 +31,11 @@ public class DuplicateVaccinationAlertMigrationController {
     private CloseOldTasks closeOldTasks;
 
     @Autowired
-    public DuplicateVaccinationAlertMigrationController(ScheduleService scheduleService, EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments) {
+    public DuplicateVaccinationAlertMigrationController(ScheduleService scheduleService
+             /*AllEnrollments allEnrollments*/) {
         this.scheduleService = scheduleService;
-        this.enrollmentAlertService = enrollmentAlertService;
-        this.allEnrollments = allEnrollments;
+        this.enrollmentAlertService = null;
+        this.allEnrollments = null;
     }
 
     @RequestMapping(value = "/deleteDuplicateVaccinations/{fileName}", method = RequestMethod.GET)

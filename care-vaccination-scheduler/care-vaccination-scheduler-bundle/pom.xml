@@ -65,6 +65,7 @@
 			<groupId>org.apache.servicemix.bundles</groupId>
 			<artifactId>org.apache.servicemix.bundles.stringtemplate</artifactId>
 			<version>3.2_1</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -99,7 +100,7 @@
 			<groupId>org.junit</groupId>
 			<artifactId>org.motechproject.org.junit</artifactId>
 			<version>4.9.0</version>
-			<scope>test</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -151,6 +152,7 @@
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.7</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -169,6 +171,7 @@
 			<groupId>org.antlr</groupId>
 			<artifactId>com.springsource.antlr</artifactId>
 			<version>2.7.7</version>
+			<scope>runtime</scope>
 
 		</dependency>
 
@@ -216,7 +219,7 @@
 						<Import-Package>
 							org.motechproject.server.config;version=${motech.version},
 							org.motechproject.server.config.service;version=${motech.version},
-							org.motechproject.commons.couchdb.service;version=${motech.version},
+							<!-- org.motechproject.commons.couchdb.service;version=${motech.version},-->
 							org.motechproject.event.listener;version=${motech.version},
 							org.motechproject.event.listener.annotations;version=${motech.version},
 							org.motechproject.event.*;version=${motech.version},
@@ -235,6 +238,8 @@
 							org.postgresql,
 							org.antlr.stringtemplate.*,
 							!junit.framework,
+							org.motechproject.scheduletracking.repository.dataservices,
+							
 							*
 						</Import-Package>
 						<Export-Package>
@@ -243,16 +248,16 @@
 						</Export-Package>
 						<Embed-Dependency>
 							care-vaccination-scheduler-scheduling;inline=true,
-							motech-http-agent-bundle;inline=true,
+							<!-- motech-http-agent-bundle;inline=true,
 							spring-aspects;inline=true,
-							org.apache.servicemix.bundles.stringtemplate;inline=true,
-							schedule-tracking;inline=true,
-							motech-scheduler;inline=true,
-							motech-platform-commons-couchdb;inline=true,
+							org.apache.servicemix.bundles.stringtemplate;inline=true,-->
+							<!--schedule-tracking;inline=true,
+							 motech-scheduler;inline=true,
+							motech-platform-commons-couchdb;inline=true,-->
 							commcare-case-gateway;inline=true,
 							case-service;inline=true,
 							motech-http-client;inline=true,
-							motech-platform-event;inline=true
+							<!-- motech-platform-event;inline=true-->
 						</Embed-Dependency>
 					</instructions>
 				</configuration>
@@ -368,6 +373,7 @@
 						<configuration>
 							<excludeArtifactIds>*</excludeArtifactIds>
 							<includeArtifactIds>
+								org.apache.servicemix.bundles.stringtemplate,
 								com.springsource.net.sf.ehcache,
 								com.springsource.org.codehaus.btm,
 								com.springsource.org.apache.commons.codec,
@@ -376,9 +382,11 @@
 								xstream,
 								com.springsource.org.objectweb.asm,
 								org.apache.servicemix.bundles.xmlpull,
-								org.apache.servicemix.bundles.xpp3
+								org.apache.servicemix.bundles.xpp3,
+								org.motechproject.org.junit,
 							</includeArtifactIds>
 							<includeScope>runtime</includeScope>
+							<includeScope>compile</includeScope>
 							<overWriteIfNewer>true</overWriteIfNewer>
 							<outputDirectory>
 								${user.home}/.motech/bundles

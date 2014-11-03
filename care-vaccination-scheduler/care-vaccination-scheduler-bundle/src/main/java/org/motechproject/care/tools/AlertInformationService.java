@@ -6,6 +6,7 @@ import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.Enrollment;
 import org.motechproject.scheduletracking.repository.AllEnrollments;
+import org.motechproject.scheduletracking.repository.dataservices.EnrollmentDataService;
 import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,17 @@ import java.util.Map;
 @RequestMapping("/diagnostics/**")
 public class AlertInformationService {
 
-    private EnrollmentAlertService enrollmentAlertService;
-    private AllEnrollments allEnrollments;
+    //private EnrollmentAlertService enrollmentAlertService;
+    private EnrollmentDataService enrollmentDataService;
     private QuartzWrapper quartzWrapper;
     @Autowired
     MdsRepository dbRepository;
     @Autowired
-    public AlertInformationService(EnrollmentAlertService enrollmentAlertService, AllEnrollments allEnrollments, QuartzWrapper quartzWrapper) throws IOException {
-        this.enrollmentAlertService = enrollmentAlertService;
-        this.allEnrollments = allEnrollments;
+    public AlertInformationService(//EnrollmentAlertService enrollmentAlertService,
+            EnrollmentDataService enrollmentDataService,
+            QuartzWrapper quartzWrapper) throws IOException {
+        //this.enrollmentAlertService = enrollmentAlertService;
+        this.enrollmentDataService = enrollmentDataService;
         this.quartzWrapper = quartzWrapper;
 
 
@@ -45,7 +48,7 @@ public class AlertInformationService {
     public void captureAlertsFor(@RequestParam("externalId") String externalId, HttpServletResponse response) throws IOException, SchedulerException {
         StringTemplate stringTemplate = getTemplate();
 
-        List<Enrollment> enrollments = allEnrollments.findByExternalId(externalId);
+        List<Enrollment> enrollments = enrollmentDataService.findByExternalId(externalId);
         List<EnrollmentAlert> enrollmentAlerts = new ArrayList<EnrollmentAlert>();
         for (Enrollment enrollment : enrollments)
             enrollmentAlerts.add(getEnrollmentAlert(externalId, enrollment));

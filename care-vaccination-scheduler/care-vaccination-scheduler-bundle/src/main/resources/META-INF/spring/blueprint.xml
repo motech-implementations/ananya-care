@@ -32,6 +32,19 @@
                     interface="org.motechproject.commons.couchdb.service.CouchDbManager" />
                     
     <osgi:reference id="dbRepository" 
-		interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"/>
+					interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"/>
 
+	<osgi:reference id="httpAgentServiceOsgi"
+                  interface="org.motechproject.http.agent.service.HttpAgent" />
+                  
+    <osgi:reference id="EnrollmentServiceOSGi" 
+   				  interface="org.motechproject.scheduletracking.repository.dataservices.EnrollmentDataService" />
+    
+    <osgi:reference id="scheduleTrackingServiceOsgi"
+                  interface="org.motechproject.scheduletracking.service.ScheduleTrackingService"/>
+
+    <osgi:reference id="enrollmentActionServiceOsgi"
+                  interface="org.motechproject.scheduletracking.service.EnrollmentActionService"/>
+                  
+    <osgi:reference id="ScheduleServiceOSGi" interface="org.motechproject.scheduletracking.repository.dataservices.ScheduleDataService" />
 </beans>

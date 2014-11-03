@@ -7,13 +7,7 @@ import org.motechproject.mds.annotations.Field;
 public class CareCaseTask implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
-<<<<<<< a9c894c53ce6271d571c38ce3ab68a220a5469b4
-
-   // private String caseType = CaseType.Task.getType();
-=======
-    //private String caseType = "task";
     private String caseType;
->>>>>>> 20b7a13e69996b295440a76ee1b765b976dd4332
 
     private String milestoneName;
 
@@ -42,24 +36,6 @@ public class CareCaseTask implements java.io.Serializable {
     private String caseId;
 
     private Boolean isOpen = true;
-
-<<<<<<< a9c894c53ce6271d571c38ce3ab68a220a5469b4
-   /* @Field
-=======
-    @Field(defaultValue=CaseType.TASK)
->>>>>>> 20b7a13e69996b295440a76ee1b765b976dd4332
-    public String getCaseType() {
-        return caseType;
-    }
-
-    public void setCaseType(String caseType) {
-<<<<<<< a9c894c53ce6271d571c38ce3ab68a220a5469b4
-        this.caseType = caseType;
-    }*/
-=======
-        this.caseType = "task";
-    }
->>>>>>> 20b7a13e69996b295440a76ee1b765b976dd4332
 
     @Field
     public String getMilestoneName() {
@@ -177,6 +153,14 @@ public class CareCaseTask implements java.io.Serializable {
         this.dateExpires = dateExpires;
         this.clientCaseType = clientCaseType;
         this.clientCaseId = clientCaseId;
+    }
+
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = "task";
     }
 
     // TODO: implement this in care-V in util class

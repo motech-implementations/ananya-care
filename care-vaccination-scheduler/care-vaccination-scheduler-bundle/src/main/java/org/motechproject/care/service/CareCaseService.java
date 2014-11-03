@@ -1,5 +1,8 @@
 package org.motechproject.care.service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import org.apache.log4j.Logger;
 import org.motechproject.care.request.CareCase;
 import org.motechproject.care.request.CaseType;
@@ -12,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.motechproject.care.init.ScheduleInitializer;
 @Controller
 @RequestMapping("/care/**")
 public class CareCaseService extends CaseService<CareCase> {
@@ -20,7 +26,8 @@ public class CareCaseService extends CaseService<CareCase> {
     private MotherService motherService;
     private ChildService childService;
     Logger logger = Logger.getLogger(CareCaseService.class);
-
+    @Autowired
+    ScheduleInitializer scheduleInitializer;
     @Autowired
     public CareCaseService(MotherService motherService, ChildService childService) {
         super(CareCase.class);
@@ -50,6 +57,15 @@ public class CareCaseService extends CaseService<CareCase> {
         boolean wasMotherClosed = motherService.closeCase(careCase.getCase_id());
         if(!wasMotherClosed)
             childService.closeCase(careCase.getCase_id());
+    }
+    
+    //TODO remove this function. just needed to populate schedules
+    
+    @RequestMapping(value = "/addschedule", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void addSchedule() throws URISyntaxException, IOException {
+        scheduleInitializer.addSchedules();
     }
 
     private void validateCreateCase(CareCase careCase) throws CaseException {

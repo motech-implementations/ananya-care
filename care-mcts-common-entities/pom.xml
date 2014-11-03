@@ -20,6 +20,13 @@
             <artifactId>motech-platform-dataservices</artifactId>
             <version>${motech.version}</version>
         </dependency>
+        
+        <!-- <dependency>
+			<groupId>org.junit</groupId>
+			<artifactId>org.motechproject.org.junit</artifactId>
+			<version>4.9.0</version>
+			<scope>test</scope>
+		</dependency> -->
     </dependencies>
 
     <build>

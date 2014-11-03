@@ -26,7 +26,7 @@ public interface Repository {
 
     <T> void saveOrUpdateAll(List<T> instances);
 
-    <T> void update(T instance);
+    <T> T update(T instance);
 
     /**
      * Deletes the instance received
