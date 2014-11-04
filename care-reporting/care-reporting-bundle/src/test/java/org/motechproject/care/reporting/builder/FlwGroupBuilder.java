@@ -1,10 +1,8 @@
 package org.motechproject.care.reporting.builder;
 
-import java.util.Date;
 import java.util.HashSet;
 
 import org.joda.time.DateTime;
-import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 
 public class FlwGroupBuilder {

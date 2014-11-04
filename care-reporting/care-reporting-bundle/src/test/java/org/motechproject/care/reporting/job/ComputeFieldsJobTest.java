@@ -23,7 +23,7 @@ public class ComputeFieldsJobTest {
         ComputeFieldsJob job = new ComputeFieldsJob(service);
         job.run();
 
-        verify(service).execute("SELECT report.populate_computed_fields()");
+        verify(service).computeFieldsJob();
     }
 
 

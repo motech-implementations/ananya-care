@@ -2,15 +2,11 @@ package org.motechproject.care.reporting.domain.dimension;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.Date;
-
 import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
-import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 
 public class FlwGroupTest {
@@ -19,7 +15,6 @@ public class FlwGroupTest {
         FlwGroup flwGroup = new FlwGroupBuilder().groupId("groupId").build();
 
         flwGroup.updateToLatest(new FlwGroupBuilder().groupId("groupId").creationTime(null).build());
-
 
         //TODO: uncomment below
         //TestUtils.assertDateIgnoringSeconds(new Date(), flwGroup.getLastModifiedTime());
@@ -30,7 +25,6 @@ public class FlwGroupTest {
     public void shouldThrowExceptionIfGroupIdDontMatch() throws Exception {
         new FlwGroupBuilder().groupId("1").build().updateToLatest(new FlwGroupBuilder().groupId("2").build());
     }
-
 
     @Test
     public void shouldInitializeWithCreationAndLastModifiedTime() {
@@ -44,13 +38,4 @@ public class FlwGroupTest {
         assertTrue(!now.isAfter(new DateTime(lastModifiedTime)));
     }
 
-
-    @Test
-    public void shouldInitializeWithEmptyFLWSet() {
-        FlwGroup flwGroup = new FlwGroup();
-
-
-        //TODO: uncomment below
-        //assertTrue(flwGroup.getFlws().isEmpty());
-    }
 }

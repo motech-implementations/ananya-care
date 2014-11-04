@@ -6,7 +6,7 @@
     <parent>
         <artifactId>care-reporting</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24</version>
+        <version>0.24.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.motechproject.ananya-care</groupId>

@@ -394,20 +394,14 @@ public class CareService implements
             String query;
             if (type.equalsIgnoreCase(FORM)) {
                 if (category.equalsIgnoreCase(MOTHER)) {
-                    query = "SELECT mc.add, mc.edd, "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun INNER JOIN "
                             + tableName
-                            + ".serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun "
-                            + "WHERE mc.id = "
-                            + tableName
-                            + ".motherCase_id_OID AND md.jobName = 'populate_delivery_offset_days'";
+                            + " tableName ON mc.id = tableName.motherCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
                     computeFieldsJob(tableName, query);
                 } else if (category.equalsIgnoreCase(CHILD)) {
-                    query = "SELECT mc.add, mc.edd, "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
                             + tableName
-                            + ".serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) "
-                            + "WHERE cc.id = "
-                            + tableName
-                            + ".motherCase_id_OID AND md.jobName = 'populate_delivery_offset_days'";
+                            + " tableName ON cc.id = tableName.childCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
                     computeFieldsJob(tableName, query);
                 }
             }

@@ -12,7 +12,6 @@
 	<properties>
 		<main.basedir>${project.basedir}/..</main.basedir>
 		<motech.version>0.24</motech.version>
-		<ananya.version>0.24</ananya.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
@@ -49,7 +48,7 @@
 		<dependency>
 			<groupId>org.motechproject.ananya-care</groupId>
 			<artifactId>${project.parent.artifactId}-scheduling</artifactId>
-			<version>${ananya.version}</version>
+			<version>${motech.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.htmlunit</groupId>
