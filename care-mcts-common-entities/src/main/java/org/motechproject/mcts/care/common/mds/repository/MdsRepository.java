@@ -100,11 +100,13 @@ public class MdsRepository implements
             return null;
         }
 
+        String type = fieldValue != null ? fieldValue.getClass().getName()
+                : null;
         @SuppressWarnings("unchecked")
-        EqualProperty<T> rp = (EqualProperty<T>) PropertyBuilder.create(
-                fieldName, fieldValue);
+        EqualProperty<T> ep = (EqualProperty<T>) PropertyBuilder.create(
+                fieldName, fieldValue, type);
         List<Property> properties = new ArrayList<Property>();
-        properties.add(rp);
+        properties.add(ep);
         final List<T> results = service.retrieveAll(properties);
         return results;
     }
@@ -152,10 +154,17 @@ public class MdsRepository implements
         if (service == null) {
             return null;
         }
+
+        String type = null;
+        if (lowerFieldValue != null) {
+            type = lowerFieldValue.getClass().getName();
+        } else if (higherFieldValue != null) {
+            type = higherFieldValue.getClass().getName();
+        }
         @SuppressWarnings("unchecked")
         RangeProperty<Object> rp = (RangeProperty<Object>) PropertyBuilder
                 .create(fieldName, new Range<Object>(lowerFieldValue,
-                        higherFieldValue));
+                        higherFieldValue), type);
         List<Property> proeprties = new ArrayList<Property>();
         proeprties.add(rp);
         final List<T> results = service.retrieveAll(proeprties);
@@ -179,9 +188,13 @@ public class MdsRepository implements
                     @Override
                     public List execute(javax.jdo.Query query,
                             InstanceSecurityRestriction restriction) {
+                        String type = null;
+                        if (values != null && values.size() > 0) {
+                            type = values.get(0).getClass().getName();
+                        }
                         List<Property> properties = new ArrayList<Property>();
                         SetProperty<T> setProperty = (SetProperty<T>) PropertyBuilder
-                                .create(fieldName, new HashSet<>(values));
+                                .create(fieldName, new HashSet<>(values), type);
                         properties.add(setProperty);
                         QueryUtil.useFilter(query, properties, restriction);
                         return (List) QueryExecutor.executeWithArray(query,
@@ -216,9 +229,14 @@ public class MdsRepository implements
                         if (MapUtils.isNotEmpty(fieldMap)) {
                             for (Map.Entry<String, Object> entry : fieldMap
                                     .entrySet()) {
+                                String type = null;
+                                if (entry != null && entry.getValue() != null) {
+                                    type = entry.getValue().getClass()
+                                            .getName();
+                                }
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
                                         .create(entry.getKey(), entry
-                                                .getValue());
+                                                .getValue(), type);
                                 properties.add(equalProperty);
                             }
                         }
@@ -249,23 +267,19 @@ public class MdsRepository implements
                         if (MapUtils.isNotEmpty(fieldMap)) {
                             for (Map.Entry<String, Object> entry : fieldMap
                                     .entrySet()) {
+                                String type = null;
+                                if (entry != null && entry.getValue() != null) {
+                                    type = entry.getValue().getClass()
+                                            .getName();
+                                }
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
                                         .create(entry.getKey(), entry
-                                                .getValue());
+                                                .getValue(), type);
 
                                 properties.add(equalProperty);
                             }
                         }
                         QueryUtil.useFilter(query, properties, restriction);
-                        // TODO: use aliasMapping
-                        /*
-                         * if (MapUtils.isNotEmpty(aliasMapping)) { for
-                         * (Map.Entry<String, String> entry : aliasMapping
-                         * .entrySet()) { EqualProperty<T> equalProperty =
-                         * (EqualProperty<T>) PropertyBuilder
-                         * .create(entry.getKey(), entry.getValue());
-                         * properties.add(equalProperty); } }
-                         */
                         return (List) QueryExecutor.executeWithArray(query,
                                 properties);
                     }

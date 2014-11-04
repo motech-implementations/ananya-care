@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.joda.time.DateTime;
 
 public class ReflectionUtils {
     protected static BeanUtilsBean beanUtils = new BeanUtilsBean();
@@ -15,6 +16,7 @@ public class ReflectionUtils {
             if (java.lang.reflect.Modifier.isStatic(field.getModifiers()))
                 return;
             field.setAccessible(true);
+            beanUtils.getConvertUtils().register(new JodaTimeConverter(), DateTime.class);
             Object updatedValue = beanUtils.getProperty(source, fieldName);
             beanUtils.setProperty(target, fieldName, updatedValue);
         } catch (NoSuchMethodException e) {
