@@ -20,30 +20,13 @@
             <artifactId>motech-platform-dataservices</artifactId>
             <version>${motech.version}</version>
         </dependency>
-        
-        <!-- <dependency>
-			<groupId>org.junit</groupId>
-			<artifactId>org.motechproject.org.junit</artifactId>
-			<version>4.9.0</version>
-			<scope>test</scope>
-		</dependency> -->
+
+        <!-- <dependency> <groupId>org.junit</groupId> <artifactId>org.motechproject.org.junit</artifactId> 
+            <version>4.9.0</version> <scope>test</scope> </dependency> -->
     </dependencies>
 
     <build>
         <plugins>
-
-            <!-- build a OSGI bundle -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.4</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Blueprint-Enabled>true</Blueprint-Enabled>
-                    </instructions>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -53,7 +36,7 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-            
+
             <!-- copy your bundle to ~/.motech/bundles from where the server can access 
                 it -->
             <plugin>
@@ -80,7 +63,8 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
+            <!-- build a OSGI bundle -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -88,7 +72,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                    	<Blueprint-Enabled>true</Blueprint-Enabled>
+                        <Blueprint-Enabled>true</Blueprint-Enabled>
                         <Context-Path>care-mcts-common-entities</Context-Path>
                         <Resource-Path>care-mcts-common-entities/resources</Resource-Path>
                         <Export-Package>
@@ -103,10 +87,6 @@
                             org.motechproject.mcts.care.common.lookup;version=${motech.version},
                             org.motechproject.mcts.care.common.utils;version=${motech.version}
                         </Export-Package>
-                       <!--  <Import-Package>
-                        	 org.slf4j;version=1.6.1,
-                            org.slf4j.impl;version=1.6.1
-                        </Import-Package> -->
                     </instructions>
                 </configuration>
             </plugin>

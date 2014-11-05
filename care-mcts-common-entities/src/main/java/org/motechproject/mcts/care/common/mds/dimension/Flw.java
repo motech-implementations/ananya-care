@@ -15,7 +15,7 @@ import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
 @Entity(name = "flw")
-public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
+public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
 
     private static final long serialVersionUID = 6447315416364482489L;
 
@@ -91,14 +91,14 @@ public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
      */
     @Field
     private LocationDimension locationDimension;
-    
+
     @Field
     private String locationCode;
 
     public Flw() {
-        DateTime DateTime = new DateTime();
-        creationTime = DateTime;
-        lastModifiedTime = DateTime;
+        DateTime date = new DateTime();
+        creationTime = date;
+        lastModifiedTime = date;
         // flwGroups = new HashSet<>();
     }
 
@@ -371,13 +371,14 @@ public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {
-        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
-     }
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this
+                .getClass());
+    }
 
-     public void updateFields(Flw source, List<String> ignoredFields) {
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
-     }
-
+    public void updateFields(Flw source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
+                this);
+    }
 
     public LocationDimension getLocationDimension() {
         return this.locationDimension;
@@ -387,14 +388,12 @@ public class Flw implements java.io.Serializable,SelfUpdatable<Flw> {
         this.locationDimension = locationDimension;
     }
 
-	public String getLocationCode() {
-		return locationCode;
-	}
+    public String getLocationCode() {
+        return locationCode;
+    }
 
-	public void setLocationCode(String locationCode) {
-		this.locationCode = locationCode;
-	}
-    
-    
+    public void setLocationCode(String locationCode) {
+        this.locationCode = locationCode;
+    }
 
 }

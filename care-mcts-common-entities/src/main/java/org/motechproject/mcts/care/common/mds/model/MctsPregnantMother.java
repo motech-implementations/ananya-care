@@ -4,6 +4,7 @@ package org.motechproject.mcts.care.common.mds.model;
 
 import java.util.Date;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mcts.care.common.lookup.MCTSPregnantMotherCaseAuthorisedStatus;
@@ -24,8 +25,10 @@ public class MctsPregnantMother implements java.io.Serializable {
     private String mctsPersonaCaseUId;
     private MctsPhc mctsPhc;
     private MctsSubcenter mctsSubcenter;
+    @Persistent
     private MctsHealthworker mctsHealthworkerByAshaId;
     private MCTSPregnantMotherMatchStatus mCTSPregnantMotherMatchStatus;
+    @Persistent
     private MctsHealthworker mctsHealthworkerByAnmId;
     private MotherCase motherCase;
     private MctsVillage mctsVillage;

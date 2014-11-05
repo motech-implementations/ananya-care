@@ -5,6 +5,7 @@ package org.motechproject.mcts.care.common.mds.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mds.annotations.Cascade;
@@ -18,12 +19,12 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = { "healthworker_id", "subcenter_id" })
 public class MctsHealthworker implements java.io.Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -6071024488249276636L;
+    @Persistent
     private MctsPhc mctsPhc;
+    @Persistent
     private MctsSubcenter mctsSubcenter;
+    @Persistent
     private MctsVillage mctsVillage;
     private int healthworkerId;
     private String name;
@@ -35,8 +36,10 @@ public class MctsHealthworker implements java.io.Serializable {
     private String gfAddress;
     private String careGroupid;
     private boolean status;
+    @Persistent(mappedBy = "mctsHealthworkerByAshaId")
     private Set<MctsPregnantMother> mctsPregnantMothersForAshaId = new HashSet<MctsPregnantMother>(
             0);
+    @Persistent(mappedBy = "mctsHealthworkerByAnmId")
     private Set<MctsPregnantMother> mctsPregnantMothersForAnmId = new HashSet<MctsPregnantMother>(
             0);
 
@@ -75,8 +78,6 @@ public class MctsHealthworker implements java.io.Serializable {
         this.status = status;
     }
 
-
-    
     @Field(required = true)
     @Cascade(persist = true, update = true, delete = false)
     public MctsPhc getMctsPhc() {
@@ -87,7 +88,6 @@ public class MctsHealthworker implements java.io.Serializable {
         this.mctsPhc = mctsPhc;
     }
 
-   
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MctsSubcenter getMctsSubcenter() {
@@ -98,7 +98,6 @@ public class MctsHealthworker implements java.io.Serializable {
         this.mctsSubcenter = mctsSubcenter;
     }
 
-    
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MctsVillage getMctsVillage() {
@@ -127,7 +126,7 @@ public class MctsHealthworker implements java.io.Serializable {
         this.name = name;
     }
 
-    @Field 
+    @Field
     public String getContactNo() {
         return this.contactNo;
     }
@@ -154,7 +153,7 @@ public class MctsHealthworker implements java.io.Serializable {
         this.type = type;
     }
 
-    @Field 
+    @Field
     public String getHusbandName() {
         return this.husbandName;
     }
@@ -163,7 +162,7 @@ public class MctsHealthworker implements java.io.Serializable {
         this.husbandName = husbandName;
     }
 
-    @Field 
+    @Field
     public String getAadharNo() {
         return this.aadharNo;
     }
@@ -181,7 +180,7 @@ public class MctsHealthworker implements java.io.Serializable {
         this.gfAddress = gfAddress;
     }
 
-    @Field 
+    @Field
     public String getCareGroupid() {
         return this.careGroupid;
     }

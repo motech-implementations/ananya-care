@@ -5,6 +5,7 @@ package org.motechproject.mcts.care.common.mds.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mds.annotations.Cascade;
@@ -21,13 +22,16 @@ public class MctsTaluk implements java.io.Serializable {
 
     
     private static final long serialVersionUID = -226240310604906915L;
+    @Persistent
     private MctsDistrict mctsDistrict;
     private int talukId;
     private String name;
     private boolean status;
-    private Set<MctsHealthblock> mctsHealthblocks = new HashSet<MctsHealthblock>(
+    @Persistent(mappedBy = "mctsTaluk")
+    private Set<MctsHealthblock> mctsHealthblocksForTaluk = new HashSet<MctsHealthblock>(
             0);
-    private Set<MctsVillage> mctsVillages = new HashSet<MctsVillage>(0);
+    @Persistent(mappedBy = "mctsTaluk")
+    private Set<MctsVillage> mctsVillagesForTaluk = new HashSet<MctsVillage>(0);
 
     public MctsTaluk() {
     }
@@ -39,13 +43,13 @@ public class MctsTaluk implements java.io.Serializable {
     }
 
     public MctsTaluk(MctsDistrict mctsDistrict, int talukId, String name,
-            Set<MctsHealthblock> mctsHealthblocks,
-            Set<MctsVillage> mctsVillages, boolean status) {
+            Set<MctsHealthblock> mctsHealthblocksForTaluk,
+            Set<MctsVillage> mctsVillagesForTaluk, boolean status) {
         this.mctsDistrict = mctsDistrict;
         this.talukId = talukId;
         this.name = name;
-        this.mctsHealthblocks = mctsHealthblocks;
-        this.mctsVillages = mctsVillages;
+        this.mctsHealthblocksForTaluk = mctsHealthblocksForTaluk;
+        this.mctsVillagesForTaluk = mctsVillagesForTaluk;
         this.status = status;
     }
 
@@ -87,21 +91,21 @@ public class MctsTaluk implements java.io.Serializable {
     }
 
     @Field
-    public Set<MctsHealthblock> getMctsHealthblocks() {
-        return this.mctsHealthblocks;
+    public Set<MctsHealthblock> getMctsHealthblocksForTaluk() {
+        return this.mctsHealthblocksForTaluk;
     }
 
-    public void setMctsHealthblocks(Set<MctsHealthblock> mctsHealthblocks) {
-        this.mctsHealthblocks = mctsHealthblocks;
+    public void setMctsHealthblocksForTaluk(Set<MctsHealthblock> mctsHealthblocksForTaluk) {
+        this.mctsHealthblocksForTaluk = mctsHealthblocksForTaluk;
     }
 
     @Field
-    public Set<MctsVillage> getMctsVillages() {
-        return this.mctsVillages;
+    public Set<MctsVillage> getMctsVillagesForTaluk() {
+        return this.mctsVillagesForTaluk;
     }
 
-    public void setMctsVillages(Set<MctsVillage> mctsVillages) {
-        this.mctsVillages = mctsVillages;
+    public void setMctsVillagesForTaluk(Set<MctsVillage> mctsVillagesForTaluk) {
+        this.mctsVillagesForTaluk = mctsVillagesForTaluk;
     }
 
 }

@@ -5,6 +5,7 @@ package org.motechproject.mcts.care.common.mds.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mds.annotations.Entity;
@@ -17,14 +18,13 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "stateId")
 public class MctsState implements java.io.Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -221246486143047967L;
     private int stateId;
     private String name;
     private boolean status;
-    private Set<MctsDistrict> mctsDistricts = new HashSet<MctsDistrict>(0);
+    @Persistent(mappedBy = "mctsState")
+    private Set<MctsDistrict> mctsDistrictsForState = new HashSet<MctsDistrict>(
+            0);
 
     public MctsState() {
     }
@@ -34,11 +34,11 @@ public class MctsState implements java.io.Serializable {
         this.name = name;
     }
 
-    public MctsState(int stateId, String name, Set<MctsDistrict> mctsDistricts,
-            boolean status) {
+    public MctsState(int stateId, String name,
+            Set<MctsDistrict> mctsDistrictsForState, boolean status) {
         this.stateId = stateId;
         this.name = name;
-        this.mctsDistricts = mctsDistricts;
+        this.mctsDistrictsForState = mctsDistrictsForState;
         this.status = status;
     }
 
@@ -70,12 +70,12 @@ public class MctsState implements java.io.Serializable {
     }
 
     @Field
-    public Set<MctsDistrict> getMctsDistricts() {
-        return this.mctsDistricts;
+    public Set<MctsDistrict> getMctsDistrictsForState() {
+        return this.mctsDistrictsForState;
     }
 
-    public void setMctsDistricts(Set<MctsDistrict> mctsDistricts) {
-        this.mctsDistricts = mctsDistricts;
+    public void setMctsDistrictsForState(Set<MctsDistrict> mctsDistrictsForState) {
+        this.mctsDistrictsForState = mctsDistrictsForState;
     }
 
 }

@@ -13,7 +13,7 @@ public class Child extends Client {
 
     private static final long serialVersionUID = 7542211703701595440L;
 
-    private DateTime DOB;
+    private DateTime dob;
     private DateTime measlesDate;
     private DateTime bcgDate;
     private DateTime vitamin1Date;
@@ -31,10 +31,9 @@ public class Child extends Client {
     private DateTime opv3Date;
     private DateTime opvBoosterDate;
     private String motherCaseId;
-    
-    
+
     public Child(String caseId, DateTime dateModified, String flwId,
-            String name, String groupId, DateTime DOB, DateTime measlesDate,
+            String name, String groupId, DateTime dob, DateTime measlesDate,
             DateTime bcgDate, DateTime vitamin1Date, String motherCaseId,
             DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
             DateTime hep3Date, DateTime dpt1Date, DateTime dpt2Date,
@@ -48,7 +47,7 @@ public class Child extends Client {
         this.flwId = flwId;
         this.name = name;
         this.groupId = groupId;
-        this.DOB = DOB;
+        this.dob = dob;
         this.measlesDate = measlesDate;
         this.bcgDate = bcgDate;
         this.vitamin1Date = vitamin1Date;
@@ -71,7 +70,6 @@ public class Child extends Client {
     public Child() {
         this.caseType = CaseType.CHILD;
     }
-
 
     @Field
     public DateTime getHep0Date() {
@@ -199,22 +197,13 @@ public class Child extends Client {
         this.motherCaseId = motherCaseId;
     }
 
-    /*@Field
-    public String getCaseType() {
-        return caseType;
-    }
-
-    public void setCaseType(String caseType) {
-        this.caseType = caseType;
-    }*/
-
     @Field
-    public DateTime getDOB() {
-        return DateUtil.setTimeZone(DOB);
+    public DateTime getDob() {
+        return DateUtil.setTimeZone(dob);
     }
 
-    public void setDOB(DateTime DOB) {
-        this.DOB = DOB;
+    public void setDob(DateTime dob) {
+        this.dob = dob;
     }
 
     @Field
@@ -244,7 +233,6 @@ public class Child extends Client {
         this.vitamin1Date = vitamin1Date;
     }
 
-   
     public void setValuesFrom(Child child) {
         try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
@@ -256,12 +244,12 @@ public class Child extends Client {
 
     @JsonIgnore
     public boolean shouldEnrollForSchedules() {
-        return getDOB() != null && !isOlderThanAYear() && isActive();
+        return getDob() != null && !isOlderThanAYear() && isActive();
     }
 
     @JsonIgnore
     private boolean isOlderThanAYear() {
-        return !DateUtil.today().minusYears(1).isBefore(getDOB().toLocalDate());
+        return !DateUtil.today().minusYears(1).isBefore(getDob().toLocalDate());
     }
 
 }

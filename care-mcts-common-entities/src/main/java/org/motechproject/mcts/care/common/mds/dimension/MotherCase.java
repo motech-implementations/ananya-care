@@ -45,7 +45,7 @@ public class MotherCase implements java.io.Serializable,
     private String caseType;
 
     @Field
-    private DateTime DateTimeModified;
+    private DateTime dateModified;
 
     @Field
     private DateTime serverDateTimeModified;
@@ -79,16 +79,16 @@ public class MotherCase implements java.io.Serializable,
     private String complications;
 
     @Field
-    private DateTime DateTimeNextBp;
+    private DateTime dateNextBp;
 
     @Field
-    private DateTime DateTimeNextCf;
+    private DateTime dateNextCf;
 
     @Field
-    private DateTime DateTimeNextEb;
+    private DateTime dateNextEb;
 
     @Field
-    private DateTime DateTimeNextPnc;
+    private DateTime dateNextPnc;
     @Field
     private String eatsMeat;
 
@@ -113,51 +113,54 @@ public class MotherCase implements java.io.Serializable,
     private int numBoys;
 
     @Field
-    private DateTime DateTimeCf1;
+    private DateTime dateCf1;
 
     @Field
-    private DateTime DateTimeCf2;
+    private DateTime dateCf2;
 
     @Field
-    private DateTime DateTimeCf3;
+    private DateTime dateCf3;
 
     @Field
-    private DateTime DateTimeCf4;
+    private DateTime dateCf4;
 
     @Field
-    private DateTime DateTimeCf5;
+    private DateTime dateCf5;
 
     @Field
-    private DateTime DateTimeCf6;
+    private DateTime dateCf6;
 
     @Field
-    private DateTime DateTimeEb1;
+    private DateTime dateCf7;
 
     @Field
-    private DateTime DateTimeEb2;
+    private DateTime dateEb1;
 
     @Field
-    private DateTime DateTimeEb3;
+    private DateTime dateEb2;
 
     @Field
-    private DateTime DateTimeEb4;
+    private DateTime dateEb3;
 
     @Field
-    private DateTime DateTimeEb5;
+    private DateTime dateEb4;
 
     @Field
-    private DateTime DateTimeEb6;
+    private DateTime dateEb5;
+
+    @Field
+    private DateTime dateEb6;
     @Field
     private String allPncOnTime;
 
     @Field
-    private DateTime DateTimePnc1;
+    private DateTime datePnc1;
 
     @Field
-    private DateTime DateTimePnc2;
+    private DateTime datePnc2;
 
     @Field
-    private DateTime DateTimePnc3;
+    private DateTime datePnc3;
     @Field
     private String firstPncTime;
     @Field
@@ -168,7 +171,7 @@ public class MotherCase implements java.io.Serializable,
     private Integer pnc3DaysLate;
 
     @Field
-    private DateTime ttBoosterDateTime;
+    private DateTime ttBoosterDate;
     @Field
     private String sba;
     @Field
@@ -177,32 +180,32 @@ public class MotherCase implements java.io.Serializable,
     private String accompany;
 
     @Field
-    private DateTime anc1DateTime;
+    private DateTime anc1Date;
 
     @Field
-    private DateTime anc2DateTime;
+    private DateTime anc2Date;
 
     @Field
-    private DateTime anc3DateTime;
+    private DateTime anc3Date;
 
     @Field
-    private DateTime anc4DateTime;
+    private DateTime anc4Date;
     @Field
     private String cleanCloth;
     @Field
     private String coupleInterested;
 
     @Field
-    private DateTime DateTimeBp1;
+    private DateTime dateBp1;
 
     @Field
-    private DateTime DateTimeBp2;
+    private DateTime dateBp2;
 
     @Field
-    private DateTime DateTimeBp3;
+    private DateTime dateBp3;
 
     @Field
-    private DateTime DateTimeLastVisit;
+    private DateTime dateLastVisit;
     @Field
     private String deliveryType;
     @Field
@@ -222,32 +225,28 @@ public class MotherCase implements java.io.Serializable,
     private String savingMoney;
 
     @Field
-    private DateTime tt1DateTime;
+    private DateTime tt1Date;
 
     @Field
-    private DateTime tt2DateTime;
+    private DateTime tt2Date;
     @Field
     private String vehicle;
     @Field
     private String birthStatus;
 
     @Field
-    private DateTime migrateOutDateTime;
+    private DateTime migrateOutDate;
     @Field
     private String migratedStatus;
     @Field
     private String status;
     @Field
     private String term;
+    @Field
+    private DateTime dateDelFu;
 
     @Field
-    private DateTime DateTimeCf7;
-
-    @Field
-    private DateTime DateTimeDelFu;
-
-    @Field
-    private DateTime DateTimeNextReg;
+    private DateTime dateNextReg;
     @Field
     private String institutional;
 
@@ -283,12 +282,12 @@ public class MotherCase implements java.io.Serializable,
     @Field
     private String fullMctsId;
     @Field
-    private String dateModified;
+    private String dateModifiedString;
 
     public MotherCase() {
-        DateTime DateTime = new DateTime();
-        creationTime = DateTime;
-        lastModifiedTime = DateTime;
+        DateTime date = new DateTime();
+        creationTime = date;
+        lastModifiedTime = date;
     }
 
     public Flw getFlw() {
@@ -331,12 +330,12 @@ public class MotherCase implements java.io.Serializable,
         this.caseType = caseType;
     }
 
-    public DateTime getDateTimeModified() {
-        return this.DateTimeModified;
+    public DateTime getDateModified() {
+        return this.dateModified;
     }
 
-    public void setDateTimeModified(DateTime DateTimeModified) {
-        this.DateTimeModified = DateTimeModified;
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
     }
 
     public DateTime getServerDateTimeModified() {
@@ -443,36 +442,36 @@ public class MotherCase implements java.io.Serializable,
         this.complications = complications;
     }
 
-    public DateTime getDateTimeNextBp() {
-        return this.DateTimeNextBp;
+    public DateTime getDateNextBp() {
+        return this.dateNextBp;
     }
 
-    public void setDateTimeNextBp(DateTime DateTimeNextBp) {
-        this.DateTimeNextBp = DateTimeNextBp;
+    public void setDateNextBp(DateTime dateNextBp) {
+        this.dateNextBp = dateNextBp;
     }
 
-    public DateTime getDateTimeNextCf() {
-        return this.DateTimeNextCf;
+    public DateTime getDateNextCf() {
+        return this.dateNextCf;
     }
 
-    public void setDateTimeNextCf(DateTime DateTimeNextCf) {
-        this.DateTimeNextCf = DateTimeNextCf;
+    public void setDateNextCf(DateTime dateNextCf) {
+        this.dateNextCf = dateNextCf;
     }
 
-    public DateTime getDateTimeNextEb() {
-        return this.DateTimeNextEb;
+    public DateTime getDateNextEb() {
+        return this.dateNextEb;
     }
 
-    public void setDateTimeNextEb(DateTime DateTimeNextEb) {
-        this.DateTimeNextEb = DateTimeNextEb;
+    public void setDateNextEb(DateTime dateNextEb) {
+        this.dateNextEb = dateNextEb;
     }
 
-    public DateTime getDateTimeNextPnc() {
-        return this.DateTimeNextPnc;
+    public DateTime getDateNextPnc() {
+        return this.dateNextPnc;
     }
 
-    public void setDateTimeNextPnc(DateTime DateTimeNextPnc) {
-        this.DateTimeNextPnc = DateTimeNextPnc;
+    public void setDateNextPnc(DateTime dateNextPnc) {
+        this.dateNextPnc = dateNextPnc;
     }
 
     public String getEatsMeat() {
@@ -555,100 +554,100 @@ public class MotherCase implements java.io.Serializable,
         this.numBoys = numBoys;
     }
 
-    public DateTime getDateTimeCf1() {
-        return this.DateTimeCf1;
+    public DateTime getDateCf1() {
+        return this.dateCf1;
     }
 
-    public void setDateTimeCf1(DateTime DateTimeCf1) {
-        this.DateTimeCf1 = DateTimeCf1;
+    public void setDateCf1(DateTime dateCf1) {
+        this.dateCf1 = dateCf1;
     }
 
-    public DateTime getDateTimeCf2() {
-        return this.DateTimeCf2;
+    public DateTime getDateCf2() {
+        return this.dateCf2;
     }
 
-    public void setDateTimeCf2(DateTime DateTimeCf2) {
-        this.DateTimeCf2 = DateTimeCf2;
+    public void setDateCf2(DateTime dateCf2) {
+        this.dateCf2 = dateCf2;
     }
 
-    public DateTime getDateTimeCf3() {
-        return this.DateTimeCf3;
+    public DateTime getDateCf3() {
+        return this.dateCf3;
     }
 
-    public void setDateTimeCf3(DateTime DateTimeCf3) {
-        this.DateTimeCf3 = DateTimeCf3;
+    public void setDateCf3(DateTime dateCf3) {
+        this.dateCf3 = dateCf3;
     }
 
-    public DateTime getDateTimeCf4() {
-        return this.DateTimeCf4;
+    public DateTime getDateCf4() {
+        return this.dateCf4;
     }
 
-    public void setDateTimeCf4(DateTime DateTimeCf4) {
-        this.DateTimeCf4 = DateTimeCf4;
+    public void setDateCf4(DateTime dateCf4) {
+        this.dateCf4 = dateCf4;
     }
 
-    public DateTime getDateTimeCf5() {
-        return this.DateTimeCf5;
+    public DateTime getDateCf5() {
+        return this.dateCf5;
     }
 
-    public void setDateTimeCf5(DateTime DateTimeCf5) {
-        this.DateTimeCf5 = DateTimeCf5;
+    public void setDateCf5(DateTime dateCf5) {
+        this.dateCf5 = dateCf5;
     }
 
-    public DateTime getDateTimeCf6() {
-        return this.DateTimeCf6;
+    public DateTime getDateCf6() {
+        return this.dateCf6;
     }
 
-    public void setDateTimeCf6(DateTime DateTimeCf6) {
-        this.DateTimeCf6 = DateTimeCf6;
+    public void setDateCf6(DateTime dateCf6) {
+        this.dateCf6 = dateCf6;
     }
 
-    public DateTime getDateTimeEb1() {
-        return this.DateTimeEb1;
+    public DateTime getDateEb1() {
+        return this.dateEb1;
     }
 
-    public void setDateTimeEb1(DateTime DateTimeEb1) {
-        this.DateTimeEb1 = DateTimeEb1;
+    public void setDateEb1(DateTime dateEb1) {
+        this.dateEb1 = dateEb1;
     }
 
-    public DateTime getDateTimeEb2() {
-        return this.DateTimeEb2;
+    public DateTime getDateEb2() {
+        return this.dateEb2;
     }
 
-    public void setDateTimeEb2(DateTime DateTimeEb2) {
-        this.DateTimeEb2 = DateTimeEb2;
+    public void setDateEb2(DateTime dateEb2) {
+        this.dateEb2 = dateEb2;
     }
 
-    public DateTime getDateTimeEb3() {
-        return this.DateTimeEb3;
+    public DateTime getDateEb3() {
+        return this.dateEb3;
     }
 
-    public void setDateTimeEb3(DateTime DateTimeEb3) {
-        this.DateTimeEb3 = DateTimeEb3;
+    public void setDateEb3(DateTime dateEb3) {
+        this.dateEb3 = dateEb3;
     }
 
-    public DateTime getDateTimeEb4() {
-        return this.DateTimeEb4;
+    public DateTime getDateEb4() {
+        return this.dateEb4;
     }
 
-    public void setDateTimeEb4(DateTime DateTimeEb4) {
-        this.DateTimeEb4 = DateTimeEb4;
+    public void setDateEb4(DateTime dateEb4) {
+        this.dateEb4 = dateEb4;
     }
 
-    public DateTime getDateTimeEb5() {
-        return this.DateTimeEb5;
+    public DateTime getDateEb5() {
+        return this.dateEb5;
     }
 
-    public void setDateTimeEb5(DateTime DateTimeEb5) {
-        this.DateTimeEb5 = DateTimeEb5;
+    public void setDateEb5(DateTime dateEb5) {
+        this.dateEb5 = dateEb5;
     }
 
-    public DateTime getDateTimeEb6() {
-        return this.DateTimeEb6;
+    public DateTime getDateEb6() {
+        return this.dateEb6;
     }
 
-    public void setDateTimeEb6(DateTime DateTimeEb6) {
-        this.DateTimeEb6 = DateTimeEb6;
+    public void setDateEb6(DateTime dateEb6) {
+        this.dateEb6 = dateEb6;
     }
 
     public String getAllPncOnTime() {
@@ -659,28 +658,28 @@ public class MotherCase implements java.io.Serializable,
         this.allPncOnTime = allPncOnTime;
     }
 
-    public DateTime getDateTimePnc1() {
-        return this.DateTimePnc1;
+    public DateTime getDatePnc1() {
+        return this.datePnc1;
     }
 
-    public void setDateTimePnc1(DateTime DateTimePnc1) {
-        this.DateTimePnc1 = DateTimePnc1;
+    public void setDatePnc1(DateTime datePnc1) {
+        this.datePnc1 = datePnc1;
     }
 
-    public DateTime getDateTimePnc2() {
-        return this.DateTimePnc2;
+    public DateTime getDatePnc2() {
+        return this.datePnc2;
     }
 
-    public void setDateTimePnc2(DateTime DateTimePnc2) {
-        this.DateTimePnc2 = DateTimePnc2;
+    public void setDatePnc2(DateTime datePnc2) {
+        this.datePnc2 = datePnc2;
     }
 
-    public DateTime getDateTimePnc3() {
-        return this.DateTimePnc3;
+    public DateTime getDatePnc3() {
+        return this.datePnc3;
     }
 
-    public void setDateTimePnc3(DateTime DateTimePnc3) {
-        this.DateTimePnc3 = DateTimePnc3;
+    public void setDatePnc3(DateTime datePnc3) {
+        this.datePnc3 = datePnc3;
     }
 
     public String getFirstPncTime() {
@@ -716,11 +715,11 @@ public class MotherCase implements java.io.Serializable,
     }
 
     public DateTime getTtBoosterDateTime() {
-        return this.ttBoosterDateTime;
+        return this.ttBoosterDate;
     }
 
-    public void setTtBoosterDateTime(DateTime ttBoosterDateTime) {
-        this.ttBoosterDateTime = ttBoosterDateTime;
+    public void setTtBoosterDateTime(DateTime ttBoosterDate) {
+        this.ttBoosterDate = ttBoosterDate;
     }
 
     public String getSba() {
@@ -746,37 +745,36 @@ public class MotherCase implements java.io.Serializable,
     public void setAccompany(String accompany) {
         this.accompany = accompany;
     }
-
-    public DateTime getAnc1DateTime() {
-        return this.anc1DateTime;
+    public DateTime getAnc1Date() {
+        return this.anc1Date;
     }
 
-    public void setAnc1DateTime(DateTime anc1DateTime) {
-        this.anc1DateTime = anc1DateTime;
+    public void setAnc1Date(DateTime anc1Date) {
+        this.anc1Date = anc1Date;
     }
 
-    public DateTime getAnc2DateTime() {
-        return this.anc2DateTime;
+    public DateTime getAnc2Date() {
+        return this.anc2Date;
     }
 
-    public void setAnc2DateTime(DateTime anc2DateTime) {
-        this.anc2DateTime = anc2DateTime;
+    public void setAnc2Date(DateTime anc2Date) {
+        this.anc2Date = anc2Date;
     }
 
-    public DateTime getAnc3DateTime() {
-        return this.anc3DateTime;
+    public DateTime getAnc3Date() {
+        return this.anc3Date;
     }
 
-    public void setAnc3DateTime(DateTime anc3DateTime) {
-        this.anc3DateTime = anc3DateTime;
+    public void setAnc3Date(DateTime anc3Date) {
+        this.anc3Date = anc3Date;
     }
 
     public DateTime getAnc4DateTime() {
-        return this.anc4DateTime;
+        return this.anc4Date;
     }
 
-    public void setAnc4DateTime(DateTime anc4DateTime) {
-        this.anc4DateTime = anc4DateTime;
+    public void setAnc4DateTime(DateTime anc4Date) {
+        this.anc4Date = anc4Date;
     }
 
     public String getCleanCloth() {
@@ -795,36 +793,36 @@ public class MotherCase implements java.io.Serializable,
         this.coupleInterested = coupleInterested;
     }
 
-    public DateTime getDateTimeBp1() {
-        return this.DateTimeBp1;
+    public DateTime getDateBp1() {
+        return this.dateBp1;
     }
 
-    public void setDateTimeBp1(DateTime DateTimeBp1) {
-        this.DateTimeBp1 = DateTimeBp1;
+    public void setDateBp1(DateTime dateBp1) {
+        this.dateBp1 = dateBp1;
     }
 
-    public DateTime getDateTimeBp2() {
-        return this.DateTimeBp2;
+    public DateTime getDateBp2() {
+        return this.dateBp2;
     }
 
-    public void setDateTimeBp2(DateTime DateTimeBp2) {
-        this.DateTimeBp2 = DateTimeBp2;
+    public void setDateBp2(DateTime dateBp2) {
+        this.dateBp2 = dateBp2;
     }
 
-    public DateTime getDateTimeBp3() {
-        return this.DateTimeBp3;
+    public DateTime getDateBp3() {
+        return this.dateBp3;
     }
 
-    public void setDateTimeBp3(DateTime DateTimeBp3) {
-        this.DateTimeBp3 = DateTimeBp3;
+    public void setDateBp3(DateTime dateBp3) {
+        this.dateBp3 = dateBp3;
     }
 
-    public DateTime getDateTimeLastVisit() {
-        return this.DateTimeLastVisit;
+    public DateTime getDateLastVisit() {
+        return this.dateLastVisit;
     }
 
-    public void setDateTimeLastVisit(DateTime DateTimeLastVisit) {
-        this.DateTimeLastVisit = DateTimeLastVisit;
+    public void setDateLastVisit(DateTime dateLastVisit) {
+        this.dateLastVisit = dateLastVisit;
     }
 
     public String getDeliveryType() {
@@ -892,19 +890,19 @@ public class MotherCase implements java.io.Serializable,
     }
 
     public DateTime getTt1DateTime() {
-        return this.tt1DateTime;
+        return this.tt1Date;
     }
 
-    public void setTt1DateTime(DateTime tt1DateTime) {
-        this.tt1DateTime = tt1DateTime;
+    public void setTt1DateTime(DateTime tt1Date) {
+        this.tt1Date = tt1Date;
     }
 
     public DateTime getTt2DateTime() {
-        return this.tt2DateTime;
+        return this.tt2Date;
     }
 
-    public void setTt2DateTime(DateTime tt2DateTime) {
-        this.tt2DateTime = tt2DateTime;
+    public void setTt2DateTime(DateTime tt2Date) {
+        this.tt2Date = tt2Date;
     }
 
     public String getVehicle() {
@@ -924,11 +922,11 @@ public class MotherCase implements java.io.Serializable,
     }
 
     public DateTime getMigrateOutDateTime() {
-        return this.migrateOutDateTime;
+        return this.migrateOutDate;
     }
 
-    public void setMigrateOutDateTime(DateTime migrateOutDateTime) {
-        this.migrateOutDateTime = migrateOutDateTime;
+    public void setMigrateOutDateTime(DateTime migrateOutDate) {
+        this.migrateOutDate = migrateOutDate;
     }
 
     public String getMigratedStatus() {
@@ -955,28 +953,28 @@ public class MotherCase implements java.io.Serializable,
         this.term = term;
     }
 
-    public DateTime getDateTimeCf7() {
-        return this.DateTimeCf7;
+    public DateTime getDateCf7() {
+        return this.dateCf7;
     }
 
-    public void setDateTimeCf7(DateTime DateTimeCf7) {
-        this.DateTimeCf7 = DateTimeCf7;
+    public void setDateCf7(DateTime dateCf7) {
+        this.dateCf7 = dateCf7;
     }
 
-    public DateTime getDateTimeDelFu() {
-        return this.DateTimeDelFu;
+    public DateTime getDateDelFu() {
+        return this.dateDelFu;
     }
 
-    public void setDateTimeDelFu(DateTime DateTimeDelFu) {
-        this.DateTimeDelFu = DateTimeDelFu;
+    public void setDateDelFu(DateTime dateDelFu) {
+        this.dateDelFu = dateDelFu;
     }
 
-    public DateTime getDateTimeNextReg() {
-        return this.DateTimeNextReg;
+    public DateTime getDateNextReg() {
+        return this.dateNextReg;
     }
 
-    public void setDateTimeNextReg(DateTime DateTimeNextReg) {
-        this.DateTimeNextReg = DateTimeNextReg;
+    public void setDateNextReg(DateTime dateNextReg) {
+        this.dateNextReg = dateNextReg;
     }
 
     public String getInstitutional() {
@@ -1100,12 +1098,12 @@ public class MotherCase implements java.io.Serializable,
         this.fullMctsId = fullMctsId;
     }
 
-    public String getDateModified() {
-        return dateModified;
+    public String getDateModifiedString() {
+        return dateModifiedString;
     }
 
-    public void setDateModified(String dateModified) {
-        this.dateModified = dateModified;
+    public void setDateModified(String dateModifiedString) {
+        this.dateModifiedString = dateModifiedString;
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {

@@ -44,9 +44,9 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
      */
 
     public FlwGroup() {
-        DateTime DateTime = new DateTime();
-        creationTime = DateTime;
-        lastModifiedTime = DateTime;
+        DateTime date = new DateTime();
+        creationTime = date;
+        lastModifiedTime = date;
         // flws = new HashSet<>(0);
     }
 
@@ -138,17 +138,18 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
     public void updateToLatest(FlwGroup other) {
         validateIfUpdatable(this.groupId, other.groupId);
 
-        updateFields(other,
-                Arrays.asList("id", "groupId", "creationTime", "flws"));
+        updateFields(other, Arrays.asList("id", "groupId", "creationTime",
+                "flws"));
     }
-    
+
     public Boolean validateIfUpdatable(String thisId, String otherId) {
-        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
-     }
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this
+                .getClass());
+    }
 
-     public void updateFields(FlwGroup source, List<String> ignoredFields) {
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
-     }
-
+    public void updateFields(FlwGroup source, List<String> ignoredFields) {
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
+                this);
+    }
 
 }

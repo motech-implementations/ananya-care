@@ -34,7 +34,7 @@ public class ChildCase implements java.io.Serializable,
     @Field
     private String caseName;
     @Field
-    private DateTime DateTimeModified;
+    private DateTime dateModified;
     @Field
     private DateTime serverDateTimeModified;
     @Field
@@ -42,49 +42,49 @@ public class ChildCase implements java.io.Serializable,
     @Field
     private String babyMeasles;
     @Field
-    private DateTime bcgDateTime;
+    private DateTime bcgDate;
     @Field
     private String birthStatus;
     @Field
     private DateTime dob;
     @Field
-    private DateTime dpt1DateTime;
+    private DateTime dpt1Date;
     @Field
-    private DateTime dpt2DateTime;
+    private DateTime dpt2Date;
     @Field
-    private DateTime dpt3DateTime;
+    private DateTime dpt3Date;
     @Field
     private String gender;
     @Field
-    private DateTime hepB0DateTime;
+    private DateTime hepB0Date;
     @Field
-    private DateTime hepB1DateTime;
+    private DateTime hepB1Date;
     @Field
-    private DateTime hepB2DateTime;
+    private DateTime hepB2Date;
     @Field
-    private DateTime hepB3DateTime;
+    private DateTime hepB3Date;
     @Field
-    private DateTime measlesDateTime;
+    private DateTime measlesDate;
     @Field
-    private DateTime opv0DateTime;
+    private DateTime opv0Date;
     @Field
-    private DateTime opv1DateTime;
+    private DateTime opv1Date;
     @Field
-    private DateTime opv2DateTime;
+    private DateTime opv2Date;
     @Field
-    private DateTime opv3DateTime;
+    private DateTime opv3Date;
     @Field
-    private DateTime vitA1DateTime;
+    private DateTime vitA1Date;
     @Field
     private String childAlive;
     @Field
-    private DateTime dptBoosterDateTime;
+    private DateTime dptBoosterDate;
     @Field
-    private DateTime opvBoosterDateTime;
+    private DateTime opvBoosterDate;
     @Field
-    private DateTime DateTimeJe;
+    private DateTime dateJe;
     @Field
-    private DateTime DateTimeMeaslesBooster;
+    private DateTime dateMeaslesBooster;
     @Field
     private String babyWeight;
     @Field
@@ -94,9 +94,9 @@ public class ChildCase implements java.io.Serializable,
     @Field
     private String timeOfBirth;
     @Field
-    private DateTime vitA2DateTime;
+    private DateTime vitA2Date;
     @Field
-    private DateTime vitA3DateTime;
+    private DateTime vitA3Date;
     @Field
     private String cordFallen;
     @Field
@@ -112,9 +112,9 @@ public class ChildCase implements java.io.Serializable,
     private DateTime lastModifiedTime;
 
     public ChildCase() {
-        DateTime DateTime = new DateTime();
-        creationTime = DateTime;
-        lastModifiedTime = DateTime;
+        DateTime date = new DateTime();
+        creationTime = date;
+        lastModifiedTime = date;
     }
 
     public Flw getFlw() {
@@ -157,12 +157,12 @@ public class ChildCase implements java.io.Serializable,
         this.caseName = caseName;
     }
 
-    public DateTime getDateTimeModified() {
-        return this.DateTimeModified;
+    public DateTime getDateModified() {
+        return this.dateModified;
     }
 
-    public void setDateTimeModified(DateTime DateTimeModified) {
-        this.DateTimeModified = DateTimeModified;
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
     }
 
     public DateTime getServerDateTimeModified() {
@@ -190,11 +190,11 @@ public class ChildCase implements java.io.Serializable,
     }
 
     public DateTime getBcgDateTime() {
-        return this.bcgDateTime;
+        return this.bcgDate;
     }
 
-    public void setBcgDateTime(DateTime bcgDateTime) {
-        this.bcgDateTime = bcgDateTime;
+    public void setBcgDateTime(DateTime bcgDate) {
+        this.bcgDate = bcgDate;
     }
 
     public String getBirthStatus() {
@@ -214,27 +214,27 @@ public class ChildCase implements java.io.Serializable,
     }
 
     public DateTime getDpt1DateTime() {
-        return this.dpt1DateTime;
+        return this.dpt1Date;
     }
 
-    public void setDpt1DateTime(DateTime dpt1DateTime) {
-        this.dpt1DateTime = dpt1DateTime;
+    public void setDpt1DateTime(DateTime dpt1Date) {
+        this.dpt1Date = dpt1Date;
     }
 
     public DateTime getDpt2DateTime() {
-        return this.dpt2DateTime;
+        return this.dpt2Date;
     }
 
-    public void setDpt2DateTime(DateTime dpt2DateTime) {
-        this.dpt2DateTime = dpt2DateTime;
+    public void setDpt2DateTime(DateTime dpt2Date) {
+        this.dpt2Date = dpt2Date;
     }
 
     public DateTime getDpt3DateTime() {
-        return this.dpt3DateTime;
+        return this.dpt3Date;
     }
 
-    public void setDpt3DateTime(DateTime dpt3DateTime) {
-        this.dpt3DateTime = dpt3DateTime;
+    public void setDpt3DateTime(DateTime dpt3Date) {
+        this.dpt3Date = dpt3Date;
     }
 
     public String getGender() {
@@ -246,83 +246,83 @@ public class ChildCase implements java.io.Serializable,
     }
 
     public DateTime getHepB0DateTime() {
-        return this.hepB0DateTime;
+        return this.hepB0Date;
     }
 
-    public void setHepB0DateTime(DateTime hepB0DateTime) {
-        this.hepB0DateTime = hepB0DateTime;
+    public void setHepB0DateTime(DateTime hepB0Date) {
+        this.hepB0Date = hepB0Date;
     }
 
     public DateTime getHepB1DateTime() {
-        return this.hepB1DateTime;
+        return this.hepB1Date;
     }
 
-    public void setHepB1DateTime(DateTime hepB1DateTime) {
-        this.hepB1DateTime = hepB1DateTime;
+    public void setHepB1DateTime(DateTime hepB1Date) {
+        this.hepB1Date = hepB1Date;
     }
 
     public DateTime getHepB2DateTime() {
-        return this.hepB2DateTime;
+        return this.hepB2Date;
     }
 
-    public void setHepB2DateTime(DateTime hepB2DateTime) {
-        this.hepB2DateTime = hepB2DateTime;
+    public void setHepB2DateTime(DateTime hepB2Date) {
+        this.hepB2Date = hepB2Date;
     }
 
     public DateTime getHepB3DateTime() {
-        return this.hepB3DateTime;
+        return this.hepB3Date;
     }
 
-    public void setHepB3DateTime(DateTime hepB3DateTime) {
-        this.hepB3DateTime = hepB3DateTime;
+    public void setHepB3DateTime(DateTime hepB3Date) {
+        this.hepB3Date = hepB3Date;
     }
 
     public DateTime getMeaslesDateTime() {
-        return this.measlesDateTime;
+        return this.measlesDate;
     }
 
-    public void setMeaslesDateTime(DateTime measlesDateTime) {
-        this.measlesDateTime = measlesDateTime;
+    public void setMeaslesDateTime(DateTime measlesDate) {
+        this.measlesDate = measlesDate;
     }
 
     public DateTime getOpv0DateTime() {
-        return this.opv0DateTime;
+        return this.opv0Date;
     }
 
-    public void setOpv0DateTime(DateTime opv0DateTime) {
-        this.opv0DateTime = opv0DateTime;
+    public void setOpv0DateTime(DateTime opv0Date) {
+        this.opv0Date = opv0Date;
     }
 
     public DateTime getOpv1DateTime() {
-        return this.opv1DateTime;
+        return this.opv1Date;
     }
 
-    public void setOpv1DateTime(DateTime opv1DateTime) {
-        this.opv1DateTime = opv1DateTime;
+    public void setOpv1DateTime(DateTime opv1Date) {
+        this.opv1Date = opv1Date;
     }
 
     public DateTime getOpv2DateTime() {
-        return this.opv2DateTime;
+        return this.opv2Date;
     }
 
-    public void setOpv2DateTime(DateTime opv2DateTime) {
-        this.opv2DateTime = opv2DateTime;
+    public void setOpv2DateTime(DateTime opv2Date) {
+        this.opv2Date = opv2Date;
     }
 
     public DateTime getOpv3DateTime() {
-        return this.opv3DateTime;
+        return this.opv3Date;
     }
 
-    public void setOpv3DateTime(DateTime opv3DateTime) {
-        this.opv3DateTime = opv3DateTime;
+    public void setOpv3DateTime(DateTime opv3Date) {
+        this.opv3Date = opv3Date;
     }
 
     public DateTime getVitA1DateTime() {
-        return this.vitA1DateTime;
+        return this.vitA1Date;
     }
 
-    public void setVitA1DateTime(DateTime vitA1DateTime) {
-        this.vitA1DateTime = vitA1DateTime;
+    public void setVitA1DateTime(DateTime vitA1Date) {
+        this.vitA1Date = vitA1Date;
     }
 
     public String getChildAlive() {
@@ -334,35 +334,35 @@ public class ChildCase implements java.io.Serializable,
     }
 
     public DateTime getDptBoosterDateTime() {
-        return this.dptBoosterDateTime;
+        return this.dptBoosterDate;
     }
 
-    public void setDptBoosterDateTime(DateTime dptBoosterDateTime) {
-        this.dptBoosterDateTime = dptBoosterDateTime;
+    public void setDptBoosterDateTime(DateTime dptBoosterDate) {
+        this.dptBoosterDate = dptBoosterDate;
     }
 
     public DateTime getOpvBoosterDateTime() {
-        return this.opvBoosterDateTime;
+        return this.opvBoosterDate;
     }
 
-    public void setOpvBoosterDateTime(DateTime opvBoosterDateTime) {
-        this.opvBoosterDateTime = opvBoosterDateTime;
+    public void setOpvBoosterDateTime(DateTime opvBoosterDate) {
+        this.opvBoosterDate = opvBoosterDate;
     }
 
-    public DateTime getDateTimeJe() {
-        return this.DateTimeJe;
+    public DateTime getDateJe() {
+        return this.dateJe;
     }
 
-    public void setDateTimeJe(DateTime DateTimeJe) {
-        this.DateTimeJe = DateTimeJe;
+    public void setDateJe(DateTime dateJe) {
+        this.dateJe = dateJe;
     }
 
-    public DateTime getDateTimeMeaslesBooster() {
-        return this.DateTimeMeaslesBooster;
+    public DateTime getDateMeaslesBooster() {
+        return this.dateMeaslesBooster;
     }
 
-    public void setDateTimeMeaslesBooster(DateTime DateTimeMeaslesBooster) {
-        this.DateTimeMeaslesBooster = DateTimeMeaslesBooster;
+    public void setDateMeaslesBooster(DateTime dateMeaslesBooster) {
+        this.dateMeaslesBooster = dateMeaslesBooster;
     }
 
     public String getBabyWeight() {
@@ -398,19 +398,19 @@ public class ChildCase implements java.io.Serializable,
     }
 
     public DateTime getVitA2DateTime() {
-        return this.vitA2DateTime;
+        return this.vitA2Date;
     }
 
-    public void setVitA2DateTime(DateTime vitA2DateTime) {
-        this.vitA2DateTime = vitA2DateTime;
+    public void setVitA2DateTime(DateTime vitA2Date) {
+        this.vitA2Date = vitA2Date;
     }
 
     public DateTime getVitA3DateTime() {
-        return this.vitA3DateTime;
+        return this.vitA3Date;
     }
 
-    public void setVitA3DateTime(DateTime vitA3DateTime) {
-        this.vitA3DateTime = vitA3DateTime;
+    public void setVitA3DateTime(DateTime vitA3Date) {
+        this.vitA3Date = vitA3Date;
     }
 
     public String getCordFallen() {
@@ -468,7 +468,7 @@ public class ChildCase implements java.io.Serializable,
         if (!isLatest(updated)) {
             // TODO add logger below
             // logger.warn(String.format("Ignoring mother case update with case id: %s since current DateTime modified is %s and given DateTime modified is %s",
-            // this.caseId, this.DateTimeModified, updated.DateTimeModified));
+            // this.caseId, this.dateModified, updated.DateTimeModified));
             return;
         }
 
