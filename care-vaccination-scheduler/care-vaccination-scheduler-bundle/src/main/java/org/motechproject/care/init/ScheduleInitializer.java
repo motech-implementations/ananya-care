@@ -69,6 +69,7 @@ public class ScheduleInitializer {
           //  }
         //};
         List<String> vaccinationList = new ArrayList<String>();
+        vaccinationList.add("mother-tt.json");
         vaccinationList.add("mother-tt-booster.json");
         vaccinationList.add("mother-care.json");
         vaccinationList.add("mother-anc4.json");
@@ -85,7 +86,8 @@ public class ScheduleInitializer {
         vaccinationList.add("child-care.json");
         vaccinationList.add("child-bcg.json");
         for(String vaccinationName : vaccinationList) {
-        File file = new File("/home/naveen/Desktop/schedules/"+vaccinationName);
+            String homePath = System.getProperty("user.home");
+        File file = new File(homePath+"/schedules/"+vaccinationName);
          //MdsRepository repo = new MdsRepository();
       //  for (File file : schedulesDirectory.listFiles(filenameFilter)) {
             Schedule schedule = parseScheduleJson(file);

@@ -28,8 +28,8 @@
     <osgi:reference id="platformSettingsService"
                     interface="org.motechproject.server.config.service.PlatformSettingsService"/>
 
-    <osgi:reference id="couchDbManager"
-                    interface="org.motechproject.commons.couchdb.service.CouchDbManager" />
+   <!-- <osgi:reference id="couchDbManager"
+                    interface="org.motechproject.commons.couchdb.service.CouchDbManager" />-->
                     
     <osgi:reference id="dbRepository" 
 					interface="org.motechproject.mcts.care.common.mds.repository.MdsRepository"/>

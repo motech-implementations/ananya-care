@@ -126,11 +126,11 @@
 			<artifactId>exec-maven-plugin</artifactId>
 			<version>1.3</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.motechproject</groupId>
 			<artifactId>motech-platform-commons-couchdb</artifactId>
 			<version>0.21.1</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.motechproject.contrib-ananya-care</groupId>
 			<artifactId>commcare-case-gateway</artifactId>
