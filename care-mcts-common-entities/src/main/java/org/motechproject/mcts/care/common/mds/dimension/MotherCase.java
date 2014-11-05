@@ -1102,7 +1102,7 @@ public class MotherCase implements java.io.Serializable,
         return dateModifiedString;
     }
 
-    public void setDateModified(String dateModifiedString) {
+    public void setDateModifiedString(String dateModifiedString) {
         this.dateModifiedString = dateModifiedString;
     }
 
