@@ -21,7 +21,7 @@ public class MotherCaseBuilder {
         motherCase.setCaseId("001");
         motherCase.setCaseName("NEERAJ");
         motherCase.setCaseType("cc_bihar_pregnancy");
-        motherCase.setDateTimeLastVisit(new DateTime(2012, 4, 3, 0, 0));
+        motherCase.setDateLastVisit(new DateTime(2012, 4, 3, 0, 0));
         motherCase.setHhNumber(3);
         motherCase.setHusbandName("DA");
     }
@@ -41,7 +41,7 @@ public class MotherCaseBuilder {
     }
 
     public MotherCaseBuilder dateModified(DateTime date) {
-        motherCase.setDateTimeModified(date);
+        motherCase.setDateModified(date);
         return this;
     }
 
@@ -59,7 +59,7 @@ public class MotherCaseBuilder {
         motherCase.setFlw(null);
         motherCase.setFlwGroup(null);
         motherCase.setCaseName(null);
-        motherCase.setDateTimeLastVisit(null);
+        motherCase.setDateLastVisit(null);
         motherCase.setHhNumber(null);
         motherCase.setHusbandName(null);
         return this;

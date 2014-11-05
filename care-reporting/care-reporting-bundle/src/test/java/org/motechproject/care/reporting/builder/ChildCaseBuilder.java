@@ -38,7 +38,7 @@ public class ChildCaseBuilder {
     }
 
     public ChildCaseBuilder dateModified(DateTime date) {
-        childCase.setDateTimeModified(date);
+        childCase.setDateModified(date);
         return this;
     }
 

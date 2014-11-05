@@ -27,7 +27,7 @@ public class MotherCaseTest {
         oldMother.updateToLatest(updatedMother);
 
         assertEquals("devi", oldMother.getCaseName());
-        assertEquals(dec01, updatedMother.getDateTimeModified());
+        assertEquals(dec01, updatedMother.getDateModified());
         assertEquals("yes", oldMother.getMotherAlive());
     }
 
