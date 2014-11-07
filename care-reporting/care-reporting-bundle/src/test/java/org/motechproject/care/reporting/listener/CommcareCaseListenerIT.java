@@ -120,7 +120,7 @@ public class CommcareCaseListenerIT extends SpringIntegrationTest {
         assertEquals(1, motherCases.size());
         MotherCase actualMother = motherCases.get(0);
         assertTrue(actualMother.getClosed());
-        assertEquals(JAN_20, actualMother.getServerDateTimeModified());
+        assertEquals(JAN_20, actualMother.getServerDateModified());
         assertEquals(JAN_01, actualMother.getDateModified());
         assertEquals(JAN_01, actualMother.getClosedOn());
         assertEquals("5ba9a0928dde95d187544babf6c0ad24", actualMother.getClosedBy().getFlwId());

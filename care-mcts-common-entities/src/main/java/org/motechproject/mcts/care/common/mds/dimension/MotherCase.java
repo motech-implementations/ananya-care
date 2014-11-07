@@ -48,7 +48,7 @@ public class MotherCase implements java.io.Serializable,
     private DateTime dateModified;
 
     @Field
-    private DateTime serverDateTimeModified;
+    private DateTime serverDateModified;
 
     @Field
     private Integer familyNumber;
@@ -338,12 +338,12 @@ public class MotherCase implements java.io.Serializable,
         this.dateModified = dateModified;
     }
 
-    public DateTime getServerDateTimeModified() {
-        return this.serverDateTimeModified;
+    public DateTime getServerDateModified() {
+        return this.serverDateModified;
     }
 
-    public void setServerDateTimeModified(DateTime serverDateTimeModified) {
-        this.serverDateTimeModified = serverDateTimeModified;
+    public void setServerDateModified(DateTime serverDateModified) {
+        this.serverDateModified = serverDateModified;
     }
 
     public Integer getFamilyNumber() {
@@ -714,11 +714,11 @@ public class MotherCase implements java.io.Serializable,
         this.pnc3DaysLate = pnc3DaysLate;
     }
 
-    public DateTime getTtBoosterDateTime() {
+    public DateTime getTtBoosterDate() {
         return this.ttBoosterDate;
     }
 
-    public void setTtBoosterDateTime(DateTime ttBoosterDate) {
+    public void setTtBoosterDate(DateTime ttBoosterDate) {
         this.ttBoosterDate = ttBoosterDate;
     }
 
@@ -769,11 +769,11 @@ public class MotherCase implements java.io.Serializable,
         this.anc3Date = anc3Date;
     }
 
-    public DateTime getAnc4DateTime() {
+    public DateTime getAnc4Date() {
         return this.anc4Date;
     }
 
-    public void setAnc4DateTime(DateTime anc4Date) {
+    public void setAnc4Date(DateTime anc4Date) {
         this.anc4Date = anc4Date;
     }
 
@@ -889,19 +889,19 @@ public class MotherCase implements java.io.Serializable,
         this.savingMoney = savingMoney;
     }
 
-    public DateTime getTt1DateTime() {
+    public DateTime getTt1Date() {
         return this.tt1Date;
     }
 
-    public void setTt1DateTime(DateTime tt1Date) {
+    public void setTt1Date(DateTime tt1Date) {
         this.tt1Date = tt1Date;
     }
 
-    public DateTime getTt2DateTime() {
+    public DateTime getTt2Date() {
         return this.tt2Date;
     }
 
-    public void setTt2DateTime(DateTime tt2Date) {
+    public void setTt2Date(DateTime tt2Date) {
         this.tt2Date = tt2Date;
     }
 
@@ -921,11 +921,11 @@ public class MotherCase implements java.io.Serializable,
         this.birthStatus = birthStatus;
     }
 
-    public DateTime getMigrateOutDateTime() {
+    public DateTime getMigrateOutDate() {
         return this.migrateOutDate;
     }
 
-    public void setMigrateOutDateTime(DateTime migrateOutDate) {
+    public void setMigrateOutDate(DateTime migrateOutDate) {
         this.migrateOutDate = migrateOutDate;
     }
 
@@ -1124,8 +1124,8 @@ public class MotherCase implements java.io.Serializable,
 
             LOGGER.warn(String
                     .format("Ignoring mother case update with case id: %s since existing server DateTime modified is %s and new server DateTime modified is %s",
-                            this.caseId, this.serverDateTimeModified,
-                            updated.serverDateTimeModified));
+                            this.caseId, this.serverDateModified,
+                            updated.serverDateModified));
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime",
@@ -1133,11 +1133,11 @@ public class MotherCase implements java.io.Serializable,
     }
 
     private boolean isLatest(MotherCase updatedObject) {
-        if (this.serverDateTimeModified == null)
+        if (this.serverDateModified == null)
             return true;
-        else if (updatedObject.serverDateTimeModified == null)
+        else if (updatedObject.serverDateModified == null)
             return false;
-        return this.serverDateTimeModified
-                .compareTo(updatedObject.serverDateTimeModified) <= 0;
+        return this.serverDateModified
+                .compareTo(updatedObject.serverDateModified) <= 0;
     }
 }

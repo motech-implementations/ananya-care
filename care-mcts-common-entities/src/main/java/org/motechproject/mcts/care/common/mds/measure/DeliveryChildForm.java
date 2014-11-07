@@ -193,7 +193,7 @@ public class DeliveryChildForm extends Form {
     }
 
     @Field
-    public DateTime getBcgDateTime() {
+    public DateTime getBcgDate() {
         return this.bcgDate;
     }
 
@@ -229,7 +229,7 @@ public class DeliveryChildForm extends Form {
     }
 
     @Field
-    public DateTime getHepB0DateTime() {
+    public DateTime getHepB0Date() {
         return this.hepB0Date;
     }
 
@@ -238,7 +238,7 @@ public class DeliveryChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpv0DateTime() {
+    public DateTime getOpv0Date() {
         return this.opv0Date;
     }
 

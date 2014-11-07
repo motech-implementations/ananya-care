@@ -279,7 +279,7 @@ public class CfChildForm extends Form {
         this.babyVita1 = babyVita1;
     }
 
-    public DateTime getBcgDateTime() {
+    public DateTime getBcgDate() {
         return this.bcgDate;
     }
 
@@ -295,7 +295,7 @@ public class CfChildForm extends Form {
         this.caseName = caseName;
     }
 
-    public DateTime getDpt1DateTime() {
+    public DateTime getDpt1Date() {
         return this.dpt1Date;
     }
 
@@ -304,7 +304,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getDpt2DateTime() {
+    public DateTime getDpt2Date() {
         return this.dpt2Date;
     }
 
@@ -313,7 +313,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getDpt3DateTime() {
+    public DateTime getDpt3Date() {
         return this.dpt3Date;
     }
 
@@ -322,7 +322,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getHepB0DateTime() {
+    public DateTime getHepB0Date() {
         return this.hepB0Date;
     }
 
@@ -331,7 +331,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getHepB1DateTime() {
+    public DateTime getHepB1Date() {
         return this.hepB1Date;
     }
 
@@ -340,7 +340,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getHepB2DateTime() {
+    public DateTime getHepB2Date() {
         return this.hepB2Date;
     }
 
@@ -349,7 +349,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getHepB3DateTime() {
+    public DateTime getHepB3Date() {
         return this.hepB3Date;
     }
 
@@ -358,7 +358,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getMeaslesDateTime() {
+    public DateTime getMeaslesDate() {
         return this.measlesDate;
     }
 
@@ -367,7 +367,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpv0DateTime() {
+    public DateTime getOpv0Date() {
         return this.opv0Date;
     }
 
@@ -376,7 +376,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpv1DateTime() {
+    public DateTime getOpv1Date() {
         return this.opv1Date;
     }
 
@@ -385,7 +385,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpv2DateTime() {
+    public DateTime getOpv2Date() {
         return this.opv2Date;
     }
 
@@ -394,7 +394,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpv3DateTime() {
+    public DateTime getOpv3Date() {
         return this.opv3Date;
     }
 
@@ -403,7 +403,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getVitA1DateTime() {
+    public DateTime getVitA1Date() {
         return this.vitA1Date;
     }
 
@@ -593,7 +593,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getDptBoosterDateTime() {
+    public DateTime getDptBoosterDate() {
         return this.dptBoosterDate;
     }
 
@@ -602,7 +602,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getOpvBoosterDateTime() {
+    public DateTime getOpvBoosterDate() {
         return this.opvBoosterDate;
     }
 
@@ -611,7 +611,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getVitA3DateTime() {
+    public DateTime getVitA3Date() {
         return this.vitA3Date;
     }
 
@@ -620,7 +620,7 @@ public class CfChildForm extends Form {
     }
 
     @Field
-    public DateTime getVitA2DateTime() {
+    public DateTime getVitA2Date() {
         return this.vitA2Date;
     }
 

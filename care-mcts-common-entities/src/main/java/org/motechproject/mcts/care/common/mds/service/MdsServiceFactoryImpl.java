@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -412,7 +413,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         JobMetadata jobMetadata = jobMetadataMDSService
                 .findByJobName("populate_delivery_offset_days");
         if (jobMetadata == null) {
-            jobMetadata = new JobMetadata("populate_delivery_offset_days", null);
+            jobMetadata = new JobMetadata("populate_delivery_offset_days", new DateTime(0));
             jobMetadataMDSService.create(jobMetadata);
         }
     }

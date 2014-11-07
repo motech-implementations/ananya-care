@@ -163,7 +163,7 @@ public class AwwGrowthMonitoringChildForm2 extends Form {
 		this.lastGrowth3 = lastGrowth3;
 	}
 
-	public DateTime getCurrentWeightDateTime() {
+	public DateTime getCurrentWeightDate() {
 		return currentWeightDate;
 	}
 
@@ -171,7 +171,7 @@ public class AwwGrowthMonitoringChildForm2 extends Form {
 		this.currentWeightDate = currentWeightDate;
 	}
 
-	public DateTime getLastWeightDateTime() {
+	public DateTime getLastWeightDate() {
 		return lastWeightDate;
 	}
 

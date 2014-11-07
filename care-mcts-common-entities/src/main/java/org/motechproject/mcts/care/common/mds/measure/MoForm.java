@@ -85,7 +85,7 @@ public class MoForm extends Form {
 
 	
 	@Field
-	public DateTime getMigrateOutDateTime() {
+	public DateTime getMigrateOutDate() {
 		return this.migrateOutDate;
 	}
 

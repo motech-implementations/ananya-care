@@ -394,12 +394,12 @@ public class CareService implements
             String query;
             if (type.equalsIgnoreCase(FORM)) {
                 if (category.equalsIgnoreCase(MOTHER)) {
-                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun INNER JOIN "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun INNER JOIN "
                             + tableName
                             + " tableName ON mc.id = tableName.motherCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
                     computeFieldsJob(tableName, query);
                 } else if (category.equalsIgnoreCase(CHILD)) {
-                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
                             + tableName
                             + " tableName ON cc.id = tableName.childCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
                     computeFieldsJob(tableName, query);
@@ -434,13 +434,13 @@ public class CareService implements
         DateTime edd = null;
         DateTime serverDateModified = null;
         if (resultSet[0] != null) {
-            add = parseDateTime(resultSet[0]);
+            add = parseDateTime(String.valueOf(resultSet[0]));
         }
         if (resultSet[1] != null) {
-            edd = parseDateTime(resultSet[1]);
+            edd = parseDateTime(String.valueOf(resultSet[1]));
         }
         if (resultSet[2] != null) {
-            serverDateModified = parseDateTime(resultSet[2]);
+            serverDateModified = parseDateTime(String.valueOf(resultSet[2]));
         }
         if (add != null && serverDateModified != null) {
             deliveryOffsetDays = Days.daysBetween(serverDateModified, add)
@@ -449,14 +449,15 @@ public class CareService implements
             deliveryOffsetDays = Days.daysBetween(serverDateModified, edd)
                     .getDays();
         }
+        int tableId = (int) resultSet[3];
         String updateQuery = "UPDATE " + tableName
                 + " SET deliveryOffsetDays = "
                 + String.valueOf(deliveryOffsetDays);
         dbRepository.execute(updateQuery);
     }
 
-    private DateTime parseDateTime(Object dateTimeObject) {
-        return DateTime.parse((String) dateTimeObject, DateTimeFormat
+    private DateTime parseDateTime(String dateTimeString) {
+        return DateTime.parse((String) dateTimeString, DateTimeFormat
                 .forPattern(DEFAULT_DATE_FORMAT));
     }
 }

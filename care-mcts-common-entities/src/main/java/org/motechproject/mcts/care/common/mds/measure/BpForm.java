@@ -307,7 +307,7 @@ public class BpForm extends Form {
 		this.dateModified = dateModified;
 	}
 
-	public DateTime getAncLatestDateTime() {
+	public DateTime getAncLatestDate() {
 		return this.ancLatestDate;
 	}
 
@@ -604,7 +604,7 @@ public class BpForm extends Form {
 		this.ttBooster = ttBooster;
 	}
 
-	public DateTime getTtBoosterDateTime() {
+	public DateTime getTtBoosterDate() {
 		return this.ttBoosterDate;
 	}
 
@@ -820,7 +820,7 @@ public class BpForm extends Form {
 		this.bpVisitNum = bpVisitNum;
 	}
 
-	public DateTime getAnc1DateTime() {
+	public DateTime getAnc1Date() {
 		return this.anc1Date;
 	}
 
@@ -828,7 +828,7 @@ public class BpForm extends Form {
 		this.anc1Date = anc1Date;
 	}
 
-	public DateTime getAnc2DateTime() {
+	public DateTime getAnc2Date() {
 		return this.anc2Date;
 	}
 
@@ -836,7 +836,7 @@ public class BpForm extends Form {
 		this.anc2Date = anc2Date;
 	}
 
-	public DateTime getAnc3DateTime() {
+	public DateTime getAnc3Date() {
 		return this.anc3Date;
 	}
 
@@ -844,7 +844,7 @@ public class BpForm extends Form {
 		this.anc3Date = anc3Date;
 	}
 
-	public DateTime getAnc4DateTime() {
+	public DateTime getAnc4Date() {
 		return this.anc4Date;
 	}
 
@@ -948,7 +948,7 @@ public class BpForm extends Form {
 		this.maternalEmergencyNumber = maternalEmergencyNumber;
 	}
 
-	public DateTime getTt1DateTime() {
+	public DateTime getTt1Date() {
 		return this.tt1Date;
 	}
 
@@ -956,7 +956,7 @@ public class BpForm extends Form {
 		this.tt1Date = tt1Date;
 	}
 
-	public DateTime getTt2DateTime() {
+	public DateTime getTt2Date() {
 		return this.tt2Date;
 	}
 

@@ -101,7 +101,7 @@ public class UiMotherForm extends Form {
 		this.detailsAvailable = detailsAvailable;
 	}
 
-	public DateTime getTt1DateTime() {
+	public DateTime getTt1Date() {
 		return this.tt1Date;
 	}
 
@@ -109,7 +109,7 @@ public class UiMotherForm extends Form {
 		this.tt1Date = tt1Date;
 	}
 
-	public DateTime getTt2DateTime() {
+	public DateTime getTt2Date() {
 		return this.tt2Date;
 	}
 
@@ -117,7 +117,7 @@ public class UiMotherForm extends Form {
 		this.tt2Date = tt2Date;
 	}
 
-	public DateTime getTtBoosterDateTime() {
+	public DateTime getTtBoosterDate() {
 		return this.ttBoosterDate;
 	}
 
@@ -141,7 +141,7 @@ public class UiMotherForm extends Form {
 		this.receivedTt2 = receivedTt2;
 	}
 
-	public String getUpToDateTime() {
+	public String getUpToDate() {
 		return this.upToDate;
 	}
 

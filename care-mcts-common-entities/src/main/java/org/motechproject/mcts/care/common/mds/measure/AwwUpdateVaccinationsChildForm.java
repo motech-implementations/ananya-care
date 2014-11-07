@@ -215,7 +215,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.addVaccinations = addVaccinations;
 	}
 
-	public DateTime getBcgDateTime() {
+	public DateTime getBcgDate() {
 		return bcgDate;
 	}
 
@@ -223,7 +223,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.bcgDate = bcgDate;
 	}
 
-	public DateTime getOpv0DateTime() {
+	public DateTime getOpv0Date() {
 		return opv0Date;
 	}
 
@@ -231,7 +231,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.opv0Date = opv0Date;
 	}
 
-	public DateTime getOpv1DateTime() {
+	public DateTime getOpv1Date() {
 		return opv1Date;
 	}
 
@@ -239,7 +239,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.opv1Date = opv1Date;
 	}
 
-	public DateTime getOpv2DateTime() {
+	public DateTime getOpv2Date() {
 		return opv2Date;
 	}
 
@@ -247,7 +247,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.opv2Date = opv2Date;
 	}
 
-	public DateTime getOpv3DateTime() {
+	public DateTime getOpv3Date() {
 		return opv3Date;
 	}
 
@@ -255,7 +255,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.opv3Date = opv3Date;
 	}
 
-	public DateTime getOpvBoosterDateTime() {
+	public DateTime getOpvBoosterDate() {
 		return opvBoosterDate;
 	}
 
@@ -263,7 +263,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.opvBoosterDate = opvBoosterDate;
 	}
 
-	public DateTime getDpt1DateTime() {
+	public DateTime getDpt1Date() {
 		return dpt1Date;
 	}
 
@@ -271,7 +271,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dpt1Date = dpt1Date;
 	}
 
-	public DateTime getDpt2DateTime() {
+	public DateTime getDpt2Date() {
 		return dpt2Date;
 	}
 
@@ -279,7 +279,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dpt2Date = dpt2Date;
 	}
 
-	public DateTime getDpt3DateTime() {
+	public DateTime getDpt3Date() {
 		return dpt3Date;
 	}
 
@@ -287,7 +287,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dpt3Date = dpt3Date;
 	}
 
-	public DateTime getDptBoosterDateTime() {
+	public DateTime getDptBoosterDate() {
 		return dptBoosterDate;
 	}
 
@@ -295,7 +295,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dptBoosterDate = dptBoosterDate;
 	}
 
-	public DateTime getHepB0DateTime() {
+	public DateTime getHepB0Date() {
 		return hepB0Date;
 	}
 
@@ -303,7 +303,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.hepB0Date = hepB0Date;
 	}
 
-	public DateTime getHepB1DateTime() {
+	public DateTime getHepB1Date() {
 		return hepB1Date;
 	}
 
@@ -311,7 +311,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.hepB1Date = hepB1Date;
 	}
 
-	public DateTime getHepB2DateTime() {
+	public DateTime getHepB2Date() {
 		return hepB2Date;
 	}
 
@@ -319,7 +319,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.hepB2Date = hepB2Date;
 	}
 
-	public DateTime getHepB3DateTime() {
+	public DateTime getHepB3Date() {
 		return hepB3Date;
 	}
 
@@ -327,7 +327,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.hepB3Date = hepB3Date;
 	}
 
-	public DateTime getMeaslesDateTime() {
+	public DateTime getMeaslesDate() {
 		return measlesDate;
 	}
 
@@ -343,7 +343,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dateMeaslesBooster = dateMeaslesBooster;
 	}
 
-	public DateTime getVitA1DateTime() {
+	public DateTime getVitA1Date() {
 		return vitA1Date;
 	}
 
@@ -351,7 +351,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.vitA1Date = vitA1Date;
 	}
 
-	public DateTime getVitA2DateTime() {
+	public DateTime getVitA2Date() {
 		return vitA2Date;
 	}
 
@@ -359,7 +359,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.vitA2Date = vitA2Date;
 	}
 
-	public DateTime getVitA3DateTime() {
+	public DateTime getVitA3Date() {
 		return vitA3Date;
 	}
 
@@ -375,7 +375,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.dateJe = dateJe;
 	}
 
-	public String getUpToDateTime() {
+	public String getUpToDate() {
 		return upToDate;
 	}
 
@@ -591,7 +591,7 @@ public class AwwUpdateVaccinationsChildForm extends Form {
 		this.success = success;
 	}
 
-	public String getImmunsUpToDateTime() {
+	public String getImmunsUpToDate() {
 		return immunsUpToDate;
 	}
 

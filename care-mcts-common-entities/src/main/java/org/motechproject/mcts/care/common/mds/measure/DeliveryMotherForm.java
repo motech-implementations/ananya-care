@@ -519,7 +519,7 @@ public class DeliveryMotherForm extends Form {
     }
 
     @Field
-    public DateTime getJsyMoneyDateTime() {
+    public DateTime getJsyMoneyDate() {
         return jsyMoneyDate;
     }
 
@@ -538,7 +538,7 @@ public class DeliveryMotherForm extends Form {
 
     
     @Field
-    public DateTime getDischargeDateTime() {
+    public DateTime getDischargeDate() {
         return dischargeDate;
     }
 

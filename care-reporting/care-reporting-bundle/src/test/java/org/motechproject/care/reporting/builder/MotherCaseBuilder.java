@@ -83,7 +83,7 @@ public class MotherCaseBuilder {
     public MotherCaseBuilder close() {
         motherCase.setClosed(true);
         motherCase.setClosedBy(motherCase.getFlw());
-        motherCase.setClosedOn(motherCase.getServerDateTimeModified());
+        motherCase.setClosedOn(motherCase.getServerDateModified());
         return this;
     }
 
@@ -103,7 +103,7 @@ public class MotherCaseBuilder {
     }
 
     public MotherCaseBuilder serverDateModified(DateTime serverModifiedOn) {
-        motherCase.setServerDateTimeModified(serverModifiedOn);
+        motherCase.setServerDateModified(serverModifiedOn);
         return this;
     }
 }
