@@ -305,19 +305,20 @@ public class MdsRepository implements
     public Object execute(final String query) {
         MotechDataService<?> service = (MotechDataService<?>) mdsServiceFactory
                 .fetchDefaultServiceInterface();
-        service.executeSQLQuery(new SqlQueryExecution<List<String>>() {
-            @Override
-            public List<String> execute(Query query) {
-                query.execute();
-                return null;
-            }
+        Object result = service
+                .executeSQLQuery(new SqlQueryExecution<List<String>>() {
 
-            @Override
-            public String getSqlQuery() {
-                return query;
-            }
-        });
-        return null;
+                    @Override
+                    public List<String> execute(Query query) {
+                        return (List<String>) query.execute();
+                    }
+
+                    @Override
+                    public String getSqlQuery() {
+                        return query;
+                    }
+                });
+        return result;
     }
 
     @SuppressWarnings("unchecked")
@@ -356,9 +357,8 @@ public class MdsRepository implements
 
     @Override
     public <T> void deleteAll(List<T> instances) {
-        // TODO Auto-generated method stub
-        if(instances!=null) {
-            for(T instance : instances) {
+        if (instances != null) {
+            for (T instance : instances) {
                 if (instance != null) {
                     @SuppressWarnings("unchecked")
                     MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -368,9 +368,9 @@ public class MdsRepository implements
                     }
                     service.delete(instance);
                 }
-            } 
+            }
         }
-    
+
     }
 
     @Override
@@ -378,7 +378,7 @@ public class MdsRepository implements
         @SuppressWarnings("unchecked")
         MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
                 .fetchServiceInterface(entityClass);
-        
+
         service.deleteAll();
     }
 

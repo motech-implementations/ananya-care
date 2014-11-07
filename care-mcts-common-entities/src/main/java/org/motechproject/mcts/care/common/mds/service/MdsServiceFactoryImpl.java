@@ -409,9 +409,11 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     }
 
     public void initializeMetadata() {
-        JobMetadata jobMetadata = new JobMetadata(
-                "populate_delivery_offset_days", null);
-        jobMetadataMDSService.create(jobMetadata);
+        JobMetadata jobMetadata = jobMetadataMDSService
+                .findByJobName("populate_delivery_offset_days");
+        if (jobMetadata == null) {
+            jobMetadata = new JobMetadata("populate_delivery_offset_days", null);
+            jobMetadataMDSService.create(jobMetadata);
+        }
     }
-
 }
