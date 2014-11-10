@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.job;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.motechproject.care.reporting.service.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +22,12 @@ public class ComputeFieldsJob implements Job {
             .getLogger("commcare-reporting-mapper");
 
     @Override
-    public void run() {
+    public void run() throws IllegalArgumentException, IllegalAccessException,
+            NoSuchFieldException, SecurityException, InvocationTargetException,
+            NoSuchMethodException, InstantiationException {
         logger.info("Starting Computed Fields Population");
         long startTime = System.currentTimeMillis();
         service.computeFieldsJob();
-        //service.execute("SELECT report.populate_computed_fields()");
         long endTime = System.currentTimeMillis();
         logger.info(String.format(
                 "Completed Computed Fields Population in %s seconds",

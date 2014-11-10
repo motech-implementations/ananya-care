@@ -8,6 +8,7 @@ import static org.motechproject.care.reporting.constants.PropertyConstants.MOTHE
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyField;
 import static org.motechproject.care.reporting.utils.AnnotationUtils.getExternalPrimaryKeyValue;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -394,15 +395,29 @@ public class CareService implements
             String query;
             if (type.equalsIgnoreCase(FORM)) {
                 if (category.equalsIgnoreCase(MOTHER)) {
-                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun INNER JOIN "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id AS table_id FROM CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON mc.lastModifiedTime >= md.lastRun INNER JOIN "
                             + tableName
                             + " tableName ON mc.id = tableName.motherCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
-                    computeFieldsJob(tableName, query);
+                    try {
+                        computeFieldsJob(metadata.getClazz(), query);
+                    } catch (IllegalArgumentException | IllegalAccessException
+                            | NoSuchFieldException | SecurityException
+                            | InvocationTargetException | NoSuchMethodException
+                            | InstantiationException e) {
+                        logger.error("An error occured while computing fields job for the table: " + tableName);
+                    }
                 } else if (category.equalsIgnoreCase(CHILD)) {
-                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
+                    query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id AS table_id FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
                             + tableName
                             + " tableName ON cc.id = tableName.childCase_id_OID WHERE md.jobName = 'populate_delivery_offset_days'";
-                    computeFieldsJob(tableName, query);
+                    try {
+                        computeFieldsJob(metadata.getClazz(), query);
+                    } catch (IllegalArgumentException | IllegalAccessException
+                            | NoSuchFieldException | SecurityException
+                            | InvocationTargetException | NoSuchMethodException
+                            | InstantiationException e) {
+                        logger.error("An error occured while computing fields job for the table: " + tableName);
+                    }
                 }
             }
         }
@@ -418,17 +433,20 @@ public class CareService implements
         jobMetadataMDSService.update(jobMetadata);
     }
 
-    private void computeFieldsJob(String tableName, String query) {
+    private void computeFieldsJob(Class metadataClass, String query)
+            throws IllegalArgumentException, IllegalAccessException,
+            NoSuchFieldException, SecurityException, InvocationTargetException,
+            NoSuchMethodException, InstantiationException {
 
         List<Object[]> result = (List<Object[]>) dbRepository.execute(query);
         Iterator<Object[]> it = result.iterator();
         while (it.hasNext()) {
             Object[] resultSet = it.next();
-            updateComputedFields(resultSet, tableName);
+            updateComputedFields(resultSet, metadataClass);
         }
     }
 
-    private void updateComputedFields(Object[] resultSet, String tableName) {
+    private void updateComputedFields(Object[] resultSet, Class metadataClass) {
         int deliveryOffsetDays = 0;
         DateTime add = null;
         DateTime edd = null;
@@ -449,11 +467,17 @@ public class CareService implements
             deliveryOffsetDays = Days.daysBetween(serverDateModified, edd)
                     .getDays();
         }
-        int tableId = (int) resultSet[3];
-        String updateQuery = "UPDATE " + tableName
-                + " SET deliveryOffsetDays = "
-                + String.valueOf(deliveryOffsetDays);
-        dbRepository.execute(updateQuery);
+        long tableId = (long) resultSet[3];
+        Object form = dbRepository.get(metadataClass, "id", tableId);
+        try {
+            metadataClass.getMethod("setDeliveryOffsetDays", Integer.class).invoke(
+                    form, deliveryOffsetDays);
+        } catch (IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
+            logger.error("An error occured while invoking the Method 'setDeliveryOffsetDays' for the table: " + metadataClass.getSimpleName());
+        }
+        dbRepository.update(form);
     }
 
     private DateTime parseDateTime(String dateTimeString) {

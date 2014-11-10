@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.builder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.datanucleus.util.MultiMap;
 import org.motechproject.commcare.domain.FormValueElement;
 
 import com.google.common.collect.HashMultimap;
@@ -12,7 +13,7 @@ public class FormValueElementBuilder {
 
     private FormValueElement element = new FormValueElement();
     private Map<String, String> attributes = new HashMap<>();
-    private Multimap<String, FormValueElement> subElements = (Multimap<String, FormValueElement>) new HashMap();
+    private Multimap<String, FormValueElement> subElements = HashMultimap.create();
     private String elementName = "form";
 
     public FormValueElementBuilder withName(String elementName) {

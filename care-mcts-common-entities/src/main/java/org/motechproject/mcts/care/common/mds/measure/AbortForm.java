@@ -14,116 +14,116 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class AbortForm extends Form {
 
-	private static final long serialVersionUID = -2726077642537636852L;
-	
-	@Field
-	@Cascade(persist = true, update = true, delete = false)
-	private Flw flw;
-	@Field
-	@Cascade(persist = true, update = true, delete = false)
-	private MotherCase motherCase;
-	@Field
-	private DateTime timeEnd;
-	@Field
-	private DateTime timeStart;
-	@Field
-	private DateTime dateModified;
-	@Field
-	private String abortionType;
-	@Field
-	private String birthStatus;
-	@Field
-	private DateTime dateAborted;
-	@Field
-	private Boolean close;
-	@Field
-	private DateTime creationTime = new DateTime();
+    private static final long serialVersionUID = -2726077642537636852L;
 
-	public AbortForm() {
-	}
+    @Field
+    @Cascade(persist = true, update = true, delete = false)
+    private Flw flw;
+    @Field
+    @Cascade(persist = true, update = true, delete = false)
+    private MotherCase motherCase;
+    @Field
+    private DateTime timeEnd;
+    @Field
+    private DateTime timeStart;
+    @Field
+    private DateTime dateModified;
+    @Field
+    private String abortionType;
+    @Field
+    private String birthStatus;
+    @Field
+    private DateTime dateAborted;
+    @Field
+    private Boolean close;
+    @Field
+    private DateTime creationTime = new DateTime();
 
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public AbortForm() {
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public MotherCase getMotherCase() {
-		return this.motherCase;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	public void setMotherCase(MotherCase motherCase) {
-		this.motherCase = motherCase;
-	}
+    public MotherCase getMotherCase() {
+        return this.motherCase;
+    }
 
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public String getAbortionType() {
-		return this.abortionType;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	public void setAbortionType(String abortionType) {
-		this.abortionType = abortionType;
-	}
+    public String getAbortionType() {
+        return this.abortionType;
+    }
 
-	public String getBirthStatus() {
-		return this.birthStatus;
-	}
+    public void setAbortionType(String abortionType) {
+        this.abortionType = abortionType;
+    }
 
-	public void setBirthStatus(String birthStatus) {
-		this.birthStatus = birthStatus;
-	}
+    public String getBirthStatus() {
+        return this.birthStatus;
+    }
 
-	public DateTime getDateAborted() {
-		return this.dateAborted;
-	}
+    public void setBirthStatus(String birthStatus) {
+        this.birthStatus = birthStatus;
+    }
 
-	public void setDateAborted(DateTime dateAborted) {
-		this.dateAborted = dateAborted;
-	}
+    public DateTime getDateAborted() {
+        return this.dateAborted;
+    }
 
-	public DateTime getCreationTime() {
-		return creationTime;
-	}
+    public void setDateAborted(DateTime dateAborted) {
+        this.dateAborted = dateAborted;
+    }
 
-	public void setCreationTime(DateTime creationTime) {
-		this.creationTime = creationTime;
-	}
+    public DateTime getCreationTime() {
+        return creationTime;
+    }
 
-	public Boolean getClose() {
-		return close;
-	}
+    public void setCreationTime(DateTime creationTime) {
+        this.creationTime = creationTime;
+    }
 
-	public void setClose(Boolean close) {
-		this.close = close;
-	}
+    public Boolean getClose() {
+        return close;
+    }
 
-	@Override
-	public String toString() {
-		return FormToString.toString(this);
-	}
+    public void setClose(Boolean close) {
+        this.close = close;
+    }
+
+    @Override
+    public String toString() {
+        return FormToString.toString(this);
+    }
 }

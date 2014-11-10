@@ -1,5 +1,6 @@
 package org.motechproject.care.reporting.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -55,5 +56,5 @@ public interface Service {
 
     <T> void saveAll(List<T> instances);
 
-    public void computeFieldsJob();
+    public void computeFieldsJob() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, InvocationTargetException, NoSuchMethodException, InstantiationException;
 }

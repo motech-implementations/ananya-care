@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.listener;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.motechproject.care.reporting.constants.EventConstants;
 import org.motechproject.care.reporting.job.ComputeFieldsJob;
 import org.motechproject.event.MotechEvent;
@@ -23,7 +25,7 @@ public class ComputeFieldsEventListener {
 
     @MotechListener(subjects = {EventConstants.COMPUTE_FIELDS})
     @SuppressWarnings("unused - motechEvent expected as parameter by cron invoker")
-    public synchronized void handleComputeFieldsEvent(MotechEvent motechEvent) {
+    public synchronized void handleComputeFieldsEvent(MotechEvent motechEvent) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException, InvocationTargetException, NoSuchMethodException, InstantiationException {
         computeFieldsJob.run();
     }
 
