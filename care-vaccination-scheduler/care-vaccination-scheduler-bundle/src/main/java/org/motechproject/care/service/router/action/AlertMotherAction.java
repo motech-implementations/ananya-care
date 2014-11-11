@@ -27,7 +27,7 @@ public class AlertMotherAction extends AlertClientAction implements Action{
         if (!mother.isActive()) {
             return;
         }
-        alertWindow = alertWindow.resize(new Window(DateTime.now(), mother.getAdd()));
+        alertWindow = alertWindow.resize(new Window(DateTime.now(), mother.getEdd()));
         if(!alertWindow.isValid()) {
             return;
         }

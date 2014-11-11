@@ -39,7 +39,7 @@ public class OpvServiceTest {
         DateTime dob = new DateTime();
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setCaseId(caseId);
 
         opvService.process(child);

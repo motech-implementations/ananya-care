@@ -49,7 +49,7 @@ public class Opv0ServiceTest {
     public void shouldEnrollChildForOPV0ScheduleWhenDOBIsAvailable(){
         Child child = new Child();
         child.setCaseId("caseId");
-        child.setDOB(DateTime.now());
+        child.setDob(DateTime.now());
         opv0Service.process(child);
         verify(schedulerService).enroll(any(String.class), any(DateTime.class), anyString());
     }
@@ -59,7 +59,7 @@ public class Opv0ServiceTest {
         Child child = new Child();
         String caseId = "caseId";
         child.setCaseId(caseId);
-        child.setDOB(DateTime.now());
+        child.setDob(DateTime.now());
         DateTime opv0Date = DateTime.now().minusDays(1);
         child.setOpv0Date(opv0Date);
         opv0Service.process(child);

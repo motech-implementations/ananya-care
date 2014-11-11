@@ -10,20 +10,20 @@
     <context:spring-configured/>
     <context:annotation-config/>
 
-    <import resource="classpath*:META-INF/motech/applicationCommonsCouchdbContext.xml"/>
-    <util:properties id="couchdbProperties" location="classpath:/couchdb.properties"/>
+    <!-- <import resource="classpath*:META-INF/motech/applicationCommonsCouchdbContext.xml"/>
+    <util:properties id="couchdbProperties" location="classpath:/couchdb.properties"/> -->
 
     <context:component-scan base-package="org.motechproject.commcarehq"/>
-    <context:component-scan base-package="org.motechproject.care.domain"/>
-    <context:component-scan base-package="org.motechproject.care.repository"/>
+    <!-- <context:component-scan base-package="org.motechproject.care.domain"/>
+    <context:component-scan base-package="org.motechproject.care.repository"/> -->
 
 
-    <bean id="ananyaCareDummyAppDbConnector" factory-bean="couchDbManager" factory-method="getConnector">
+    <!-- <bean id="ananyaCareDummyAppDbConnector" factory-bean="couchDbManager" factory-method="getConnector">
         <constructor-arg value="dummy-commcare-hq" />
     </bean>
 
     <bean id="ananyaCareDbConnector" factory-bean="couchDbManager" factory-method="getConnector">
         <constructor-arg value="ananya-care" />
-    </bean>
+    </bean> -->
 
 </beans>

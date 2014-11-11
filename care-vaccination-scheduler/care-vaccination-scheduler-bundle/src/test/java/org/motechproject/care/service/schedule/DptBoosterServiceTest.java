@@ -46,7 +46,7 @@ public class DptBoosterServiceTest {
         DateTime dpt3Taken = dob.plusMonths(17);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setDpt3Date(dpt3Taken);
         child.setCaseId(caseId);
 
@@ -60,7 +60,7 @@ public class DptBoosterServiceTest {
         DateTime dpt3Taken = dob.plusMonths(8);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setDpt3Date(dpt3Taken);
         child.setCaseId(caseId);
 
@@ -74,7 +74,7 @@ public class DptBoosterServiceTest {
         DateTime dpt3Taken = dob.plusMonths(11);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setDpt3Date(dpt3Taken);
         child.setCaseId(caseId);
 
@@ -87,7 +87,7 @@ public class DptBoosterServiceTest {
         DateTime dob = new DateTime();
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
@@ -100,7 +100,7 @@ public class DptBoosterServiceTest {
         DateTime dpt3Taken = dob.plusMonths(19);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setDpt3Date(dpt3Taken);
         child.setCaseId(caseId);
 

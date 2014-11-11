@@ -20,7 +20,7 @@
     <modules>
         <module>${project.artifactId}-bundle</module>
         <module>${project.artifactId}-scheduling</module>
-       <!-- <module>${project.artifactId}-dummy-commcare-hq</module>-->
+        <module>${project.artifactId}-dummy-commcare-hq</module>
     </modules>
 
     <properties>

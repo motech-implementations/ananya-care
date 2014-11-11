@@ -27,8 +27,8 @@ public class OpvBoosterService extends VaccinationService{
     public void process(Client client) {
         Child child = (Child) client;
 
-        if(child.getOpv3Date() != null && child.getDOB() != null){
-            Window opvBoosterWindow = getOPVBoosterWindow(child.getOpv3Date(), child.getDOB());
+        if(child.getOpv3Date() != null && child.getDob() != null){
+            Window opvBoosterWindow = getOPVBoosterWindow(child.getOpv3Date(), child.getDob());
             if(opvBoosterWindow.isValid()) {
                 DateTime referenceDate = opvBoosterWindow.getStart().plus(periodUtil.getScheduleOffset());
                 schedulerService.enroll(child.getCaseId(), referenceDate, scheduleName);

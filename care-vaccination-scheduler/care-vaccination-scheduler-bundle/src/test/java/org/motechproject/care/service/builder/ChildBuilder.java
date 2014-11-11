@@ -43,7 +43,7 @@ public class ChildBuilder {
         child.setFlwId(userId);
         child.setCaseId(caseId);
         child.setGroupId(groupId);
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setIsAlive(isAlive);
         child.setMotherCaseId(motherCaseId);
         child.setDateModified(dateModified);

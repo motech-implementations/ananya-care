@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.motechproject.commons.couchdb.service.DbConnectionException;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 //import org.motechproject.commons.couchdb.service.impl.CouchDbManagerImpl;
 import org.motechproject.scheduletracking.domain.Schedule;
@@ -29,8 +28,8 @@ public class ScheduleInitializer {
     
     @Autowired
     ScheduleDataService scheduleDataService;
-    public static void main(String[] args) throws URISyntaxException, IOException, NullPointerException,
-            DbConnectionException {
+    public static void main(String[] args) throws URISyntaxException, IOException, NullPointerException
+         {
     	
        // CouchDbManager couchDbManager = new CouchDbManagerImpl();
        // TODO change to MDS

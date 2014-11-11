@@ -100,11 +100,11 @@ public class MdsRepository implements
             return null;
         }
 
-        String type = fieldValue != null ? fieldValue.getClass().getName()
-                : null;
+       /* String type = fieldValue != null ? fieldValue.getClass().getName()
+                : null;*/
         @SuppressWarnings("unchecked")
         EqualProperty<T> ep = (EqualProperty<T>) PropertyBuilder.create(
-                fieldName, fieldValue, type);
+                fieldName, fieldValue);
         List<Property> properties = new ArrayList<Property>();
         properties.add(ep);
         final List<T> results = service.retrieveAll(properties);
@@ -155,16 +155,16 @@ public class MdsRepository implements
             return null;
         }
 
-        String type = null;
+       /* String type = null;
         if (lowerFieldValue != null) {
             type = lowerFieldValue.getClass().getName();
         } else if (higherFieldValue != null) {
             type = higherFieldValue.getClass().getName();
-        }
+        }*/
         @SuppressWarnings("unchecked")
         RangeProperty<Object> rp = (RangeProperty<Object>) PropertyBuilder
                 .create(fieldName, new Range<Object>(lowerFieldValue,
-                        higherFieldValue), type);
+                        higherFieldValue));
         List<Property> proeprties = new ArrayList<Property>();
         proeprties.add(rp);
         final List<T> results = service.retrieveAll(proeprties);
@@ -188,13 +188,13 @@ public class MdsRepository implements
                     @Override
                     public List execute(javax.jdo.Query query,
                             InstanceSecurityRestriction restriction) {
-                        String type = null;
+                        /*String type = null;
                         if (values != null && values.size() > 0) {
                             type = values.get(0).getClass().getName();
-                        }
+                        }*/
                         List<Property> properties = new ArrayList<Property>();
                         SetProperty<T> setProperty = (SetProperty<T>) PropertyBuilder
-                                .create(fieldName, new HashSet<>(values), type);
+                                .create(fieldName, new HashSet<>(values));
                         properties.add(setProperty);
                         QueryUtil.useFilter(query, properties, restriction);
                         return (List) QueryExecutor.executeWithArray(query,
@@ -229,14 +229,14 @@ public class MdsRepository implements
                         if (MapUtils.isNotEmpty(fieldMap)) {
                             for (Map.Entry<String, Object> entry : fieldMap
                                     .entrySet()) {
-                                String type = null;
+                                /*String type = null;
                                 if (entry != null && entry.getValue() != null) {
                                     type = entry.getValue().getClass()
                                             .getName();
-                                }
+                                }*/
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
                                         .create(entry.getKey(), entry
-                                                .getValue(), type);
+                                                .getValue());
                                 properties.add(equalProperty);
                             }
                         }
@@ -267,14 +267,14 @@ public class MdsRepository implements
                         if (MapUtils.isNotEmpty(fieldMap)) {
                             for (Map.Entry<String, Object> entry : fieldMap
                                     .entrySet()) {
-                                String type = null;
+                                //String type = null;
                                 if (entry != null && entry.getValue() != null) {
-                                    type = entry.getValue().getClass()
-                                            .getName();
+                                    /*type = entry.getValue().getClass()
+                                            .getName();*/
                                 }
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
                                         .create(entry.getKey(), entry
-                                                .getValue(), type);
+                                                .getValue());
 
                                 properties.add(equalProperty);
                             }
@@ -305,20 +305,19 @@ public class MdsRepository implements
     public Object execute(final String query) {
         MotechDataService<?> service = (MotechDataService<?>) mdsServiceFactory
                 .fetchDefaultServiceInterface();
-        Object result = service
-                .executeSQLQuery(new SqlQueryExecution<List<String>>() {
+        service.executeSQLQuery(new SqlQueryExecution<List<String>>() {
+            @Override
+            public List<String> execute(Query query) {
+                query.execute();
+                return null;
+            }
 
-                    @Override
-                    public List<String> execute(Query query) {
-                        return (List<String>) query.execute();
-                    }
-
-                    @Override
-                    public String getSqlQuery() {
-                        return query;
-                    }
-                });
-        return result;
+            @Override
+            public String getSqlQuery() {
+                return query;
+            }
+        });
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -357,8 +356,9 @@ public class MdsRepository implements
 
     @Override
     public <T> void deleteAll(List<T> instances) {
-        if (instances != null) {
-            for (T instance : instances) {
+        // TODO Auto-generated method stub
+        if(instances!=null) {
+            for(T instance : instances) {
                 if (instance != null) {
                     @SuppressWarnings("unchecked")
                     MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
@@ -368,9 +368,9 @@ public class MdsRepository implements
                     }
                     service.delete(instance);
                 }
-            }
+            } 
         }
-
+    
     }
 
     @Override
@@ -378,7 +378,7 @@ public class MdsRepository implements
         @SuppressWarnings("unchecked")
         MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
                 .fetchServiceInterface(entityClass);
-
+        
         service.deleteAll();
     }
 

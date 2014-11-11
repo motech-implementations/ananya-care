@@ -46,7 +46,7 @@ public class OpvBoosterServiceTest {
         DateTime opv3Taken = dob.plusMonths(17);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
@@ -60,7 +60,7 @@ public class OpvBoosterServiceTest {
         DateTime opv3Taken = dob.plusMonths(8);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
@@ -74,7 +74,7 @@ public class OpvBoosterServiceTest {
         DateTime opv3Taken = dob.plusMonths(11);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
@@ -87,7 +87,7 @@ public class OpvBoosterServiceTest {
         DateTime dob = new DateTime();
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -100,7 +100,7 @@ public class OpvBoosterServiceTest {
         DateTime opv3Taken = dob.plusMonths(19);
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 

@@ -20,8 +20,8 @@ public class OpvService extends VaccinationService{
     @Override
     public void process(Client client) {
         Child child = (Child) client;
-        if(child.getDOB() != null)
-            schedulerService.enroll(child.getCaseId(), child.getDOB(), scheduleName);
+        if(child.getDob() != null)
+            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         if(child.getOpv1Date()!=null)
             fulfillMilestone(child.getCaseId(), MilestoneType.OPV1, child.getOpv1Date());
         if(child.getOpv2Date()!=null)

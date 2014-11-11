@@ -6,7 +6,6 @@ import org.motechproject.mcts.care.common.mds.repository.Repository;
 
 public abstract class BaseService<T extends Client> {
 	
-	private Repository dbRepository;
     protected final VaccinationProcessor vaccinationProcessor;
 
     public BaseService(VaccinationProcessor vaccinationProcessor) {
@@ -22,31 +21,11 @@ public abstract class BaseService<T extends Client> {
 
     protected abstract void onProcess(T client);
 
-    public boolean closeCase(String caseId) {
-        synchronized (getLockName(caseId)) {
-            T client = (T) dbRepository.get(Client.class,"caseId",caseId);
-            if(client == null)
-                return false;
+    public abstract boolean closeCase(String caseId);
 
-            client.setClosedByCommcare(true);
-            dbRepository.update(client);
-            vaccinationProcessor.closeSchedules(client);
-            return true;
-        }
-    }
+    public abstract boolean expireCase(String caseId);
 
-    public boolean expireCase(String caseId) {
-        synchronized (getLockName(caseId)) {
-            T client = (T) dbRepository.get(Client.class,"caseId",caseId);
-            if(client == null)
-                return false;
-            client.setExpired(true);
-            dbRepository.update(client);
-            return true;
-        }
-    }
-
-    private String getLockName(String caseId) {
+    public String getLockName(String caseId) {
         return String.format("%s-%s", BaseService.class.getCanonicalName(), caseId).intern();
     }
 }
