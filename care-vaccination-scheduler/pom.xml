@@ -6,7 +6,7 @@
     <parent>
         <artifactId>ananya-care</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24</version>
+        <version>0.24.2-SNAPSHOT</version>
 	<relativePath>../</relativePath>
     </parent>
 
