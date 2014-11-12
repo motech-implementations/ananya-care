@@ -5,6 +5,7 @@
     <artifactId>ananya-care</artifactId>
     <version>0.24.2-SNAPSHOT</version>
     <modules>
+        <module>care-mcts-common-entities</module>
         <module>care-reporting</module>
         <module>care-vaccination-scheduler</module>
     </modules>

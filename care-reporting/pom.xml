@@ -12,7 +12,6 @@
     <artifactId>care-reporting</artifactId>
 
     <modules>
-        <module>care-mcts-common-entities</module>
         <module>care-reporting-migration</module>
         <module>care-reporting-bundle</module>
         <module>care-reporting-functional-test</module>
