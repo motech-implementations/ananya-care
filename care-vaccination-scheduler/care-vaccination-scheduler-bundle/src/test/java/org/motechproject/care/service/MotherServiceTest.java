@@ -1,37 +1,44 @@
 package org.motechproject.care.service;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.io.IOException;
+
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.motechproject.care.service.builder.MotherBuilder;
-import org.motechproject.mcts.care.common.mds.domain.Child;
 import org.motechproject.mcts.care.common.mds.domain.Mother;
-import org.motechproject.mcts.care.common.mds.repository.Repository;
-
-import java.io.IOException;
-
-import static junit.framework.Assert.*;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 
 public class MotherServiceTest {
     @Mock
-    private Repository dbRepository;
+    private MdsRepository dbRepository;
     @Mock
     private VaccinationProcessor vaccinationProcessor;
-
-    private MotherService motherService;
+    @InjectMocks
+    private MotherService motherService = new MotherService(vaccinationProcessor);;
     private String caseId="caseId";
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        motherService = new MotherService(vaccinationProcessor);
+        motherService.setDbRepository(dbRepository);
     }
 
     @Test

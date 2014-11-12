@@ -51,7 +51,6 @@ public class TTServiceTest {
     public void shouldNotEnrollMotherForTTScheduleWhenEDDIsNull(){
         Mother mother = new Mother();
         mother.setCaseId("caseId");
-
         ttService.process(mother);
         verify(schedulerService, never()).enroll(any(String.class), any(DateTime.class), anyString());
     }

@@ -6,24 +6,26 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.motechproject.care.service.schedule.Hep0Service;
 import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.repository.Repository;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.WindowName;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
 
 public class Hep0ExpiryActionTest {
     @Mock
-    Repository dbRepository;
+    MdsRepository dbRepository;
     @Mock
     Hep0Service hep0Service;
-    Hep0ExpiryAction hep0ExpiryAction;
+    @InjectMocks
+    Hep0ExpiryAction hep0ExpiryAction = new Hep0ExpiryAction(hep0Service);;
 
     @Before
     public void setUp(){
        initMocks(this);
-       hep0ExpiryAction = new Hep0ExpiryAction(hep0Service);
+       hep0ExpiryAction.setDbRepository(dbRepository);
     }
 
     @Test

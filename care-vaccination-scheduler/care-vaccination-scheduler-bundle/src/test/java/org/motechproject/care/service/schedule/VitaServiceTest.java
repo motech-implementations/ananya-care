@@ -40,7 +40,7 @@ public class VitaServiceTest {
         DateTime dob = new DateTime();
         String caseId = "caseId";
         Child child = new Child();
-        child.setDOB(dob);
+        child.setDob(dob);
         child.setCaseId(caseId);
 
         vitaService.process(child);

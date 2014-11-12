@@ -13,7 +13,12 @@ public class BcgExpiryAction implements Action {
     private BcgService bcgService;
     @Autowired
     MdsRepository dbRepository;
-    @Autowired
+    
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	@Autowired
     public BcgExpiryAction(BcgService bcgService) {
         this.bcgService = bcgService;
     }

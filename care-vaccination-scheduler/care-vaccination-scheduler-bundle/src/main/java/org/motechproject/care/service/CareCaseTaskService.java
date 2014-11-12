@@ -17,13 +17,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class CareCaseTaskService {
 
-    //private AllCareCaseTasks allCareCaseTasks;
     @Autowired
-	private Repository dbRepository;
+	Repository dbRepository;
     private CommcareCaseGateway commcareCaseGateway;
     private Properties ananyaCareProperties;
+    
+    
 
-    Logger logger = Logger.getLogger(CareCaseTaskService.class);
+    public Repository getDbRepository() {
+		return dbRepository;
+	}
+
+	public void setDbRepository(Repository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	Logger logger = Logger.getLogger(CareCaseTaskService.class);
 
     @Autowired
     public CareCaseTaskService(CommcareCaseGateway commcareCaseGateway, Properties ananyaCareProperties) {
@@ -31,7 +40,8 @@ public class CareCaseTaskService {
         this.ananyaCareProperties = ananyaCareProperties;
     }
 
-    public void close(String clientCaseId, String milestoneName) {
+    @SuppressWarnings("unchecked")
+	public void close(String clientCaseId, String milestoneName) {
         logger.info(String.format("Closing case for Client Case Id: %s; Milestone Name: %s", clientCaseId, milestoneName));
         Map careFieldMap = new HashMap<String, String>();
         careFieldMap.put("clientCaseId", clientCaseId);

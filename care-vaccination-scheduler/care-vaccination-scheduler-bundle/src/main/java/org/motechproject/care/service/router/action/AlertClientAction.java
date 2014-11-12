@@ -19,6 +19,7 @@ import java.util.UUID;
 public abstract class AlertClientAction {
     private CommcareCaseGateway commcareCaseGateway;
     private Properties ananyaCareProperties;
+    @Autowired MdsRepository dbRepository;
     Logger logger = Logger.getLogger(AlertClientAction.class);
 
     public AlertClientAction(CommcareCaseGateway commcareCaseGateway, Properties ananyaCareProperties) {
@@ -26,8 +27,7 @@ public abstract class AlertClientAction {
         this.ananyaCareProperties = ananyaCareProperties;
     }
     
-    @Autowired
-    MdsRepository dbRepository;
+   
     
     public void invoke(MilestoneEvent event){
         String externalId = event.getExternalId();

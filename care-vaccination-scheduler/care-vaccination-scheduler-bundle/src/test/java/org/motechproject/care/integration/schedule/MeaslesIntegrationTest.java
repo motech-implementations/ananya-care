@@ -72,7 +72,7 @@ public class MeaslesIntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusMonths(24), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getMeaslesDate());
     }
 
@@ -91,7 +91,7 @@ public class MeaslesIntegrationTest extends SpringIntegrationTest {
         assertNull(trackingService.getEnrollment(caseId, measlesScheduleName));
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertEquals(measlesTaken, childFromDb.getMeaslesDate());
     }
 }

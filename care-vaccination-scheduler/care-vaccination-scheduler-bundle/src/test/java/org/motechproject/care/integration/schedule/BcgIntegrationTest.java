@@ -74,7 +74,7 @@ public class BcgIntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusMonths(12), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
         Child childFromDB = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob , childFromDB.getDOB());
+        assertEquals(dob , childFromDB.getDob());
         assertNull(childFromDB.getBcgDate());
     }
 
@@ -93,7 +93,7 @@ public class BcgIntegrationTest extends SpringIntegrationTest {
         assertNull(trackingService.getEnrollment(caseId, bcgScheduleName));
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertEquals(bcgTaken, childFromDb.getBcgDate());
     }
 }

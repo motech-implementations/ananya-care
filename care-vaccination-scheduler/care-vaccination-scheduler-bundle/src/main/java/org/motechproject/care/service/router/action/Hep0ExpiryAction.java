@@ -13,7 +13,12 @@ public class Hep0ExpiryAction implements Action {
     private Hep0Service hep0Service;
     @Autowired
     MdsRepository dbRepository;
-    @Autowired
+    
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	@Autowired
     public Hep0ExpiryAction(Hep0Service hep0Service) {
         this.hep0Service = hep0Service;
     }

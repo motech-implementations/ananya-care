@@ -1,5 +1,10 @@
 package org.motechproject.care.service.schedule;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +18,6 @@ import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.mcts.care.common.mds.domain.Child;
 import org.motechproject.mcts.care.common.mds.domain.Mother;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Hep0ServiceTest {
@@ -49,7 +49,7 @@ public class Hep0ServiceTest {
     public void shouldEnrollChildForHep0ScheduleWhenDOBIsAvailable(){
         Child child = new Child();
         child.setCaseId("caseId");
-        child.setDOB(DateTime.now());
+        child.setDob(DateTime.now());
         hep0Service.process(child);
         verify(schedulerService).enroll(any(String.class), any(DateTime.class), anyString());
     }
@@ -59,7 +59,7 @@ public class Hep0ServiceTest {
         Child child = new Child();
         String caseId = "caseId";
         child.setCaseId(caseId);
-        child.setDOB(DateTime.now());
+        child.setDob(DateTime.now());
         DateTime hep0Date = DateTime.now().minusDays(1);
         child.setHep0Date(hep0Date);
         hep0Service.process(child);

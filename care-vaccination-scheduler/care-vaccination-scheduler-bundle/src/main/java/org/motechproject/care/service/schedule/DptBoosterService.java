@@ -27,8 +27,8 @@ public class DptBoosterService extends VaccinationService{
     public void process(Client client) {
         Child child = (Child) client;
 
-        if(child.getDpt3Date() != null && child.getDOB() != null){
-            Window dptBoosterWindow = getDPTBoosterWindow(child.getDpt3Date(), child.getDOB());
+        if(child.getDpt3Date() != null && child.getDob() != null){
+            Window dptBoosterWindow = getDPTBoosterWindow(child.getDpt3Date(), child.getDob());
             if(dptBoosterWindow.isValid()) {
                 DateTime referenceDate = dptBoosterWindow.getStart().plus(periodUtil.getScheduleOffset());
                 schedulerService.enroll(child.getCaseId(), referenceDate, scheduleName);

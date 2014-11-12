@@ -22,18 +22,7 @@ public abstract class BaseService<T extends Client> {
 
     protected abstract void onProcess(T client);
 
-    public boolean closeCase(String caseId) {
-        synchronized (getLockName(caseId)) {
-            T client = (T) dbRepository.get(Client.class,"caseId",caseId);
-            if(client == null)
-                return false;
-
-            client.setClosedByCommcare(true);
-            dbRepository.update(client);
-            vaccinationProcessor.closeSchedules(client);
-            return true;
-        }
-    }
+    public abstract boolean closeCase(String caseId);
 
     public boolean expireCase(String caseId) {
         synchronized (getLockName(caseId)) {
@@ -46,7 +35,7 @@ public abstract class BaseService<T extends Client> {
         }
     }
 
-    private String getLockName(String caseId) {
+    public String getLockName(String caseId) {
         return String.format("%s-%s", BaseService.class.getCanonicalName(), caseId).intern();
     }
 }

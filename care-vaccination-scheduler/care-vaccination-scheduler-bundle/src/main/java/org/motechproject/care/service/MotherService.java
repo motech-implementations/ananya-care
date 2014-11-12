@@ -1,5 +1,6 @@
 package org.motechproject.care.service;
 
+import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.motechproject.mcts.care.common.mds.domain.Mother;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,11 @@ public class MotherService extends BaseService<Mother> {
         super(vaccinationProcessor);
     }
 
-    protected void onProcess(Mother mother) {
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	protected void onProcess(Mother mother) {
         Mother motherFromDb = dbRepository.get(Mother.class, "caseId",  mother.getCaseId());
 
         if(motherFromDb == null)
@@ -33,11 +38,37 @@ public class MotherService extends BaseService<Mother> {
 
     private void processExisting(Mother motherFromDb, Mother mother) {
         motherFromDb.setValuesFrom(mother);
-        dbRepository.update(mother);
+        dbRepository.update(motherFromDb);
 
         if(motherFromDb.isActive())
             vaccinationProcessor.enrollUpdateVaccines(motherFromDb);
         else
             vaccinationProcessor.closeSchedules(motherFromDb);
+    }
+
+    @Override
+    public boolean closeCase(String caseId) {
+        synchronized (getLockName(caseId)) {
+            Mother mother =  dbRepository.get(Mother.class,"caseId",caseId);
+            if(mother == null)
+                return false;
+
+            mother.setClosedByCommcare(true);
+            dbRepository.update(mother);
+            vaccinationProcessor.closeSchedules(mother);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean expireCase(String caseId) {
+        synchronized (getLockName(caseId)) {
+            Mother mother = dbRepository.get(Mother.class,"caseId",caseId);
+            if(mother == null)
+                return false;
+            mother.setExpired(true);
+            dbRepository.update(mother);
+            return true;
+        }
     }
 }

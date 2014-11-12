@@ -73,7 +73,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusDays(1), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getHep0Date());
     }
 
@@ -96,7 +96,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         List<EnrollmentRecord> enrollmentRecords = trackingService.searchWithWindowDates(query);
         assertTrue(enrollmentRecords.isEmpty());
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getHep0Date());
     }
 
@@ -124,7 +124,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         assertNull(trackingService.getEnrollment(caseId, scheduleName));
 
         Child childFromDb = dbRepository.get(Child.class, "caseId",caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertEquals(hep0Taken, childFromDb.getHep0Date());
     }
 }

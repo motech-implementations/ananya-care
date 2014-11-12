@@ -75,7 +75,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusMonths(24), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
         
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getVitamin1Date());
     }
 
@@ -94,7 +94,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         assertNull(trackingService.getEnrollment(caseId, vitaScheduleName));
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertEquals(vitaTaken, childFromDb.getVitamin1Date());
     }
 }

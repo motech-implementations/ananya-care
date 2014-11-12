@@ -16,7 +16,12 @@ public class AlertMotherAction extends AlertClientAction implements Action{
 
     @Autowired
     MdsRepository dbRepository;
-    @Autowired
+    
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	@Autowired
     public AlertMotherAction(CommcareCaseGateway commcareCaseGateway, @Qualifier("ananyaCareProperties") Properties ananyaCareProperties) {
         super(commcareCaseGateway,ananyaCareProperties);
     }

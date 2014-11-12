@@ -14,7 +14,12 @@ public class Opv0ExpiryAction implements Action {
     private Opv0Service opv0Service;
     @Autowired
     MdsRepository dbRepository;
-    @Autowired
+    
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	@Autowired
     public Opv0ExpiryAction(Opv0Service opv0Service) {
         this.opv0Service = opv0Service;
     }

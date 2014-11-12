@@ -1,6 +1,7 @@
 package org.motechproject.care.service;
 
 import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.domain.Mother;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +17,12 @@ public class ChildService extends BaseService<Child> {
     }
     @Autowired
     MdsRepository dbRepository;
-    protected void onProcess(Child child) {
+    
+    public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	protected void onProcess(Child child) {
         Child childFromDb = dbRepository.get(Child.class, "caseId", child.getCaseId());
 
         if(childFromDb == null)
@@ -41,6 +47,33 @@ public class ChildService extends BaseService<Child> {
         }
         else {
             vaccinationProcessor.closeSchedules(childFromDb);
+        }
+    }
+
+    @Override
+    public boolean closeCase(String caseId) {
+        synchronized (getLockName(caseId)) {
+            Child child =  dbRepository.get(Child.class,"caseId",caseId);
+            if(child == null)
+                return false;
+
+            child.setClosedByCommcare(true);
+            dbRepository.update(child);
+            vaccinationProcessor.closeSchedules(child);
+            return true;
+        }
+    
+    }
+
+    @Override
+    public boolean expireCase(String caseId) {
+        synchronized (getLockName(caseId)) {
+            Child child = dbRepository.get(Child.class,"caseId",caseId);
+            if(child == null)
+                return false;
+            child.setExpired(true);
+            dbRepository.update(child);
+            return true;
         }
     }
 }

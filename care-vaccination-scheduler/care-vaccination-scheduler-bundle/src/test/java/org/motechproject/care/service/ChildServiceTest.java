@@ -1,5 +1,18 @@
 package org.motechproject.care.service;
 
+import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.io.IOException;
+
 import junit.framework.Assert;
 
 import org.joda.time.DateTime;
@@ -7,36 +20,31 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.request.CaseType;
 import org.motechproject.care.service.builder.ChildBuilder;
 import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.repository.Repository;
-
-import java.io.IOException;
-
-import static junit.framework.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChildServiceTest {
 
     @Mock
-    private Repository dbRepository;
+    private MdsRepository dbRepository;
 
     @Mock
     private VaccinationProcessor vaccinationProcessor;
-    private ChildService childService;
+    @InjectMocks
+    private ChildService childService= new ChildService(vaccinationProcessor);
     private String caseId="caseId";
 
     @Before
     public void setUp(){
         initMocks(this);
-        childService = new ChildService(vaccinationProcessor);
+        childService.setDbRepository(dbRepository);
     }
 
     @Test
@@ -137,7 +145,7 @@ public class ChildServiceTest {
         childFromDb.setIsAlive(true);
         childFromDb.setClosedByCommcare(false);
 
-        when(dbRepository.get(Child.class, "caseId", caseId)).thenReturn(childFromDb);
+        when(dbRepository.get(any(Class.class), anyString(), anyString())).thenReturn(childFromDb);
         boolean wasExpired = childService.expireCase(caseId);
 
         assertTrue(wasExpired);
@@ -156,7 +164,7 @@ public class ChildServiceTest {
         childFromDb.setClosedByCommcare(false);
         childFromDb.setIsAlive(true);
 
-        when(dbRepository.get(Child.class, "caseId", caseId)).thenReturn(childFromDb);
+        when(dbRepository.get(any(Class.class), anyString(), anyString())).thenReturn(childFromDb);
         boolean wasClosed = childService.closeCase(caseId);
 
         org.junit.Assert.assertTrue(wasClosed);
@@ -183,7 +191,7 @@ public class ChildServiceTest {
     public void shouldReturnTrueIfChildInactiveWhileExpiringChild(){
         Child childFromDb = childWithCaseId(caseId);
         childFromDb.setExpired(true);
-        when(dbRepository.get(Child.class, "caseId", caseId)).thenReturn(childFromDb);
+        when(dbRepository.get(any(Class.class), anyString(), anyString())).thenReturn(childFromDb);
         boolean wasClosed = childService.expireCase(caseId);
         assertTrue(wasClosed);
     }

@@ -1,50 +1,52 @@
 package org.motechproject.care.service.router.action;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+import java.util.Properties;
+
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.motechproject.care.request.CaseType;
 import org.motechproject.casexml.domain.CaseTask;
-import org.motechproject.casexml.service.CaseService;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
+import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
-import org.motechproject.mcts.care.common.mds.domain.Child;
 import org.motechproject.mcts.care.common.mds.domain.Mother;
-import org.motechproject.mcts.care.common.mds.repository.Repository;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.Milestone;
 import org.motechproject.scheduletracking.domain.MilestoneAlert;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
-import org.motechproject.commons.date.util.DateUtil;
-
-import java.util.Properties;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class AlertMotherActionTest {
 
     @Mock
     private CommcareCaseGateway commcareCaseGateway;
     @Mock
-    private Repository dbRepository;
+    private MdsRepository dbRepository;
     @Mock
     private Properties ananyaCareProperties;
-
-    private AlertMotherAction alertMotherAction;
+    @InjectMocks
+    private AlertMotherAction alertMotherAction = new AlertMotherAction(commcareCaseGateway, ananyaCareProperties);;
 
 
     @Before
     public void setUp() {
         initMocks(this);
-        this.alertMotherAction = new AlertMotherAction(commcareCaseGateway, ananyaCareProperties);
+        alertMotherAction.setDbRepository(dbRepository);
     }
 
     @Test
@@ -71,8 +73,7 @@ public class AlertMotherActionTest {
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-      //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString(),null);
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString(),(Integer)anyObject());
         CaseTask task = argumentCaptor.getValue();
 
         assertNotNull(task.getTaskId());
@@ -151,8 +152,7 @@ public class AlertMotherActionTest {
 
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-      //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString(),null);
+        verify(commcareCaseGateway).submitCase(eq(commCareUrl), argumentCaptor.capture(), anyString(), anyString(),(Integer)anyObject());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(null, task.getDateExpires());
@@ -162,7 +162,7 @@ public class AlertMotherActionTest {
     public void shouldHandleWhenEligibleDateIsBeforeTodayBeforeSendingToGateway() {
         String scheduleName = "Measles Vaccination";
         String childCaseId = "0A8MF30IJWI0FJW3JFW0J0W3A8";
-        String motherCaseId = "motherCaseId";
+        String motherCaseId = "0A8MF30IJWI0FJW3JFW0J0W3A8";
         String milestoneName = "Measles";
         String groupId = "groupId";
         String flwId = "FLW1234";
@@ -180,8 +180,7 @@ public class AlertMotherActionTest {
         alertMotherAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
-      //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(),null);
+        verify(commcareCaseGateway).submitCase(anyString(), argumentCaptor.capture(), anyString(), anyString(),(Integer)anyObject());
         CaseTask task = argumentCaptor.getValue();
 
         assertEquals(now.toString("yyyy-MM-dd"), task.getDateEligible());
@@ -207,8 +206,7 @@ public class AlertMotherActionTest {
         when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-      //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),(Integer)anyObject());
     }
 
     @Test
@@ -231,8 +229,7 @@ public class AlertMotherActionTest {
         when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-        //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),(Integer)anyObject());
     }
 
     @Test
@@ -254,8 +251,7 @@ public class AlertMotherActionTest {
         when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
-        //TODO added null as 5th argument in below method(check what it should be)
-        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),null);
+        verify(commcareCaseGateway, never()).submitCase(anyString(), any(CaseTask.class), anyString(), anyString(),(Integer)anyObject());
 
     }
 

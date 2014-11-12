@@ -73,7 +73,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusDays(15), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getOpv0Date());
     }
 
@@ -95,7 +95,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         assertTrue(trackingService.searchWithWindowDates(query).isEmpty());
         
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertNull(childFromDb.getOpv0Date());
     }
 
@@ -124,7 +124,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         assertNull(trackingService.getEnrollment(caseId, scheduleName));
 
         Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
+        assertEquals(dob, childFromDb.getDob());
         assertEquals(OPV0Taken, childFromDb.getOpv0Date());
     }
 }

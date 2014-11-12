@@ -15,9 +15,19 @@ public class AlertChildAction extends AlertClientAction implements Action{
     
     @Autowired
     MdsRepository dbRepository;
-    @Autowired
+    
+    public MdsRepository getDbRepository() {
+		return dbRepository;
+	}
+
+	public void setDbRepository(MdsRepository dbRepository) {
+		this.dbRepository = dbRepository;
+	}
+
+	@Autowired
     public AlertChildAction(CommcareCaseGateway commcareCaseGateway, Properties ananyaCareProperties) {
         super(commcareCaseGateway,ananyaCareProperties);
+        
     }
     
     @Override
@@ -34,6 +44,6 @@ public class AlertChildAction extends AlertClientAction implements Action{
     }
 
     private DateTime dateOf2ndYear(Child child) {
-        return child.getDOB().plusYears(2);
+        return child.getDob().plusYears(2);
     }
 }

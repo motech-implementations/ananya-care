@@ -20,8 +20,8 @@ public class Hep0Service extends VaccinationService{
     @Override
     public void process(Client client) {
         Child child = (Child) client;
-        if(child.getDOB() != null)
-            schedulerService.enroll(child.getCaseId(), child.getDOB(), scheduleName);
+        if(child.getDob() != null)
+            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         if(child.getHep0Date()!=null)
             fulfillMilestone(child.getCaseId(), MilestoneType.Hep0, child.getHep0Date());
     }

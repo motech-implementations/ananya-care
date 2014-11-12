@@ -43,17 +43,17 @@ public class ChildTest {
     @Test
     public void shouldSetEnrollForSchedulesToFalseIfChildIsOlderThanAYearOrHasNoDOB(){
         Child child = new Child();
-        child.setDOB(DateTime.now().minusYears(2));
+        child.setDob(DateTime.now().minusYears(2));
         Assert.assertFalse(child.shouldEnrollForSchedules());
 
-        child.setDOB(null);
+        child.setDob(null);
         Assert.assertFalse(child.shouldEnrollForSchedules());
     }
 
     @Test
     public void shouldSetEnrollForSchedulesToTrueIfChildIsNotOlderThanAYearAndIsActive(){
         Child child = new Child();
-        child.setDOB(DateTime.now());
+        child.setDob(DateTime.now());
         child.setIsAlive(true);
         Assert.assertTrue(child.shouldEnrollForSchedules());
     }
