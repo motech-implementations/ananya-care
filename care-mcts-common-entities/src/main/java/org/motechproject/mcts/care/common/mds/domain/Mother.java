@@ -16,7 +16,7 @@ public class Mother extends Client {
     private DateTime add;
     private DateTime tt1Date;
     private DateTime tt2Date;
-    private Boolean lastPregTt;
+    private boolean lastPregTt;
     private DateTime anc1Date;
     private DateTime anc2Date;
     private DateTime anc3Date;

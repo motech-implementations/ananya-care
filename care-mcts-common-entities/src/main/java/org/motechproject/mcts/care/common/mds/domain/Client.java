@@ -21,7 +21,8 @@ public class Client implements java.io.Serializable {
     protected Boolean isAlive;
     
     public Client() {
-       
+    	isAlive = false;
+    	closedByCommcare = false;
     }
     public Client(Boolean isAlive) {
         this.isAlive = isAlive;

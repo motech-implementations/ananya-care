@@ -300,6 +300,18 @@ public class MdsRepository implements
             service.delete(instance);
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    public <T> void deleteAll(T instance) {
+        if (instance != null) {
+            MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
+                    .fetchServiceInterface(instance.getClass());
+            if (service == null) {
+                return;
+            }
+            service.deleteAll();
+        }
+    }
 
     @Override
     public Object execute(final String query) {
