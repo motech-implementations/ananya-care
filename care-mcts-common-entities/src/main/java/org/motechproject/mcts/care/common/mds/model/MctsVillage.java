@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -27,9 +24,9 @@ public class MctsVillage implements java.io.Serializable {
     private int villageId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsVillage")
+    /*@Persistent(mappedBy = "mctsVillage")
     private Set<MctsHealthworker> mctsHealthworkersForVillage = new HashSet<MctsHealthworker>(
-            0);
+            0);*/
 
     public MctsVillage() {
     }
@@ -44,7 +41,7 @@ public class MctsVillage implements java.io.Serializable {
 
     public MctsVillage(MctsTaluk mctsTaluk, MctsSubcenter mctsSubcenter,
             int villageId, String name,
-            Set<MctsHealthworker> mctsHealthworkersForVillage, boolean status) {
+            /*Set<MctsHealthworker> mctsHealthworkersForVillage,*/ boolean status) {
         this.mctsTaluk = mctsTaluk;
         this.mctsSubcenter = mctsSubcenter;
         this.villageId = villageId;
@@ -99,7 +96,7 @@ public class MctsVillage implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsHealthworker> getMctsHealthworkersForVillage() {
         return mctsHealthworkersForVillage;
     }
@@ -107,6 +104,6 @@ public class MctsVillage implements java.io.Serializable {
     public void setMctsHealthworkersForVillage(
             Set<MctsHealthworker> mctsHealthworkersForVillage) {
         this.mctsHealthworkersForVillage = mctsHealthworkersForVillage;
-    }
+    }*/
 
 }

@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -27,11 +24,11 @@ public class MctsTaluk implements java.io.Serializable {
     private int talukId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsTaluk")
+    /*@Persistent(mappedBy = "mctsTaluk")
     private Set<MctsHealthblock> mctsHealthblocksForTaluk = new HashSet<MctsHealthblock>(
             0);
     @Persistent(mappedBy = "mctsTaluk")
-    private Set<MctsVillage> mctsVillagesForTaluk = new HashSet<MctsVillage>(0);
+    private Set<MctsVillage> mctsVillagesForTaluk = new HashSet<MctsVillage>(0);*/
 
     public MctsTaluk() {
     }
@@ -43,13 +40,13 @@ public class MctsTaluk implements java.io.Serializable {
     }
 
     public MctsTaluk(MctsDistrict mctsDistrict, int talukId, String name,
-            Set<MctsHealthblock> mctsHealthblocksForTaluk,
-            Set<MctsVillage> mctsVillagesForTaluk, boolean status) {
+            /*Set<MctsHealthblock> mctsHealthblocksForTaluk,
+            Set<MctsVillage> mctsVillagesForTaluk,*/ boolean status) {
         this.mctsDistrict = mctsDistrict;
         this.talukId = talukId;
         this.name = name;
-        this.mctsHealthblocksForTaluk = mctsHealthblocksForTaluk;
-        this.mctsVillagesForTaluk = mctsVillagesForTaluk;
+        //this.mctsHealthblocksForTaluk = mctsHealthblocksForTaluk;
+        //this.mctsVillagesForTaluk = mctsVillagesForTaluk;
         this.status = status;
     }
 
@@ -90,7 +87,7 @@ public class MctsTaluk implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsHealthblock> getMctsHealthblocksForTaluk() {
         return this.mctsHealthblocksForTaluk;
     }
@@ -106,6 +103,6 @@ public class MctsTaluk implements java.io.Serializable {
 
     public void setMctsVillagesForTaluk(Set<MctsVillage> mctsVillagesForTaluk) {
         this.mctsVillagesForTaluk = mctsVillagesForTaluk;
-    }
+    }*/
 
 }

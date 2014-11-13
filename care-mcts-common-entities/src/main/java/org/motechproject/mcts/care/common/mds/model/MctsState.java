@@ -2,10 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
 import org.motechproject.mds.annotations.Entity;
@@ -22,9 +18,9 @@ public class MctsState implements java.io.Serializable {
     private int stateId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsState")
+    /*@Persistent(mappedBy = "mctsState")
     private Set<MctsDistrict> mctsDistrictsForState = new HashSet<MctsDistrict>(
-            0);
+            0);*/
 
     public MctsState() {
     }
@@ -35,10 +31,10 @@ public class MctsState implements java.io.Serializable {
     }
 
     public MctsState(int stateId, String name,
-            Set<MctsDistrict> mctsDistrictsForState, boolean status) {
+            /*Set<MctsDistrict> mctsDistrictsForState,*/ boolean status) {
         this.stateId = stateId;
         this.name = name;
-        this.mctsDistrictsForState = mctsDistrictsForState;
+        //this.mctsDistrictsForState = mctsDistrictsForState;
         this.status = status;
     }
 
@@ -69,13 +65,13 @@ public class MctsState implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsDistrict> getMctsDistrictsForState() {
         return this.mctsDistrictsForState;
     }
 
     public void setMctsDistrictsForState(Set<MctsDistrict> mctsDistrictsForState) {
         this.mctsDistrictsForState = mctsDistrictsForState;
-    }
+    }*/
 
 }

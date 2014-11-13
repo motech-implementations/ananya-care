@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -25,8 +22,8 @@ public class MctsDistrict implements java.io.Serializable {
     private int disctrictId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsDistrict")
-    private Set<MctsTaluk> mctsTaluksForDistrict = new HashSet<MctsTaluk>(0);
+    /*@Persistent(mappedBy = "mctsDistrict")
+    private Set<MctsTaluk> mctsTaluksForDistrict = new HashSet<MctsTaluk>(0);*/
 
     public MctsDistrict() {
     }
@@ -38,11 +35,11 @@ public class MctsDistrict implements java.io.Serializable {
     }
 
     public MctsDistrict(MctsState mctsState, int disctrictId, String name,
-            Set<MctsTaluk> mctsTaluksForDistrict, boolean status) {
+            /*Set<MctsTaluk> mctsTaluksForDistrict,*/ boolean status) {
         this.mctsState = mctsState;
         this.disctrictId = disctrictId;
         this.name = name;
-        this.mctsTaluksForDistrict = mctsTaluksForDistrict;
+        //this.mctsTaluksForDistrict = mctsTaluksForDistrict;
         this.status = status;
     }
 
@@ -83,13 +80,13 @@ public class MctsDistrict implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsTaluk> getMctsTaluksForDistrict() {
         return this.mctsTaluksForDistrict;
     }
 
     public void setMctsTaluksForDistrict(Set<MctsTaluk> mctsTaluksForDistrict) {
         this.mctsTaluksForDistrict = mctsTaluksForDistrict;
-    }
+    }*/
 
 }

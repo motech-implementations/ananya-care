@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -25,8 +22,8 @@ public class MctsHealthblock implements java.io.Serializable {
     private int healthblockId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsHealthblock")
-    private Set<MctsPhc> mctsPhcsForHealthblock = new HashSet<MctsPhc>(0);
+    /*@Persistent(mappedBy = "mctsHealthblock")
+    private Set<MctsPhc> mctsPhcsForHealthblock = new HashSet<MctsPhc>(0);*/
 
     public MctsHealthblock() {
     }
@@ -38,11 +35,11 @@ public class MctsHealthblock implements java.io.Serializable {
     }
 
     public MctsHealthblock(MctsTaluk mctsTaluk, int healthblockId, String name,
-            Set<MctsPhc> mctsPhcsForHealthblock, boolean status) {
+            /*Set<MctsPhc> mctsPhcsForHealthblock,*/ boolean status) {
         this.mctsTaluk = mctsTaluk;
         this.healthblockId = healthblockId;
         this.name = name;
-        this.mctsPhcsForHealthblock = mctsPhcsForHealthblock;
+        //this.mctsPhcsForHealthblock = mctsPhcsForHealthblock;
         this.status = status;
     }
 
@@ -83,13 +80,13 @@ public class MctsHealthblock implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsPhc> getMctsPhcsForHealthblock() {
         return this.mctsPhcsForHealthblock;
     }
 
     public void setMctsPhcsForHealthblock(Set<MctsPhc> mctsPhcsForHealthblock) {
         this.mctsPhcsForHealthblock = mctsPhcsForHealthblock;
-    }
+    }*/
 
 }

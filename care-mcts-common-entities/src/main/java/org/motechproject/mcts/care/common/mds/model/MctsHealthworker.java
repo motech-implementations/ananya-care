@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 30, 2014 4:28:04 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -36,12 +33,12 @@ public class MctsHealthworker implements java.io.Serializable {
     private String gfAddress;
     private String careGroupid;
     private boolean status;
-    @Persistent(mappedBy = "mctsHealthworkerByAshaId")
+    /*@Persistent(mappedBy = "mctsHealthworkerByAshaId")
     private Set<MctsPregnantMother> mctsPregnantMothersForAshaId = new HashSet<MctsPregnantMother>(
             0);
     @Persistent(mappedBy = "mctsHealthworkerByAnmId")
     private Set<MctsPregnantMother> mctsPregnantMothersForAnmId = new HashSet<MctsPregnantMother>(
-            0);
+            0);*/
 
     public MctsHealthworker() {
     }
@@ -59,8 +56,8 @@ public class MctsHealthworker implements java.io.Serializable {
             MctsVillage mctsVillage, int healthworkerId, String name,
             String contactNo, String sex, String type, String husbandName,
             String aadharNo, String gfAddress, String careGroupid,
-            Set<MctsPregnantMother> mctsPregnantMothersForAshaId,
-            Set<MctsPregnantMother> mctsPregnantMothersForAnmId, boolean status) {
+            /*Set<MctsPregnantMother> mctsPregnantMothersForAshaId,
+            Set<MctsPregnantMother> mctsPregnantMothersForAnmId,*/ boolean status) {
         this.mctsPhc = mctsPhc;
         this.mctsSubcenter = mctsSubcenter;
         this.mctsVillage = mctsVillage;
@@ -73,8 +70,8 @@ public class MctsHealthworker implements java.io.Serializable {
         this.aadharNo = aadharNo;
         this.gfAddress = gfAddress;
         this.careGroupid = careGroupid;
-        this.mctsPregnantMothersForAshaId = mctsPregnantMothersForAshaId;
-        this.mctsPregnantMothersForAnmId = mctsPregnantMothersForAnmId;
+        //this.mctsPregnantMothersForAshaId = mctsPregnantMothersForAshaId;
+        //this.mctsPregnantMothersForAnmId = mctsPregnantMothersForAnmId;
         this.status = status;
     }
 
@@ -198,7 +195,7 @@ public class MctsHealthworker implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsPregnantMother> getMctsPregnantMothersForAshaId() {
         return this.mctsPregnantMothersForAshaId;
     }
@@ -216,6 +213,6 @@ public class MctsHealthworker implements java.io.Serializable {
     public void setMctsPregnantMothersForAnmId(
             Set<MctsPregnantMother> mctsPregnantMothersForAnmId) {
         this.mctsPregnantMothersForAnmId = mctsPregnantMothersForAnmId;
-    }
+    }*/
 
 }

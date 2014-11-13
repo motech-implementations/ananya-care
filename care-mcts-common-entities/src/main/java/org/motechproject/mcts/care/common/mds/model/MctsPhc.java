@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -25,12 +22,12 @@ public class MctsPhc implements java.io.Serializable {
     private int phcId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsPhc")
+    /*@Persistent(mappedBy = "mctsPhc")
     private Set<MctsSubcenter> mctsSubcentersForPhc = new HashSet<MctsSubcenter>(
             0);
     @Persistent(mappedBy = "mctsPhc")
     private Set<MctsHealthworker> mctsHealthworkersForPhc = new HashSet<MctsHealthworker>(
-            0);
+            0);*/
 
     public MctsPhc() {
     }
@@ -42,13 +39,13 @@ public class MctsPhc implements java.io.Serializable {
     }
 
     public MctsPhc(MctsHealthblock mctsHealthblock, int phcId, String name,
-            Set<MctsSubcenter> mctsSubcentersForPhc,
-            Set<MctsHealthworker> mctsHealthworkersForPhc, boolean status) {
+            /*Set<MctsSubcenter> mctsSubcentersForPhc,
+            Set<MctsHealthworker> mctsHealthworkersForPhc,*/ boolean status) {
         this.mctsHealthblock = mctsHealthblock;
         this.phcId = phcId;
         this.name = name;
-        this.mctsSubcentersForPhc = mctsSubcentersForPhc;
-        this.mctsHealthworkersForPhc = mctsHealthworkersForPhc;
+        //this.mctsSubcentersForPhc = mctsSubcentersForPhc;
+        //this.mctsHealthworkersForPhc = mctsHealthworkersForPhc;
         this.status = status;
     }
 
@@ -89,7 +86,7 @@ public class MctsPhc implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsSubcenter> getMctsSubcentersForPhc() {
         return this.mctsSubcentersForPhc;
     }
@@ -106,6 +103,6 @@ public class MctsPhc implements java.io.Serializable {
     public void setMctsHealthworkersForPhc(
             Set<MctsHealthworker> mctsHealthworkersForPhc) {
         this.mctsHealthworkersForPhc = mctsHealthworkersForPhc;
-    }
+    }*/
 
 }

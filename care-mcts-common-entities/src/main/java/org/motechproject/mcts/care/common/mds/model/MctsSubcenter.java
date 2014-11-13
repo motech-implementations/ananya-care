@@ -2,9 +2,6 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Unique;
 
@@ -25,11 +22,11 @@ public class MctsSubcenter implements java.io.Serializable {
     private int subcenterId;
     private String name;
     private boolean status;
-    @Persistent(mappedBy = "mctsSubcenter")
+    /*@Persistent(mappedBy = "mctsSubcenter")
     private Set<MctsVillage> mctsVillagesForSubcenter = new HashSet<MctsVillage>(0);
     @Persistent(mappedBy = "mctsSubcenter")
     private Set<MctsHealthworker> mctsHealthworkersForSubcenter = new HashSet<MctsHealthworker>(
-            0);
+            0);*/
 
     public MctsSubcenter() {
     }
@@ -41,7 +38,7 @@ public class MctsSubcenter implements java.io.Serializable {
     }
 
     public MctsSubcenter(MctsPhc mctsPhc, int subcenterId, String name,
-            Set<MctsHealthworker> mctsHealthworkersForSubcenter, boolean status) {
+            /*Set<MctsHealthworker> mctsHealthworkersForSubcenter,*/ boolean status) {
         this.mctsPhc = mctsPhc;
         this.subcenterId = subcenterId;
         this.name = name;
@@ -86,7 +83,7 @@ public class MctsSubcenter implements java.io.Serializable {
         this.status = status;
     }
 
-    @Field
+    /*@Field
     public Set<MctsVillage> getMctsVillagesForSubcenter() {
         return mctsVillagesForSubcenter;
     }
@@ -102,6 +99,6 @@ public class MctsSubcenter implements java.io.Serializable {
 
     public void setMctsHealthworkersForSubcenter(Set<MctsHealthworker> mctsHealthworkersForSubcenter) {
         this.mctsHealthworkersForSubcenter = mctsHealthworkersForSubcenter;
-    }
+    }*/
 
 }
