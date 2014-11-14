@@ -78,9 +78,6 @@
     <osgi:reference id="ebfMotherFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.EbfMotherFormMDSService" />
 
-    <osgi:reference id="flwGroupMapMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMapMDSService" />
-
     <osgi:reference id="flwGroupMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.FlwGroupMDSService" />
 

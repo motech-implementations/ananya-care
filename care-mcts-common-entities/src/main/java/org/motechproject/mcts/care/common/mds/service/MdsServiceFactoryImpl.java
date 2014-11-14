@@ -9,7 +9,6 @@ import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
-import org.motechproject.mcts.care.common.mds.dimension.FlwGroupMap;
 import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
@@ -113,7 +112,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     private DeliveryMotherFormMDSService deliveryMotherFormMDSService;
     private EbfChildFormMDSService ebfChildFormMDSService;
     private EbfMotherFormMDSService ebfMotherFormMDSService;
-    private FlwGroupMapMDSService flwGroupMapMDSService;
     private FlwGroupMDSService flwGroupMDSService;
     private FlwMDSService flwMDSService;
     private FormMDSService formMDSService;
@@ -188,7 +186,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             DeliveryMotherFormMDSService deliveryMotherFormMDSService,
             EbfChildFormMDSService ebfChildFormMDSService,
             EbfMotherFormMDSService ebfMotherFormMDSService,
-            FlwGroupMapMDSService flwGroupMapMDSService,
             FlwGroupMDSService flwGroupMDSService,
             FlwMDSService flwMDSService,
             FormMDSService formMDSService,
@@ -256,7 +253,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.deliveryMotherFormMDSService = deliveryMotherFormMDSService;
         this.ebfChildFormMDSService = ebfChildFormMDSService;
         this.ebfMotherFormMDSService = ebfMotherFormMDSService;
-        this.flwGroupMapMDSService = flwGroupMapMDSService;
         this.flwGroupMDSService = flwGroupMDSService;
         this.flwMDSService = flwMDSService;
         this.formMDSService = formMDSService;
@@ -339,7 +335,6 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         mapper.put(DeliveryMotherForm.class, deliveryMotherFormMDSService);
         mapper.put(EbfChildForm.class, ebfChildFormMDSService);
         mapper.put(EbfMotherForm.class, ebfMotherFormMDSService);
-        mapper.put(FlwGroupMap.class, flwGroupMapMDSService);
         mapper.put(FlwGroup.class, flwGroupMDSService);
         mapper.put(Flw.class, flwMDSService);
         mapper.put(Form.class, formMDSService);

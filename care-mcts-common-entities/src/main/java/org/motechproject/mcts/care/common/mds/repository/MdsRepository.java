@@ -235,8 +235,8 @@ public class MdsRepository implements
                                             .getName();
                                 }
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
-                                        .create(entry.getKey(), entry
-                                                .getValue(), type);
+                                        .create(entry.getKey(),
+                                                entry.getValue(), type);
                                 properties.add(equalProperty);
                             }
                         }
@@ -273,8 +273,8 @@ public class MdsRepository implements
                                             .getName();
                                 }
                                 EqualProperty<T> equalProperty = (EqualProperty<T>) PropertyBuilder
-                                        .create(entry.getKey(), entry
-                                                .getValue(), type);
+                                        .create(entry.getKey(),
+                                                entry.getValue(), type);
 
                                 properties.add(equalProperty);
                             }
@@ -300,7 +300,7 @@ public class MdsRepository implements
             service.delete(instance);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     public <T> void deleteAll(T instance) {
         if (instance != null) {

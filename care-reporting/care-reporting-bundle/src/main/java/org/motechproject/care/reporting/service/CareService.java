@@ -356,8 +356,8 @@ public class CareService implements
         MotherCase motherCase = getMotherCase(caseId);
         // To seprate between MM/dd/yyyy use '/' as seprator and for dd-MM-yyyy
         // use '-' as a seprator
-        DateTime closedOn = careReportingMapper.map(updatedValues
-                .get("closedOn"), DateTime.class);
+        DateTime closedOn = careReportingMapper.map(
+                updatedValues.get("closedOn"), DateTime.class);
         if (motherCase != null) {
             DateTime previouslyClosedOnForMother = motherCase.getClosedOn();
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
@@ -404,7 +404,8 @@ public class CareService implements
                             | NoSuchFieldException | SecurityException
                             | InvocationTargetException | NoSuchMethodException
                             | InstantiationException e) {
-                        logger.error("An error occured while computing fields job for the table: " + tableName);
+                        logger.error("An error occured while computing fields job for the table: "
+                                + tableName);
                     }
                 } else if (category.equalsIgnoreCase(CHILD)) {
                     query = "SELECT mc.actualDeliveryDate, mc.edd, tableName.serverDateModified, tableName.id AS table_id FROM CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc INNER JOIN CARE_MCTS_COMMON_ENTITIES_MOTHERCASE mc ON cc.motherCase_id_OID = mc.id INNER JOIN CARE_MCTS_COMMON_ENTITIES_JOBMETADATA md ON (mc.lastModifiedTime >= md.lastRun OR  cc.lastModifiedTime >= md.lastRun) INNER JOIN "
@@ -416,7 +417,8 @@ public class CareService implements
                             | NoSuchFieldException | SecurityException
                             | InvocationTargetException | NoSuchMethodException
                             | InstantiationException e) {
-                        logger.error("An error occured while computing fields job for the table: " + tableName);
+                        logger.error("An error occured while computing fields job for the table: "
+                                + tableName);
                     }
                 }
             }
@@ -470,18 +472,19 @@ public class CareService implements
         long tableId = (long) resultSet[3];
         Object form = dbRepository.get(metadataClass, "id", tableId);
         try {
-            metadataClass.getMethod("setDeliveryOffsetDays", Integer.class).invoke(
-                    form, deliveryOffsetDays);
+            metadataClass.getMethod("setDeliveryOffsetDays", Integer.class)
+                    .invoke(form, deliveryOffsetDays);
         } catch (IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchMethodException
                 | SecurityException e) {
-            logger.error("An error occured while invoking the Method 'setDeliveryOffsetDays' for the table: " + metadataClass.getSimpleName());
+            logger.error("An error occured while invoking the Method 'setDeliveryOffsetDays' for the table: "
+                    + metadataClass.getSimpleName());
         }
         dbRepository.update(form);
     }
 
     private DateTime parseDateTime(String dateTimeString) {
-        return DateTime.parse((String) dateTimeString, DateTimeFormat
-                .forPattern(DEFAULT_DATE_FORMAT));
+        return DateTime.parse((String) dateTimeString,
+                DateTimeFormat.forPattern(DEFAULT_DATE_FORMAT));
     }
 }
