@@ -1,15 +1,10 @@
 package org.motechproject.care.reporting.enums;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import static junit.framework.Assert.assertEquals;
 
-public class CaseTypeTest {
+import org.junit.Test;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+public class CaseTypeTest {
 
     @Test
     public void shouldReturnCaseType() throws Exception {
@@ -18,34 +13,22 @@ public class CaseTypeTest {
         assertEquals(CaseType.TASK, CaseType.getType("task"));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfCaseTypeStringIsNotExactMatch() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Cannot find CaseType for value: cc_Bihar_pregnancy");
 
         CaseType.getType("cc_Bihar_pregnancy");
-
-        expectedException.expectMessage("Cannot find CaseType for value:  cc_bihar_pregnancy");
 
         CaseType.getType(" cc_bihar_pregnancy");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfCaseTypeIsNotFound() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Cannot find CaseType for value: unknown");
 
         CaseType.getType("unknown");
 
-        expectedException.expectMessage("Cannot find CaseType for value: null");
-
         CaseType.getType(null);
 
-        expectedException.expectMessage("Cannot find CaseType for value: ");
-
         CaseType.getType("");
-
-        expectedException.expectMessage("Cannot find CaseType for value:   ");
 
         CaseType.getType("  ");
     }
