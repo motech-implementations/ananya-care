@@ -100,7 +100,7 @@ public class CommcareDataUtil {
                 continue;
             }
             JsonElement value = entry.getValue();
-            if (!value.isJsonNull()) {
+            if (!value.isJsonNull() && !value.isJsonArray()) {
                 populateProperty(updateElement, value.getAsString(), entry.getKey());
             }
         }
