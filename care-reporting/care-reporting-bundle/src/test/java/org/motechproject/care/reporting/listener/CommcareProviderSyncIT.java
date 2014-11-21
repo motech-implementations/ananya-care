@@ -15,7 +15,6 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.GroupBuilder;
 import org.motechproject.care.reporting.builder.ProviderBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.utils.TestUtils;
 import org.motechproject.commcare.provider.sync.constants.EventConstants;
 import org.motechproject.commcare.provider.sync.response.Group;
@@ -25,10 +24,12 @@ import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class CommcareProviderSyncIT extends SpringIntegrationTest {
+public class CommcareProviderSyncIT  {
     @Autowired
     private CommcareProviderSyncListener commcareProviderSyncListener;
+    private HibernateTemplate template;
 
     @Test
     public void shouldHandleGroupSyncAndSaveFlwGroups() {

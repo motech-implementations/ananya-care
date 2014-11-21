@@ -27,13 +27,15 @@ import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.NewForm;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 
-public class DbRepositoryIT extends SpringIntegrationTest {
+public class DbRepositoryIT  {
 
     @Autowired
     private Repository dbRepository;
+    private HibernateTemplate template;
 
     @Before
     @After

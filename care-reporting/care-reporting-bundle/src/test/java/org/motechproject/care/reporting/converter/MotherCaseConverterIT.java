@@ -6,15 +6,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class MotherCaseConverterIT extends SpringIntegrationTest {
+public class MotherCaseConverterIT  {
     @Autowired
     private MotherCaseConverter motherCaseConverter;
-    @Autowired
     private SessionFactory sessionFactory;
+    private HibernateTemplate template;
 
     @Test
     public void shouldGetANewMotherIfDoesNotExists() throws Exception {

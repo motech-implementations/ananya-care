@@ -11,14 +11,13 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class MotherFormProcessorIT extends SpringIntegrationTest {
+public class MotherFormProcessorIT {
     @Autowired
     private MotherFormProcessor motherFormProcessor;
 

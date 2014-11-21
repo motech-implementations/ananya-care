@@ -6,16 +6,16 @@ import static org.junit.Assert.assertTrue;
 
 import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class FlwConverterIT extends SpringIntegrationTest {
+public class FlwConverterIT  {
     @Autowired
     private FlwConverter flwConverter;
 
-    @Autowired
     private SessionFactory sessionFactory;
+    private HibernateTemplate template;
 
     @Test
     public void shouldGetANewFlwIfDoesNotExist() throws Exception {

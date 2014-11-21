@@ -4,7 +4,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
-import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -14,14 +13,14 @@ import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class MotherCaseProcessorIT extends SpringIntegrationTest {
+public class MotherCaseProcessorIT {
 
     public static final DateTime JAN_01 = DateTime.parse("2013-01-01T02:10:23.923Z");
 
@@ -33,11 +32,10 @@ public class MotherCaseProcessorIT extends SpringIntegrationTest {
     private MotherCaseProcessor motherCaseProcessor;
     private FlwGroup flwGroup;
     private Flw flw;
+    private HibernateTemplate template;
 
     @Before
-    @Override
     public void setUp() {
-        super.setUp();
         flwGroup = new FlwGroup();
         flwGroup.setGroupId(ownerId);
         flw = new Flw();

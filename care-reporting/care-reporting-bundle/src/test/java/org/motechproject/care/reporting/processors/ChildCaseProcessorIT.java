@@ -12,14 +12,14 @@ import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class ChildCaseProcessorIT extends SpringIntegrationTest {
+public class ChildCaseProcessorIT  {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String ownerId = "89fda0284e008d2e0c980fb13fbb49e6";
@@ -29,11 +29,10 @@ public class ChildCaseProcessorIT extends SpringIntegrationTest {
 
     private FlwGroup flwGroup;
     private Flw flw;
+    private HibernateTemplate template;
 
     @Before
-    @Override
     public void setUp() {
-        super.setUp();
         flwGroup = new FlwGroup();
         flwGroup.setGroupId(ownerId);
         flw = new Flw();

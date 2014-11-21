@@ -14,20 +14,21 @@ import org.junit.Test;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class CommcareCaseListenerIT extends SpringIntegrationTest {
+public class CommcareCaseListenerIT  {
     @Autowired
     private CommcareCaseListener commcareCaseListener;
     private static final DateTime JAN_01 = DateTime.parse("2013-01-01");
     private static final DateTime JAN_20 = DateTime.parse("2013-01-20");
     private static final DateTime JAN_21 = DateTime.parse("2013-01-21");
+    private HibernateTemplate template;
 
     @Before
     @After

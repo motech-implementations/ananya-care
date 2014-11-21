@@ -7,7 +7,6 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -16,20 +15,21 @@ import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.MotherCaseBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class CloseCaseProcessorIT extends SpringIntegrationTest {
+public class CloseCaseProcessorIT {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String serverModifiedOn = "2013-06-13";
 
     @Autowired
     private CloseCaseProcessor closeCaseProcessor;
+    private HibernateTemplate template;
 
     @Test
     public void shouldUpdateCloseCaseWhenMotherCaseAlreadyExists() {

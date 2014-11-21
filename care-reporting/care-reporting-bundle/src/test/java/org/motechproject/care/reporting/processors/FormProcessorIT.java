@@ -9,18 +9,19 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
-import org.motechproject.care.reporting.repository.SpringIntegrationTest;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
 import org.motechproject.mcts.care.common.mds.measure.MoveBeneficiaryForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
-public class FormProcessorIT extends SpringIntegrationTest {
+public class FormProcessorIT  {
 
     @Autowired
     private FormProcessor formProcessor;
 
+    private HibernateTemplate template;
     @Test
     public void shouldSaveMotherEditForm() {
         String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";

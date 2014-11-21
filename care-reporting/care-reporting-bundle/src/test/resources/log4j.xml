@@ -22,7 +22,7 @@
         /> -->
 
     <logger name="commcare-reporting-mapper" additivity="false">
-        <level value="DEBUG" />
+        <level value="ERROR" />
         <appender-ref ref="CARE_REPORTING_CONSOLE_TEST" />
         <appender-ref ref="CARE_REPORTING_FILE_TEST" />
         <!-- <appender-ref ref="TEST_APPENDER" /> -->
@@ -30,11 +30,11 @@
 
 
     <logger name="org.motechproject">
-        <level value="DEBUG" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="org.springframework">
-        <level value="DEBUG" />
+        <level value="ERROR" />
     </logger>
 
     <logger name="DataNucleus">

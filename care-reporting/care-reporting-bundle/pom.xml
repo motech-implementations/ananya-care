@@ -69,7 +69,6 @@
             <artifactId>commcare</artifactId>
             <version>${motech.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit</groupId>
             <artifactId>org.motechproject.org.junit</artifactId>
@@ -114,6 +113,11 @@
             <version>3.1.0.RELEASE</version>
             <scope>test</scope>
         </dependency>
+       <!--  <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>org.motechproject.org.unitils</artifactId>
+            <version>3.3-r028</version>
+        </dependency> -->
         <dependency>
             <groupId>org.unitils</groupId>
             <artifactId>unitils-core</artifactId>
@@ -280,6 +284,8 @@
                             org.hibernate.proxy,
                             org.apache.commons.dbcp,
                             org.postgresql,
+                            <!-- org.unitils.core,
+                            org.unitils.util, -->
                             *
                         </Import-Package>
                         <Export-Package>

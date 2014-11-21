@@ -18,7 +18,7 @@
     </appender>
 
     <logger name="commcare-reporting-mapper" additivity="false">
-        <level value="DEBUG" />
+        <level value="ERROR" />
         <appender-ref ref="CARE_REPORTING_CONSOLE" />
         <appender-ref ref="CARE_REPORTING_FILE" />
     </logger>
