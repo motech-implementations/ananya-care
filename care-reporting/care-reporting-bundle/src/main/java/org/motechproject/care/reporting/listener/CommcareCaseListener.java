@@ -1,5 +1,7 @@
 package org.motechproject.care.reporting.listener;
 
+import static java.lang.String.format;
+
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.processors.ChildCaseProcessor;
 import org.motechproject.care.reporting.processors.CloseCaseProcessor;
@@ -12,10 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
-
-import static java.lang.String.format;
 
 @Component
 public class CommcareCaseListener {

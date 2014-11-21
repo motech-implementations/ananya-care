@@ -1,8 +1,8 @@
 package org.motechproject.care.reporting.parser;
 
-import org.motechproject.commcare.domain.FormValueElement;
-
 import java.util.Map;
+
+import org.motechproject.commcare.domain.FormValueElement;
 
 public interface InfoParser {
     Map<String, String> parse(FormValueElement element);
@@ -16,7 +16,6 @@ public interface InfoParser {
     void setKeyConversionMap(Map<String, String> keyConversionMap);
 
     FormValueElement getCaseElement(FormValueElement startElement);
-
 
     boolean shouldReportMissingCaseElement();
 }

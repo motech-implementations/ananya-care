@@ -58,10 +58,13 @@ public class CaseMigrationTask extends MigrationTask {
     protected Map<String, String> getOptionsToUrlMapper() {
         return optionsToUrlMapper;
     }
-
+    
+    
     @Override
     protected void postToMotech(CommcareResponseWrapper commcareResponseWrapper) {
         motechAPIHttpClient.postCase(commcareResponseWrapper);
+       
+      
     }
 
     @Override
@@ -103,7 +106,15 @@ public class CaseMigrationTask extends MigrationTask {
         if(properties == null)
             return false;
         final JsonElement caseType = properties.getAsJsonObject().get("case_type");
-        return (caseType != null) && "TASK".equalsIgnoreCase(caseType.getAsString());
+
+        if(caseType != null ) {
+            try {
+                return "TASK".equalsIgnoreCase(caseType.getAsString());
+           } catch(UnsupportedOperationException e){
+               return false;
+           }
+        }
+        return false;
     }
 
     private String getCaseId(JsonElement aCase) {

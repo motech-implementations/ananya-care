@@ -1,9 +1,6 @@
 package org.motechproject.mcts.care.common.mds.measure;
 
-import javax.jdo.annotations.Unique;
-
 import org.joda.time.DateTime;
-import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
@@ -12,7 +9,6 @@ public class Form implements java.io.Serializable {
 
     private static final long serialVersionUID = 2560364894674142626L;
 
-    @ExternalPrimaryKey
     private String instanceId;
 
     private String appVersion;
@@ -25,7 +21,6 @@ public class Form implements java.io.Serializable {
     }
 
     @Field
-    @Unique
     public String getInstanceId() {
         return this.instanceId;
     }

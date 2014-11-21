@@ -1,6 +1,7 @@
 package org.motechproject.care.reporting.migration.task;
 
 import com.google.gson.JsonArray;
+
 import org.motechproject.care.reporting.migration.MigratorArguments;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
 import org.motechproject.care.reporting.migration.common.MigrationType;
@@ -10,6 +11,7 @@ import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.service.PaginationScheme;
 import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
+
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 import org.slf4j.Logger;
@@ -40,19 +42,32 @@ public abstract class MigrationTask {
         this.statisticsCollector = statisticsCollector;
     }
 
+
+    
     public void migrate(MigratorArguments migratorArguments) {
         progressLogger.info("Starting new migration");
         Map<String, String> pairs = getNameValuePair(migratorArguments);
         Paginator paginator = getPaginator(pairs);
         PaginatedResponse paginatedResponse;
         while ((paginatedResponse = paginator.nextPage()) != null) {
-            JsonArray response = paginatedResponse.getRecords();
+            final JsonArray response = paginatedResponse.getRecords();
             statisticsCollector.addRecordsDownloaded(response.size());
 
             logger.info(String.format("Response Meta:: %s", paginatedResponse.getMeta()));
             logger.info(String.format("Records Count: %s", response.size()));
-
-            postToMotech(response);
+            
+            Runnable t = new Runnable() {
+                
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    postToMotech(response);
+                }
+            };
+            t.run();
+                
+            
+            logger.info("completed posting");
         }
     }
 
@@ -62,10 +77,21 @@ public abstract class MigrationTask {
         String log = String.format("Started posting %d %s request(s) to motech", totalCount, migrationType);
         logger.info(log);
         progressLogger.info(log);
+        
         int successCount = 0;
         try {
-            for (CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
-                postToMotech(commcareResponseWrapper);
+            for (final CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
+               Runnable x = new Runnable(
+                        ) {
+                    
+                    @Override
+                    public void run() {
+                        postToMotech(commcareResponseWrapper);
+                        
+                    }
+                };
+                x.run();
+                
                 successCount++;
             }
         } finally {

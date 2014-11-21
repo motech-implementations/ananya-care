@@ -3,11 +3,15 @@ package org.motechproject.care.reporting.enums;
 public enum CaseType {
     MOTHER("cc_bihar_pregnancy", true),
     CHILD("cc_bihar_newborn", true),
-    TASK("task", false);
+    TASK("task"),
+    MCTS("mcts_persona");
 
     private final String type;
     private boolean shouldProcess;
 
+    CaseType(String type) {
+       this(type, false);
+    }
     CaseType(String type, boolean shouldProcess) {
         this.type = type;
         this.shouldProcess = shouldProcess;

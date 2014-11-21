@@ -473,16 +473,19 @@ public class ChildCase implements java.io.Serializable,
         }
 
         List<String> fieldsToIgnore = Arrays.asList("id", "caseId",
-                "creationTime", "closedOn", "closedBy", "closed");
+                "creationTime", "closedOn", "closedBy", "closed", "modifiedBy",
+                "modificationDate", "creationDate", "creator");  //TODO: remove modiifedby later
         updateFields(updated, fieldsToIgnore);
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {
-       return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this.getClass());
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId,
+                this.getClass());
     }
 
     public void updateFields(ChildCase source, List<String> ignoredFields) {
-       SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(), this);
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
+                this);
     }
 
     private boolean isLatest(ChildCase updatedObject) {

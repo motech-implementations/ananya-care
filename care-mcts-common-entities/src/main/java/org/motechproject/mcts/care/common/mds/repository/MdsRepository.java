@@ -1,5 +1,7 @@
 package org.motechproject.mcts.care.common.mds.repository;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +43,18 @@ public class MdsRepository implements
         if (instance == null) {
             return -1;
         }
+        try {
+            Method setModMeth = instance.getClass().getDeclaredMethod("setModifiedBy", String.class);
+            Method setCreateMeth = instance.getClass().getDeclaredMethod("setCreatedBy", String.class);
+            
+            setModMeth.invoke(instance, "aman");
+            setCreateMeth.invoke(instance, "aman");
+        } catch (IllegalAccessException | IllegalArgumentException 
+                | InvocationTargetException | NoSuchMethodException
+                | SecurityException e) {
+            //Ignore ther error
+        }
+        
         MotechDataService<T> service = (MotechDataService<T>) mdsServiceFactory
                 .fetchServiceInterface(instance.getClass());
         if (service == null) {

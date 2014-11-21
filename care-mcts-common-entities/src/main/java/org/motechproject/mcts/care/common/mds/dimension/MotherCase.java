@@ -1129,7 +1129,7 @@ public class MotherCase implements java.io.Serializable,
             return;
         }
         updateFields(updated, Arrays.asList("id", "caseId", "creationTime",
-                "closedOn", "closedBy", "closed"));
+                "closedOn", "closedBy", "closed", "modifiedBy", "modificationDate", "creationDate", "creator"));  //TODO : remove modifiedby 
     }
 
     private boolean isLatest(MotherCase updatedObject) {

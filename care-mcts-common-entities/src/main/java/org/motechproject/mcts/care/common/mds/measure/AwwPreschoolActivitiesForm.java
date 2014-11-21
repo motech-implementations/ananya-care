@@ -13,113 +13,114 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class AwwPreschoolActivitiesForm extends Form {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -8990103902947600674L;
-	@Field
-	@Cascade(persist = true, update = true, delete = false)
-	private Flw flw;
-	@Field
-	private DateTime dateModified;
-	@Field
-	private DateTime timeStart;
-	@Field
-	private DateTime timeEnd;
-	@Field
-	private DateTime creationTime = new DateTime();
-	@Field
-	private String menu;
-	@Field
-	private String activity;
-	@Field
-	private String success;
-	@Field
-	private Integer numChildren;
-	@Field
-	private String childIds;
+    private static final long serialVersionUID = -8990103902947600674L;
+    @Field
+    @Cascade(persist = true, update = true, delete = false)
+    private Flw flw;
+    @Field
+    private DateTime dateModified;
+    @Field
+    private DateTime timeStart;
+    @Field
+    private DateTime timeEnd;
+    @Field
+    private DateTime creationTime = new DateTime();
+    @Field
+    private String menu;
+    @Field
+    private String activity;
+    @Field
+    private String success;
+    @Field
+    private Integer numChildren;
+    @Field
+    private String childIds;
 
-	public AwwPreschoolActivitiesForm() {
+    public AwwPreschoolActivitiesForm() {
 
-	}
+    }
 
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	public DateTime getDateModified() {
-		return dateModified;
-	}
+    public DateTime getDateModified() {
+        return dateModified;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	public DateTime getTimeStart() {
-		return timeStart;
-	}
+    public DateTime getTimeStart() {
+        return timeStart;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	public DateTime getTimeEnd() {
-		return timeEnd;
-	}
+    public DateTime getTimeEnd() {
+        return timeEnd;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	public DateTime getCreationTime() {
-		return creationTime;
-	}
+    public DateTime getCreationTime() {
+        return creationTime;
+    }
 
-	public void setCreationTime(DateTime creationTime) {
-		this.creationTime = creationTime;
-	}
+    public void setCreationTime(DateTime creationTime) {
+        this.creationTime = creationTime;
+    }
 
-	public String getMenu() {
-		return menu;
-	}
+    public String getMenu() {
+        return menu;
+    }
 
-	public void setMenu(String menu) {
-		this.menu = menu;
-	}
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
 
-	public String getActivity() {
-		return activity;
-	}
+    public String getActivity() {
+        return activity;
+    }
 
-	public void setActivity(String activity) {
-		this.activity = activity;
-	}
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
 
-	public String getSuccess() {
-		return success;
-	}
+    public String getSuccess() {
+        return success;
+    }
 
-	public void setSuccess(String success) {
-		this.success = success;
-	}
+    public void setSuccess(String success) {
+        this.success = success;
+    }
 
-	public Integer getNumChildren() {
-		return numChildren;
-	}
+    public Integer getNumChildren() {
+        return numChildren;
+    }
 
-	public void setNumChildren(Integer numChildren) {
-		this.numChildren = numChildren;
-	}
+    public void setNumChildren(Integer numChildren) {
+        this.numChildren = numChildren;
+    }
 
-	public String getChildIds() {
-		return childIds;
-	}
+    public String getChildIds() {
+        return childIds;
+    }
 
-	public void setChildIds(String childIds) {
-		this.childIds = childIds;
-	}
+    public void setChildIds(String childIds) {
+        this.childIds = childIds;
+    }
+
 }
