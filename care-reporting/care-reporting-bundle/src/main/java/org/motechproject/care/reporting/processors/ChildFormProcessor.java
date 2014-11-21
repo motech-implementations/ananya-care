@@ -16,7 +16,7 @@ import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.MetaInfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,15 +37,15 @@ public class ChildFormProcessor {
 
     private List<ComputedFieldsProcessor> CHILD_FORM_COMPUTED_FIELDS = new ArrayList<>();
 
-    private Service service;
+    private ICareService careService;
     private MapperService mapperService;
 
     @Autowired
-    public ChildFormProcessor(Service service, MapperService mapperService) {
-        this.service = service;
+    public ChildFormProcessor(ICareService careService, MapperService mapperService) {
+        this.careService = careService;
         this.mapperService = mapperService;
 
-        CHILD_FORM_COMPUTED_FIELDS.add(new ComputeDeliveryOffsetForChild(this.service));
+        CHILD_FORM_COMPUTED_FIELDS.add(new ComputeDeliveryOffsetForChild(this.careService));
     }
 
     List<Map<String, String>> parseChildForms(CommcareForm commcareForm) {

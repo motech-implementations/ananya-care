@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.motechproject.care.reporting.parser.FormCaseType;
 import org.motechproject.care.reporting.parser.FormInfoParser;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.care.reporting.utils.FormFieldSplitter;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class FormProcessor {
 
     private MotherFormProcessor motherFormProcessor;
     private ChildFormProcessor childFormProcessor;
-    private Service service;
+    private ICareService careService;
     private MapperService mapperService;
 
 
@@ -32,10 +32,10 @@ public class FormProcessor {
 
     @Autowired
     public FormProcessor(MotherFormProcessor motherFormProcessor, ChildFormProcessor childFormProcessor,
-                         Service service, MapperService mapperService) {
+                         ICareService careService, MapperService mapperService) {
         this.motherFormProcessor = motherFormProcessor;
         this.childFormProcessor = childFormProcessor;
-        this.service = service;
+        this.careService = careService;
         this.mapperService = mapperService;
     }
 
@@ -71,9 +71,9 @@ public class FormProcessor {
     private void processAndSaveForms(Map<String, String> motherForm, List<Map<String, String>> childForms,
                                      FormCaseType formCaseType) {
         if (formCaseType == FormCaseType.CHILD_MANY_TO_MANY) {
-            service.processAndSaveManyToManyForm(motherForm, childForms);
+            careService.processAndSaveManyToManyForm(motherForm, childForms);
         } else {
-            service.processAndSaveForms(motherForm, childForms);
+            careService.processAndSaveForms(motherForm, childForms);
         }
     }
 }

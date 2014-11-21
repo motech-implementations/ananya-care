@@ -10,7 +10,7 @@ import org.motechproject.care.reporting.mapper.ProviderSyncMapper;
 import org.motechproject.care.reporting.parser.GroupParser;
 import org.motechproject.care.reporting.parser.ProviderParser;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.commcare.provider.sync.response.Group;
 import org.motechproject.commcare.provider.sync.response.Provider;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
@@ -27,22 +27,22 @@ public class ProviderSyncProcessor {
             .getLogger("commcare-reporting-mapper");
 
     private GroupParser groupParser;
-    private Service service;
+    private ICareService careService;
     private ProviderParser providerParser;
     private ProviderSyncMapper genericMapper;
 
     @Autowired
-    public ProviderSyncProcessor(Service service, MapperService mapperService,
+    public ProviderSyncProcessor(ICareService careService, MapperService mapperService,
             ProviderSyncMapper providerSyncMapper) {
         this(mapperService.getGroupInfoParser(), mapperService
-                .getProviderInfoParser(), service, providerSyncMapper);
+                .getProviderInfoParser(), careService, providerSyncMapper);
     }
 
     public ProviderSyncProcessor(GroupParser groupParser,
-            ProviderParser providerParser, Service service,
+            ProviderParser providerParser, ICareService careService,
             ProviderSyncMapper providerSyncMapper) {
         this.groupParser = groupParser;
-        this.service = service;
+        this.careService = careService;
         this.providerParser = providerParser;
         this.genericMapper = providerSyncMapper;
     }
@@ -63,7 +63,7 @@ public class ProviderSyncProcessor {
                                 id), e);
             }
         }
-        service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
+        careService.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, flwGroups);
     }
 
     private FlwGroup processGroup(Group group) {
@@ -84,7 +84,7 @@ public class ProviderSyncProcessor {
                         provider.getId()), e);
             }
         }
-        service.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
+        careService.saveOrUpdateAllByExternalPrimaryKey(Flw.class, flws);
     }
 
     private Flw processProvider(Map<String, FlwGroup> flwGroups,
@@ -101,7 +101,7 @@ public class ProviderSyncProcessor {
 
     private LocationDimension getLocationDimension(
             Map<String, Object> parsedProvider) {
-        return service.getLocation((String) parsedProvider.get("state"),
+        return careService.getLocation((String) parsedProvider.get("state"),
                 (String) parsedProvider.get("district"),
                 (String) parsedProvider.get("block"));
     }
@@ -116,7 +116,7 @@ public class ProviderSyncProcessor {
             if (existingFlwGroups.containsKey(groupId)) {
                 group = existingFlwGroups.get(groupId);
             } else {
-                group = service.getOrCreateGroup(groupId);
+                group = careService.getOrCreateGroup(groupId);
                 existingFlwGroups.put(groupId, group);
             }
             flwGroups.add(group);

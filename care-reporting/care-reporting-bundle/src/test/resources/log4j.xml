@@ -18,30 +18,30 @@
         </layout>
     </appender>
 
-    <!-- <appender name="TEST_APPENDER"
-        class="org.motechproject.care.reporting.utils.TestAppender" /> -->
+    <!-- <appender name="TEST_APPENDER" class="org.motechproject.care.reporting.utils.TestAppender" 
+        /> -->
 
     <logger name="commcare-reporting-mapper" additivity="false">
         <level value="DEBUG" />
         <appender-ref ref="CARE_REPORTING_CONSOLE_TEST" />
         <appender-ref ref="CARE_REPORTING_FILE_TEST" />
-         <!-- <appender-ref ref="TEST_APPENDER" /> --> 
+        <!-- <appender-ref ref="TEST_APPENDER" /> -->
     </logger>
 
 
     <logger name="org.motechproject">
         <level value="DEBUG" />
     </logger>
-    
-     <logger name="org.springframework">
+
+    <logger name="org.springframework">
         <level value="DEBUG" />
     </logger>
 
-<logger name="DataNucleus">
-<level value="ERROR" />
-</logger>
+    <logger name="DataNucleus">
+        <level value="ERROR" />
+    </logger>
     <root>
-        <priority value="DEBUG" />
+        <priority value="ERROR" />
         <appender-ref ref="CARE_REPORTING_CONSOLE_TEST" />
         <appender-ref ref="CARE_REPORTING_FILE_TEST" />
     </root>

@@ -45,8 +45,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service(value = "careService")
-public class CareService implements
-        org.motechproject.care.reporting.service.Service {
+public class CareService implements ICareService {
     private static final Logger logger = LoggerFactory
             .getLogger("commcare-reporting-mapper");
 

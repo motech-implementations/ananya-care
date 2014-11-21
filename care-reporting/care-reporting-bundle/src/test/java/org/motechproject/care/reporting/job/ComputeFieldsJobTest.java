@@ -8,12 +8,12 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 
 public class ComputeFieldsJobTest {
 
     @Mock
-    private Service service;
+    private ICareService careService;
 
     @Before
     public void setUp() throws Exception {
@@ -25,10 +25,10 @@ public class ComputeFieldsJobTest {
             IllegalAccessException, NoSuchFieldException, SecurityException,
             InvocationTargetException, NoSuchMethodException,
             InstantiationException {
-        ComputeFieldsJob job = new ComputeFieldsJob(service);
+        ComputeFieldsJob job = new ComputeFieldsJob(careService);
         job.run();
 
-        verify(service).computeFieldsJob();
+        verify(careService).computeFieldsJob();
     }
 
 }

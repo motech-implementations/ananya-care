@@ -13,30 +13,32 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class ComputeDeliveryOffsetForMotherTest {
 
     @Mock
-    private Service service;
+    private ICareService careService;
 
     private ComputeDeliveryOffsetForMother computeDeliveryOffsetForMother;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        computeDeliveryOffsetForMother = new ComputeDeliveryOffsetForMother(service);
+        computeDeliveryOffsetForMother = new ComputeDeliveryOffsetForMother(
+                careService);
     }
 
     @Test
     public void testComputeDeliveryOffsetWhenMapIsNull() throws Exception {
         computeDeliveryOffsetForMother.compute(null);
-        verify(service, never()).getMotherCase(null);
+        verify(careService, never()).getMotherCase(null);
     }
 
     @Test
-    public void testComputeDeliveryOffsetWhenCaseIdDoesnotExist() throws Exception {
+    public void testComputeDeliveryOffsetWhenCaseIdDoesnotExist()
+            throws Exception {
 
         final String caseId = "12345";
 
@@ -44,10 +46,9 @@ public class ComputeDeliveryOffsetForMotherTest {
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service, never()).getMotherCase(caseId);
+        verify(careService, never()).getMotherCase(caseId);
         assertEquals(null, formInfoMap.get("deliveryOffsetDays"));
     }
-
 
     @Test
     public void testComputeDeliveryOffsetWhenCaseIdIsNull() throws Exception {
@@ -59,13 +60,13 @@ public class ComputeDeliveryOffsetForMotherTest {
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service, never()).getMotherCase(caseId);
+        verify(careService, never()).getMotherCase(caseId);
         assertEquals(null, formInfoMap.get("deliveryOffsetDays"));
     }
 
-
     @Test
-    public void testComputeDeliveryOffsetWhenServerModifiedIsNull() throws Exception {
+    public void testComputeDeliveryOffsetWhenServerModifiedIsNull()
+            throws Exception {
 
         final String caseId = "12345";
 
@@ -75,12 +76,13 @@ public class ComputeDeliveryOffsetForMotherTest {
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service, never()).getMotherCase(caseId);
+        verify(careService, never()).getMotherCase(caseId);
         assertEquals(null, formInfoMap.get("deliveryOffsetDays"));
     }
 
     @Test
-    public void testComputeDeliveryOffsetWhenBothEddAndAddAreNull() throws Exception {
+    public void testComputeDeliveryOffsetWhenBothEddAndAddAreNull()
+            throws Exception {
 
         final String caseId = "12345";
         final String serverModified = DateTime.now().toString();
@@ -91,7 +93,7 @@ public class ComputeDeliveryOffsetForMotherTest {
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service).getMotherCase(caseId);
+        verify(careService).getMotherCase(caseId);
         assertEquals(null, formInfoMap.get("deliveryOffsetDays"));
     }
 
@@ -110,14 +112,13 @@ public class ComputeDeliveryOffsetForMotherTest {
         motherCase.setEdd(new DateTime().plusDays(10));
         motherCase.setActualDeliveryDate(null);
 
-        when(service.getMotherCase(caseId)).thenReturn(motherCase);
+        when(careService.getMotherCase(caseId)).thenReturn(motherCase);
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service).getMotherCase(caseId);
+        verify(careService).getMotherCase(caseId);
         assertEquals("-10", formInfoMap.get("deliveryOffsetDays"));
     }
-
 
     @Test
     public void testComputeDeliveryOffsetUsingADDForMother() throws Exception {
@@ -134,11 +135,11 @@ public class ComputeDeliveryOffsetForMotherTest {
         motherCase.setEdd(null);
         motherCase.setActualDeliveryDate(new DateTime().minusDays(10));
 
-        when(service.getMotherCase(caseId)).thenReturn(motherCase);
+        when(careService.getMotherCase(caseId)).thenReturn(motherCase);
 
         computeDeliveryOffsetForMother.compute(formInfoMap);
 
-        verify(service).getMotherCase(caseId);
+        verify(careService).getMotherCase(caseId);
         assertEquals("10", formInfoMap.get("deliveryOffsetDays"));
     }
 }

@@ -42,19 +42,19 @@ public class CareServiceTest {
     @Mock
     private JobMetadataMDSService jobMetadataMDSService;
 
-    private CareService service;
+    private CareService careService;
 
     @Before
     public void setUp() {
         initMocks(this);
-        service = new CareService(dbRepository, jobMetadataMDSService);
+        careService = new CareService(dbRepository, jobMetadataMDSService);
     }
 
     @Test
     public void shouldExecuteInRepository() {
         when(dbRepository.execute("query")).thenReturn(10);
 
-        Object output = service.execute("query");
+        Object output = careService.execute("query");
 
         assertEquals(10, output);
     }
@@ -67,7 +67,7 @@ public class CareServiceTest {
         when(dbRepository.get(MotherCase.class, "caseId", "1")).thenReturn(
                 expectedMotherCase);
 
-        MotherCase actualMotherCase = service.getOrCreateMotherCase("1");
+        MotherCase actualMotherCase = careService.getOrCreateMotherCase("1");
 
         assertEquals(expectedMotherCase, actualMotherCase);
     }
@@ -80,7 +80,7 @@ public class CareServiceTest {
         when(dbRepository.get(MotherCase.class, "caseId", "1"))
                 .thenReturn(null);
 
-        MotherCase actualMotherCase = service.getOrCreateMotherCase("1");
+        MotherCase actualMotherCase = careService.getOrCreateMotherCase("1");
 
         assertReflectionEqualsWithIgnore(expectedMotherCase, actualMotherCase,
                 new String[] { "creationTime", "lastModifiedTime" });
@@ -94,7 +94,7 @@ public class CareServiceTest {
         when(dbRepository.get(ChildCase.class, "caseId", "1")).thenReturn(
                 expectedChildCase);
 
-        ChildCase actualChildCase = service.getOrCreateChildCase("1");
+        ChildCase actualChildCase = careService.getOrCreateChildCase("1");
 
         assertEquals(expectedChildCase, actualChildCase);
     }
@@ -107,7 +107,7 @@ public class CareServiceTest {
         when(dbRepository.get(MotherCase.class, "caseId", "1"))
                 .thenReturn(null);
 
-        ChildCase actualChildCase = service.getOrCreateChildCase("1");
+        ChildCase actualChildCase = careService.getOrCreateChildCase("1");
 
         assertReflectionEqualsWithIgnore(expectedChildCase, actualChildCase,
                 new String[] { "creationTime", "lastModifiedTime" });
@@ -120,7 +120,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(expectedFlw);
 
-        Flw actualFlw = service.getOrCreateFlw("1");
+        Flw actualFlw = careService.getOrCreateFlw("1");
 
         assertEquals(expectedFlw, actualFlw);
     }
@@ -132,7 +132,7 @@ public class CareServiceTest {
 
         when(dbRepository.get(Flw.class, "flwId", "1")).thenReturn(null);
 
-        Flw actualFlw = service.getOrCreateFlw("1");
+        Flw actualFlw = careService.getOrCreateFlw("1");
 
         assertReflectionEqualsWithIgnore(expectedFlw, actualFlw, new String[] {
                 "creationTime", "lastModifiedTime" });
@@ -143,7 +143,7 @@ public class CareServiceTest {
         NewForm newForm = new NewForm();
         newForm.setFullName("fullName");
 
-        service.save(newForm);
+        careService.save(newForm);
 
         verify(dbRepository).save(newForm);
     }
@@ -156,7 +156,7 @@ public class CareServiceTest {
         when(dbRepository.get(FlwGroup.class, fieldName, fieldValue))
                 .thenReturn(flwGroup);
 
-        FlwGroup actualGroup = service.getOrCreateGroup(fieldValue);
+        FlwGroup actualGroup = careService.getOrCreateGroup(fieldValue);
 
         verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(flwGroup, actualGroup);
@@ -169,7 +169,7 @@ public class CareServiceTest {
         when(dbRepository.get(FlwGroup.class, fieldName, fieldValue))
                 .thenReturn(null);
 
-        FlwGroup actualGroup = service.getOrCreateGroup(fieldValue);
+        FlwGroup actualGroup = careService.getOrCreateGroup(fieldValue);
 
         verify(dbRepository).get(FlwGroup.class, fieldName, fieldValue);
         assertEquals(fieldValue, actualGroup.getGroupId());
@@ -183,7 +183,7 @@ public class CareServiceTest {
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue))
                 .thenReturn(motherCase);
 
-        MotherCase actualMotherCase = (MotherCase) service.getOrCreateNew(
+        MotherCase actualMotherCase = (MotherCase) careService.getOrCreateNew(
                 MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
@@ -197,7 +197,7 @@ public class CareServiceTest {
         when(dbRepository.get(MotherCase.class, fieldName, fieldValue))
                 .thenReturn(null);
 
-        MotherCase actualMotherCase = (MotherCase) service.getOrCreateNew(
+        MotherCase actualMotherCase = (MotherCase) careService.getOrCreateNew(
                 MotherCase.class, fieldName, fieldValue);
 
         verify(dbRepository).get(MotherCase.class, fieldName, fieldValue);
@@ -222,7 +222,7 @@ public class CareServiceTest {
         when(dbRepository.get(PncChildForm.class, fieldMap, aliasMapping))
                 .thenReturn(pncChildForm);
 
-        PncChildForm actualPncChildForm = (PncChildForm) service.get(
+        PncChildForm actualPncChildForm = (PncChildForm) careService.get(
                 PncChildForm.class, fieldMap, aliasMapping);
 
         ReflectionAssert.assertReflectionEquals(pncChildForm,
@@ -244,7 +244,7 @@ public class CareServiceTest {
         when(dbRepository.get(LocationDimension.class, fieldMaps, null))
                 .thenReturn(expectedLocation);
 
-        LocationDimension actualLocationDimension = service.getLocation(
+        LocationDimension actualLocationDimension = careService.getLocation(
                 "BIHAR", "ARARIA", "BHARGAMA");
 
         assertEquals(expectedLocation, actualLocationDimension);
@@ -276,7 +276,7 @@ public class CareServiceTest {
         when(dbRepository.get(LocationDimension.class, unknownFieldMaps, null))
                 .thenReturn(expectedUnknown);
 
-        LocationDimension actualLocationDimension = service.getLocation(
+        LocationDimension actualLocationDimension = careService.getLocation(
                 "BIHAR", "ARARIA", "BHARGAMA");
 
         assertEquals(expectedUnknown, actualLocationDimension);
@@ -300,7 +300,7 @@ public class CareServiceTest {
         when(dbRepository.get(LocationDimension.class, fieldMaps, null))
                 .thenReturn(expectedLocation);
 
-        LocationDimension actualLocationDimension = service.getLocation(
+        LocationDimension actualLocationDimension = careService.getLocation(
                 "bihar", "araria", "bhargama");
 
         assertEquals(expectedLocation, actualLocationDimension);
@@ -332,7 +332,7 @@ public class CareServiceTest {
         when(dbRepository.get(LocationDimension.class, unknownFieldMaps, null))
                 .thenReturn(expectedUnknown);
 
-        LocationDimension actualLocationDimension = service.getLocation(
+        LocationDimension actualLocationDimension = careService.getLocation(
                 "BIHAR", null, StringUtils.EMPTY);
 
         assertEquals(expectedUnknown, actualLocationDimension);
@@ -350,7 +350,7 @@ public class CareServiceTest {
         childFormValue.put("xmlns",
                 "http://bihar.commcarehq.org/pregnancy/registration");
         childFormValues.add(childFormValue);
-        service.processAndSaveForms(motherFormValues, childFormValues);
+        careService.processAndSaveForms(motherFormValues, childFormValues);
         verify(dbRepository, times(2)).save(anyObject());
 
     }
@@ -365,7 +365,7 @@ public class CareServiceTest {
         childFormValue.put("xmlns",
                 "http://bihar.commcarehq.org/pregnancy/registration");
         childFormValues.add(childFormValue);
-        service.processAndSaveManyToManyForm(motherFormValues, childFormValues);
+        careService.processAndSaveManyToManyForm(motherFormValues, childFormValues);
     }
 
     @Test
@@ -376,7 +376,7 @@ public class CareServiceTest {
                 put("firstName", "FirstName1");
             }
         };
-        service.saveByExternalPrimaryKey(Flw.class, flwValues);
+        careService.saveByExternalPrimaryKey(Flw.class, flwValues);
         verify(dbRepository).save(anyObject());
     }
 
@@ -393,13 +393,13 @@ public class CareServiceTest {
         String date = "12-04-1999";
         updatedValues.put("closed", "true");
         updatedValues.put("closedOn", date);
-        service.closeCase("123", updatedValues);
+        careService.closeCase("123", updatedValues);
     }
 
     @Test
     public void shouldSaveOrUpdateAllByExternalPrimaryKey() {
         FlwGroup updatedGroup = updatedGroup();
-        service.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, Arrays
+        careService.saveOrUpdateAllByExternalPrimaryKey(FlwGroup.class, Arrays
                 .asList(updatedGroup));
         verify(dbRepository).saveOrUpdateAll(Matchers.anyListOf(Class.class));
     }
@@ -409,7 +409,7 @@ public class CareServiceTest {
         when(
                 dbRepository.get(any(Class.class), (Map) anyObject(),
                         (Map) anyObject())).thenReturn(null);
-        LocationDimension location = service.getLocation("bihar", "saharsa",
+        LocationDimension location = careService.getLocation("bihar", "saharsa",
                 "xyz");
     }
 

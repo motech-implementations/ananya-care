@@ -11,7 +11,7 @@ import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
-public interface Service {
+public interface ICareService {
 
     MotherCase getOrCreateMotherCase(String caseId);
 

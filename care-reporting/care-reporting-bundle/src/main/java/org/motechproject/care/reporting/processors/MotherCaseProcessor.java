@@ -11,7 +11,7 @@ import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
@@ -27,12 +27,12 @@ public class MotherCaseProcessor {
         add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
     }};
 
-    private Service service;
+    private ICareService careService;
     private MapperService mapperService;
 
     @Autowired
-    public MotherCaseProcessor(Service service, MapperService mapperService) {
-        this.service = service;
+    public MotherCaseProcessor(ICareService careService, MapperService mapperService) {
+        this.careService = careService;
         this.mapperService = mapperService;
     }
 
@@ -46,7 +46,7 @@ public class MotherCaseProcessor {
         String caseId = caseMap.get("caseId");
 
         logger.info(String.format("Started processing mother case with case ID %s", caseId));
-        service.saveByExternalPrimaryKey(MotherCase.class, caseMap);
+        careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
         logger.info(String.format("Finished processing mother case with case ID %s", caseId));
     }
 }

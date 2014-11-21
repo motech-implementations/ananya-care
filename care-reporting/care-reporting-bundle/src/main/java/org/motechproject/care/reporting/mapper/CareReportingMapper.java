@@ -1,7 +1,7 @@
 package org.motechproject.care.reporting.mapper;
 
 
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +9,7 @@ public class CareReportingMapper extends Mapper {
 
     private static CareReportingMapper _instance;
 
-    private CareReportingMapper(Service careService) {
+    private CareReportingMapper(ICareService careService) {
         super(new String[]{
                 "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
                 "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
@@ -26,14 +26,14 @@ public class CareReportingMapper extends Mapper {
         allDataTypeConverters.registerDomainConverters(beanUtils.getConvertUtils(), careService);
     }
 
-    public static CareReportingMapper getInstance(Service careService) {
+    public static CareReportingMapper getInstance(ICareService careService) {
         if (_instance != null) {
             return _instance;
         }
         return createInstance(careService);
     }
 
-    private synchronized static CareReportingMapper createInstance(Service careService) {
+    private synchronized static CareReportingMapper createInstance(ICareService careService) {
         if (_instance != null) {
             return _instance;
         }

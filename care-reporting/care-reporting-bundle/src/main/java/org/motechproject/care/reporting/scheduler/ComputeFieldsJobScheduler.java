@@ -22,7 +22,7 @@ public class ComputeFieldsJobScheduler {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
     @Autowired
-    public ComputeFieldsJobScheduler(@Qualifier("careReportingSettings") SettingsFacade settings, MotechSchedulerService motechSchedulerService) {
+    public ComputeFieldsJobScheduler(@Qualifier("careReportingSettings") SettingsFacade settings, @Qualifier("schedulerServiceOsgi")MotechSchedulerService motechSchedulerService) {
         scheduleCronJob(motechSchedulerService, settings.getProperty(PropertyConstants.COMPUTE_FIELDS_JOB_CRON_EXPRESSION), EventConstants.COMPUTE_FIELDS, EventConstants.COMPUTE_FIELDS_JOB_ID_KEY);
     }
 

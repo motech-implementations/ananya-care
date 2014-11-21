@@ -10,7 +10,7 @@ import org.motechproject.care.reporting.converter.FlwConverter;
 import org.motechproject.care.reporting.converter.FlwGroupConverter;
 import org.motechproject.care.reporting.converter.JodaTimeConverter;
 import org.motechproject.care.reporting.converter.MotherCaseConverter;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.motechproject.care.reporting.utils.CareTypeConverter;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
@@ -38,7 +38,7 @@ public class AllDataTypeConverters {
     }
 
     public void registerDomainConverters(ConvertUtilsBean convertUtils,
-            Service careService) {
+            ICareService careService) {
         convertUtils.register(new FlwConverter(careService), Flw.class);
         convertUtils.register(new FlwGroupConverter(careService),
                 FlwGroup.class);

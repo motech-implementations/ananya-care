@@ -10,7 +10,7 @@ import org.motechproject.care.reporting.parser.MetaInfoParser;
 import org.motechproject.care.reporting.parser.MotherInfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,7 +44,7 @@ public class MotherFormProcessor {
     private MapperService mapperService;
 
     @Autowired
-    public MotherFormProcessor(Service service, MapperService mapperService) {
+    public MotherFormProcessor(ICareService service, MapperService mapperService) {
         this.mapperService = mapperService;
 
         MOTHER_FORM_COMPUTED_FIELDS.add(new ComputeDeliveryOffsetForMother(service));

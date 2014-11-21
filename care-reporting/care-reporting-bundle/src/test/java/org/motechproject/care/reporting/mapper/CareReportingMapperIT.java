@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.mapper;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionEqualsWithIgnore;
 
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -28,9 +28,7 @@ import org.ops4j.pax.exam.ExamFactory;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerSuite;
-import org.springframework.test.context.ContextConfiguration;
 
-@ContextConfiguration("classpath:META-INF/motech/applicationCareReportingTest.xml")
 // @Transactional
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerSuite.class)
@@ -38,7 +36,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class CareReportingMapperIT extends BasePaxIT {
 
     @Inject
-    private Service service;
+    private ICareService careService;
     /*
      * @Rule public ExpectedException expectedException =
      * ExpectedException.none();
@@ -48,7 +46,7 @@ public class CareReportingMapperIT extends BasePaxIT {
 
     @Before
     public void setUp() {
-        careReportingMapper = CareReportingMapper.getInstance(service);
+        careReportingMapper = CareReportingMapper.getInstance(careService);
     }
 
     @Test

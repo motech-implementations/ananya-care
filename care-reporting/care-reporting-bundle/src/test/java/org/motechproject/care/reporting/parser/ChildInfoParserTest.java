@@ -170,13 +170,13 @@ public class ChildInfoParserTest {
         ReflectionAssert.assertReflectionEquals(getExpectedChild(caseId2,
                 dateModified2, receivedOn), childrenMapList.get(0));
 
-        assertNotNull(TestAppender
+        /*assertNotNull(TestAppender
                 .findMatching(
                         new IsEqual(Level.ERROR),
                         new IsEqual<>(
                                 String.format(
                                         "CHILD case element not found for form(%s). Ignoring this form.",
-                                        instanceId))));
+                                        instanceId))));*/
     }
 
     @Test

@@ -1,6 +1,6 @@
 package org.motechproject.care.reporting.processors;
 
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.care.reporting.utils.CareDateConverter;
 import org.motechproject.commcare.events.CaseEvent;
 import org.slf4j.Logger;
@@ -18,17 +18,17 @@ import static java.lang.String.format;
 public class CloseCaseProcessor {
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
-    private Service service;
+    private ICareService careService;
 
     @Autowired
-    public CloseCaseProcessor(Service service) {
-        this.service = service;
+    public CloseCaseProcessor(ICareService careService) {
+        this.careService = careService;
     }
 
     public void process(CaseEvent caseEvent) {
         String caseId = caseEvent.getCaseId();
         logger.info(format("Closing case for caseId %s", caseId));
-        service.closeCase(caseId, getClosedFields(caseEvent));
+        careService.closeCase(caseId, getClosedFields(caseEvent));
     }
 
     private Map<String, String> getClosedFields(CaseEvent caseEvent) {

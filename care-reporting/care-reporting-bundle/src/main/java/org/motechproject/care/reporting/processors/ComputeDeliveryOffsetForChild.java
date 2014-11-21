@@ -4,20 +4,20 @@ import java.util.Map;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.motechproject.care.reporting.service.Service;
+import org.motechproject.care.reporting.service.ICareService;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ComputeDeliveryOffsetForChild implements ComputedFieldsProcessor{
+public class ComputeDeliveryOffsetForChild implements ComputedFieldsProcessor {
 
-    private Service service;
+    private ICareService careService;
     private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
 
 
-    public ComputeDeliveryOffsetForChild(Service service) {
-        this.service = service;
+    public ComputeDeliveryOffsetForChild(ICareService careService) {
+        this.careService = careService;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ComputeDeliveryOffsetForChild implements ComputedFieldsProcessor{
             return;
         }
 
-        final ChildCase childCase = service.getChildCase(childId);
+        final ChildCase childCase = careService.getChildCase(childId);
 
         if(childCase == null){
             logger.info("Child Case does not exist when computing Delivery Offset for child.");
