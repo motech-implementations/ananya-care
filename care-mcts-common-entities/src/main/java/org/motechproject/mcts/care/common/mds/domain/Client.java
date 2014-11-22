@@ -8,31 +8,35 @@ import org.motechproject.mds.annotations.Field;
 public class Client implements java.io.Serializable {
 
     private static final long serialVersionUID = -5140470554942711265L;
-    
+
     protected String caseId;
     protected DateTime dateModified;
-    protected String flwId;
-    protected String name;
-    protected String groupId;
+    protected String caseName;
+    /* protected String groupId; */
     protected String caseType;
-    private DateTime docCreateTime;
-    private Boolean closedByCommcare;
-    private Boolean expired;
-    protected Boolean isAlive;
+    protected DateTime creationTime;
+    protected boolean closed;
+    protected boolean expired;
+    protected String isAlive;
     
+    /*protected Flw flw;
+
+    
+    protected FlwGroup flwGroup;*/
+
     public Client() {
-    	isAlive = false;
-    	closedByCommcare = false;
+
     }
-    public Client(Boolean isAlive) {
+
+    public Client(String isAlive) {
         this.isAlive = isAlive;
-        closedByCommcare = false;
+        closed = false;
     }
-    
+
     public boolean isActive() {
-        return isAlive && !closedByCommcare;
+        return isAlive.equals("yes") && !closed && !expired;
     }
-    
+
     @Field
     public String getCaseId() {
         return caseId;
@@ -51,22 +55,14 @@ public class Client implements java.io.Serializable {
         this.dateModified = dateModified;
     }
 
-    @Field
-    public String getFlwId() {
-        return flwId;
-    }
-
-    public void setFlwId(String flwId) {
-        this.flwId = flwId;
-    }
 
     @Field
-    public String getName() {
-        return name;
+    public String getCaseName() {
+        return caseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
     }
 
     @Field
@@ -77,32 +73,44 @@ public class Client implements java.io.Serializable {
     public void setCaseType(String caseType) {
         this.caseType = caseType;
     }
-
+    
     @Field
-    public String getGroupId() {
-        return groupId;
+    public Boolean getClosed() {
+        return closed;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setClosed(Boolean closed) {
+        this.closed = closed;
     }
 
+
+    /*
+     * @Field public String getGroupId() { return groupId; }
+     * 
+     * public void setGroupId(String groupId) { this.groupId = groupId; }
+     */
+    /*
+     * @Field public DateTime getDocCreateTime() { return docCreateTime; }
+     * 
+     * public void setDocCreateTime(DateTime docCreateTime) { this.docCreateTime
+     * = docCreateTime; }
+     */
     @Field
-    public DateTime getDocCreateTime() {
-        return docCreateTime;
+    public DateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setDocCreateTime(DateTime docCreateTime) {
-        this.docCreateTime = docCreateTime;
+    public void setCreationTime(DateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     @Field
     public Boolean getClosedByCommcare() {
-        return closedByCommcare;
+        return closed;
     }
 
-    public void setClosedByCommcare(Boolean closedByCommcare) {
-        this.closedByCommcare = closedByCommcare;
+    public void setClosedByCommcare(Boolean closed) {
+        this.closed = closed;
     }
 
     @Field
@@ -115,11 +123,21 @@ public class Client implements java.io.Serializable {
     }
 
     @Field
-    public Boolean getIsAlive() {
+    public String getIsAlive() {
         return isAlive;
     }
 
-    public void setIsAlive(Boolean isAlive) {
+    public void setIsAlive(String isAlive) {
         this.isAlive = isAlive;
     }
+
+    /*@Field
+    @Cascade(persist = true, update = true, delete = true)
+    public FlwGroup getFlwGroup() {
+        return this.flwGroup;
+    }
+
+    public void setFlwGroup(FlwGroup flwGroup) {
+        this.flwGroup = flwGroup;
+    }*/
 }

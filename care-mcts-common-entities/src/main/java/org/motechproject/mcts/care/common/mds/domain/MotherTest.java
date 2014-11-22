@@ -6,24 +6,37 @@ import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mds.annotations.Entity;
+import org.motechproject.mds.annotations.Field;
 
-@Entity(name = "Mother")
-public class Mother extends Client {
+@Entity(name = "MotherTest")
+public class MotherTest extends ClientTest {
 
     private static final long serialVersionUID = 7542211703701595440L;
     
+    @Field
     private DateTime edd;
+    @Field
     private DateTime add;
+    @Field
     private DateTime tt1Date;
+    @Field
     private DateTime tt2Date;
-    private boolean lastPregTt;
+    @Field
+    private Boolean lastPregTt;
+    @Field
     private DateTime anc1Date;
+    @Field
     private DateTime anc2Date;
+    @Field
     private DateTime anc3Date;
+    @Field
     private DateTime anc4Date;
+    @Field
     private DateTime ttBoosterDate;
+    @Field
+    private String caseType;
 
-    public Mother(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime edd, DateTime add, DateTime tt1Date, DateTime tt2Date, boolean lastPregTt, DateTime anc1Date, DateTime anc2Date, DateTime anc3Date, DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
+    public MotherTest(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime edd, DateTime add, DateTime tt1Date, DateTime tt2Date, boolean lastPregTt, DateTime anc1Date, DateTime anc2Date, DateTime anc3Date, DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
         super(isAlive);
         this.caseId = caseId;
         this.dateModified = dateModified;
@@ -43,7 +56,7 @@ public class Mother extends Client {
         this.caseType = CaseType.MOTHER;
     }
 
-    public Mother() {
+    public MotherTest() {
         this.caseType=CaseType.MOTHER;
     }
 
@@ -135,7 +148,7 @@ public class Mother extends Client {
         this.caseType=caseType;
     }
 */
-    public void setValuesFrom(Mother mother) {
+    public void setValuesFrom(MotherTest mother) {
         try{
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
             nullAwareBeanUtilsBean.copyProperties(this, mother);
@@ -151,5 +164,13 @@ public class Mother extends Client {
         return super.isActive() && add == null;
     }
 
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = CaseType.MOTHER;
+        
+    }
 
 }

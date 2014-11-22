@@ -1,5 +1,9 @@
 package org.motechproject.mcts.care.common.mds.domain;
 
+import org.motechproject.mcts.care.common.lookup.CaseType;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
@@ -13,14 +17,23 @@ public class CareCaseTask implements java.io.Serializable {
 
     private String ownerId;
 
-    //TODO: add getter and setter for mother and child fields
-    private Mother mother;
-    
-    private Child child;
-    
-    //TODO: remove this field and use Mother and Child Objects
-    private String clientCaseId;
+    // TODO: add getter and setter for mother and child fields
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    private MotherCase motherCase;
 
+   
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    private ChildCase childCase;
+
+    @Field
+    /*
+     * @Cascade(persist = true, update = true, delete = true) private ChildCase
+     * child;
+     */
+    // TODO: remove this field and use Mother and Child Objects
+    // private String clientCaseId;
     private String motechUserId;
 
     private String currentTime;
@@ -55,14 +68,11 @@ public class CareCaseTask implements java.io.Serializable {
         this.ownerId = ownerId;
     }
 
-    @Field
-    public String getCaseId() {
-        return caseId;
-    }
-
-    public void setCaseId(String caseId) {
-        this.caseId = caseId;
-    }
+    /*
+     * @Field public String getCaseId() { return caseId; }
+     * 
+     * public void setCaseId(String caseId) { this.caseId = caseId; }
+     */
 
     @Field
     public String getMotechUserId() {
@@ -119,14 +129,31 @@ public class CareCaseTask implements java.io.Serializable {
     }
 
     @Field
-    public String getClientCaseId() {
-        return clientCaseId;
+    public String getCaseId() {
+        return caseId;
     }
 
-    public void setClientCaseId(String clientCaseId) {
-        this.clientCaseId = clientCaseId;
+    public void setCaseId(String caseId) {
+        this.caseId = caseId;
     }
 
+    public void setCaseType(String caseType) {
+        this.caseType = CaseType.TASK;
+    }
+
+    @Field
+    public String getCaseType() {
+        return caseType;
+    }
+
+    /*
+     * @Field public String getClientCaseId() { return clientCaseId; }
+     */
+
+    /*
+     * public void setClientCaseId(String clientCaseId) { this.clientCaseId =
+     * clientCaseId; }
+     */
     @Field
     public Boolean getIsOpen() {
         return isOpen;
@@ -142,27 +169,37 @@ public class CareCaseTask implements java.io.Serializable {
     public CareCaseTask(String milestoneName, String ownerId, String caseId,
             String motechUserId, String currentTime, String taskId,
             String dateEligible, String dateExpires, String clientCaseType,
-            String clientCaseId) {
+            MotherCase motherCase,ChildCase childCase) {
         this.milestoneName = milestoneName;
         this.ownerId = ownerId;
-        //this.caseId = caseId;
+        this.caseId = caseId;
         this.motechUserId = motechUserId;
         this.currentTime = currentTime;
         this.taskId = taskId;
         this.dateEligible = dateEligible;
         this.dateExpires = dateExpires;
         this.clientCaseType = clientCaseType;
-        this.clientCaseId = clientCaseId;
+        this.motherCase = motherCase;
+        this.childCase = childCase;
     }
 
-    public String getCaseType() {
-        return caseType;
+    public MotherCase getMotherCase() {
+        return motherCase;
     }
 
-    public void setCaseType(String caseType) {
-        this.caseType = "task";
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
     }
 
+    public ChildCase getChildCase() {
+        return childCase;
+    }
+
+    public void setChildCase(ChildCase childCase) {
+        this.childCase = childCase;
+    }
+
+    
     // TODO: implement this in care-V in util class
     /*
      * public CaseTask toCaseTask() { CaseTask caseTask = new CaseTask();

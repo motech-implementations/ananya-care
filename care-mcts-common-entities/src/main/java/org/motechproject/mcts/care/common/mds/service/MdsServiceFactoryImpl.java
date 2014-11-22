@@ -12,9 +12,7 @@ import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.LocationDimension;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
-import org.motechproject.mcts.care.common.mds.domain.Child;
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
 import org.motechproject.mcts.care.common.mds.domain.Window;
 import org.motechproject.mcts.care.common.mds.measure.AbortForm;
 import org.motechproject.mcts.care.common.mds.measure.AwwCloseChildForm;
@@ -155,9 +153,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
     private MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService;
 
     private CareCaseTaskMDSService careCaseTaskMDSService;
-    private ChildMDSService childMDSService;
     private ClientMDSService clientMDSService;
-    private MotherMDSService motherMDSService;
     private WindowMDSService windowMDSService;
 
     @Autowired
@@ -227,8 +223,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
             CaseAlreadyClosedFormMDSService caseAlreadyClosedFormMDSService,
             MctsHealthWorkerErrorLogMDSService mctsHealthWorkerErrorLogMDSService,
             CareCaseTaskMDSService careCaseTaskMDSService,
-            ChildMDSService childMDSService, ClientMDSService clientMDSService,
-            MotherMDSService motherMDSService, WindowMDSService windowMDSService) {
+            ClientMDSService clientMDSService, WindowMDSService windowMDSService) {
         this.abortFormMDSService = abortFormMDSService;
         this.awwCloseChildFormMDSService = awwCloseChildFormMDSService;
         this.awwEditChildFormMDSService = awwEditChildFormMDSService;
@@ -296,9 +291,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
         this.mctsHealthWorkerErrorLogMDSService = mctsHealthWorkerErrorLogMDSService;
 
         this.careCaseTaskMDSService = careCaseTaskMDSService;
-        this.childMDSService = childMDSService;
         this.clientMDSService = clientMDSService;
-        this.motherMDSService = motherMDSService;
         this.windowMDSService = windowMDSService;
 
     }
@@ -384,9 +377,7 @@ public class MdsServiceFactoryImpl implements MdsServiceFactory {
                 mctsHealthWorkerErrorLogMDSService);
 
         mapper.put(CareCaseTask.class, careCaseTaskMDSService);
-        mapper.put(Child.class, childMDSService);
         mapper.put(Client.class, clientMDSService);
-        mapper.put(Mother.class, motherMDSService);
         mapper.put(Window.class, windowMDSService);
 
     }

@@ -8,31 +8,49 @@ import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-@Entity(name = "Child")
-public class Child extends Client {
+@Entity(name = "ChildTest")
+public class ChildTest extends ClientTest {
 
-    private static final long serialVersionUID = 7542211703701595440L;
-
-    private DateTime dob;
+    @Field
     private DateTime measlesDate;
+    @Field
+    private DateTime dob;
+    @Field
     private DateTime bcgDate;
+    @Field
     private DateTime vitamin1Date;
+    @Field
     private DateTime hep0Date;
+    @Field
     private DateTime hep1Date;
+    @Field
     private DateTime hep2Date;
+    @Field
     private DateTime hep3Date;
+    @Field
     private DateTime dpt1Date;
+    @Field
     private DateTime dpt2Date;
+    @Field
     private DateTime dpt3Date;
+    @Field
     private DateTime dptBoosterDate;
+    @Field
     private DateTime opv0Date;
+    @Field
     private DateTime opv1Date;
+    @Field
     private DateTime opv2Date;
+    @Field
     private DateTime opv3Date;
+    @Field
     private DateTime opvBoosterDate;
+    @Field
     private String motherCaseId;
+    @Field
+    private String caseType;
 
-    public Child(String caseId, DateTime dateModified, String flwId,
+    public ChildTest(String caseId, DateTime dateModified, String flwId,
             String name, String groupId, DateTime dob, DateTime measlesDate,
             DateTime bcgDate, DateTime vitamin1Date, String motherCaseId,
             DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
@@ -67,11 +85,10 @@ public class Child extends Client {
         this.caseType = CaseType.CHILD;
     }
 
-    public Child() {
+    public ChildTest() {
         this.caseType = CaseType.CHILD;
     }
 
-    @Field
     public DateTime getHep0Date() {
         return hep0Date;
     }
@@ -80,7 +97,6 @@ public class Child extends Client {
         this.hep0Date = hep0Date;
     }
 
-    @Field
     public DateTime getHep1Date() {
         return hep1Date;
     }
@@ -89,7 +105,6 @@ public class Child extends Client {
         this.hep1Date = hep1Date;
     }
 
-    @Field
     public DateTime getHep2Date() {
         return hep2Date;
     }
@@ -98,7 +113,6 @@ public class Child extends Client {
         this.hep2Date = hep2Date;
     }
 
-    @Field
     public DateTime getHep3Date() {
         return hep3Date;
     }
@@ -107,7 +121,6 @@ public class Child extends Client {
         this.hep3Date = hep3Date;
     }
 
-    @Field
     public DateTime getDpt1Date() {
         return dpt1Date;
     }
@@ -116,7 +129,6 @@ public class Child extends Client {
         this.dpt1Date = dpt1Date;
     }
 
-    @Field
     public DateTime getDpt2Date() {
         return dpt2Date;
     }
@@ -125,7 +137,6 @@ public class Child extends Client {
         this.dpt2Date = dpt2Date;
     }
 
-    @Field
     public DateTime getDpt3Date() {
         return dpt3Date;
     }
@@ -134,7 +145,6 @@ public class Child extends Client {
         this.dpt3Date = dpt3Date;
     }
 
-    @Field
     public DateTime getDptBoosterDate() {
         return dptBoosterDate;
     }
@@ -143,7 +153,6 @@ public class Child extends Client {
         this.dptBoosterDate = dptBoosterDate;
     }
 
-    @Field
     public DateTime getOpv0Date() {
         return opv0Date;
     }
@@ -152,7 +161,6 @@ public class Child extends Client {
         this.opv0Date = opv0Date;
     }
 
-    @Field
     public DateTime getOpv1Date() {
         return opv1Date;
     }
@@ -161,7 +169,6 @@ public class Child extends Client {
         this.opv1Date = opv1Date;
     }
 
-    @Field
     public DateTime getOpv2Date() {
         return opv2Date;
     }
@@ -170,7 +177,6 @@ public class Child extends Client {
         this.opv2Date = opv2Date;
     }
 
-    @Field
     public DateTime getOpv3Date() {
         return opv3Date;
     }
@@ -179,7 +185,6 @@ public class Child extends Client {
         this.opv3Date = opv3Date;
     }
 
-    @Field
     public DateTime getOpvBoosterDate() {
         return opvBoosterDate;
     }
@@ -188,7 +193,6 @@ public class Child extends Client {
         this.opvBoosterDate = opvBoosterDate;
     }
 
-    @Field
     public String getMotherCaseId() {
         return motherCaseId;
     }
@@ -197,7 +201,6 @@ public class Child extends Client {
         this.motherCaseId = motherCaseId;
     }
 
-    @Field
     public DateTime getDob() {
         return DateUtil.setTimeZone(dob);
     }
@@ -206,7 +209,6 @@ public class Child extends Client {
         this.dob = dob;
     }
 
-    @Field
     public DateTime getMeaslesDate() {
         return DateUtil.setTimeZone(measlesDate);
     }
@@ -215,7 +217,6 @@ public class Child extends Client {
         this.measlesDate = measlesDate;
     }
 
-    @Field
     public DateTime getBcgDate() {
         return DateUtil.setTimeZone(bcgDate);
     }
@@ -224,7 +225,6 @@ public class Child extends Client {
         this.bcgDate = bcgDate;
     }
 
-    @Field
     public DateTime getVitamin1Date() {
         return DateUtil.setTimeZone(vitamin1Date);
     }
@@ -233,7 +233,16 @@ public class Child extends Client {
         this.vitamin1Date = vitamin1Date;
     }
 
-    public void setValuesFrom(Child child) {
+    public String getCaseType() {
+        return caseType;
+    }
+
+    public void setCaseType(String caseType) {
+        this.caseType = CaseType.CHILD;
+    }
+
+    
+    public void setValuesFrom(ChildTest child) {
         try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
             nullAwareBeanUtilsBean.copyProperties(this, child);

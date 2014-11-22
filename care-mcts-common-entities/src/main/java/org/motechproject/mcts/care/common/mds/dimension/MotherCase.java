@@ -3,12 +3,12 @@ package org.motechproject.mcts.care.common.mds.dimension;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.jdo.annotations.Unique;
-
 import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
-import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
+import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.lookup.MCTSPregnantMotherCaseAuthorisedStatus;
+import org.motechproject.mcts.care.common.mds.domain.Client;
+import org.motechproject.mcts.care.common.utils.NullAwareBeanUtilsBean;
 import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
@@ -17,35 +17,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Entity(name = "mother_case")
-public class MotherCase implements java.io.Serializable,
+public class MotherCase extends Client implements java.io.Serializable,
         SelfUpdatable<MotherCase> {
 
     private static final long serialVersionUID = 2017951207352639547L;
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MotherCase.class);
-
-    @Field
-    @Cascade(persist = true, update = true, delete = true)
-    private Flw flw;
-
-    @Field
-    @Cascade(persist = true, update = true, delete = true)
-    private FlwGroup flwGroup;
-
-    @ExternalPrimaryKey
-    @Field
-    @Unique
-    private String caseId;
-
-    @Field
-    private String caseName;
-
-    @Field
-    private String caseType;
-
-    @Field
-    private DateTime dateModified;
 
     @Field
     private DateTime serverDateModified;
@@ -58,9 +36,6 @@ public class MotherCase implements java.io.Serializable,
     private String husbandName;
     @Field
     private String lastVisitType;
-    @Field
-    private String motherAlive;
-
     @Field
     private DateTime motherDob;
     @Field
@@ -254,10 +229,6 @@ public class MotherCase implements java.io.Serializable,
     private DateTime dob;
     @Field
     private Boolean closed;
-
-    @Field
-    private DateTime creationTime;
-
     @Field
     private DateTime lastModifiedTime;
     @Field
@@ -284,58 +255,39 @@ public class MotherCase implements java.io.Serializable,
     @Field
     private String dateModifiedString;
 
+    protected Flw flw;
+
+    protected FlwGroup flwGroup;
+
     public MotherCase() {
         DateTime date = new DateTime();
         creationTime = date;
         lastModifiedTime = date;
+        this.caseType = CaseType.MOTHER;
     }
 
-    public Flw getFlw() {
-        return this.flw;
-    }
-
-    public void setFlw(Flw flw) {
-        this.flw = flw;
-    }
-
-    public FlwGroup getFlwGroup() {
-        return this.flwGroup;
-    }
-
-    public void setFlwGroup(FlwGroup flwGroup) {
-        this.flwGroup = flwGroup;
-    }
-
-    public String getCaseId() {
-        return this.caseId;
-    }
-
-    public void setCaseId(String caseId) {
+    public MotherCase(String caseId, DateTime dateModified, Flw flw,
+            String name, FlwGroup flwGroup, DateTime edd, DateTime add,
+            DateTime tt1Date, DateTime tt2Date, String lastPregTt,
+            DateTime anc1Date, DateTime anc2Date, DateTime anc3Date,
+            DateTime anc4Date, DateTime ttBoosterDate, String isAlive) {
+        super(isAlive);
         this.caseId = caseId;
-    }
-
-    public String getCaseName() {
-        return this.caseName;
-    }
-
-    public void setCaseName(String caseName) {
-        this.caseName = caseName;
-    }
-
-    public String getCaseType() {
-        return this.caseType;
-    }
-
-    public void setCaseType(String caseType) {
-        this.caseType = caseType;
-    }
-
-    public DateTime getDateModified() {
-        return this.dateModified;
-    }
-
-    public void setDateModified(DateTime dateModified) {
         this.dateModified = dateModified;
+        this.flw = flw;
+        this.caseName = name;
+        this.flwGroup = flwGroup;
+        this.edd = edd;
+        this.actualDeliveryDate = add;
+        this.tt1Date = tt1Date;
+        this.tt2Date = tt2Date;
+        this.lastPregTt = lastPregTt;
+        this.anc1Date = anc1Date;
+        this.anc2Date = anc2Date;
+        this.anc3Date = anc3Date;
+        this.anc4Date = anc4Date;
+        this.ttBoosterDate = ttBoosterDate;
+        this.caseType = CaseType.MOTHER;
     }
 
     public DateTime getServerDateModified() {
@@ -376,14 +328,6 @@ public class MotherCase implements java.io.Serializable,
 
     public void setLastVisitType(String lastVisitType) {
         this.lastVisitType = lastVisitType;
-    }
-
-    public String getMotherAlive() {
-        return this.motherAlive;
-    }
-
-    public void setMotherAlive(String motherAlive) {
-        this.motherAlive = motherAlive;
     }
 
     public DateTime getMotherDob() {
@@ -745,6 +689,7 @@ public class MotherCase implements java.io.Serializable,
     public void setAccompany(String accompany) {
         this.accompany = accompany;
     }
+
     public DateTime getAnc1Date() {
         return this.anc1Date;
     }
@@ -1049,13 +994,12 @@ public class MotherCase implements java.io.Serializable,
         this.cfVisitNum = cfVisitNum;
     }
 
-    public DateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(DateTime creationTime) {
-        this.creationTime = creationTime;
-    }
+    /*
+     * public DateTime getCreationTime() { return creationTime; }
+     * 
+     * public void setCreationTime(DateTime creationTime) { this.creationTime =
+     * creationTime; }
+     */
 
     public DateTime getLastModifiedTime() {
         return lastModifiedTime;
@@ -1107,13 +1051,33 @@ public class MotherCase implements java.io.Serializable,
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {
-        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId, this
-                .getClass());
+        return SelfUpdatableUtil.validateIfUpdatable(thisId, otherId,
+                this.getClass());
     }
 
     public void updateFields(MotherCase source, List<String> ignoredFields) {
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
+    }
+
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    public Flw getFlw() {
+        return this.flw;
+    }
+
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
+
+    @Field
+    @Cascade(persist = true, update = true, delete = true)
+    public FlwGroup getFlwGroup() {
+        return this.flwGroup;
+    }
+
+    public void setFlwGroup(FlwGroup flwGroup) {
+        this.flwGroup = flwGroup;
     }
 
     @Override
@@ -1139,5 +1103,18 @@ public class MotherCase implements java.io.Serializable,
             return false;
         return this.serverDateModified
                 .compareTo(updatedObject.serverDateModified) <= 0;
+    }
+
+    public boolean isActive() {
+        return super.isActive() && actualDeliveryDate == null;
+    }
+
+    public void setValuesFrom(MotherCase mother) {
+        try {
+            NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
+            nullAwareBeanUtilsBean.copyProperties(this, mother);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
