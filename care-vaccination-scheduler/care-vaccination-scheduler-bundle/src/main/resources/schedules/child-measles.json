@@ -5,12 +5,20 @@
             "name": "Measles",
             "scheduleWindows": {
                 "earliest": ["9 Months"],
-                "due": ["24 Months"]
+                "due": ["24 Months"],
+		"late": ["24 Months","1 Day"]
             },
             "alerts": [
                 {
                     "window": "due",
                     "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                },
+{
+                    "window": "late",
+                    "offset": ["0 Day"],
                     "interval": ["1 Day"],
                     "count": "1",
                     "floating":"true"

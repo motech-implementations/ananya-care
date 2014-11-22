@@ -5,12 +5,20 @@
             "name": "OPV 1",
             "scheduleWindows": {
                 "earliest": ["6 Weeks"],
-                "due": ["24 Months"]
+                "due": ["24 Months"],
+		"late": ["24 Months","1 Day"]
             },
             "alerts": [
                 {
                     "window": "due",
                     "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                },
+		{
+                    "window": "late",
+                    "offset": ["0 Day"],
                     "interval": ["1 Day"],
                     "count": "1",
                     "floating":"true"
@@ -21,12 +29,20 @@
             "name": "OPV 2",
             "scheduleWindows": {
                 "earliest": ["4 Weeks"],
-                "due": ["24 Months"]
+                "due": ["24 Months"],
+		"late": ["24 Months","1 Day"]
             },
             "alerts": [
                 {
                     "window": "due",
                     "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                },
+{
+                    "window": "late",
+                    "offset": ["0 Day"],
                     "interval": ["1 Day"],
                     "count": "1",
                     "floating":"true"
@@ -37,12 +53,20 @@
             "name": "OPV 3",
             "scheduleWindows": {
                 "earliest": ["4 Weeks"],
-                "due": ["24 Months"]
+                "due": ["24 Months"],
+		"late": ["24 Months","1 Day"]
             },
             "alerts": [
                 {
                     "window": "due",
                     "offset": ["-2 Weeks"],
+                    "interval": ["1 Day"],
+                    "count": "1",
+                    "floating":"true"
+                },
+{
+                    "window": "late",
+                    "offset": ["0 Day"],
                     "interval": ["1 Day"],
                     "count": "1",
                     "floating":"true"
