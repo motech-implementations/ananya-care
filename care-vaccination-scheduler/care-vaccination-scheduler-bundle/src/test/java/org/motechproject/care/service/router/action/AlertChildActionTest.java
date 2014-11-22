@@ -12,7 +12,10 @@ import org.motechproject.care.request.CaseType;
 import org.motechproject.casexml.domain.CaseTask;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.motechproject.scheduletracking.domain.Milestone;
 import org.motechproject.scheduletracking.domain.MilestoneAlert;
@@ -63,8 +66,15 @@ public class AlertChildActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
+        ChildCase client = new ChildCase(childCaseId, null, flw, childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         String commCareUrl = "commCareUrl";
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(commCareUrl);
@@ -101,12 +111,19 @@ public class AlertChildActionTest {
         DateTime now = DateUtil.now();
         DateTime dob = now.minusWeeks(10);
 
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
         Milestone milestone = new Milestone(milestoneName, weeks(15), weeks(20), null, null);
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        ChildCase client = new ChildCase(childCaseId, null, flw, childName,flwGroup , dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("motech.user.id")).thenReturn(motechUserId);
 
@@ -123,7 +140,7 @@ public class AlertChildActionTest {
         assertEquals(now.plusWeeks(25).toString("yyyy-MM-dd"), task.getDateExpires());
         assertEquals("measles",task.getTaskId());
         assertEquals(groupId, task.getOwnerId());
-        assertEquals(childCaseId,task.getClientCaseId());
+        assertEquals(childCaseId,task.getChildCase().getCaseId());
         assertEquals(CaseType.Child.getType(),task.getClientCaseType());
         assertEquals(motechUserId,task.getMotechUserId());
     }
@@ -144,8 +161,15 @@ public class AlertChildActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
+        ChildCase client = new ChildCase(childCaseId, null, flw,childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
@@ -169,12 +193,19 @@ public class AlertChildActionTest {
         DateTime now = DateUtil.now();
         DateTime dob = now.minusMonths(2);
 
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
         Milestone milestone = new Milestone(milestoneName, months(20), months(10), null, null);
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        ChildCase client = new ChildCase(childCaseId, null, flw,childName,flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
@@ -198,12 +229,19 @@ public class AlertChildActionTest {
         DateTime now = DateUtil.now();
         DateTime dob = now.minusWeeks(10);
 
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
         Milestone milestone = new Milestone(milestoneName, weeks(110), weeks(10), null, null);
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        ChildCase client = new ChildCase(childCaseId, null, flw,childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
       //TODO added null as 5th argument in below method(check what it should be)
@@ -223,12 +261,20 @@ public class AlertChildActionTest {
         DateTime dob = now.minusMonths(1);
         DateTime startOfSchedule = now.minusMonths(25);
 
+
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
         Milestone milestone = new Milestone(milestoneName, months(9), months(15), null, null);
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startOfSchedule);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", startOfSchedule, null);
 
-        Child client = new Child(childCaseId, null, flwId,childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        ChildCase client = new ChildCase(childCaseId, null, flw,childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
       //TODO added null as 5th argument in below method(check what it should be)
@@ -251,9 +297,17 @@ public class AlertChildActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, dob);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", dob, null);
 
-        Child client = new Child(childCaseId, null, flwId, childName, groupId, dob, null, null, null, motherCaseId, null, null, null, null,null,null,null,null,null,null,null,null,null,true);
+
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        MotherCase motherCase = new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        
+        ChildCase client = new ChildCase(childCaseId, null, flw, childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
         client.setClosedByCommcare(true);
-        when(dbRepository.get(Child.class, "caseId", childCaseId)).thenReturn(client);
+        when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 
       //TODO added null as 5th argument in below method(check what it should be)

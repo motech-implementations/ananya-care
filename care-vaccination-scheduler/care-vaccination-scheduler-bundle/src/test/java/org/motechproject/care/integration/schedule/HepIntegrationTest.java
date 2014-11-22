@@ -14,7 +14,7 @@ import org.motechproject.care.service.schedule.HepService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -48,14 +48,14 @@ public class HepIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Test
     public void shouldVerifyHepScheduleCreationWhenChildIsRegistered() {
         DateTime dob = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, hepScheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(hepScheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -71,7 +71,7 @@ public class HepIntegrationTest extends SpringIntegrationTest {
         DateTime dob = DateUtil.newDateTime(DateUtil.today()).minusMonths(4);
         DateTime hep1Date = dob.plusMonths(2);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(hep1Date).withHep2Date(null).withHep3Date(null).build();
         childService.process(child);
@@ -90,7 +90,7 @@ public class HepIntegrationTest extends SpringIntegrationTest {
         DateTime hep1Date = dob.plusMonths(2);
         DateTime hep2Date = dob.plusMonths(3);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(null).withHep2Date(null).withHep3Date(null).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(hep1Date).withHep2Date(null).withHep3Date(null).build();
         childService.process(child);
@@ -113,7 +113,7 @@ public class HepIntegrationTest extends SpringIntegrationTest {
         DateTime hep2Date = dob.plusMonths(3);
         DateTime hep3Date = today;
 
-        Child child = new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(hep1Date).withHep2Date(hep2Date).withHep3Date(hep3Date).build();
+        ChildCase child = new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep1Date(hep1Date).withHep2Date(hep2Date).withHep3Date(hep3Date).build();
         childService.process(child);
 
         Assert.assertNull(trackingService.getEnrollment(caseId, hepScheduleName));

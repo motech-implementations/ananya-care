@@ -16,7 +16,6 @@
     <mvc:annotation-driven/>
     <context:component-scan base-package="org.motechproject.care,
      org.motechproject.casexml, 
-     org.motechproject.http.client, 
      org.motechproject.casexml.gateway"
      >
     </context:component-scan>

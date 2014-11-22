@@ -6,7 +6,7 @@
     <parent>
         <artifactId>ananya-care</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24</version>
+        <version>0.24.2</version>
 	<relativePath>../</relativePath>
     </parent>
 
@@ -20,7 +20,8 @@
     <modules>
         <module>${project.artifactId}-bundle</module>
         <module>${project.artifactId}-scheduling</module>
-        <module>${project.artifactId}-dummy-commcare-hq</module>
+<module>case-integration</module>
+        <!--<module>${project.artifactId}-dummy-commcare-hq</module>-->
     </modules>
 
     <properties>
@@ -29,7 +30,7 @@
         <httpcomponents.version>4.1.2</httpcomponents.version>
         <quartz.version>2.1.5</quartz.version>
         <release.version>${project.version}</release.version>
-        <motech.version>0.21.1</motech.version>
+        <motech.version>0.24.2</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <db.server>localhost</db.server>
@@ -41,6 +42,7 @@
         <activemq.host>localhost</activemq.host>
         <activemq.port>8161</activemq.port>
         <activemq.queue.name>QueueForEventsCare QueueForScheduler</activemq.queue.name>
+<motech.ananya.group>org.motechproject.ananya-care</motech.ananya.group>
     </properties>
 
     <distributionManagement>
@@ -194,7 +196,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <version>1.0-alpha-2</version>
@@ -211,7 +213,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -253,12 +255,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
 
                 <dependencies>
-                    <!-- specify the dependent jdbc driver here -->
                     <dependency>
                         <groupId>postgresql</groupId>
                         <artifactId>postgresql</artifactId>
@@ -266,13 +267,11 @@
                     </dependency>
                 </dependencies>
 
-                <!-- common configuration shared by all executions -->
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                     <username>${postgres.other.user}</username>
                     <password>${postgres.other.password}</password>
-                    <!--all executions are ignored if -Dmaven.test.skip=true-->
                     <skip>${maven.test.skip}</skip>
                 </configuration>
 
@@ -284,11 +283,9 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- need another database to drop the targeted one -->
                             <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                             <autocommit>true</autocommit>
                             <sqlCommand>drop database ${postgres.db}</sqlCommand>
-                            <!-- ignore error when database is not available -->
                             <onError>continue</onError>
                         </configuration>
                     </execution>
@@ -299,13 +296,11 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- need another database to drop the targeted one -->
                             <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                             <username>${postgres.other.user}</username>
                             <password>${postgres.other.password}</password>
                             <autocommit>true</autocommit>
                             <sqlCommand>create database ${postgres.db}</sqlCommand>
-                            <!-- ignore error when database is not available -->
                             <onError>abort</onError>
                         </configuration>
                     </execution>
@@ -327,7 +322,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

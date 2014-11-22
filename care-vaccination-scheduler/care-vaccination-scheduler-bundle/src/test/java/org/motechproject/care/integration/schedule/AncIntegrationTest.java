@@ -15,7 +15,7 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -40,7 +40,7 @@ public class AncIntegrationTest extends SpringIntegrationTest {
     @After
     public void tearDown() {
         
-        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(MotherCase.class);
     }
 
     @Before
@@ -56,7 +56,7 @@ public class AncIntegrationTest extends SpringIntegrationTest {
         String ancScheduleName = MotherVaccinationSchedule.Anc.getName();
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, ancScheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(ancScheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -73,7 +73,7 @@ public class AncIntegrationTest extends SpringIntegrationTest {
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
         DateTime anc1Date = DateUtil.newDateTime(DateUtil.today()).plusMonths(1);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
         motherService.process(mother);
         mother = new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1Date).withANC2(null).withANC3(null).build();
         motherService.process(mother);
@@ -94,7 +94,7 @@ public class AncIntegrationTest extends SpringIntegrationTest {
         DateTime anc1FulfillmentDate = DateUtil.newDateTime(DateUtil.today()).plusMonths(1);
         DateTime anc2FulfillmentDate = DateUtil.newDateTime(DateUtil.today()).plusMonths(3);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
         motherService.process(mother);
         mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1FulfillmentDate).withANC2(null).withANC3(null).build();
         motherService.process(mother);
@@ -117,7 +117,7 @@ public class AncIntegrationTest extends SpringIntegrationTest {
         DateTime anc2FulfillmentDate = DateUtil.newDateTime(DateUtil.today()).plusMonths(3);
         DateTime anc3FulfillmentDate = DateUtil.newDateTime(DateUtil.today()).plusMonths(5);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).build();
         motherService.process(mother);
         mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1FulfillmentDate).withANC2(null).withANC3(null).build();
         motherService.process(mother);

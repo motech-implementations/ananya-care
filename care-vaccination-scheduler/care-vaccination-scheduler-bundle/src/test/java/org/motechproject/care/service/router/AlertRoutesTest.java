@@ -32,72 +32,121 @@ public class AlertRoutesTest {
     private Opv0ExpiryAction opv0ExpiryAction;
     @Mock
     private BcgExpiryAction bcgExpiryAction;
+    @Mock
+    private OpvExpiryAction opvExpiryAction;
+    @Mock
+    private DptExpiryAction dptExpiryAction;
+    @Mock
+    private DptBoosterExpiryAction dptBoosterExpiryAction;
+    @Mock
+    private HepExpiryAction hepExpiryAction;
+    @Mock
+    private MeaslesExpiryAction measlesExpiryAction;
+    @Mock
+    private OpvBoosterExpiryAction opvBoosterExpiryAction;
+    @Mock
+    private VitaExpiryAction vitaExpiryAction;
 
     private AlertRoutes alertRoutes;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
-        alertRoutes = new AlertRoutes(alertChildAction, alertMotherAction, clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction, bcgExpiryAction);
+        alertRoutes = new AlertRoutes(alertChildAction, alertMotherAction,
+                clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction,
+                bcgExpiryAction, opvExpiryAction, dptExpiryAction,
+                dptBoosterExpiryAction, hepExpiryAction, measlesExpiryAction,
+                opvBoosterExpiryAction, vitaExpiryAction);
     }
 
     @Test
-    public void shouldInvokeVaccinationExpiryActionIfEventIsForExpiredVaccination(){
-        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis0.getName(), hep0ExpiryAction, WindowName.late.name());
-        verifyWasCalledFor(ChildVaccinationSchedule.OPV0.getName(), opv0ExpiryAction, WindowName.late.name());
-        verifyWasCalledFor(ChildVaccinationSchedule.Bcg.getName(), bcgExpiryAction, WindowName.late.name());
+    public void shouldInvokeVaccinationExpiryActionIfEventIsForExpiredVaccination() {
+        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis0.getName(),
+                hep0ExpiryAction, WindowName.late.name());
+        verifyWasCalledFor(ChildVaccinationSchedule.OPV0.getName(),
+                opv0ExpiryAction, WindowName.late.name());
+        verifyWasCalledFor(ChildVaccinationSchedule.Bcg.getName(),
+                bcgExpiryAction, WindowName.late.name());
     }
 
     @Test
-    public void shouldInvokeAlertExpiryVaccinationIfEventIsForClientExpiry(){
-        verifyWasCalledFor(ExpirySchedule.ChildCare.getName(), clientExpiryAction);
-        verifyWasCalledFor(ExpirySchedule.MotherCare.getName(), clientExpiryAction);
+    public void shouldInvokeAlertExpiryVaccinationIfEventIsForClientExpiry() {
+        verifyWasCalledFor(ExpirySchedule.ChildCare.getName(),
+                clientExpiryAction);
+        verifyWasCalledFor(ExpirySchedule.MotherCare.getName(),
+                clientExpiryAction);
     }
 
     @Test
-    public void shouldInvokeAlertMotherVaccinationIfEventIsForMotherSchedule(){
-        verifyWasCalledFor(MotherVaccinationSchedule.TT.getName(), alertMotherAction);
-        verifyWasCalledFor(MotherVaccinationSchedule.Anc.getName(), alertMotherAction);
-        verifyWasCalledFor(MotherVaccinationSchedule.Anc4.getName(), alertMotherAction);
-        verifyWasCalledFor(MotherVaccinationSchedule.TTBooster.getName(), alertMotherAction);
+    public void shouldInvokeAlertMotherVaccinationIfEventIsForMotherSchedule() {
+        verifyWasCalledFor(MotherVaccinationSchedule.TT.getName(),
+                alertMotherAction);
+        verifyWasCalledFor(MotherVaccinationSchedule.Anc.getName(),
+                alertMotherAction);
+        verifyWasCalledFor(MotherVaccinationSchedule.Anc4.getName(),
+                alertMotherAction);
+        verifyWasCalledFor(MotherVaccinationSchedule.TTBooster.getName(),
+                alertMotherAction);
     }
 
     @Test
-    public void shouldInvokeAlertChildVaccinationIfEventIsForChildSchedule(){
-        verifyWasCalledFor(ChildVaccinationSchedule.Measles.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.Vita.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.Bcg.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.DPT.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis0.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.OPV.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.OPVBooster.getName(), alertChildAction);
-        verifyWasCalledFor(ChildVaccinationSchedule.OPV0.getName(), alertChildAction);
+    public void shouldInvokeAlertChildVaccinationIfEventIsForChildSchedule() {
+        verifyWasCalledFor(ChildVaccinationSchedule.Measles.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.Vita.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.Bcg.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.DPT.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.Hepatitis0.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.OPV.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.OPVBooster.getName(),
+                alertChildAction);
+        verifyWasCalledFor(ChildVaccinationSchedule.OPV0.getName(),
+                alertChildAction);
     }
 
     @Test(expected = NoRoutesMatchException.class)
     public void shouldThrowExceptionIfNoRouteFound() {
-        Milestone milestone = new Milestone("milestonename", weeks(1), weeks(1), weeks(1), weeks(1));
+        Milestone milestone = new Milestone("milestonename", weeks(1),
+                weeks(1), weeks(1), weeks(1));
         DateTime referenceDateTime = newDateTime(2000, 1, 1, 0, 0, 0);
-        MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, referenceDateTime);
+        MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone,
+                referenceDateTime);
 
-        MilestoneEvent milestoneEvent = new MilestoneEvent(null, "random", milestoneAlert, "random", null, null);
+        MilestoneEvent milestoneEvent = new MilestoneEvent(null, "random",
+                milestoneAlert, "random", null, null);
         alertRoutes.route(milestoneEvent);
     }
 
-    private void verifyWasCalledFor(String scheduleName, Action alertClientAction) {
+    private void verifyWasCalledFor(String scheduleName,
+            Action alertClientAction) {
         verifyWasCalledFor(scheduleName, alertClientAction, null);
     }
-    private void verifyWasCalledFor(String scheduleName, Action alertClientAction, String windowName) {
-        Milestone milestone = new Milestone("milestonename", weeks(1), weeks(1), weeks(1), weeks(1));
-        DateTime referenceDateTime = newDateTime(2000, 1, 1, 0, 0, 0);
-        MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, referenceDateTime);
 
-        MilestoneEvent milestoneEvent = new MilestoneEvent(null, scheduleName, milestoneAlert, windowName, null, null);
+    private void verifyWasCalledFor(String scheduleName,
+            Action alertClientAction, String windowName) {
+        Milestone milestone = new Milestone("milestonename", weeks(1),
+                weeks(1), weeks(1), weeks(1));
+        DateTime referenceDateTime = newDateTime(2000, 1, 1, 0, 0, 0);
+        MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone,
+                referenceDateTime);
+
+        MilestoneEvent milestoneEvent = new MilestoneEvent(null, scheduleName,
+                milestoneAlert, windowName, null, null);
         alertRoutes.route(milestoneEvent);
         Mockito.verify(alertClientAction).invoke(any(MilestoneEvent.class));
         initMocks(this);
-        alertRoutes = new AlertRoutes(alertChildAction, alertMotherAction, clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction, bcgExpiryAction);
+        alertRoutes = new AlertRoutes(alertChildAction, alertMotherAction,
+                clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction,
+                bcgExpiryAction, opvExpiryAction, dptExpiryAction,
+                dptBoosterExpiryAction, hepExpiryAction, measlesExpiryAction,
+                opvBoosterExpiryAction, vitaExpiryAction);;
     }
 
 }

@@ -7,7 +7,7 @@ import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.domain.Window;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class Anc4Service extends VaccinationService{
 
     @Override
     public void process(Client client) {
-        Mother mother = (Mother) client;
+        MotherCase mother = (MotherCase) client;
 
         if(mother.getAnc3Date() != null && mother.getEdd() != null){
             Window anc4Window = getAnc4Window(mother.getAnc3Date(), mother.getEdd());
@@ -35,7 +35,7 @@ public class Anc4Service extends VaccinationService{
             }
         }
         if(mother.getAnc4Date() != null) {
-            fulfillMilestone(mother.getCaseId(), MilestoneType.Anc4, mother.getAnc4Date());
+            fulfillMilestone(client, MilestoneType.Anc4, mother.getAnc4Date());
         }
     }
 

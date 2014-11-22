@@ -11,8 +11,9 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -38,7 +39,7 @@ public class DptServiceTest {
     public void shouldEnrollChildForDptSchedule(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -48,7 +49,7 @@ public class DptServiceTest {
 
     @Test
     public void shouldNotEnrollChildForDptScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         dptService.process(child);
@@ -59,57 +60,57 @@ public class DptServiceTest {
     public void shouldFulfillDpt1IfDpt1DatePresentInChild(){
         DateTime dpt1Date = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setDpt1Date(dpt1Date);
+        ChildCase child = new ChildCase();
+        child.setDpt1Time(dpt1Date);
         child.setCaseId(caseId);
 
         dptService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.DPT1.toString(), dpt1Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.DPT1.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.DPT1.toString());
     }
 
     @Test
     public void shouldFulfillDpt2IfDpt2DatePresentInChild(){
         DateTime dpt2Date = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setDpt2Date(dpt2Date);
+        ChildCase child = new ChildCase();
+        child.setDpt2Time(dpt2Date);
         child.setCaseId(caseId);
 
         dptService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.DPT2.toString(), dpt2Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.DPT2.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.DPT2.toString());
     }
 
     @Test
     public void shouldFulfillDpt3IfDpt3DatePresentInChild(){
         DateTime dpt3Date = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setDpt3Date(dpt3Date);
+        ChildCase child = new ChildCase();
+        child.setDpt3Time(dpt3Date);
         child.setCaseId(caseId);
 
         dptService.process(child);
 
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.DPT3.toString(), dpt3Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.DPT3.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.DPT3.toString());
     }
 
     @Test
     public void shouldNotFulfillAnyDptIfNoneOfTheTakenDatesArePresentInChild(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         dptService.process(child);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
     @Test
     public void shouldUnenrollFromDptSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         dptService.close(mother);

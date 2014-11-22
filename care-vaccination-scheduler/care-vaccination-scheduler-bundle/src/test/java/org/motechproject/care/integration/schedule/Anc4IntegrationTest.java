@@ -14,7 +14,7 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -41,7 +41,7 @@ public class Anc4IntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(MotherCase.class);
     }
 
     @Before
@@ -61,7 +61,7 @@ public class Anc4IntegrationTest extends SpringIntegrationTest {
         DateTime expectedReferenceDate = edd.minusDays(PeriodUtil.DAYS_IN_3RD_TRIMESTER).plus(periodUtil.getScheduleOffset());
         DateTime expectedStartDueDate = edd.minusDays(PeriodUtil.DAYS_IN_3RD_TRIMESTER);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).withANC4(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).withANC4(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment;
@@ -87,7 +87,7 @@ public class Anc4IntegrationTest extends SpringIntegrationTest {
         DateTime expectedStartDueDate = anc3Date.plusDays(30);
         DateTime expectedStartLateDate = anc3Date.plusDays(30).plusDays(PeriodUtil.DAYS_IN_3RD_TRIMESTER);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).withANC4(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(null).withANC2(null).withANC3(null).withANC4(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(scheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -111,7 +111,7 @@ public class Anc4IntegrationTest extends SpringIntegrationTest {
         DateTime anc3Date = today.plusMonths(7);
         DateTime anc4Date = today.plusMonths(8);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1Date).withANC2(anc2Date).withANC3(anc3Date).withANC4(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1Date).withANC2(anc2Date).withANC3(anc3Date).withANC4(null).build();
         motherService.process(mother);
         mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withANC1(anc1Date).withANC2(anc2Date).withANC3(anc3Date).withANC4(anc4Date).build();
         motherService.process(mother);

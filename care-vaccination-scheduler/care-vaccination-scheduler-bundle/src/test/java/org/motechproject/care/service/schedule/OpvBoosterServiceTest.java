@@ -13,8 +13,8 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -45,9 +45,9 @@ public class OpvBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime opv3Taken = dob.plusMonths(17);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Date(opv3Taken);
+        child.setOpv3Time(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -59,9 +59,9 @@ public class OpvBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime opv3Taken = dob.plusMonths(8);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Date(opv3Taken);
+        child.setOpv3Time(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -73,9 +73,9 @@ public class OpvBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime opv3Taken = dob.plusMonths(11);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Date(opv3Taken);
+        child.setOpv3Time(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -86,7 +86,7 @@ public class OpvBoosterServiceTest {
     public void shouldNotEnrollChildForOPVBoosterScheduleWhenOPV3IsNotTaken(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -99,9 +99,9 @@ public class OpvBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime opv3Taken = dob.plusMonths(19);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Date(opv3Taken);
+        child.setOpv3Time(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -113,19 +113,19 @@ public class OpvBoosterServiceTest {
         DateTime opvBoosterDate = new DateTime();
         String caseId = "caseId";
 
-        Child child = new Child();
-        child.setOpvBoosterDate(opvBoosterDate);
+        ChildCase child = new ChildCase();
+        child.setOpvBoosterTime(opvBoosterDate);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.OPVBooster.toString(), opvBoosterDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.OPVBooster.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.OPVBooster.toString());
     }
 
     @Test
     public void shouldUnenrollFromOpvBoosterSchedule(){
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         opvBoosterService.close(mother);

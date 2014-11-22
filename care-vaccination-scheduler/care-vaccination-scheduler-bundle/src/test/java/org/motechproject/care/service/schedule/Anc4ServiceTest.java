@@ -13,7 +13,7 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -44,7 +44,7 @@ public class Anc4ServiceTest {
         DateTime edd = new DateTime();
         DateTime anc3Taken = edd.minusMonths(2);
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setAnc3Date(anc3Taken);
         mother.setCaseId(caseId);
@@ -58,7 +58,7 @@ public class Anc4ServiceTest {
         DateTime edd = new DateTime();
         DateTime anc3Taken = edd.minusMonths(5);
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setAnc3Date(anc3Taken);
         mother.setCaseId(caseId);
@@ -72,7 +72,7 @@ public class Anc4ServiceTest {
         DateTime edd = new DateTime();
         DateTime anc3Taken = edd.minusMonths(3).minusDays(12);
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setAnc3Date(anc3Taken);
         mother.setCaseId(caseId);
@@ -85,7 +85,7 @@ public class Anc4ServiceTest {
     public void shouldNotEnrollMotherForAnc4ScheduleWhenAnc3NotTaken(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setAnc3Date(null);
         mother.setCaseId(caseId);
@@ -99,7 +99,7 @@ public class Anc4ServiceTest {
         DateTime edd = new DateTime();
         DateTime anc3Taken = edd.minusDays(10);
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setAnc3Date(anc3Taken);
         mother.setCaseId(caseId);
@@ -112,19 +112,19 @@ public class Anc4ServiceTest {
     public void shouldFulfillAnc4IfAnc4DatePresentInMother(){
         DateTime anc4Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setAnc4Date(anc4Date);
         mother.setCaseId(caseId);
 
         anc4Service.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Anc4.toString(), anc4Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Anc4.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.Anc4.toString());
     }
 
     @Test
     public void shouldUnenrollFromAnc4Schedule(){
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
         anc4Service.close(mother);
         Mockito.verify(schedulerService).unenroll(caseId,scheduleName);

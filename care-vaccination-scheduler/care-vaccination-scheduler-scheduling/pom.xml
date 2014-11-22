@@ -5,7 +5,7 @@
     <parent>
         <artifactId>care-vaccination-scheduler</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24</version>
+        <version>0.24.2</version>
         
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,7 +13,7 @@
 
     <properties>
         <main.basedir>${project.basedir}/..</main.basedir>
-	<motech.version>0.24</motech.version>
+	<motech.version>0.24.2</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -84,11 +84,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
-        </dependency>
+        </dependency> -->
     </dependencies>
 
     <repositories>

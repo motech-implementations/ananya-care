@@ -1,6 +1,9 @@
 package org.motechproject.mcts.care.common.mds.domain;
 
 import org.joda.time.DateTime;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
@@ -8,30 +11,35 @@ import org.motechproject.mds.annotations.Field;
 public class Client implements java.io.Serializable {
 
     private static final long serialVersionUID = -5140470554942711265L;
-    
+
     protected String caseId;
     protected DateTime dateModified;
-    protected String flwId;
-    protected String name;
-    protected String groupId;
+    protected String caseName;
+    /* protected String groupId; */
     protected String caseType;
-    private DateTime docCreateTime;
-    private Boolean closedByCommcare;
-    private Boolean expired;
-    protected Boolean isAlive;
+    protected DateTime creationTime;
+    protected Boolean closed;
+    protected Boolean expired;
+    protected String isAlive;
     
+    /*protected Flw flw;
+
+    
+    protected FlwGroup flwGroup;*/
+
     public Client() {
-       
+
     }
-    public Client(Boolean isAlive) {
+
+    public Client(String isAlive) {
         this.isAlive = isAlive;
-        closedByCommcare = false;
+        closed = false;
     }
-    
+
     public boolean isActive() {
-        return isAlive && !closedByCommcare;
+        return isAlive == "yes" && !closed;
     }
-    
+
     @Field
     public String getCaseId() {
         return caseId;
@@ -50,22 +58,14 @@ public class Client implements java.io.Serializable {
         this.dateModified = dateModified;
     }
 
-    @Field
-    public String getFlwId() {
-        return flwId;
-    }
-
-    public void setFlwId(String flwId) {
-        this.flwId = flwId;
-    }
 
     @Field
-    public String getName() {
-        return name;
+    public String getCaseName() {
+        return caseName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
     }
 
     @Field
@@ -77,31 +77,33 @@ public class Client implements java.io.Serializable {
         this.caseType = caseType;
     }
 
+    /*
+     * @Field public String getGroupId() { return groupId; }
+     * 
+     * public void setGroupId(String groupId) { this.groupId = groupId; }
+     */
+    /*
+     * @Field public DateTime getDocCreateTime() { return docCreateTime; }
+     * 
+     * public void setDocCreateTime(DateTime docCreateTime) { this.docCreateTime
+     * = docCreateTime; }
+     */
     @Field
-    public String getGroupId() {
-        return groupId;
+    public DateTime getCreationTime() {
+        return creationTime;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
-    @Field
-    public DateTime getDocCreateTime() {
-        return docCreateTime;
-    }
-
-    public void setDocCreateTime(DateTime docCreateTime) {
-        this.docCreateTime = docCreateTime;
+    public void setCreationTime(DateTime creationTime) {
+        this.creationTime = creationTime;
     }
 
     @Field
     public Boolean getClosedByCommcare() {
-        return closedByCommcare;
+        return closed;
     }
 
-    public void setClosedByCommcare(Boolean closedByCommcare) {
-        this.closedByCommcare = closedByCommcare;
+    public void setClosedByCommcare(Boolean closed) {
+        this.closed = closed;
     }
 
     @Field
@@ -114,11 +116,21 @@ public class Client implements java.io.Serializable {
     }
 
     @Field
-    public Boolean getIsAlive() {
+    public String getIsAlive() {
         return isAlive;
     }
 
-    public void setIsAlive(Boolean isAlive) {
+    public void setIsAlive(String isAlive) {
         this.isAlive = isAlive;
     }
+
+    /*@Field
+    @Cascade(persist = true, update = true, delete = true)
+    public FlwGroup getFlwGroup() {
+        return this.flwGroup;
+    }
+
+    public void setFlwGroup(FlwGroup flwGroup) {
+        this.flwGroup = flwGroup;
+    }*/
 }

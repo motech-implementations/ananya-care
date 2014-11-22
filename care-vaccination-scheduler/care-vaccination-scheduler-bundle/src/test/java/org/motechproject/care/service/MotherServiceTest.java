@@ -8,8 +8,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.motechproject.care.service.builder.MotherBuilder;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 
 import java.io.IOException;
@@ -36,83 +36,83 @@ public class MotherServiceTest {
 
     @Test
     public void shouldSaveMotherCaseIfItDoesNotExists() throws IOException {
-        Mother mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive(true).build();
-        when(dbRepository.get(Mother.class, "caseId", mother.getCaseId())).thenReturn(null);
+        MotherCase mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive("yes").build();
+        when(dbRepository.get(MotherCase.class, "caseId", mother.getCaseId())).thenReturn(null);
 
         motherService.process(mother);
 
-        ArgumentCaptor<Mother> captor=ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor=ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).save(captor.capture());
 
-        Mother motherInDb  = captor.getValue();
+        MotherCase motherInDb  = captor.getValue();
 
         Assert.assertEquals(caseId,motherInDb.getCaseId());
-        Assert.assertEquals("Aparna",motherInDb.getName());
+        Assert.assertEquals("Aparna",motherInDb.getCaseName());
         DateTime expectedEdd = new DateTime(2012, 1, 2, 0, 0);
         Assert.assertEquals(expectedEdd,motherInDb.getEdd());
-        Assert.assertTrue(motherInDb.getIsAlive());
-        Assert.assertNull(motherInDb.getDocCreateTime());
+        Assert.assertTrue(motherInDb.getIsAlive()=="yes");
+        Assert.assertNull(motherInDb.getCreationTime());
         verify(vaccinationProcessor).enrollUpdateVaccines(motherInDb);
-        verify(vaccinationProcessor, never()).closeSchedules(any(Mother.class));
+        verify(vaccinationProcessor, never()).closeSchedules(any(MotherCase.class));
     }
 
     @Test
     public void shouldSaveMotherAsInactiveIfItDoesNotExistAndSheIsDead() throws IOException {
-        Mother mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive(false).build();
-        when(dbRepository.get(Mother.class, "caseId", mother.getCaseId())).thenReturn(null);
+        MotherCase mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive("no").build();
+        when(dbRepository.get(MotherCase.class, "caseId", mother.getCaseId())).thenReturn(null);
 
         motherService.process(mother);
 
-        ArgumentCaptor<Mother> captor=ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor=ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).save(captor.capture());
 
-        Mother motherInDb  = captor.getValue();
+        MotherCase motherInDb  = captor.getValue();
 
 
         Assert.assertFalse(motherInDb.isActive());
-        Assert.assertFalse(motherInDb.getIsAlive());
-        verify(vaccinationProcessor, never()).enrollUpdateVaccines(any(Mother.class));
-        verify(vaccinationProcessor, never()).closeSchedules(any(Mother.class));
+        Assert.assertFalse(motherInDb.getIsAlive()=="yes");
+        verify(vaccinationProcessor, never()).enrollUpdateVaccines(any(MotherCase.class));
+        verify(vaccinationProcessor, never()).closeSchedules(any(MotherCase.class));
     }
 
     @Test
     public void shouldUpdateMotherCaseIfItExists(){
-        Mother mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive(true).build();
+        MotherCase mother = new MotherBuilder().withName("Aparna").withCaseId(caseId).withEdd(new DateTime(2012, 1, 2, 0, 0, 0)).withAlive("yes").build();
         DateTime now = DateTime.now();
         DateTime docCreateTime = DateTime.now().minusDays(1);
-        Mother motherInDb = motherWithCaseId(caseId);
+        MotherCase motherInDb = motherWithCaseId(caseId);
         motherInDb.setEdd(now);
-        motherInDb.setDocCreateTime(docCreateTime);
-        motherInDb.setName("Seema");
-        motherInDb.setIsAlive(true);
+        motherInDb.setCreationTime(docCreateTime);
+        motherInDb.setCaseName("Seema");
+        motherInDb.setIsAlive("yes");
         motherInDb.setClosedByCommcare(false);
-        motherInDb.setAdd(null);
+        motherInDb.setActualDeliveryDate(null);
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(motherInDb);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherInDb);
 
         motherService.process(mother);
 
         verify(dbRepository, never()).save(motherInDb);
-        ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor = ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).update(captor.capture());
 
-        Mother motherToBeUpdated = captor.getValue();
+        MotherCase motherToBeUpdated = captor.getValue();
         assertEquals(DateTime.parse("2012-01-02"), motherToBeUpdated.getEdd());
         assertEquals(motherToBeUpdated.getCaseId(), motherInDb.getCaseId());
         assertEquals(motherToBeUpdated.getCaseId(), motherInDb.getCaseId());
-        assertEquals(motherToBeUpdated.getDocCreateTime(), docCreateTime);
-        assertEquals(mother.getName(), motherToBeUpdated.getName());
+        assertEquals(motherToBeUpdated.getCreationTime(), docCreateTime);
+        assertEquals(mother.getCaseName(), motherToBeUpdated.getCaseName());
         verify(vaccinationProcessor).enrollUpdateVaccines(motherToBeUpdated);
     }
 
     @Test
     public void shouldSetMotherCaseAsClosedByCommcareAndCloseSchedulesIfExists_WhenMotherCaseIsClosed(){
-        Mother motherFromDb = motherWithCaseId(caseId);
+        MotherCase motherFromDb = motherWithCaseId(caseId);
         motherFromDb.setClosedByCommcare(false);
-        motherFromDb.setAdd(null);
-        motherFromDb.setIsAlive(true);
+        motherFromDb.setActualDeliveryDate(null);
+        motherFromDb.setIsAlive("yes");
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(motherFromDb);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherFromDb);
         boolean wasClosed = motherService.closeCase(caseId);
 
         Assert.assertTrue(wasClosed);
@@ -120,16 +120,16 @@ public class MotherServiceTest {
         verify(dbRepository, times(1)).update(motherFromDb);
         verify(vaccinationProcessor).closeSchedules(motherFromDb);
 
-        ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor = ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).update(captor.capture());
-        Mother mother = captor.getValue();
+        MotherCase mother = captor.getValue();
         assertFalse(mother.isActive());
         assertTrue(mother.getClosedByCommcare());
     }
 
     @Test
     public void shouldReturnFalseIfMotherCaseDoesNotExists(){
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(null);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(null);
         boolean wasClosed = motherService.closeCase(caseId);
 
         Assert.assertFalse(wasClosed);
@@ -137,129 +137,129 @@ public class MotherServiceTest {
 
     @Test
     public void shouldSetMotherCaseAsExpired_WhenMotherCaseIsExpired(){
-        Mother motherFromDb = motherWithCaseId(caseId);
+        MotherCase motherFromDb = motherWithCaseId(caseId);
         motherFromDb.setExpired(false);
         motherFromDb.setClosedByCommcare(false);
-        motherFromDb.setAdd(null);
-        motherFromDb.setIsAlive(true);
+        motherFromDb.setActualDeliveryDate(null);
+        motherFromDb.setIsAlive("yes");
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(motherFromDb);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherFromDb);
         boolean wasExpired = motherService.expireCase(caseId);
 
         Assert.assertTrue(wasExpired);
 
         verify(dbRepository, times(1)).update(motherFromDb);
 
-        ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor = ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).update(captor.capture());
-        Mother mother = captor.getValue();
+        MotherCase mother = captor.getValue();
         assertTrue(mother.getExpired());
     }
 
     @Test
     public void shouldReturnTrueIfMotherInactiveWhileExpiringMother(){
-        Mother motherFromDb = motherWithCaseId(caseId);
+        MotherCase motherFromDb = motherWithCaseId(caseId);
         motherFromDb.setExpired(true);
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(motherFromDb);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(motherFromDb);
         boolean wasClosed = motherService.expireCase(caseId);
         Assert.assertTrue(wasClosed);
     }
 
     @Test
     public void shouldReturnFalseIfMotherCaseDoesNotExistsWhileExpiringCase(){
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(null);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(null);
         boolean wasClosed = motherService.expireCase(caseId);
         Assert.assertFalse(wasClosed);
     }
 
     @Test
     public void shouldCloseMotherCaseIfMotherIsDead(){
-        Mother mother = new MotherBuilder().withAlive(false).withCaseId(caseId).build();
+        MotherCase mother = new MotherBuilder().withAlive("no").withCaseId(caseId).build();
 
-        Mother existingMother = motherWithCaseId(caseId);
+        MotherCase existingMother = motherWithCaseId(caseId);
         existingMother.setClosedByCommcare(false);
-        existingMother.setAdd(null);
-        existingMother.setIsAlive(true);
+        existingMother.setActualDeliveryDate(null);
+        existingMother.setIsAlive("yes");
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(existingMother);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(existingMother);
 
         motherService.process(mother);
 
         verify(dbRepository, times(1)).update(existingMother);
         verify(vaccinationProcessor).closeSchedules(existingMother);
 
-        ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor = ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).update(captor.capture());
-        Mother motherFromDb = captor.getValue();
+        MotherCase motherFromDb = captor.getValue();
         assertFalse(motherFromDb.isActive());
-        assertFalse(motherFromDb.getIsAlive());
+        assertFalse(motherFromDb.getIsAlive()=="yes");
     }
 
     @Test
     public void shouldCloseMotherSchedulesIfADDIsGiven(){
-        Mother mother = new MotherBuilder().withAlive(true).withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
+        MotherCase mother = new MotherBuilder().withAlive("yes").withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
 
-        Mother existingMother = motherWithCaseId(caseId);
+        MotherCase existingMother = motherWithCaseId(caseId);
         existingMother.setClosedByCommcare(false);
-        existingMother.setAdd(null);
-        existingMother.setIsAlive(true);
+        existingMother.setActualDeliveryDate(null);
+        existingMother.setIsAlive("yes");
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(existingMother);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(existingMother);
 
         motherService.process(mother);
 
         verify(dbRepository, times(1)).update(existingMother);
         verify(vaccinationProcessor).closeSchedules(existingMother);
 
-        ArgumentCaptor<Mother> captor = ArgumentCaptor.forClass(Mother.class);
+        ArgumentCaptor<MotherCase> captor = ArgumentCaptor.forClass(MotherCase.class);
         verify(dbRepository).update(captor.capture());
-        Mother motherFromDb = captor.getValue();
+        MotherCase motherFromDb = captor.getValue();
         assertFalse(motherFromDb.isActive());
-        assertNotNull(motherFromDb.getAdd());
+        assertNotNull(motherFromDb.getActualDeliveryDate());
     }
 
     @Test
     public void shouldUpdateIrrespectiveOfWhetherMotherIsAlreadyInactiveOrNotButShouldNotScheduleVaccinations(){
-        Mother mother = new MotherBuilder().withAlive(true).withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
+        MotherCase mother = new MotherBuilder().withAlive("yes").withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
 
-        Mother existingMother = motherWithCaseId(caseId);
+        MotherCase existingMother = motherWithCaseId(caseId);
         existingMother.setClosedByCommcare(false);
-        existingMother.setAdd(null);
-        existingMother.setIsAlive(false);
+        existingMother.setActualDeliveryDate(null);
+        existingMother.setIsAlive("no");
         existingMother.setExpired(false);
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(existingMother);
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(existingMother);
 
         motherService.process(mother);
 
-        verify(dbRepository).update(any(Mother.class));
-        verify(vaccinationProcessor).closeSchedules(any(Mother.class));
+        verify(dbRepository).update(any(MotherCase.class));
+        verify(vaccinationProcessor).closeSchedules(any(MotherCase.class));
     }
 
     @Test(expected = RuntimeException.class)
     public void testToCheckThatClientIsAlwaysSavedFirstBeforeSchedulingHerForVaccinations(){
 
-        Mother mother = new MotherBuilder().withAlive(true).withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
+        MotherCase mother = new MotherBuilder().withAlive("yes").withCaseId(caseId).withAdd(new DateTime(2012, 4, 10, 0, 0, 0)).build();
 
-        Mother existingMother = motherWithCaseId(caseId);
+        MotherCase existingMother = motherWithCaseId(caseId);
         existingMother.setClosedByCommcare(false);
-        existingMother.setAdd(null);
-        existingMother.setIsAlive(true);
+        existingMother.setActualDeliveryDate(null);
+        existingMother.setIsAlive("yes");
         existingMother.setExpired(false);
-        existingMother.setName("Hannah Montana");
+        existingMother.setCaseName("Hannah Montana");
 
-        when(dbRepository.get(Mother.class, "caseId", caseId)).thenReturn(existingMother);
-        doThrow(new RuntimeException()).when(dbRepository).update(Matchers.<Mother>any());
+        when(dbRepository.get(MotherCase.class, "caseId", caseId)).thenReturn(existingMother);
+        doThrow(new RuntimeException()).when(dbRepository).update(Matchers.<MotherCase>any());
 
         motherService.process(mother);
 
-        verify(dbRepository).update(any(Mother.class));
-        verify(vaccinationProcessor,never()).enrollUpdateVaccines(Matchers.<Mother>any());
+        verify(dbRepository).update(any(MotherCase.class));
+        verify(vaccinationProcessor,never()).enrollUpdateVaccines(Matchers.<MotherCase>any());
 
     }
 
-    private Mother motherWithCaseId(String caseId) {
-        Mother mother = new Mother();
+    private MotherCase motherWithCaseId(String caseId) {
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
         return mother;
     }

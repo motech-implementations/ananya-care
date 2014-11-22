@@ -4,29 +4,29 @@ import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 
 public class ChildTest {
 
     @Test
     public void shouldBeSetToIsActiveByDefault() {
-        Child child = new Child();
-        child.setIsAlive(true);
+        ChildCase child = new ChildCase();
+        child.setIsAlive("yes");
         Assert.assertTrue(child.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
-        Child child = new Child();
-        child.setIsAlive(false);
+        ChildCase child = new ChildCase();
+        child.setIsAlive("no");
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
     }
 
     @Test
     public void shouldBeInactiveIfClosedByCommcare() {
-        Child child = new Child();
-        child.setIsAlive(true);
+        ChildCase child = new ChildCase();
+        child.setIsAlive("yes");
         child.setClosedByCommcare(true);
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
@@ -34,7 +34,7 @@ public class ChildTest {
 
     @Test
     public void shouldBeInactiveIfExpired() {
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setExpired(true);
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
@@ -42,7 +42,7 @@ public class ChildTest {
 
     @Test
     public void shouldSetEnrollForSchedulesToFalseIfChildIsOlderThanAYearOrHasNoDOB(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(DateTime.now().minusYears(2));
         Assert.assertFalse(child.shouldEnrollForSchedules());
 
@@ -52,9 +52,9 @@ public class ChildTest {
 
     @Test
     public void shouldSetEnrollForSchedulesToTrueIfChildIsNotOlderThanAYearAndIsActive(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(DateTime.now());
-        child.setIsAlive(true);
+        child.setIsAlive("yes");
         Assert.assertTrue(child.shouldEnrollForSchedules());
     }
 }

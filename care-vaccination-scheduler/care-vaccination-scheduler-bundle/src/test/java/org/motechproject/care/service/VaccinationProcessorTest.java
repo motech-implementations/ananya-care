@@ -9,7 +9,7 @@ import org.motechproject.care.service.schedule.BcgService;
 import org.motechproject.care.service.schedule.MeaslesService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.schedule.VitaService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 
 import java.util.Arrays;
 
@@ -25,7 +25,7 @@ public class VaccinationProcessorTest {
     @Test
     public void shouldProcessForEachVaccines(){
         VaccinationProcessor processor = new VaccinationProcessor(Arrays.<VaccinationService>asList(measlesService, bcgService, vitaService));
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         processor.enrollUpdateVaccines(child);
         Mockito.verify(measlesService).process(child);
         Mockito.verify(bcgService).process(child);
@@ -35,7 +35,7 @@ public class VaccinationProcessorTest {
     @Test
     public void shouldCloseAllSchedulesFor(){
         VaccinationProcessor processor = new VaccinationProcessor(Arrays.<VaccinationService>asList(measlesService,bcgService, vitaService));
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         processor.closeSchedules(child);
         Mockito.verify(measlesService).close(child);
         Mockito.verify(bcgService).close(child);

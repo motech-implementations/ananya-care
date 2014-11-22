@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.service.schedule.Hep0Service;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.motechproject.scheduletracking.domain.WindowName;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
@@ -29,10 +29,10 @@ public class Hep0ExpiryActionTest {
     @Test
     public void shouldUnEnrollChildFromHep0ExpiredSchedule() {
         String caseId = "caseID";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId(caseId);
         MilestoneEvent milestoneEvent = new MilestoneEvent(caseId, null, null, WindowName.late.name(), null, null);
-        when(dbRepository.get(Child.class, "caseId", caseId)).thenReturn(child);
+        when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(child);
         hep0ExpiryAction.invoke(milestoneEvent);
         verify(hep0Service).close(child);
     }

@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>care-vaccination-scheduler</artifactId>
 		<groupId>org.motechproject.ananya-care</groupId>
-		<version>0.24</version>
+		<version>0.24.2</version>
 		<relativePath>../</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
 	<packaging>bundle</packaging>
 	<properties>
 		<main.basedir>${project.basedir}/..</main.basedir>
-		<motech.version>0.24</motech.version>
+		<motech.version>0.24.2</motech.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
@@ -133,21 +133,21 @@
 			<version>1.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.motechproject.contrib-ananya-care</groupId>
+			<groupId>org.motechproject.ananya-care</groupId>
 			<artifactId>commcare-case-gateway</artifactId>
-			<version>0.10-SNAPSHOT</version>
+			<version>0.24.2</version>
 
 		</dependency>
 		<dependency>
-			<groupId>org.motechproject.contrib-ananya-care</groupId>
+			<groupId>org.motechproject.ananya-care</groupId>
 			<artifactId>case-service</artifactId>
-			<version>0.10-SNAPSHOT</version>
+			<version>0.24.2</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.motechproject.contrib-ananya-care</groupId>
 			<artifactId>motech-http-client</artifactId>
 			<version>0.10-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -190,7 +190,7 @@
 		<dependency>
 			<groupId>org.motechproject.ananya-care</groupId>
 			<artifactId>care-mcts-common-entities</artifactId>
-			<version>0.24</version>
+			<version>0.24.2</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -243,13 +243,11 @@
 						</Import-Package>
 						<Export-Package>
 							org.motechproject.casexml.*,
-							org.motechproject.http.client.*,
 						</Export-Package>
 						<Embed-Dependency>
 							care-vaccination-scheduler-scheduling;inline=true,
-							commcare-case-gateway;inline=true,
+							commcare-case-gateway;version=${motech.version}inline=true,
 							case-service;inline=true,
-							motech-http-client;inline=true,
 						</Embed-Dependency>
 					</instructions>
 				</configuration>

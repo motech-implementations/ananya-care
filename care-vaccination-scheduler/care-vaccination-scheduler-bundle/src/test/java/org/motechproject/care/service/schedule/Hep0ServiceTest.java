@@ -11,8 +11,8 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,7 +39,7 @@ public class Hep0ServiceTest {
 
     @Test
     public void shouldNotEnrollChildForHep0ScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
         hep0Service.process(child);
         verify(schedulerService, never()).enroll(any(String.class), any(DateTime.class), anyString());
@@ -47,7 +47,7 @@ public class Hep0ServiceTest {
 
     @Test
     public void shouldEnrollChildForHep0ScheduleWhenDOBIsAvailable(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
         child.setDob(DateTime.now());
         hep0Service.process(child);
@@ -56,22 +56,22 @@ public class Hep0ServiceTest {
 
     @Test
     public void shouldFulfillHep0MilestoneIfHep0DateAvailable(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         String caseId = "caseId";
         child.setCaseId(caseId);
         child.setDob(DateTime.now());
         DateTime hep0Date = DateTime.now().minusDays(1);
-        child.setHep0Date(hep0Date);
+        child.setHepB0Time(hep0Date);
         hep0Service.process(child);
         verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Hep0.toString(), hep0Date, ChildVaccinationSchedule.Hepatitis0.getName());
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Hep0.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.Hep0.toString());
     }
 
     @Test
     public void shouldUnenrollFromHep0Schedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         hep0Service.close(mother);

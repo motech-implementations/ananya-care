@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClientExpiryAction implements Action{
+public class ClientExpiryAction implements Action {
 
     private MotherService motherService;
     private ChildService childService;
 
     @Autowired
-    public ClientExpiryAction(MotherService motherService, ChildService childService) {
+    public ClientExpiryAction(MotherService motherService,
+            ChildService childService) {
         this.motherService = motherService;
         this.childService = childService;
     }
@@ -22,7 +23,7 @@ public class ClientExpiryAction implements Action{
     public void invoke(MilestoneEvent event) {
         String externalId = event.getExternalId();
         boolean didExpireMother = motherService.expireCase(externalId);
-        if(!didExpireMother)
+        if (!didExpireMother)
             childService.expireCase(externalId);
     }
 }

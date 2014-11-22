@@ -13,7 +13,7 @@ import org.motechproject.care.service.schedule.Hep0Service;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -46,7 +46,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId,  scheduleName);
@@ -72,9 +72,9 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         assertEquals(dob, enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
         assertEquals(dob.plusDays(1), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
-        assertNull(childFromDb.getHep0Date());
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
+        assertEquals(dob, childFromDb.getDob());
+        assertNull(childFromDb.getHepB0Time());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId, scheduleName);
@@ -95,9 +95,9 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         List<EnrollmentRecord> enrollmentRecords = trackingService.searchWithWindowDates(query);
         assertTrue(enrollmentRecords.isEmpty());
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
-        assertEquals(dob, childFromDb.getDOB());
-        assertNull(childFromDb.getHep0Date());
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
+        assertEquals(dob, childFromDb.getDob());
+        assertNull(childFromDb.getHepB0Time());
     }
 
     @Test
@@ -107,7 +107,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         DateTime hep0Taken = DateUtil.newDateTime(DateUtil.today()).minusMonths(1);
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withHep0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         EnrollmentsQuery query = new EnrollmentsQuery()
@@ -123,8 +123,8 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         assertNull(trackingService.getEnrollment(caseId, scheduleName));
 
-        Child childFromDb = dbRepository.get(Child.class, "caseId",caseId);
-        assertEquals(dob, childFromDb.getDOB());
-        assertEquals(hep0Taken, childFromDb.getHep0Date());
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId",caseId);
+        assertEquals(dob, childFromDb.getDob());
+        assertEquals(hep0Taken, childFromDb.getHepB0Time());
     }
 }

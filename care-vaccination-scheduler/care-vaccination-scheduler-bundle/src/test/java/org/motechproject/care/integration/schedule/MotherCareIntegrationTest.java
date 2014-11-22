@@ -14,7 +14,7 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -42,7 +42,7 @@ public class MotherCareIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(MotherCase.class);
     }
 
     @Before
@@ -58,7 +58,7 @@ public class MotherCareIntegrationTest extends SpringIntegrationTest {
         String motherCareScheduleName = ExpirySchedule.MotherCare.getName();
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, motherCareScheduleName);
         EnrollmentsQuery query = new EnrollmentsQuery()

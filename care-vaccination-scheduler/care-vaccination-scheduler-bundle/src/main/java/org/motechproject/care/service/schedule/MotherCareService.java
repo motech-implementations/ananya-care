@@ -5,7 +5,7 @@ import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class MotherCareService extends VaccinationService{
 
     @Override
     public void process(Client client) {
-        Mother mother = (Mother) client;
+        MotherCase mother = (MotherCase) client;
         if(mother.getEdd() != null){
             schedulerService.enroll(mother.getCaseId(), mother.getEdd().minusDays(PeriodUtil.DAYS_IN_9_MONTHS), scheduleName);
         }

@@ -1,14 +1,14 @@
 package org.motechproject.care.service;
 
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MotherService extends BaseService<Mother> {
+public class MotherService extends BaseService<MotherCase> {
     
     @Autowired
     MdsRepository dbRepository;
@@ -17,8 +17,8 @@ public class MotherService extends BaseService<Mother> {
         super(vaccinationProcessor);
     }
 
-    protected void onProcess(Mother mother) {
-        Mother motherFromDb = dbRepository.get(Mother.class, "caseId",  mother.getCaseId());
+    protected void onProcess(MotherCase mother) {
+        MotherCase motherFromDb = dbRepository.get(MotherCase.class, "caseId",  mother.getCaseId());
 
         if(motherFromDb == null)
             processNew(mother);
@@ -26,13 +26,13 @@ public class MotherService extends BaseService<Mother> {
             processExisting(motherFromDb, mother);
     }
 
-    private void processNew(Mother mother) {
+    private void processNew(MotherCase mother) {
         dbRepository.save(mother);
         if(mother.isActive())
             vaccinationProcessor.enrollUpdateVaccines(mother);
     }
 
-    private void processExisting(Mother motherFromDb, Mother mother) {
+    private void processExisting(MotherCase motherFromDb, MotherCase mother) {
         motherFromDb.setValuesFrom(mother);
         dbRepository.update(motherFromDb);
 
@@ -45,7 +45,7 @@ public class MotherService extends BaseService<Mother> {
     @Override
     public boolean closeCase(String caseId) {
         synchronized (getLockName(caseId)) {
-            Mother mother =  dbRepository.get(Mother.class,"caseId",caseId);
+            MotherCase mother =  dbRepository.get(MotherCase.class,"caseId",caseId);
             if(mother == null)
                 return false;
 
@@ -59,7 +59,7 @@ public class MotherService extends BaseService<Mother> {
     @Override
     public boolean expireCase(String caseId) {
         synchronized (getLockName(caseId)) {
-            Mother mother = dbRepository.get(Mother.class,"caseId",caseId);
+            MotherCase mother = dbRepository.get(MotherCase.class,"caseId",caseId);
             if(mother == null)
                 return false;
             mother.setExpired(true);

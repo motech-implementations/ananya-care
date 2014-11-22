@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.motechproject.care.service.schedule.BcgService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.motechproject.scheduletracking.domain.WindowName;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
@@ -30,10 +30,10 @@ public class BcgExpiryActionTest {
     @Test
     public void shouldUnEnrollChildFromBcgExpiredSchedule() {
         String caseId = "caseID";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId(caseId);
         MilestoneEvent milestoneEvent = new MilestoneEvent(caseId, null, null, WindowName.late.name(), null, null);
-        when(dbRepository.get(Child.class, "caseId", caseId)).thenReturn(child);
+        when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(child);
         bcgExpiryAction.invoke(milestoneEvent);
         verify(bcgService).close(child);
     }

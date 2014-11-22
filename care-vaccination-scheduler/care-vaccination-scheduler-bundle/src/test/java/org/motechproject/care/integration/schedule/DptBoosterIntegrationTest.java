@@ -13,7 +13,7 @@ import org.motechproject.care.service.schedule.DptBoosterService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -40,7 +40,7 @@ public class DptBoosterIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Before
@@ -60,7 +60,7 @@ public class DptBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime expectedReferenceDate = dob.plusMonths(16).plus(periodUtil.getScheduleOffset());
         DateTime expectedStartDueDate = dob.plusMonths(16);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment;
@@ -85,7 +85,7 @@ public class DptBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime expectedStartDueDate = dpt3Date.plusDays(180);
         DateTime expectedStartLateDate = expectedReferenceDate.plusMonths(8).plusWeeks(2);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment;
@@ -108,7 +108,7 @@ public class DptBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime dpt3Date = dob.plusMonths(15);
         DateTime dptBoosterDate = dob.plusMonths(21);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withDpt1Date(null).withDpt2Date(null).withDpt3Date(null).withDptBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         assertNull(getEnrollmentRecord(scheduleName, caseId, EnrollmentStatus.ACTIVE));

@@ -11,8 +11,10 @@ import org.motechproject.casexml.domain.CaseTask;
 import org.motechproject.casexml.service.CaseService;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.motechproject.scheduletracking.domain.Milestone;
 import org.motechproject.scheduletracking.domain.MilestoneAlert;
@@ -61,8 +63,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startOfSchedule);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", startOfSchedule, null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, DateTime.now().plusYears(1), null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, DateTime.now().plusYears(1), null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         String commCareUrl = "commCareUrl";
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(commCareUrl);
@@ -101,8 +108,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startScheduleDate);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", startScheduleDate, null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, startScheduleDate.plusYears(1), null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, startScheduleDate.plusYears(1), null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
 
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("motech.user.id")).thenReturn(motechUserId);
@@ -120,7 +132,7 @@ public class AlertMotherActionTest {
         assertEquals(null, task.getDateExpires());
         assertEquals(groupId, task.getOwnerId());
         assertEquals("tt_1", task.getTaskId());
-        assertEquals(motherCaseId,task.getClientCaseId());
+        assertEquals(motherCaseId,task.getMotherCase().getCaseId());
         assertEquals(CaseType.Mother.getType(),task.getClientCaseType());
         assertEquals(motechUserId,task.getMotechUserId());
     }
@@ -141,8 +153,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startScheduleDate);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", startScheduleDate, null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, edd, null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, edd, null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         String commCareUrl = "commCareUrl";
         String motechUserId = "motechUserId";
         when(ananyaCareProperties.getProperty("commcare.hq.url")).thenReturn(commCareUrl);
@@ -175,8 +192,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startOfSchedule);
         MilestoneEvent milestoneEvent = new MilestoneEvent(childCaseId, scheduleName, milestoneAlert, "due", startOfSchedule, null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, edd, null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, edd, null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
         ArgumentCaptor<CaseTask> argumentCaptor = ArgumentCaptor.forClass(CaseTask.class);
@@ -203,8 +225,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startScheduleDate);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", DateUtil.now(), null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, edd, null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, edd, null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
       //TODO added null as 5th argument in below method(check what it should be)
@@ -227,8 +254,13 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startScheduleDate);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", DateUtil.now(), null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, edd, null, null, null, false, null, null, null, null, null, true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, edd, null, null, null, "no", null, null, null, null, null, "yes");
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
         //TODO added null as 5th argument in below method(check what it should be)
@@ -249,9 +281,14 @@ public class AlertMotherActionTest {
         MilestoneAlert milestoneAlert = MilestoneAlert.fromMilestone(milestone, startOfSchedule);
         MilestoneEvent milestoneEvent = new MilestoneEvent(motherCaseId, scheduleName, milestoneAlert, "due", startOfSchedule, null);
 
-        Mother client = new Mother(motherCaseId, null, flwId, motherName, groupId, DateTime.now().plusYears(1), null, null, null, false, null, null, null, null, null, true);
+        Flw flw = new Flw();
+        flw.setFlwId(flwId);
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, DateTime.now().plusYears(1), null, null, null, "no", null, null, null, null, null, "yes");
         client.setClosedByCommcare(true);
-        when(dbRepository.get(Mother.class, "caseId", motherCaseId)).thenReturn(client);
+        when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 
         //TODO added null as 5th argument in below method(check what it should be)

@@ -17,7 +17,7 @@ public class CommcareTask {
         caseTask.setDateEligible(careCaseTask.getDateEligible());
         caseTask.setDateExpires(careCaseTask.getDateExpires());
         caseTask.setClientCaseType(careCaseTask.getClientCaseType());
-        caseTask.setClientCaseId(careCaseTask.getClientCaseId());
+        caseTask.setClientCaseId(careCaseTask.getMotherCase()==null?careCaseTask.getChildCase().getCaseId():careCaseTask.getMotherCase().getCaseId());
         return caseTask;
     }
     

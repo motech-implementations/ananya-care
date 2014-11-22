@@ -11,8 +11,8 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,7 +39,7 @@ public class Opv0ServiceTest {
 
     @Test
     public void shouldNotEnrollChildForOPV0ScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
         opv0Service.process(child);
         verify(schedulerService, never()).enroll(any(String.class), any(DateTime.class), anyString());
@@ -47,7 +47,7 @@ public class Opv0ServiceTest {
 
     @Test
     public void shouldEnrollChildForOPV0ScheduleWhenDOBIsAvailable(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
         child.setDob(DateTime.now());
         opv0Service.process(child);
@@ -56,22 +56,22 @@ public class Opv0ServiceTest {
 
     @Test
     public void shouldFulfillOPV0MilestoneIfOPV0DateAvailable(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         String caseId = "caseId";
         child.setCaseId(caseId);
         child.setDob(DateTime.now());
         DateTime opv0Date = DateTime.now().minusDays(1);
-        child.setOpv0Date(opv0Date);
+        child.setOpv0Time(opv0Date);
         opv0Service.process(child);
         verify(schedulerService).fulfillMilestone(caseId, MilestoneType.OPV0.toString(), opv0Date, ChildVaccinationSchedule.OPV0.getName());
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.OPV0.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.OPV0.toString());
     }
 
     @Test
     public void shouldUnenrollFromOpv0Schedule() {
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         opv0Service.close(mother);

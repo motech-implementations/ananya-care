@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
-//import org.motechproject.commons.couchdb.service.impl.CouchDbManagerImpl;
 import org.motechproject.scheduletracking.domain.Schedule;
 import org.motechproject.scheduletracking.domain.ScheduleFactory;
 import org.motechproject.scheduletracking.domain.json.ScheduleRecord;
@@ -25,16 +24,14 @@ public class ScheduleInitializer {
     private static final String DATABASE_NAME = "motech-scheduletracking-api";
 
     private static ObjectMapper objectMapper = new ObjectMapper();
-    
+
     @Autowired
     ScheduleDataService scheduleDataService;
-    public static void main(String[] args) throws URISyntaxException, IOException, NullPointerException
-         {
-    	
-       // CouchDbManager couchDbManager = new CouchDbManagerImpl();
-       // TODO change to MDS
-        //AllSchedules allSchedules = new AllSchedules(couchDbManager.getConnector(DATABASE_NAME));
-        URL schedulesDirectoryUrl = ScheduleInitializer.class.getResource("/schedules");
+
+    public static void main(String[] args) throws URISyntaxException,
+            IOException, NullPointerException {
+        URL schedulesDirectoryUrl = ScheduleInitializer.class
+                .getResource("/schedules");
         File schedulesDirectory = new File(schedulesDirectoryUrl.toURI());
         FilenameFilter filenameFilter = new FilenameFilter() {
             @Override
@@ -42,31 +39,14 @@ public class ScheduleInitializer {
                 return (name.endsWith(".json"));
             }
         };
-         MdsRepository repo = new MdsRepository();
+        MdsRepository repo = new MdsRepository();
         for (File file : schedulesDirectory.listFiles(filenameFilter)) {
             Schedule schedule = parseScheduleJson(file);
-           repo.save(schedule);
-            //TODO MDS
-            //allSchedules.addOrUpdate(schedule);
+            repo.save(schedule);
         }
     }
-    
+
     public void addSchedules() throws URISyntaxException, IOException {
-      //  URL schedulesDirectoryUrl = ScheduleInitializer.class.getResource("/schedules/");
-        //URL schedulesDirectoryUrl = Thread.currentThread().getContextClassLoader()
-         //       .getResource("/schedules");
-        //String schedulePath = "schedules";
-        //try (URL is = Thread.currentThread().getContextClassLoader()
-             //   .getResource(schedulePath)) {}
-        
-        
-        //File schedulesDirectory = new File(schedulesDirectoryUrl.toURI());
-        //FilenameFilter filenameFilter = new FilenameFilter() {
-        //    @Override
-         //   public boolean accept(File dir, String name) {
-         //       return (name.endsWith(".json"));
-          //  }
-        //};
         List<String> vaccinationList = new ArrayList<String>();
         vaccinationList.add("mother-tt.json");
         vaccinationList.add("mother-tt-booster.json");
@@ -84,21 +64,17 @@ public class ScheduleInitializer {
         vaccinationList.add("child-dpt.json");
         vaccinationList.add("child-care.json");
         vaccinationList.add("child-bcg.json");
-        for(String vaccinationName : vaccinationList) {
+        for (String vaccinationName : vaccinationList) {
             String homePath = System.getProperty("user.home");
-        File file = new File(homePath+"/schedules/"+vaccinationName);
-         //MdsRepository repo = new MdsRepository();
-      //  for (File file : schedulesDirectory.listFiles(filenameFilter)) {
+            File file = new File(homePath + "/schedules/" + vaccinationName);
             Schedule schedule = parseScheduleJson(file);
             scheduleDataService.update(schedule);
-           //repo.save(schedule);
-            //TODO MDS
-            //allSchedules.addOrUpdate(schedule);
-       }
+        }
     }
 
     private static Schedule parseScheduleJson(File jsonFile) throws IOException {
-        ScheduleRecord scheduleRecord = objectMapper.readValue(jsonFile, ScheduleRecord.class);
+        ScheduleRecord scheduleRecord = objectMapper.readValue(jsonFile,
+                ScheduleRecord.class);
 
         return SCHEDULE_FACTORY.build(scheduleRecord);
     }
