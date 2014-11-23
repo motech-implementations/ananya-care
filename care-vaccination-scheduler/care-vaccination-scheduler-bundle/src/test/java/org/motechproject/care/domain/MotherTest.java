@@ -4,61 +4,71 @@ import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class MotherTest {
 
     @Test
     public void shouldBeSetToActiveIfAliveAndNoADDIsPresentAndNotClosedByCommcare() {
-        Mother mother = new Mother();
-        mother.setIsAlive(true);
+        MotherCase mother = new MotherCase();
+        mother.setIsAlive("yes");
         Assert.assertTrue(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
-        Mother mother = new Mother();
-        mother.setIsAlive(false);
+        MotherCase mother = new MotherCase();
+        mother.setIsAlive("no");
         Assert.assertFalse(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNoADDIsPresent() {
-        Mother mother = new Mother();
-        mother.setIsAlive(true);
-        mother.setAdd(new DateTime());
+        MotherCase mother = new MotherCase();
+        mother.setIsAlive("yes");
+        mother.setActualDeliveryDate(new DateTime());
         Assert.assertFalse(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfCaseClosedByCommCare() {
-        Mother mother = new Mother();
-        mother.setIsAlive(true);
+        MotherCase mother = new MotherCase();
+        mother.setIsAlive("yes");
         mother.setClosedByCommcare(true);
         Assert.assertFalse(mother.isActive());
     }
 
     @Test
     public void shouldNotCopyNullPropertiesFromAnotherMotherObject()  {
-        Mother mother = new Mother("caseId", null,"flwid","name",null,null, DateTime.parse("2010-04-03"),null,null,false,null,null,null,null,null,true);
-        Mother motherFromDb = new Mother("caseId", DateTime.parse("2010-01-01"), null, "name2", "groupid2", null, null,null,null,false,null,null,null,null,null,false);
+        Flw flw = new Flw();
+        flw.setFlwId("flwid");
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId("groupid2");
+        MotherCase mother = new MotherCase("caseId", null,flw,"name",null,null, DateTime.parse("2010-04-03"),null,null,"no",null,null,null,null,null,"yes");
+        MotherCase motherFromDb = new MotherCase("caseId", DateTime.parse("2010-01-01"), null, "name2", flwGroup, null, null,null,null,"no",null,null,null,null,null,"no");
         motherFromDb.setValuesFrom(mother);
         Assert.assertEquals(DateTime.parse("2010-01-01"), motherFromDb.getDateModified());
-        Assert.assertEquals("flwid", motherFromDb.getFlwId());
-        Assert.assertEquals("name", motherFromDb.getName());
-        Assert.assertEquals("groupid2", motherFromDb.getGroupId());
-        Assert.assertEquals(DateTime.parse("2010-04-03"), motherFromDb.getAdd());
+        Assert.assertEquals("flwid", motherFromDb.getFlw().getFlwId());
+        Assert.assertEquals("name", motherFromDb.getCaseName());
+        Assert.assertEquals("groupid2", motherFromDb.getFlwGroup().getGroupId());
+        Assert.assertEquals(DateTime.parse("2010-04-03"), motherFromDb.getActualDeliveryDate());
     }
 
     @Test
     public void shouldNotCopyEmptyPropertiesFromAnotherMotherObject()  {
-        Mother mother = new Mother("caseId", null,"","arpan","groupid",null, DateTime.parse("2010-04-03"),null,null,false,null,null,null,null,null,false);
-        Mother motherFromDb = new Mother("caseId", DateTime.parse("2010-01-01"), "flwid", "arpana", "", null, null,null,null,false,null,null,null,null,null,true);
+        Flw flw = new Flw();
+        flw.setFlwId("flwid");
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId("groupId");
+        MotherCase mother = new MotherCase("caseId", null,null,"arpan",flwGroup,null, DateTime.parse("2010-04-03"),null,null,"no",null,null,null,null,null,"no");
+        MotherCase motherFromDb = new MotherCase("caseId", DateTime.parse("2010-01-01"), flw, "arpana",null, null, null,null,null,"no",null,null,null,null,null,"yes");
         motherFromDb.setValuesFrom(mother);
         Assert.assertEquals(DateTime.parse("2010-01-01"), motherFromDb.getDateModified());
-        Assert.assertEquals("flwid", motherFromDb.getFlwId());
-        Assert.assertEquals("arpan", motherFromDb.getName());
-        Assert.assertEquals("groupid", motherFromDb.getGroupId());
-        Assert.assertEquals(DateTime.parse("2010-04-03"), motherFromDb.getAdd());
+        Assert.assertEquals("flwid", motherFromDb.getFlw().getFlwId());
+        Assert.assertEquals("arpan", motherFromDb.getCaseName());
+        Assert.assertEquals("groupId", motherFromDb.getFlwGroup().getGroupId());
+        Assert.assertEquals(DateTime.parse("2010-04-03"), motherFromDb.getActualDeliveryDate());
     }
 }

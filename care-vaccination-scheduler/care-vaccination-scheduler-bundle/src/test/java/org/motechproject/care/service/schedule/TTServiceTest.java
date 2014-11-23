@@ -12,7 +12,8 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,7 +40,7 @@ public class TTServiceTest {
     public void shouldEnrollMotherForTTSchedule(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setCaseId(caseId);
 
@@ -49,8 +50,9 @@ public class TTServiceTest {
 
     @Test
     public void shouldNotEnrollMotherForTTScheduleWhenEDDIsNull(){
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId("caseId");
+
         ttService.process(mother);
         verify(schedulerService, never()).enroll(any(String.class), any(DateTime.class), anyString());
     }
@@ -58,9 +60,9 @@ public class TTServiceTest {
     @Test
     public void shouldNotEnrollMotherForTTScheduleWhenEDDPresentAndLastPregFlagSetToTrue(){
         DateTime edd = new DateTime();
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
-        mother.setLastPregTt(true);
+        mother.setLastPregTt("yes");
         mother.setCaseId("caseId");
 
         ttService.process(mother);
@@ -71,43 +73,43 @@ public class TTServiceTest {
     public void shouldFulfillTT1IfTT1DatePresentInMother(){
         DateTime tt1Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setTt1Date(tt1Date);
         mother.setCaseId(caseId);
 
         ttService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.TT1.toString(), tt1Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.TT1.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.TT1.toString());
     }
 
     @Test
     public void shouldFulfillTT2IfTT2DatePresentInMother(){
         DateTime tt2Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setTt2Date(tt2Date);
         mother.setCaseId(caseId);
 
         ttService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.TT2.toString(), tt2Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.TT2.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.TT2.toString());
     }
 
     @Test
     public void shouldNotFulfillTTIOrTT2IfTTTakenDateNotPresentInMother(){
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId("caseId");
 
         ttService.process(mother);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
     @Test
     public void shouldUnenrollFromTTSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         ttService.close(mother);

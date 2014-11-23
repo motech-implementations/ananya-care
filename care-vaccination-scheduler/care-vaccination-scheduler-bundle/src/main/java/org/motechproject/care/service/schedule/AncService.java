@@ -6,7 +6,7 @@ import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,18 +19,18 @@ public class AncService extends VaccinationService{
 
     @Override
     public void process(Client client) {
-        Mother mother = (Mother) client;
+        MotherCase mother = (MotherCase) client;
         if(mother.getEdd() != null){
             schedulerService.enroll(mother.getCaseId(), mother.getEdd().minusDays(PeriodUtil.DAYS_IN_9_MONTHS), scheduleName);
         }
         if(mother.getAnc1Date() != null) {
-            fulfillMilestone(mother.getCaseId(), MilestoneType.Anc1, mother.getAnc1Date());
+            fulfillMilestone(client, MilestoneType.Anc1, mother.getAnc1Date());
         }
         if(mother.getAnc2Date() != null) {
-            fulfillMilestone(mother.getCaseId(), MilestoneType.Anc2, mother.getAnc2Date());
+            fulfillMilestone(client, MilestoneType.Anc2, mother.getAnc2Date());
         }
         if(mother.getAnc3Date() != null) {
-            fulfillMilestone(mother.getCaseId(), MilestoneType.Anc3, mother.getAnc3Date());
+            fulfillMilestone(client, MilestoneType.Anc3, mother.getAnc3Date());
         }
     }
 }

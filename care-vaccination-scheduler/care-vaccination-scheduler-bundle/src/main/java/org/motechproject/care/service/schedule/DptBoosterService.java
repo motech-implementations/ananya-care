@@ -6,7 +6,7 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.motechproject.mcts.care.common.mds.domain.Window;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +25,17 @@ public class DptBoosterService extends VaccinationService{
 
     @Override
     public void process(Client client) {
-        Child child = (Child) client;
+        ChildCase child = (ChildCase) client;
 
-        if(child.getDpt3Date() != null && child.getDob() != null){
-            Window dptBoosterWindow = getDPTBoosterWindow(child.getDpt3Date(), child.getDob());
+        if(child.getDpt3Time() != null && child.getDob() != null){
+            Window dptBoosterWindow = getDPTBoosterWindow(child.getDpt3Time(), child.getDob());
             if(dptBoosterWindow.isValid()) {
                 DateTime referenceDate = dptBoosterWindow.getStart().plus(periodUtil.getScheduleOffset());
                 schedulerService.enroll(child.getCaseId(), referenceDate, scheduleName);
             }
         }
-        if(child.getDptBoosterDate() != null) {
-            fulfillMilestone(child.getCaseId(), MilestoneType.DPTBooster, child.getDptBoosterDate());
+        if(child.getDptBoosterTime() != null) {
+            fulfillMilestone(client, MilestoneType.DPTBooster, child.getDptBoosterTime());
         }
     }
 

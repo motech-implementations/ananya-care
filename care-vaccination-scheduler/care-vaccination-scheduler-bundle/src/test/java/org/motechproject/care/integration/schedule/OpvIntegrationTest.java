@@ -14,7 +14,7 @@ import org.motechproject.care.service.schedule.OpvService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -47,14 +47,14 @@ public class OpvIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Test
     public void shouldVerifyOPVScheduleCreationWhenChildIsRegistered() {
         DateTime dob = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, opvScheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(opvScheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -70,7 +70,7 @@ public class OpvIntegrationTest extends SpringIntegrationTest {
         DateTime dob = DateUtil.newDateTime(DateUtil.today()).minusMonths(4);
         DateTime opv1Date = dob.plusMonths(2);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(opv1Date).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
@@ -89,7 +89,7 @@ public class OpvIntegrationTest extends SpringIntegrationTest {
         DateTime opv1Date = dob.plusMonths(2);
         DateTime opv2Date = dob.plusMonths(3);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(opv1Date).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
@@ -112,7 +112,7 @@ public class OpvIntegrationTest extends SpringIntegrationTest {
         DateTime opv2Date = dob.plusMonths(3);
         DateTime opv3Date = today;
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(opv1Date).withOPV2Date(null).withOPV3Date(null).build();
         childService.process(child);

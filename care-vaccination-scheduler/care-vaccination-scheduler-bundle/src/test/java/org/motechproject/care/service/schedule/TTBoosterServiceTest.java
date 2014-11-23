@@ -12,7 +12,7 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,9 +39,9 @@ public class TTBoosterServiceTest {
     public void shouldEnrollMotherForTTBoosterScheduleIfLastPregFlagTrueAndEddPresent(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
-        mother.setLastPregTt(true);
+        mother.setLastPregTt("yes");
         mother.setCaseId(caseId);
 
         ttBoosterService.process(mother);
@@ -52,9 +52,9 @@ public class TTBoosterServiceTest {
     public void shouldNotEnrollMotherForTTBoosterScheduleIfLastPregFlagFalseAndEddPresent(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
-        mother.setLastPregTt(false);
+        mother.setLastPregTt("no");
         mother.setCaseId(caseId);
 
         ttBoosterService.process(mother);
@@ -65,8 +65,8 @@ public class TTBoosterServiceTest {
     public void shouldNotEnrollMotherForTTBoosterScheduleIfLastPregFlagTrueAndEddNotPresent(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
-        mother.setLastPregTt(true);
+        MotherCase mother = new MotherCase();
+        mother.setLastPregTt("yes");
         mother.setCaseId(caseId);
 
         ttBoosterService.process(mother);
@@ -77,20 +77,20 @@ public class TTBoosterServiceTest {
     public void shouldFulfillTTBoosterIfTTBoosterDatePresentInMother(){
         DateTime ttBoosterDate = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setTtBoosterDate(ttBoosterDate);
         mother.setCaseId(caseId);
 
         ttBoosterService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.TTBooster.toString(), ttBoosterDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.TTBooster.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.TTBooster.toString());
     }
 
     @Test
     public void shouldUnenrollFromTTBoosterSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         ttBoosterService.close(mother);

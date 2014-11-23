@@ -1,0 +1,13 @@
+<OpenRosaResponse xmlns="http://openrosa.org/http/response">
+    <message nature="$status">$message</message>
+#if( $errors.size() > 0 )
+    <errors>
+#foreach( $error in $errors )
+        <error>
+            <code>$error.code</code>
+            <message>$error.message</message>
+        </error>
+#end
+    </errors>
+#end
+</OpenRosaResponse>

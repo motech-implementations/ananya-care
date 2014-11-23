@@ -16,7 +16,7 @@ import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.DummyCareCaseTaskService;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -47,7 +47,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(MotherCase.class);
     }
 
 
@@ -64,7 +64,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
         String ttScheduleName = MotherVaccinationSchedule.TT.getName();
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, ttScheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(ttScheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -81,7 +81,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
         DateTime tt1Taken = DateUtil.newDateTime(DateUtil.today()).plusMonths(1);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
         motherService.process(mother);
         mother = new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(tt1Taken).withTT2(null).build();
         motherService.process(mother);
@@ -101,7 +101,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
         DateTime tt1Taken = DateUtil.newDateTime(DateUtil.today()).plusMonths(1);
         DateTime tt2Taken = DateUtil.newDateTime(DateUtil.today()).plusMonths(3);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
         motherService.process(mother);
         mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(tt1Taken).withTT2(null).build();
         motherService.process(mother);
@@ -116,7 +116,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
         String ttScheduleName = MotherVaccinationSchedule.TT.getName();
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, ttScheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(ttScheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -127,7 +127,7 @@ public class TTIntegrationTest extends SpringIntegrationTest {
         assertEquals(edd.plusWeeks(2), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
 
-        mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).withAlive(false).build();
+        mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withTT1(null).withTT2(null).withAlive("no").build();
         motherService.process(mother);
         enrollment = getEnrollmentRecord(ttScheduleName, caseId, EnrollmentStatus.ACTIVE);
         assertNull(enrollment);

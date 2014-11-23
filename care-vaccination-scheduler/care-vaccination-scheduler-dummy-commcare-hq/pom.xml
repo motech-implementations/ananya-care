@@ -30,11 +30,11 @@
             <artifactId>motech-platform-commons-date</artifactId>
             <version>${motech.version}</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-commons-couchdb</artifactId>
             <version>${motech.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>

@@ -1,38 +1,30 @@
 package org.motechproject.care.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
+import org.ektorp.CouchDbConnector;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
 import org.motechproject.scheduletracking.service.EnrollmentsQuery;
 import org.motechproject.scheduletracking.service.ScheduleTrackingService;
-
-import org.motechproject.testing.osgi.BasePaxIT;
-import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
-import org.ops4j.pax.exam.ExamFactory;
-import org.ops4j.pax.exam.junit.PaxExam;
-import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
-import org.ops4j.pax.exam.spi.reactors.PerSuite;
+import org.motechproject.testing.utils.BaseUnitTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(PaxExam.class)
-@ExamReactorStrategy(PerSuite.class)
-@ExamFactory(MotechNativeTestContainerFactory.class)
-@ContextConfiguration("classpath*:META-INF/motech/applicationAnanyaCareTest.xml")
-public abstract class SpringIntegrationTest extends BasePaxIT {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
-    @Qualifier("dbRepository")
+@RunWith(SpringJUnit4ClassRunner.class)
+public abstract class SpringIntegrationTest extends BaseUnitTest {
+
+    @Qualifier("ananyaCareDbConnector")
     @Autowired
-    protected MdsRepository dbRepository;
+    protected CouchDbConnector ananyaCareDbConnector;
 
     @Qualifier("ananyaCareProperties")
     @Autowired
@@ -44,19 +36,18 @@ public abstract class SpringIntegrationTest extends BasePaxIT {
     @Autowired
     protected PeriodUtil periodUtil;
 
-    protected ArrayList<Object> toDelete;
     protected ArrayList<Pair> schedulesToDelete;
 
-    @Before
+    /* @Before
     public void before() {
-        toDelete = new ArrayList<Object>();
+        toDelete = new ArrayList<MotechBaseDataObject>();
         schedulesToDelete = new ArrayList<Pair>();
     }
 
     @After
     public void after() {
-        for(Object obj : toDelete){
-        	dbRepository.delete(obj);
+        for(MotechBaseDataObject obj : toDelete){
+            ananyaCareDbConnector.delete(obj);
         }
         for(int i=0 ;i< schedulesToDelete.size(); i++){
             Pair s = schedulesToDelete.get(i);
@@ -66,12 +57,13 @@ public abstract class SpringIntegrationTest extends BasePaxIT {
             scheduleNames.add(scheduleName);
             trackingService.unenroll(externalId, scheduleNames);
         }
-    }
+        super.tearDown();
+    }*/
 
 
-    protected <T> void markForDeletion(T object) {
-        toDelete.add(object);
-    }
+    /*protected void markForDeletion(MotechBaseDataObject document) {
+        toDelete.add(document);
+    }*/
 
     protected void markScheduleForUnEnrollment(String externalId, String scheduleName) {
         schedulesToDelete.add(new Pair(externalId, scheduleName));

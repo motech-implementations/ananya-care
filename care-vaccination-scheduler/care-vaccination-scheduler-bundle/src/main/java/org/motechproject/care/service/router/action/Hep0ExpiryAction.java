@@ -1,7 +1,7 @@
 package org.motechproject.care.service.router.action;
 
 import org.motechproject.care.service.schedule.Hep0Service;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,8 @@ public class Hep0ExpiryAction implements Action {
     private Hep0Service hep0Service;
     @Autowired
     MdsRepository dbRepository;
-    
-    public void setDbRepository(MdsRepository dbRepository) {
-		this.dbRepository = dbRepository;
-	}
 
-	@Autowired
+    @Autowired
     public Hep0ExpiryAction(Hep0Service hep0Service) {
         this.hep0Service = hep0Service;
     }
@@ -26,7 +22,8 @@ public class Hep0ExpiryAction implements Action {
     @Override
     public void invoke(MilestoneEvent event) {
         String externalId = event.getExternalId();
-        Child child = dbRepository.get(Child.class, "caseId", externalId);
+        ChildCase child = dbRepository.get(ChildCase.class, "caseId",
+                externalId);
         hep0Service.close(child);
     }
 }

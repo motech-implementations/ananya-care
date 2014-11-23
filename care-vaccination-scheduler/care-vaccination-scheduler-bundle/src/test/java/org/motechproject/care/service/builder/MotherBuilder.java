@@ -2,7 +2,9 @@ package org.motechproject.care.service.builder;
 
 
 import org.joda.time.DateTime;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class MotherBuilder {
 
@@ -16,24 +18,29 @@ public class MotherBuilder {
 
     private DateTime tt1Date = new DateTime(2012, 1, 2, 0, 0, 0);
     private DateTime tt2Date = new DateTime(2012, 1, 2, 0, 0, 0);
-    private boolean isLastPregTT = false;
+    private String isLastPregTT = "no";
     private DateTime anc1Date = new DateTime(2012, 1, 3, 0, 0, 0);
     private DateTime anc2Date = new DateTime(2012, 1, 4, 0, 0, 0);
     private DateTime anc3Date = new DateTime(2012, 1, 5, 0, 0, 0);
     private DateTime anc4Date = new DateTime(2012, 1, 6, 0, 0, 0);
     private DateTime ttBoosterDate = new DateTime(2012, 1, 7, 0, 0, 0);
-    private boolean isAlive = true;
+    private String isAlive = "yes";
     private boolean expired;
 
 
-    public Mother build(){
-        Mother mother = new Mother();
-        mother.setName(caseName);
-        mother.setFlwId(userId);
+    public MotherCase build(){
+        MotherCase mother = new MotherCase();
+        mother.setCaseName(caseName);
+        Flw flw = new Flw();
+        flw.setFlwId(userId);
+        
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        mother.setFlw(flw);
         mother.setCaseId(caseId);
-        mother.setGroupId(groupId);
+        mother.setFlwGroup(flwGroup);
         mother.setDateModified(dateModified);
-        mother.setAdd(add);
+        mother.setActualDeliveryDate(add);
         mother.setEdd(edd);
         mother.setIsAlive(isAlive);
 
@@ -102,7 +109,7 @@ public class MotherBuilder {
         this.anc4Date = anc4Date;
         return this;
     }
-    public MotherBuilder withLastPregTT(boolean isLastPregTT){
+    public MotherBuilder withLastPregTT(String isLastPregTT){
         this.isLastPregTT = isLastPregTT;
         return this;
     }
@@ -110,7 +117,7 @@ public class MotherBuilder {
         this.ttBoosterDate = ttBoosterDate;
         return this;
     }
-    public MotherBuilder withAlive(boolean isAlive){
+    public MotherBuilder withAlive(String isAlive){
         this.isAlive = isAlive;
         return this;
     }

@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -33,7 +33,7 @@ public class ChildCareServiceTest {
     public void shouldEnrollChildForChildCareSchedule(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -43,7 +43,7 @@ public class ChildCareServiceTest {
 
     @Test
     public void shouldNotEnrollChildForChildCareWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         childCareService.process(child);

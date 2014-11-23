@@ -16,8 +16,9 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BcgServiceTest {
@@ -40,7 +41,7 @@ public class BcgServiceTest {
     public void shouldEnrollChildForBcgSchedule(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -50,7 +51,7 @@ public class BcgServiceTest {
 
     @Test
     public void shouldNotEnrollChildForBcgScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         bcgService.process(child);
@@ -61,30 +62,30 @@ public class BcgServiceTest {
     public void shouldFulfilBcgIfBcgDatePresentInChild(){
         DateTime bcgDate = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setBcgDate(bcgDate);
+        ChildCase child = new ChildCase();
+        child.setBcgTime(bcgDate);
         child.setCaseId(caseId);
 
         bcgService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Bcg.toString(), bcgDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Bcg.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.Bcg.toString());
     }
 
     @Test
     public void shouldNotFulfilBcgIfBcgDateNotPresentInChild(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         bcgService.process(child);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
     @Test
     public void shouldUnenrollFromBcgSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         bcgService.close(mother);

@@ -11,7 +11,7 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ExpirySchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -38,7 +38,7 @@ public class MotherCareServiceTest {
     public void shouldEnrollMotherForMotherCareSchedule(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setCaseId(caseId);
 
@@ -48,7 +48,7 @@ public class MotherCareServiceTest {
 
     @Test
     public void shouldNotEnrollMotherForMotherCareWhenEDDIsNull(){
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId("caseId");
 
         motherCareService.process(mother);

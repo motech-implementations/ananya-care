@@ -13,8 +13,8 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.schedule.VitaService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -40,8 +40,8 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Mother.class);
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(MotherCase.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Before
@@ -58,7 +58,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         DateTime dob = DateUtil.newDateTime(DateUtil.today().minusMonths(4));
 
         String motherCaseId = "motherCaseId";
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId,vitaScheduleName);
@@ -74,9 +74,9 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         assertEquals(dob.plusMonths(9), enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
         assertEquals(dob.plusMonths(24), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
         
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getVitamin1Date());
+        assertNull(childFromDb.getVitA1Time());
     }
 
     @Test
@@ -86,15 +86,15 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         DateTime vitaTaken = DateUtil.newDateTime(DateUtil.today().plusMonths(1));
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
         child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withVitamin1Date(vitaTaken).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         assertNull(trackingService.getEnrollment(caseId, vitaScheduleName));
 
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(vitaTaken, childFromDb.getVitamin1Date());
+        assertEquals(vitaTaken, childFromDb.getVitA1Time());
     }
 }

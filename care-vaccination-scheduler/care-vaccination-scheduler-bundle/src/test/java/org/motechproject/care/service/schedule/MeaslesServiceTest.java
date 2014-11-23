@@ -11,8 +11,9 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -40,7 +41,7 @@ public class MeaslesServiceTest {
     public void shouldEnrollChildForMeaslesSchedule(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -50,7 +51,7 @@ public class MeaslesServiceTest {
 
     @Test
     public void shouldNotEnrollChildForMeaslesScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         measlesService.process(child);
@@ -61,23 +62,23 @@ public class MeaslesServiceTest {
     public void shouldFulfilMeaslesIfMeaslesDatePresentInChild(){
         DateTime measlesDate = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setMeaslesDate(measlesDate);
+        ChildCase child = new ChildCase();
+        child.setMeaslesTime(measlesDate);
         child.setCaseId(caseId);
 
         measlesService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Measles.toString(), measlesDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Measles.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.Measles.toString());
     }
 
     @Test
     public void shouldNotFulfilMeaslesIfMeaslesDateNotPresentInChild(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         measlesService.process(child);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
 
@@ -85,7 +86,7 @@ public class MeaslesServiceTest {
     public void shouldUnenrollFromMeaslesSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         measlesService.close(mother);

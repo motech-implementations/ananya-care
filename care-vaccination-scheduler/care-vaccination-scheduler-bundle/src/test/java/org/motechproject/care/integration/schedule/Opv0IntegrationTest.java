@@ -13,7 +13,7 @@ import org.motechproject.care.service.schedule.Opv0Service;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -47,7 +47,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId, scheduleName);
@@ -72,9 +72,9 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         assertEquals(dob, enrollment.getStartOfDueWindow().withTimeAtStartOfDay());
         assertEquals(dob.plusDays(15), enrollment.getStartOfLateWindow().withTimeAtStartOfDay());
 
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getOpv0Date());
+        assertNull(childFromDb.getOpv0Time());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         markScheduleForUnEnrollment(caseId,  scheduleName);
@@ -94,9 +94,9 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         assertTrue(trackingService.searchWithWindowDates(query).isEmpty());
         
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getOpv0Date());
+        assertNull(childFromDb.getOpv0Time());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         DateTime OPV0Taken = DateUtil.newDateTime(DateUtil.today().minusMonths(1));
         String motherCaseId = "motherCaseId";
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV0Date(null).withMotherCaseId(motherCaseId).build();
         childService.process(child);
 
         EnrollmentsQuery query = new EnrollmentsQuery()
@@ -123,8 +123,8 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         assertNull(trackingService.getEnrollment(caseId, scheduleName));
 
-        Child childFromDb = dbRepository.get(Child.class, "caseId", caseId);
+        ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(OPV0Taken, childFromDb.getOpv0Date());
+        assertEquals(OPV0Taken, childFromDb.getOpv0Time());
     }
 }

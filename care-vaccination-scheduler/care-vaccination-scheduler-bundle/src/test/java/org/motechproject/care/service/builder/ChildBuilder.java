@@ -2,7 +2,10 @@ package org.motechproject.care.service.builder;
 
 
 import org.joda.time.DateTime;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 public class ChildBuilder {
 
@@ -33,40 +36,48 @@ public class ChildBuilder {
     private DateTime opv3Date=new DateTime(2012, 4, 2, 0, 0, 0);
     private DateTime opvBoosterDate=new DateTime(2012, 5, 2, 0, 0, 0);
 
-    private boolean isAlive = true;
+    private String isAlive = "yes";
     private boolean expired;
 
-    public Child build(){
+    public ChildCase build(){
 
-        Child child = new Child();
+        Flw flw = new Flw();
+        flw.setFlwId(userId);
+        
+        FlwGroup flwGroup = new FlwGroup();
+        flwGroup.setGroupId(groupId);
+        
+        MotherCase motherCase= new MotherCase();
+        motherCase.setCaseId(motherCaseId);
+        ChildCase child = new ChildCase();
         child.setName(caseName);
-        child.setFlwId(userId);
+        child.setFlw(flw);
         child.setCaseId(caseId);
-        child.setGroupId(groupId);
+        child.setFlwGroup(flwGroup);
         child.setDob(dob);
         child.setIsAlive(isAlive);
-        child.setMotherCaseId(motherCaseId);
+        child.setMotherCase(motherCase);
         child.setDateModified(dateModified);
 
-        child.setDpt1Date(dpt1Date);
-        child.setDpt2Date(dpt2Date);
-        child.setDpt3Date(dpt3Date);
-        child.setDptBoosterDate(dptBoosterDate);
+        child.setDpt1Time(dpt1Date);
+        child.setDpt2Time(dpt2Date);
+        child.setDpt3Time(dpt3Date);
+        child.setDptBoosterTime(dptBoosterDate);
 
-        child.setHep0Date(hep0Date);
-        child.setHep1Date(hep1Date);
-        child.setHep2Date(hep2Date);
-        child.setHep3Date(hep3Date);
+        child.setHepB0Time(hep0Date);
+        child.setHepB1Time(hep1Date);
+        child.setHepB2Time(hep2Date);
+        child.setHepB3Time(hep3Date);
 
-        child.setBcgDate(bcgDate);
-        child.setMeaslesDate(measlesDate);
-        child.setVitamin1Date(vitamin1Date);
+        child.setBcgTime(bcgDate);
+        child.setMeaslesTime(measlesDate);
+        child.setVitA1Time(vitamin1Date);
 
-        child.setOpv0Date(opv0Date);
-        child.setOpv1Date(opv1Date);
-        child.setOpv2Date(opv2Date);
-        child.setOpv3Date(opv3Date);
-        child.setOpvBoosterDate(opvBoosterDate);
+        child.setOpv0Time(opv0Date);
+        child.setOpv1Time(opv1Date);
+        child.setOpv2Time(opv2Date);
+        child.setOpv3Time(opv3Date);
+        child.setOpvBoosterTime(opvBoosterDate);
         child.setExpired(expired);
 
         return child;
@@ -185,7 +196,7 @@ public class ChildBuilder {
         return this;
     }
 
-    public ChildBuilder withAlive(boolean isAlive){
+    public ChildBuilder withAlive(String isAlive){
         this.isAlive = isAlive;
         return this;
     }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <artifactId>ananya-care</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
         <version>0.24.2</version>
-        <relativePath>../</relativePath>
+	<relativePath>../</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +20,8 @@
     <modules>
         <module>${project.artifactId}-bundle</module>
         <module>${project.artifactId}-scheduling</module>
-        <!-- <module>${project.artifactId}-dummy-commcare-hq</module> -->
+<module>case-integration</module>
+        <!--<module>${project.artifactId}-dummy-commcare-hq</module>-->
     </modules>
 
     <properties>
@@ -28,7 +30,7 @@
         <httpcomponents.version>4.1.2</httpcomponents.version>
         <quartz.version>2.1.5</quartz.version>
         <release.version>${project.version}</release.version>
-        <motech.version>0.21.1</motech.version>
+        <motech.version>0.24.2</motech.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <db.server>localhost</db.server>
@@ -40,6 +42,7 @@
         <activemq.host>localhost</activemq.host>
         <activemq.port>8161</activemq.port>
         <activemq.queue.name>QueueForEventsCare QueueForScheduler</activemq.queue.name>
+<motech.ananya.group>org.motechproject.ananya-care</motech.ananya.group>
     </properties>
 
     <distributionManagement>
@@ -91,31 +94,6 @@
             <name>Repository for javax transaction API</name>
             <url>http://mvnrepository.com/artifact/javax.transaction/jta/1.1</url>
         </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.release</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/release</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.bundles.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
-            <url>http://repository.springsource.com/maven/bundles/external</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.libraries.release</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Library Releases</name>
-            <url>http://repository.springsource.com/maven/libraries/release</url>
-        </repository>
-
-        <repository>
-            <id>com.springsource.repository.libraries.external</id>
-            <name>SpringSource Enterprise Bundle Repository - External Library Releases</name>
-            <url>http://repository.springsource.com/maven/libraries/external</url>
-        </repository>
-
     </repositories>
 
     <pluginRepositories>
@@ -174,7 +152,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <!-- <version>2.4</version> -->
+                   <!-- <version>2.4</version>-->
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -199,7 +177,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <outputDirectory />
+                    <outputDirectory/>
                 </configuration>
             </plugin>
             <plugin>
@@ -218,7 +196,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
                 <version>1.0-alpha-2</version>
@@ -235,7 +213,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -244,13 +222,13 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target>
-                                <echo message="Clearing ActiveMQ Queues: START" />
+                                <echo message="Clearing ActiveMQ Queues: START"/>
                                 <exec executable="sh">
-                                    <arg value="${main.basedir}/build/deleteQueue.sh" />
-                                    <arg value="${activemq.host}:${activemq.port}" />
-                                    <arg value="${activemq.queue.name}" />
+                                    <arg value="${main.basedir}/build/deleteQueue.sh"/>
+                                    <arg value="${activemq.host}:${activemq.port}"/>
+                                    <arg value="${activemq.queue.name}"/>
                                 </exec>
-                                <echo message="Clearing ActiveMQ Queues: END" />
+                                <echo message="Clearing ActiveMQ Queues: END"/>
                             </target>
                         </configuration>
                         <goals>
@@ -262,13 +240,13 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target>
-                                <echo message="Clearing Couchdb: START" />
+                                <echo message="Clearing Couchdb: START"/>
                                 <exec executable="sh">
-                                    <arg value="${main.basedir}/build/deleteCouchDb.sh" />
-                                    <arg value="${db.server}:${db.port}" />
-                                    <arg value="${db.name}" />
+                                    <arg value="${main.basedir}/build/deleteCouchDb.sh"/>
+                                    <arg value="${db.server}:${db.port}"/>
+                                    <arg value="${db.name}"/>
                                 </exec>
-                                <echo message="Clearing Couchdb: END" />
+                                <echo message="Clearing Couchdb: END"/>
                             </target>
                         </configuration>
                         <goals>
@@ -277,12 +255,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
 
                 <dependencies>
-                    <!-- specify the dependent jdbc driver here -->
                     <dependency>
                         <groupId>postgresql</groupId>
                         <artifactId>postgresql</artifactId>
@@ -290,13 +267,11 @@
                     </dependency>
                 </dependencies>
 
-                <!-- common configuration shared by all executions -->
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                     <username>${postgres.other.user}</username>
                     <password>${postgres.other.password}</password>
-                    <!--all executions are ignored if -Dmaven.test.skip=true -->
                     <skip>${maven.test.skip}</skip>
                 </configuration>
 
@@ -308,11 +283,9 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- need another database to drop the targeted one -->
                             <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                             <autocommit>true</autocommit>
                             <sqlCommand>drop database ${postgres.db}</sqlCommand>
-                            <!-- ignore error when database is not available -->
                             <onError>continue</onError>
                         </configuration>
                     </execution>
@@ -323,13 +296,11 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <!-- need another database to drop the targeted one -->
                             <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
                             <username>${postgres.other.user}</username>
                             <password>${postgres.other.password}</password>
                             <autocommit>true</autocommit>
                             <sqlCommand>create database ${postgres.db}</sqlCommand>
-                            <!-- ignore error when database is not available -->
                             <onError>abort</onError>
                         </configuration>
                     </execution>
@@ -351,7 +322,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
@@ -359,12 +330,12 @@
         <!-- Spring 3 dependencies -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.web.servlet</artifactId>
+            <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.core</artifactId>
+            <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
             <exclusions>
                 <exclusion>
@@ -375,18 +346,24 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.test</artifactId>
-            <version>3.1.0.RELEASE</version>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.context</artifactId>
+            <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.web</artifactId>
+            <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
             <exclusions>
                 <exclusion>
@@ -397,7 +374,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.aspects</artifactId>
+            <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
@@ -499,7 +476,7 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
-                                    <!--<argLine>-XX:MaxPermSize=1024M -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000</argLine> -->
+                                    <!--<argLine>-XX:MaxPermSize=1024M -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000</argLine>-->
                                     <includes>
                                         <include>**/qa/*.java</include>
                                     </includes>
@@ -526,5 +503,4 @@
         <developerConnection>scm:git:https://github.com/motech-implementations/ananya-care/care-vaccination-scheduler</developerConnection>
         <url>https://github.com/motech-implementations/ananya-care/care-vaccination-scheduler</url>
     </scm>
-
 </project>

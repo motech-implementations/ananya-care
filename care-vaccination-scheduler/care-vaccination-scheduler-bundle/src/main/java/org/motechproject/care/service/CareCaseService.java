@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.motechproject.care.init.ScheduleInitializer;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 @Controller
 @RequestMapping("/care/**")
 public class CareCaseService extends CaseService<CareCase> {
@@ -39,11 +42,18 @@ public class CareCaseService extends CaseService<CareCase> {
     public void createCase(CareCase careCase) throws CaseException {
         validateCreateCase(careCase);
         String caseType = careCase.getCase_type();
-        if(CaseType.Mother.getType().equals(caseType))
-            motherService.process(MotherMapper.map(careCase));
-        else if(CaseType.Child.getType().equals(caseType))
-            childService.process(ChildMapper.map(careCase));
-        else
+        if(CaseType.Mother.getType().equals(caseType)) {
+            Flw flw = motherService.getFlw(careCase.getUser_id());
+            FlwGroup flwGroup = motherService.getFlwGroup(careCase.getOwner_id());
+            motherService.process(MotherMapper.map(careCase,flw,flwGroup));
+        }
+        else if(CaseType.Child.getType().equals(caseType)) {
+            Flw flw = childService.getFlw(careCase.getUser_id());
+            FlwGroup flwGroup = childService.getFlwGroup(careCase.getOwner_id());
+            MotherCase mother = childService.getMother(careCase.getMother_id());
+            childService.process(ChildMapper.map(careCase,flw,flwGroup,mother));
+        }
+        else 
             logger.info(String.format("Ignoring Case with type: %s", caseType));
     }
 

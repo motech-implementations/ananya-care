@@ -26,11 +26,11 @@ public abstract class VaccinationService {
         if(enrollmentRecord == null)
             return;
         String currentMilestoneName = enrollmentRecord.getCurrentMilestoneName();
-        careCaseTaskService.close(client.getCaseId(), currentMilestoneName);
+        careCaseTaskService.close(client, currentMilestoneName);
     }
 
-    protected void fulfillMilestone(String caseId, MilestoneType milestone, DateTime fulfillmentDate) {
-        schedulerService.fulfillMilestone(caseId, milestone.toString(), fulfillmentDate, scheduleName);
-        careCaseTaskService.close(caseId, milestone.toString());
+    protected void fulfillMilestone(Client client, MilestoneType milestone, DateTime fulfillmentDate) {
+        schedulerService.fulfillMilestone(client.getCaseId(), milestone.toString(), fulfillmentDate, scheduleName);
+        careCaseTaskService.close(client, milestone.toString());
     }
 }

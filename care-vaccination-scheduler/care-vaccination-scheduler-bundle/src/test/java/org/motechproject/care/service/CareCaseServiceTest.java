@@ -16,8 +16,8 @@ import org.motechproject.casexml.service.exception.CaseException;
 import org.motechproject.casexml.parser.CommcareCaseParser;
 import org.motechproject.casexml.exception.CaseParserException;
 import org.motechproject.casexml.builder.ResponseMessageBuilder;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.springframework.http.HttpEntity;
 
 import java.io.File;
@@ -52,8 +52,8 @@ public class CareCaseServiceTest  {
     public void shouldRedirectToMotherServiceIfCaseTypeBelongsToMother() throws IOException {
         String xml = readFile("/sampleMotherCase.xml");
         careCaseService.processCase(new HttpEntity<String>(xml));
-        verify(motherService).process((Mother) Matchers.any());
-        verify(childService, never()).process((Child) Matchers.any());
+        verify(motherService).process((MotherCase) Matchers.any());
+        verify(childService, never()).process((ChildCase) Matchers.any());
     }
 
     @Test
@@ -67,8 +67,8 @@ public class CareCaseServiceTest  {
     public void shouldRedirectToChildServiceIfCaseTypeBelongsToChild() throws IOException {
         String xml = readFile("/sampleChildCase.xml");
         careCaseService.processCase(new HttpEntity<String>(xml));
-        verify(childService).process((Child) Matchers.any());
-        verify(motherService, never()).process((Mother) Matchers.any());
+        verify(childService).process((ChildCase) Matchers.any());
+        verify(motherService, never()).process((MotherCase) Matchers.any());
     }
 
     @Test
@@ -76,8 +76,8 @@ public class CareCaseServiceTest  {
         String xml = readFile("/sampleChildCase.xml");
         xml = xml.replace("cc_bihar_newborn", "task");
         careCaseService.processCase(new HttpEntity<String>(xml));
-        verify(childService, never()).process((Child) Matchers.any());
-        verify(motherService, never()).process((Mother) Matchers.any());
+        verify(childService, never()).process((ChildCase) Matchers.any());
+        verify(motherService, never()).process((MotherCase) Matchers.any());
     }
 
     private String readFile(String resourcePath) throws IOException {

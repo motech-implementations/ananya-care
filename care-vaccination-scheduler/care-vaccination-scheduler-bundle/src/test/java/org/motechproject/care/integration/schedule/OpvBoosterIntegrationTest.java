@@ -4,7 +4,6 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.ChildService;
@@ -14,25 +13,19 @@ import org.motechproject.care.service.schedule.OpvBoosterService;
 import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Child;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
-import org.motechproject.testing.osgi.BasePaxIT;
-import org.ops4j.pax.exam.ExamFactory;
-import org.ops4j.pax.exam.junit.PaxExam;
-import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
-import org.ops4j.pax.exam.spi.reactors.PerSuite;
-import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
 import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+
 
 public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
 
@@ -47,7 +40,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Child.class);
+        dbRepository.deleteAll(ChildCase.class);
     }
 
     @Before
@@ -67,7 +60,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime expectedReferenceDate = dob.plusMonths(16).plus(periodUtil.getScheduleOffset());
         DateTime expectedStartDueDate = dob.plusMonths(16);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment;
@@ -92,7 +85,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime expectedStartDueDate = opv3Date.plusDays(180);
         DateTime expectedStartLateDate = expectedReferenceDate.plusMonths(8).plusWeeks(2);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment;
@@ -115,7 +108,7 @@ public class OpvBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime opv3Date = dob.plusMonths(15);
         DateTime opvBoosterDate = dob.plusMonths(21);
 
-        Child child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
+        ChildCase child=new ChildBuilder().withCaseId(caseId).withDOB(dob).withOPV1Date(null).withOPV2Date(null).withOPV3Date(null).withOPVBoosterDate(null).build();
         childService.process(child);
         markScheduleForUnEnrollment(caseId, scheduleName);
         assertNull(getEnrollmentRecord(scheduleName, caseId, EnrollmentStatus.ACTIVE));

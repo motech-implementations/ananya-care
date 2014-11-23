@@ -11,8 +11,9 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,7 +40,7 @@ public class VitaServiceTest {
     public void shouldEnrollChildForVitaSchedule(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -49,7 +50,7 @@ public class VitaServiceTest {
 
     @Test
     public void shouldNotEnrollChildForVitaScheduleWhenDOBIsNull(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         vitaService.process(child);
@@ -60,30 +61,30 @@ public class VitaServiceTest {
     public void shouldFulfilVitaIfVitaDatePresentInChild(){
         DateTime vitaDate = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
-        child.setVitamin1Date(vitaDate);
+        ChildCase child = new ChildCase();
+        child.setVitA1Time(vitaDate);
         child.setCaseId(caseId);
 
         vitaService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.VitaminA.toString(), vitaDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.VitaminA.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.VitaminA.toString());
     }
 
     @Test
     public void shouldNotFulfilVitaIfVitaDateNotPresentInChild(){
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setCaseId("caseId");
 
         vitaService.process(child);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
     @Test
     public void shouldUnenrollFromVitaSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         vitaService.close(mother);

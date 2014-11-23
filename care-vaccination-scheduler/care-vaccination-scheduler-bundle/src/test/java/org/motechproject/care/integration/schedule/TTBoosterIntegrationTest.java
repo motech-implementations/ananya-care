@@ -14,7 +14,7 @@ import org.motechproject.care.service.schedule.VaccinationService;
 import org.motechproject.care.service.util.PeriodUtil;
 import org.motechproject.care.utils.CaseUtils;
 import org.motechproject.care.utils.SpringIntegrationTest;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.EnrollmentStatus;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
@@ -39,7 +39,7 @@ public class TTBoosterIntegrationTest extends SpringIntegrationTest {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(Mother.class);
+        dbRepository.deleteAll(MotherCase.class);
     }
 
     @Before
@@ -55,7 +55,7 @@ public class TTBoosterIntegrationTest extends SpringIntegrationTest {
 
         DateTime edd = DateUtil.newDateTime(DateUtil.today()).plusMonths(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withLastPregTT(true).withTTBooster(null).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withLastPregTT("yes").withTTBooster(null).build();
         motherService.process(mother);
         markScheduleForUnEnrollment(caseId, scheduleName);
         EnrollmentRecord enrollment = getEnrollmentRecord(scheduleName, caseId, EnrollmentStatus.ACTIVE);
@@ -73,7 +73,7 @@ public class TTBoosterIntegrationTest extends SpringIntegrationTest {
         DateTime edd = today.plusDays(PeriodUtil.DAYS_IN_9_MONTHS);
         DateTime ttBoosterDate = today.plusWeeks(4);
 
-        Mother mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withLastPregTT(true).withTTBooster(ttBoosterDate).build();
+        MotherCase mother=new MotherBuilder().withCaseId(caseId).withEdd(edd).withLastPregTT("yes").withTTBooster(ttBoosterDate).build();
         motherService.process(mother);
 
         assertNull(trackingService.getEnrollment(caseId, scheduleName));

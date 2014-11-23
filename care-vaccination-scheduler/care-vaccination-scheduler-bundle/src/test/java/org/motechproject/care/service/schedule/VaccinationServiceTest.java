@@ -10,7 +10,7 @@ import org.motechproject.care.schedule.service.MilestoneType;
 import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.mcts.care.common.mds.domain.Client;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
 
 import static org.mockito.Mockito.*;
@@ -37,8 +37,8 @@ public class VaccinationServiceTest {
             }
 
             @Override
-            public void fulfillMilestone(String caseId, MilestoneType milestoneType, DateTime fulfillmentDate) {
-                super.fulfillMilestone(caseId, milestoneType, fulfillmentDate);
+            public void fulfillMilestone(Client client, MilestoneType milestoneType, DateTime fulfillmentDate) {
+                super.fulfillMilestone(client, milestoneType, fulfillmentDate);
             }
         };
     }
@@ -47,7 +47,7 @@ public class VaccinationServiceTest {
     public void shouldUnenrollAndReturnCurrentEnrollmentRecord() {
         String caseId = "caseId";
         String milestoneName = "milestoneName";
-        Client client = new Mother();
+        Client client = new MotherCase();
         client.setCaseId(caseId);
 
         EnrollmentRecord expectedEnrollmentRecord = enrollmentRecordForMilestone(milestoneName);
@@ -55,19 +55,21 @@ public class VaccinationServiceTest {
 
         vaccinationService.close(client);
         verify(schedulerService, only()).unenroll(caseId, scheduleName);
-        verify(careCaseTaskService, only()).close(caseId, milestoneName);
+        verify(careCaseTaskService, only()).close(client, milestoneName);
     }
 
     @Test
     public void shouldCloseTheCaseDuringFulfillment() {
+        Client client = new Client();
         String caseId = "mycaseid";
+        client.setCaseId(caseId);
         MilestoneType milestone = MilestoneType.Anc3;
         DateTime fulfillmentDate = DateTime.now();
 
-        vaccinationService.fulfillMilestone(caseId, milestone, fulfillmentDate);
+        vaccinationService.fulfillMilestone(client, milestone, fulfillmentDate);
 
         verify(schedulerService).fulfillMilestone(caseId, milestone.toString(), fulfillmentDate, scheduleName);
-        verify(careCaseTaskService).close(caseId, milestone.toString());
+        verify(careCaseTaskService).close(client, milestone.toString());
     }
 
     private EnrollmentRecord enrollmentRecordForMilestone(String currentMilestoneName) {

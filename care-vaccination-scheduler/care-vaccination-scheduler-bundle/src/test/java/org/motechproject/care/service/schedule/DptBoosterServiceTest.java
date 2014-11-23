@@ -13,8 +13,8 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.ChildVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Child;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -45,9 +45,9 @@ public class DptBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime dpt3Taken = dob.plusMonths(17);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setDpt3Date(dpt3Taken);
+        child.setDpt3Time(dpt3Taken);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
@@ -59,9 +59,9 @@ public class DptBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime dpt3Taken = dob.plusMonths(8);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setDpt3Date(dpt3Taken);
+        child.setDpt3Time(dpt3Taken);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
@@ -73,9 +73,9 @@ public class DptBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime dpt3Taken = dob.plusMonths(11);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setDpt3Date(dpt3Taken);
+        child.setDpt3Time(dpt3Taken);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
@@ -86,7 +86,7 @@ public class DptBoosterServiceTest {
     public void shouldNotEnrollChildForDPTBoosterScheduleWhenDPT3IsNotTaken(){
         DateTime dob = new DateTime();
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
         child.setCaseId(caseId);
 
@@ -99,9 +99,9 @@ public class DptBoosterServiceTest {
         DateTime dob = new DateTime();
         DateTime dpt3Taken = dob.plusMonths(19);
         String caseId = "caseId";
-        Child child = new Child();
+        ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setDpt3Date(dpt3Taken);
+        child.setDpt3Time(dpt3Taken);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
@@ -113,19 +113,19 @@ public class DptBoosterServiceTest {
         DateTime dptBoosterDate = new DateTime();
         String caseId = "caseId";
 
-        Child child = new Child();
-        child.setDptBoosterDate(dptBoosterDate);
+        ChildCase child = new ChildCase();
+        child.setDptBoosterTime(dptBoosterDate);
         child.setCaseId(caseId);
 
         dptBoosterService.process(child);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.DPTBooster.toString(), dptBoosterDate, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.DPTBooster.toString());
+        Mockito.verify(careCaseTaskService).close(child, MilestoneType.DPTBooster.toString());
     }
 
     @Test
     public void shouldUnenrollFromDptBoosterSchedule(){
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
 
         dptBoosterService.close(mother);

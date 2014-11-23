@@ -12,7 +12,8 @@ import org.motechproject.care.schedule.service.ScheduleService;
 import org.motechproject.care.schedule.vaccinations.MotherVaccinationSchedule;
 import org.motechproject.care.service.CareCaseTaskService;
 import org.motechproject.care.service.util.PeriodUtil;
-import org.motechproject.mcts.care.common.mds.domain.Mother;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.Client;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -39,7 +40,7 @@ public class AncServiceTest {
     public void shouldEnrollMotherForAncSchedule(){
         DateTime edd = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setEdd(edd);
         mother.setCaseId(caseId);
 
@@ -49,7 +50,7 @@ public class AncServiceTest {
 
     @Test
     public void shouldNotEnrollMotherForAncScheduleWhenEDDIsNull(){
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId("caseId");
 
         ancService.process(mother);
@@ -60,56 +61,56 @@ public class AncServiceTest {
     public void shouldFulfillAnc1IfAnc1DatePresentInMother(){
         DateTime anc1Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setAnc1Date(anc1Date);
         mother.setCaseId(caseId);
 
         ancService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Anc1.toString(), anc1Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Anc1.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.Anc1.toString());
     }
 
     @Test
     public void shouldFulfillAnc2IfAnc2DatePresentInMother(){
         DateTime anc2Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setAnc2Date(anc2Date);
         mother.setCaseId(caseId);
 
         ancService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Anc2.toString(), anc2Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Anc2.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.Anc2.toString());
     }
 
     @Test
     public void shouldFulfillAnc3IfAnc3DatePresentInMother(){
         DateTime anc3Date = new DateTime();
         String caseId = "caseId";
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setAnc3Date(anc3Date);
         mother.setCaseId(caseId);
 
         ancService.process(mother);
         Mockito.verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Anc3.toString(), anc3Date, scheduleName);
-        Mockito.verify(careCaseTaskService).close(caseId, MilestoneType.Anc3.toString());
+        Mockito.verify(careCaseTaskService).close(mother, MilestoneType.Anc3.toString());
     }
 
     @Test
     public void shouldNotFulfillAnc1OrAnc2OrAnc3IfNeitherOfTheTakenDatesArePresentInMother(){
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId("caseId");
 
         ancService.process(mother);
         verify(schedulerService, never()).fulfillMilestone(any(String.class), any(String.class), any(DateTime.class), anyString());
-        Mockito.verify(careCaseTaskService, never()).close(any(String.class), any(String.class));
+        Mockito.verify(careCaseTaskService, never()).close(any(Client.class), any(String.class));
     }
 
     @Test
     public void shouldUnenrollFromAncSchedule(){
         String caseId = "caseId";
 
-        Mother mother = new Mother();
+        MotherCase mother = new MotherCase();
         mother.setCaseId(caseId);
         ancService.close(mother);
         Mockito.verify(schedulerService).unenroll(caseId, scheduleName);

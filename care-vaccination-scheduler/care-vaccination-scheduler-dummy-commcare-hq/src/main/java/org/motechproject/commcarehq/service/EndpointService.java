@@ -24,15 +24,15 @@ import java.io.StringReader;
 @RequestMapping("/**")
 public class EndpointService {
 
-    private AllAlertDocCases allCareCases;
-    private AlertDocCaseFactory alertDocCaseFactory;
+    //private AllAlertDocCases allCareCases;
+   // private AlertDocCaseFactory alertDocCaseFactory;
 
     Logger logger = Logger.getLogger(EndpointService.class);
 
-    @Autowired
-    public EndpointService(AllAlertDocCases allCareCases, AlertDocCaseFactory alertDocCaseFactory) {
-        this.allCareCases = allCareCases;
-        this.alertDocCaseFactory = alertDocCaseFactory;
+    
+    public EndpointService(/*AllAlertDocCases allCareCases, AlertDocCaseFactory alertDocCaseFactory*/) {
+       // this.allCareCases = allCareCases;
+        //this.alertDocCaseFactory = alertDocCaseFactory;
     }
 
     @RequestMapping(value="/", method= RequestMethod.GET)
@@ -64,7 +64,7 @@ public class EndpointService {
         try {
             parser.parse(inputSource);
             Document document = parser.getDocument();
-            return alertDocCaseFactory.getAlertDocCase(xmlDocument, document);
+            return null/*alertDocCaseFactory.getAlertDocCase(xmlDocument, document)*/;
 
         } catch (IOException ex) {
             throw new MalformedXmlException();
@@ -76,8 +76,8 @@ public class EndpointService {
 
     private ValidationResponse processDocument(String xmlDocument) {
         try {
-            AlertDocCase careCase = careCase(xmlDocument);
-            allCareCases.add(careCase);
+            //AlertDocCase careCase = careCase(xmlDocument);
+            //allCareCases.add(careCase);
             logger.info(xmlDocument);
         } catch (IllegalArgumentException ex) {
             return ValidationResponse.MISSING;
