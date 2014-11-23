@@ -3,6 +3,7 @@ package org.motechproject.mcts.care.common.mds.dimension;
 import java.util.Arrays;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
@@ -434,8 +435,7 @@ public class ChildCase extends Client implements java.io.Serializable,
         }
 
         List<String> fieldsToIgnore = Arrays.asList("id", "caseId",
-                "creationTime", "closedOn", "closedBy", "closed", "modifiedBy",
-                "modificationDate", "creationDate", "creator");  //TODO: remove modiifedby later
+                "creationTime", "closedOn", "closedBy", "closed");
         updateFields(updated, fieldsToIgnore);
     }
 
@@ -447,8 +447,6 @@ public class ChildCase extends Client implements java.io.Serializable,
     public void updateFields(ChildCase source, List<String> ignoredFields) {
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
-<<<<<<< d8f63575de07d31116d8cf577b287baa745b1d62
-=======
     }
 
     @Field
@@ -469,7 +467,6 @@ public class ChildCase extends Client implements java.io.Serializable,
 
     public void setFlwGroup(FlwGroup flwGroup) {
         this.flwGroup = flwGroup;
->>>>>>> 51ce98855dba92fa5fb82953ea6523f5297a5856
     }
 
     private boolean isLatest(ChildCase updatedObject) {
