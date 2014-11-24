@@ -139,8 +139,9 @@ public class FlwGroup implements java.io.Serializable, SelfUpdatable<FlwGroup> {
     public void updateToLatest(FlwGroup other) {
         validateIfUpdatable(this.groupId, other.groupId);
 
-        updateFields(other,
-                Arrays.asList("id", "groupId", "creationTime", "flws"));
+        updateFields(other, Arrays.asList("id", "groupId", "creationTime",
+                "flws", "modifiedBy", "modificationDate", "creationDate",
+                "creator")); // TODO: remove later
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {

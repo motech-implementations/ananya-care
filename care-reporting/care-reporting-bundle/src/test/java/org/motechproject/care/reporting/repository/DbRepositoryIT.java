@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +35,6 @@ import org.ops4j.pax.exam.ExamFactory;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
 import org.ops4j.pax.exam.spi.reactors.PerSuite;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.unitils.reflectionassert.ReflectionAssert;
 
 @RunWith(PaxExam.class)
@@ -41,7 +42,7 @@ import org.unitils.reflectionassert.ReflectionAssert;
 @ExamFactory(MotechNativeTestContainerFactory.class)
 public class DbRepositoryIT  extends BasePaxIT {
 
-    @Autowired
+    @Inject
     private Repository dbRepository;
 
     @Before
