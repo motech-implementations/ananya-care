@@ -5,24 +5,36 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import org.hibernate.SessionFactory;
+import javax.inject.Inject;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
-public class ChildCaseConverterIT  {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class ChildCaseConverterIT extends BasePaxIT {
 
-    @Autowired
+    @Inject
     private ChildCaseConverter childCaseConverter;
-    @Autowired
-    private SessionFactory sessionFactory;
-    private HibernateTemplate template;
+
+    @Inject
+    MdsRepository dbRepository;
 
     @Test
     public void shouldGetANewChildIfDoesNotExists() throws Exception {
-        Object convertedChildCase = childCaseConverter.convert(ChildCase.class, "123456789");
-        boolean isPersisted = sessionFactory.getCurrentSession().contains(convertedChildCase);
+        Object convertedChildCase = childCaseConverter.convert(ChildCase.class,
+                "123456789");
+        boolean isPersisted = dbRepository.get(ChildCase.class, "caseId",
+                "123456789") == null ? false : true;
         assertFalse(isPersisted);
         assertEquals("123456789", ((ChildCase) convertedChildCase).getCaseId());
     }
@@ -31,19 +43,23 @@ public class ChildCaseConverterIT  {
     public void shouldGetPersistedObjectIfChildCaseExists() throws Exception {
         ChildCase childCaseCase = new ChildCase();
         childCaseCase.setCaseId("123456789");
-        template.save(childCaseCase);
+        dbRepository.save(childCaseCase);
 
-        Object convertedObject = childCaseConverter.convert(ChildCase.class, "123456789");
-        boolean isPersisted = sessionFactory.getCurrentSession().contains(convertedObject);
+        childCaseConverter.convert(ChildCase.class, "123456789");
+        boolean isPersisted = dbRepository.get(ChildCase.class, "caseId",
+                "123456789") == null ? false : true;
         assertTrue(isPersisted);
+        dbRepository.delete(childCaseCase);
     }
 
     @Test
     public void shouldReturnNullIfPassedValueIsNullOrNotOfTypeString() {
-        Object convertedValue = childCaseConverter.convert(ChildCase.class, null);
+        Object convertedValue = childCaseConverter.convert(ChildCase.class,
+                null);
         assertNull(convertedValue);
 
-        convertedValue = childCaseConverter.convert(ChildCase.class, new Object());
+        convertedValue = childCaseConverter.convert(ChildCase.class,
+                new Object());
         assertNull(convertedValue);
     }
 }

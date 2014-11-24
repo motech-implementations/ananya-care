@@ -6,9 +6,12 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
@@ -17,10 +20,18 @@ import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
-public class MotherCaseProcessorIT {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class MotherCaseProcessorIT extends BasePaxIT {
 
     public static final DateTime JAN_01 = DateTime.parse("2013-01-01T02:10:23.923Z");
 
@@ -28,11 +39,12 @@ public class MotherCaseProcessorIT {
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String ownerId = "89fda0284e008d2e0c980fb13fbb49e6";
 
-    @Autowired
+    @Inject
     private MotherCaseProcessor motherCaseProcessor;
     private FlwGroup flwGroup;
     private Flw flw;
-    private HibernateTemplate template;
+    @Inject
+    MdsRepository dbRepository;
 
     @Before
     public void setUp() {
@@ -41,9 +53,8 @@ public class MotherCaseProcessorIT {
         flw = new Flw();
         flw.setFlwId(userId);
 
-        //TODO: uncomment below
-        //flwGroup.getFlws().add(flw);
-        template.save(flwGroup);
+        flwGroup.getFlws().add(flw);
+        dbRepository.save(flwGroup);
     }
 
     @Test
@@ -60,7 +71,7 @@ public class MotherCaseProcessorIT {
 
         motherCaseProcessor.process(caseEvent);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
         MotherCase expectedMotherCase = new MotherCaseBuilder()
                 .clear()
@@ -85,7 +96,7 @@ public class MotherCaseProcessorIT {
                 .serverDateModified(JAN_01)
                 .close()
                 .build();
-        template.save(motherCase);
+        dbRepository.save(motherCase);
 
         CaseEvent updatedCase = new CaseEventBuilder(caseId)
                 .withCaseName("User 2")
@@ -95,7 +106,7 @@ public class MotherCaseProcessorIT {
 
         motherCaseProcessor.process(updatedCase);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
         MotherCase updatedMotherCase = motherCases.get(0);
         assertTrue(updatedMotherCase.getClosed());

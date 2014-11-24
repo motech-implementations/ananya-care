@@ -5,23 +5,36 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.care.reporting.builder.CommcareFormBuilder;
 import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
 import org.motechproject.mcts.care.common.mds.measure.MotherEditForm;
 import org.motechproject.mcts.care.common.mds.measure.MoveBeneficiaryForm;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
-public class FormProcessorIT  {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class FormProcessorIT extends BasePaxIT {
 
-    @Autowired
+    @Inject
     private FormProcessor formProcessor;
 
-    private HibernateTemplate template;
+    @Inject
+    MdsRepository dbRepository;
+    
     @Test
     public void shouldSaveMotherEditForm() {
         String motherCaseId = "94d5374f-290e-409f-bc57-86c2e4bcc43f";
@@ -69,7 +82,7 @@ public class FormProcessorIT  {
 
         formProcessor.process(newFormData);
 
-        List<MotherEditForm> motherEditForms = template.loadAll(MotherEditForm.class);
+        List<MotherEditForm> motherEditForms = dbRepository.retrieveAll(MotherEditForm.class);
         assertEquals(1, motherEditForms.size());
         MotherEditForm motherEditForm = motherEditForms.get(0);
         assertEquals(receivedOn.toDate(), motherEditForm.getServerDateModified());
@@ -133,7 +146,7 @@ public class FormProcessorIT  {
 
         formProcessor.process(moveBeneficiaryForm);
 
-        List<MoveBeneficiaryForm> forms = template.loadAll(MoveBeneficiaryForm.class);
+        List<MoveBeneficiaryForm> forms = dbRepository.retrieveAll(MoveBeneficiaryForm.class);
         assertEquals(1, forms.size());
         MoveBeneficiaryForm moveForm = forms.get(0);
 

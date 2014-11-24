@@ -21,14 +21,6 @@ public class AnnotationUtilsTest {
         assertEquals(expectedField, AnnotationUtils.getExternalPrimaryKeyField(TestClass.class));
     }
 
-    @Test
-    public void shouldConsiderSuperClassFieldsAlso(){
-        PncChildForm pncChildForm = new PncChildForm();
-        pncChildForm.setInstanceId("myInstanceId");
-
-        assertEquals("myInstanceId", AnnotationUtils.getExternalPrimaryKeyValue(pncChildForm));
-    }
-
     private class TestClass {
         @ExternalPrimaryKey
         private String field = "value";

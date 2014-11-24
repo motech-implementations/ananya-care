@@ -11,7 +11,7 @@
     </appender>
 
     <appender name="CARE_REPORTING_FILE_TEST" class="org.apache.log4j.FileAppender">
-        <param name="File" value="/home/anuranjan/Work/careReporting.log" />
+        <param name="File" value="/home/aman/careReporting.log" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.EnhancedPatternLayout">
             <param name="ConversionPattern" value="[%t] - %d %-5p [%c] %m%n" />

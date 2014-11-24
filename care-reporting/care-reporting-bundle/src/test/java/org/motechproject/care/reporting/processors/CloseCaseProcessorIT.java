@@ -9,8 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
@@ -19,18 +22,27 @@ import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
-public class CloseCaseProcessorIT {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class CloseCaseProcessorIT extends BasePaxIT {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String serverModifiedOn = "2013-06-13";
 
-    @Autowired
+    @Inject
     private CloseCaseProcessor closeCaseProcessor;
-    private HibernateTemplate template;
 
+    @Inject
+    MdsRepository dbRepository;
     @Test
     public void shouldUpdateCloseCaseWhenMotherCaseAlreadyExists() {
         Flw oldFlw = new FlwBuilder()
@@ -40,9 +52,9 @@ public class CloseCaseProcessorIT {
                 .caseId(caseId)
                 .flw(oldFlw)
                 .build();
-        template.save(mother);
+        dbRepository.save(mother);
         Flw flw = new FlwBuilder().flwId(userId).build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
@@ -52,7 +64,7 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
 
         MotherCase actualMother = motherCases.get(0);
@@ -67,13 +79,13 @@ public class CloseCaseProcessorIT {
     @Test
     public void shouldUpdateCloseCaseWhenChildCaseAlreadyExists() {
         Flw flw = new FlwBuilder().flwId(userId).build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         ChildCase childCase = new ChildCaseBuilder()
                 .caseId(caseId)
                 .flw(new FlwBuilder().flwId("oldda0284e008d2e0c980fb13f989136").build())
                 .build();
-        template.save(childCase);
+        dbRepository.save(childCase);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
@@ -83,7 +95,7 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        List<ChildCase> childCases = dbRepository.retrieveAll(ChildCase.class);
         assertEquals(1, childCases.size());
 
         ChildCase actualChild = childCases.get(0);
@@ -99,8 +111,8 @@ public class CloseCaseProcessorIT {
     public void shouldNotSaveCaseWhenTryingToCloseCaseThatDoesNotExists() {
         closeCaseProcessor.process(new CaseEventBuilder(caseId).withAction("CLOSE").withDateModified("2012-01-01").build());
 
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<ChildCase> childCases = dbRepository.retrieveAll(ChildCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertTrue(childCases.isEmpty());
         assertTrue(motherCases.isEmpty());
     }
@@ -111,7 +123,7 @@ public class CloseCaseProcessorIT {
                 .caseId(caseId)
                 .flw(null)
                 .build();
-        template.save(childCase);
+        dbRepository.save(childCase);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
@@ -122,9 +134,9 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<Flw> flws = template.loadAll(Flw.class);
+        List<Flw> flws = dbRepository.retrieveAll(Flw.class);
         assertEquals(1, flws.size());
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        List<ChildCase> childCases = dbRepository.retrieveAll(ChildCase.class);
 
         assertEquals(userId, childCases.get(0).getClosedBy().getFlwId());
         assertEquals(userId, childCases.get(0).getFlw().getFlwId());
@@ -136,10 +148,10 @@ public class CloseCaseProcessorIT {
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
-        template.save(mother);
+        dbRepository.save(mother);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
@@ -149,7 +161,7 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
         assertEquals(serverDateModified, motherCases.get(0).getClosedOn());
         assertEquals(oldFlwId, motherCases.get(0).getClosedBy().getFlwId());
@@ -161,10 +173,10 @@ public class CloseCaseProcessorIT {
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         MotherCase mother = new MotherCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
-        template.save(mother);
+        dbRepository.save(mother);
 
         String closeDate = "2013-07-05 01:27:35";
         CaseEvent closedCase = new CaseEventBuilder(caseId)
@@ -175,7 +187,7 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         assertEquals(dateFormat.parse(closeDate), motherCases.get(0).getClosedOn());
@@ -188,10 +200,10 @@ public class CloseCaseProcessorIT {
         String oldFlwId = "faab798501ee48fa9d557a24e402ea9b";
         String newFlwId = "23ab798501ee48fa9d557a24e402ea9b";
         Flw flw = new FlwBuilder().flwId(oldFlwId).build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         ChildCase child = new ChildCaseBuilder().caseId(caseId).flw(flw).serverDateModified(serverDateModified).close().build();
-        template.save(child);
+        dbRepository.save(child);
 
         CaseEvent closedCase = new CaseEventBuilder(caseId)
                 .withAction("CLOSE")
@@ -201,7 +213,7 @@ public class CloseCaseProcessorIT {
 
         closeCaseProcessor.process(closedCase);
 
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        List<ChildCase> childCases = dbRepository.retrieveAll(ChildCase.class);
         assertEquals(1, childCases.size());
         assertEquals(serverDateModified, childCases.get(0).getClosedOn());
         assertEquals(oldFlwId, childCases.get(0).getClosedBy().getFlwId());

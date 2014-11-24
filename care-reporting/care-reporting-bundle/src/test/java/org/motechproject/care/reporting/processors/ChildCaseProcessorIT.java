@@ -5,9 +5,12 @@ import static org.motechproject.care.reporting.utils.TestUtils.assertReflectionE
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.care.reporting.builder.CaseEventBuilder;
 import org.motechproject.care.reporting.builder.ChildCaseBuilder;
 import org.motechproject.care.reporting.builder.FlwBuilder;
@@ -16,20 +19,30 @@ import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 
-public class ChildCaseProcessorIT  {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class ChildCaseProcessorIT extends BasePaxIT {
     private final String caseId = "97e56523-5820-414a-83c2-bfcb6dcf4db3";
     private final String userId = "89fda0284e008d2e0c980fb13f989136";
     private final String ownerId = "89fda0284e008d2e0c980fb13fbb49e6";
 
-    @Autowired
+    @Inject
     private ChildCaseProcessor childCaseProcessor;
+
+    @Inject
+    MdsRepository dbRepository;
 
     private FlwGroup flwGroup;
     private Flw flw;
-    private HibernateTemplate template;
 
     @Before
     public void setUp() {
@@ -38,9 +51,8 @@ public class ChildCaseProcessorIT  {
         flw = new Flw();
         flw.setFlwId(userId);
 
-        //TODO: uncomment below
-        //flwGroup.getFlws().add(flw);
-        template.save(flwGroup);
+        flwGroup.getFlws().add(flw);
+        dbRepository.save(flwGroup);
     }
 
     @Test
@@ -57,7 +69,7 @@ public class ChildCaseProcessorIT  {
 
         childCaseProcessor.process(caseEvent);
 
-        List<ChildCase> childCases = template.loadAll(ChildCase.class);
+        List<ChildCase> childCases = dbRepository.retrieveAll(ChildCase.class);
         assertEquals(1, childCases.size());
         ChildCase expectedChildCase = new ChildCaseBuilder()
                 .clear()

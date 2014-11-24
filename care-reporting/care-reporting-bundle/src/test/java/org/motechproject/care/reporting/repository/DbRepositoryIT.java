@@ -18,6 +18,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.motechproject.care.reporting.builder.FlwBuilder;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
@@ -26,25 +27,31 @@ import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.measure.NewForm;
 import org.motechproject.mcts.care.common.mds.repository.Repository;
+import org.motechproject.testing.osgi.BasePaxIT;
+import org.motechproject.testing.osgi.container.MotechNativeTestContainerFactory;
+import org.ops4j.pax.exam.ExamFactory;
+import org.ops4j.pax.exam.junit.PaxExam;
+import org.ops4j.pax.exam.spi.reactors.ExamReactorStrategy;
+import org.ops4j.pax.exam.spi.reactors.PerSuite;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.unitils.reflectionassert.ReflectionAssert;
 
-
-public class DbRepositoryIT  {
+@RunWith(PaxExam.class)
+@ExamReactorStrategy(PerSuite.class)
+@ExamFactory(MotechNativeTestContainerFactory.class)
+public class DbRepositoryIT  extends BasePaxIT {
 
     @Autowired
     private Repository dbRepository;
-    private HibernateTemplate template;
 
     @Before
     @After
     public void setUp() {
-        template.deleteAll(template.loadAll(NewForm.class));
-        template.deleteAll(template.loadAll(ChildCase.class));
-        template.deleteAll(template.loadAll(MotherCase.class));
-        template.deleteAll(template.loadAll(Flw.class));
-        template.deleteAll(template.loadAll(FlwGroup.class));
+        dbRepository.deleteAll(NewForm.class);
+        dbRepository.deleteAll(ChildCase.class);
+        dbRepository.deleteAll(MotherCase.class);
+        dbRepository.deleteAll(Flw.class);
+        dbRepository.deleteAll(FlwGroup.class);
     }
 
     @Test
@@ -75,19 +82,17 @@ public class DbRepositoryIT  {
         flwGroups.add(new FlwGroup());
         flwGroups.add(new FlwGroup());
 
-        //TODO: uncomment below
-        //flw.setFlwGroups(flwGroups);
+        flw.setFlwGroups(flwGroups);
 
-        template.save(flw);
+        dbRepository.save(flw);
 
-        List<Flw> savedFlws = template.loadAll(Flw.class);
-        List<FlwGroup> savedFlwGroups = template.loadAll(FlwGroup.class);
+        List<Flw> savedFlws = dbRepository.retrieveAll(Flw.class);
+        List<FlwGroup> savedFlwGroups = dbRepository.retrieveAll(FlwGroup.class);
         assertEquals(1, savedFlws.size());
         assertEquals(2, savedFlwGroups.size());
         assertEquals(flw, savedFlws.get(0));
 
-        //TODO: uncomment below
-        //assertEquals(flwGroups, savedFlws.get(0).getFlwGroups());
+        assertEquals(flwGroups, savedFlws.get(0).getFlwGroups());
     }
 
     @Test
@@ -100,12 +105,12 @@ public class DbRepositoryIT  {
             add(existingFlwGroup);
             add(newFlwGroup);
         }};
-        template.save(existingFlwGroup);
+        dbRepository.save(existingFlwGroup);
         existingFlwGroup.setName("changedGroupName");
 
         dbRepository.saveOrUpdateAll(flwGroups);
 
-        List<FlwGroup> flwGroupsFromDb = template.loadAll(FlwGroup.class);
+        List<FlwGroup> flwGroupsFromDb = dbRepository.retrieveAll(FlwGroup.class);
         assertEquals(2, flwGroupsFromDb.size());
         assertTrue(flwGroupsFromDb.contains(existingFlwGroup));
         assertTrue(flwGroupsFromDb.contains(newFlwGroup));
@@ -116,7 +121,7 @@ public class DbRepositoryIT  {
         FlwGroup flwGroup1 = flwGroupWithId("5ba9a0928dde95d187544babf6c0ad24");
         FlwGroup flwGroup2 = flwGroupWithId("5ba9a0928dde95d187544babf6c0af36");
         FlwGroup flwGroup3 = flwGroupWithId("5ba9a0928dde95d187544babf6c0ag48");
-        template.saveOrUpdateAll(Arrays.asList(
+        dbRepository.saveOrUpdateAll(Arrays.asList(
                 flwGroup1,
                 flwGroup2,
                 flwGroup3));
@@ -149,7 +154,7 @@ public class DbRepositoryIT  {
 
         dbRepository.save(expectedMother);
 
-        List<MotherCase> motherCases = template.loadAll(MotherCase.class);
+        List<MotherCase> motherCases = dbRepository.retrieveAll(MotherCase.class);
         assertEquals(1, motherCases.size());
         MotherCase actualMother = motherCases.get(0);
         assertEquals(caseId, actualMother.getCaseId());
@@ -160,7 +165,7 @@ public class DbRepositoryIT  {
     @Test
     public void shouldFindByExternalPrimaryKey() throws Exception {
         Flw flw = new FlwBuilder().flwId("5ba9a0928dde95d187544babf6c0ad24").build();
-        template.save(flw);
+        dbRepository.save(flw);
 
         Flw flwFromDb = dbRepository.findByExternalPrimaryKey(Flw.class, "5ba9a0928dde95d187544babf6c0ad24");
 
@@ -181,7 +186,7 @@ public class DbRepositoryIT  {
         motherCase.setCaseId(caseId);
         form.setMotherCase(motherCase);
         form.setInstanceId(instanceId);
-        template.save(form);
+        dbRepository.save(form);
         Map<String, Object> fieldMap = new HashMap<String, Object>() {{
             put("mc.caseId", caseId);
             put("instanceId", instanceId);

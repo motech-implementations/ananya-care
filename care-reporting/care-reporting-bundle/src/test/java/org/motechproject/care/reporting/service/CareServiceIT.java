@@ -53,13 +53,13 @@ public class CareServiceIT extends BasePaxIT {
 
     @After
     public void tearDown() {
-        dbRepository.deleteAll(NewForm.class);
-        dbRepository.deleteAll(RegistrationChildForm.class);
-        dbRepository.deleteAll(DeathChildForm.class);
-        dbRepository.deleteAll(MotherCase.class);
-        dbRepository.deleteAll(ChildCase.class);
-        dbRepository.deleteAll(Flw.class);
-        dbRepository.deleteAll(FlwGroup.class);
+//        dbRepository.deleteAll(NewForm.class);
+//        dbRepository.deleteAll(RegistrationChildForm.class);
+//        dbRepository.deleteAll(DeathChildForm.class);
+//        dbRepository.deleteAll(MotherCase.class);
+//        dbRepository.deleteAll(ChildCase.class);
+//        dbRepository.deleteAll(Flw.class);
+//        dbRepository.deleteAll(FlwGroup.class);
     }
 
     @Test//tested
