@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <parent>
         <artifactId>ananya-care</artifactId>
@@ -20,8 +19,7 @@
     <modules>
         <module>${project.artifactId}-bundle</module>
         <module>${project.artifactId}-scheduling</module>
-<module>case-integration</module>
-        <!--<module>${project.artifactId}-dummy-commcare-hq</module>-->
+        <module>case-integration</module>
     </modules>
 
     <properties>
@@ -42,7 +40,7 @@
         <activemq.host>localhost</activemq.host>
         <activemq.port>8161</activemq.port>
         <activemq.queue.name>QueueForEventsCare QueueForScheduler</activemq.queue.name>
-<motech.ananya.group>org.motechproject.ananya-care</motech.ananya.group>
+        <motech.ananya.group>org.motechproject.ananya-care</motech.ananya.group>
     </properties>
 
     <distributionManagement>
@@ -152,7 +150,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                   <!-- <version>2.4</version>-->
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -177,7 +174,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <outputDirectory/>
+                    <outputDirectory />
                 </configuration>
             </plugin>
             <plugin>
@@ -196,24 +193,6 @@
                     </execution>
                 </executions>
             </plugin>
-           <!-- <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.0-alpha-2</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>${main.basedir}/build/maven.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -222,13 +201,13 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target>
-                                <echo message="Clearing ActiveMQ Queues: START"/>
+                                <echo message="Clearing ActiveMQ Queues: START" />
                                 <exec executable="sh">
-                                    <arg value="${main.basedir}/build/deleteQueue.sh"/>
-                                    <arg value="${activemq.host}:${activemq.port}"/>
-                                    <arg value="${activemq.queue.name}"/>
+                                    <arg value="${main.basedir}/build/deleteQueue.sh" />
+                                    <arg value="${activemq.host}:${activemq.port}" />
+                                    <arg value="${activemq.queue.name}" />
                                 </exec>
-                                <echo message="Clearing ActiveMQ Queues: END"/>
+                                <echo message="Clearing ActiveMQ Queues: END" />
                             </target>
                         </configuration>
                         <goals>
@@ -240,13 +219,13 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target>
-                                <echo message="Clearing Couchdb: START"/>
+                                <echo message="Clearing Couchdb: START" />
                                 <exec executable="sh">
-                                    <arg value="${main.basedir}/build/deleteCouchDb.sh"/>
-                                    <arg value="${db.server}:${db.port}"/>
-                                    <arg value="${db.name}"/>
+                                    <arg value="${main.basedir}/build/deleteCouchDb.sh" />
+                                    <arg value="${db.server}:${db.port}" />
+                                    <arg value="${db.name}" />
                                 </exec>
-                                <echo message="Clearing Couchdb: END"/>
+                                <echo message="Clearing Couchdb: END" />
                             </target>
                         </configuration>
                         <goals>
@@ -255,74 +234,6 @@
                     </execution>
                 </executions>
             </plugin>
-           <!-- <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sql-maven-plugin</artifactId>
-
-                <dependencies>
-                    <dependency>
-                        <groupId>postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>9.1-901.jdbc4</version>
-                    </dependency>
-                </dependencies>
-
-                <configuration>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
-                    <username>${postgres.other.user}</username>
-                    <password>${postgres.other.password}</password>
-                    <skip>${maven.test.skip}</skip>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <id>drop-quartz-db</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
-                            <autocommit>true</autocommit>
-                            <sqlCommand>drop database ${postgres.db}</sqlCommand>
-                            <onError>continue</onError>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>create-quartz-db</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <url>jdbc:postgresql://${postgres.server}:${postgres.port}:postgres</url>
-                            <username>${postgres.other.user}</username>
-                            <password>${postgres.other.password}</password>
-                            <autocommit>true</autocommit>
-                            <sqlCommand>create database ${postgres.db}</sqlCommand>
-                            <onError>abort</onError>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>create-schema</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <url>jdbc:postgresql://${postgres.server}:${postgres.port}/${postgres.db}</url>
-                            <username>${postgres.user}</username>
-                            <password>${postgres.password}</password>
-                            <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>../build/sql/tables_postgres.sql</srcFile>
-                            </srcFiles>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 
@@ -476,7 +387,6 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
-                                    <!--<argLine>-XX:MaxPermSize=1024M -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000</argLine>-->
                                     <includes>
                                         <include>**/qa/*.java</include>
                                     </includes>
