@@ -6,7 +6,6 @@
         <artifactId>ananya-care</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
         <version>0.24.3</version>
-        <relativePath>../</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -17,8 +16,8 @@
     <name>CARE Vaccination Scheduler</name>
 
     <modules>
-        <module>${project.artifactId}-bundle</module>
-        <module>${project.artifactId}-scheduling</module>
+        <module>care-vaccination-scheduler-bundle</module>
+        <module>care-vaccination-scheduler-scheduling</module>
         <module>case-integration</module>
     </modules>
 
