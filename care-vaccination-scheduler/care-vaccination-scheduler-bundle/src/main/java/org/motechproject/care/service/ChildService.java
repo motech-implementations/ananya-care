@@ -34,7 +34,7 @@ public class ChildService extends BaseService<ChildCase> {
     }
 
     private void processExisting(ChildCase childFromDb, ChildCase child) {
-        childFromDb.setValuesFrom(child);
+        childFromDb.valuesSetFrom(child);
         dbRepository.update(childFromDb);
 
         if(childFromDb.isActive()) {

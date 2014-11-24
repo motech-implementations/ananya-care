@@ -48,7 +48,7 @@ public class MotherTest {
         flwGroup.setGroupId("groupid2");
         MotherCase mother = new MotherCase("caseId", null,flw,"name",null,null, DateTime.parse("2010-04-03"),null,null,"no",null,null,null,null,null,"yes");
         MotherCase motherFromDb = new MotherCase("caseId", DateTime.parse("2010-01-01"), null, "name2", flwGroup, null, null,null,null,"no",null,null,null,null,null,"no");
-        motherFromDb.setValuesFrom(mother);
+        motherFromDb.valuesSetFrom(mother);
         Assert.assertEquals(DateTime.parse("2010-01-01"), motherFromDb.getDateModified());
         Assert.assertEquals("flwid", motherFromDb.getFlw().getFlwId());
         Assert.assertEquals("name", motherFromDb.getCaseName());
@@ -64,7 +64,7 @@ public class MotherTest {
         flwGroup.setGroupId("groupId");
         MotherCase mother = new MotherCase("caseId", null,null,"arpan",flwGroup,null, DateTime.parse("2010-04-03"),null,null,"no",null,null,null,null,null,"no");
         MotherCase motherFromDb = new MotherCase("caseId", DateTime.parse("2010-01-01"), flw, "arpana",null, null, null,null,null,"no",null,null,null,null,null,"yes");
-        motherFromDb.setValuesFrom(mother);
+        motherFromDb.valuesSetFrom(mother);
         Assert.assertEquals(DateTime.parse("2010-01-01"), motherFromDb.getDateModified());
         Assert.assertEquals("flwid", motherFromDb.getFlw().getFlwId());
         Assert.assertEquals("arpan", motherFromDb.getCaseName());

@@ -33,7 +33,7 @@ public class MotherService extends BaseService<MotherCase> {
     }
 
     private void processExisting(MotherCase motherFromDb, MotherCase mother) {
-        motherFromDb.setValuesFrom(mother);
+        motherFromDb.valuesSetFrom(mother);
         dbRepository.update(motherFromDb);
 
         if(motherFromDb.isActive())
