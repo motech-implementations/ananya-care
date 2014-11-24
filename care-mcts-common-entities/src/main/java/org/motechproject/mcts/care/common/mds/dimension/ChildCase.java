@@ -496,7 +496,7 @@ public class ChildCase extends Client implements java.io.Serializable,
         return !DateUtil.today().minusYears(1).isBefore(getDob().toLocalDate());
     }
 
-    public void setValuesFrom(ChildCase child) {
+    public void ValuesSetFrom(ChildCase child) {
         try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
             nullAwareBeanUtilsBean.copyProperties(this, child);

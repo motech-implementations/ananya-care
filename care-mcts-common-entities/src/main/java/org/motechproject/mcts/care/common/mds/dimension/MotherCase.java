@@ -1103,7 +1103,7 @@ public class MotherCase extends Client implements java.io.Serializable,
         return super.isActive() && actualDeliveryDate == null;
     }
 
-    public void setValuesFrom(MotherCase mother) {
+    public void ValuesSetFrom(MotherCase mother) {
         try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
             nullAwareBeanUtilsBean.copyProperties(this, mother);

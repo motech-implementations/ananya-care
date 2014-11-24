@@ -1,5 +1,7 @@
 package org.motechproject.mcts.care.common.mds.domain;
 
+import javax.jdo.annotations.Unique;
+
 import org.joda.time.DateTime;
 import org.motechproject.mcts.care.common.domain.annotations.ExternalPrimaryKey;
 import org.motechproject.mds.annotations.Entity;
@@ -12,6 +14,7 @@ public class Client implements java.io.Serializable {
 
     @ExternalPrimaryKey
     @Field
+    @Unique
     protected String caseId;
     protected DateTime dateModified;
     protected String caseName;
