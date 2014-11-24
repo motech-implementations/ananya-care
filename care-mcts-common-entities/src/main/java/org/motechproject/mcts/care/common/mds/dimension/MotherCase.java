@@ -994,12 +994,6 @@ public class MotherCase extends Client implements java.io.Serializable,
         this.cfVisitNum = cfVisitNum;
     }
 
-    /*
-     * public DateTime getCreationTime() { return creationTime; }
-     * 
-     * public void setCreationTime(DateTime creationTime) { this.creationTime =
-     * creationTime; }
-     */
 
     public DateTime getLastModifiedTime() {
         return lastModifiedTime;

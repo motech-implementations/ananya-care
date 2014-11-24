@@ -21,7 +21,6 @@ public class ChildCase extends Client implements java.io.Serializable,
 
     private static final long serialVersionUID = -7655944396275293118L;
 
-    // TODO @ManyToOne(fetch = FetchType.EAGER)
     @Field
     @Cascade(persist = true, update = true, delete = true)
     private MotherCase motherCase;
@@ -435,7 +434,9 @@ public class ChildCase extends Client implements java.io.Serializable,
         }
 
         List<String> fieldsToIgnore = Arrays.asList("id", "caseId",
-                "creationTime", "closedOn", "closedBy", "closed");
+                "creationTime", "closedOn", "closedBy", "closed", "modifiedBy",
+                "modificationDate", "creationDate", "creator"); // TODO: remove
+                                                                // later
         updateFields(updated, fieldsToIgnore);
     }
 

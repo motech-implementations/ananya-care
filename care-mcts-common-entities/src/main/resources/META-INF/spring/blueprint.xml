@@ -198,14 +198,8 @@
     <osgi:reference id="careCaseTaskMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.CareCaseTaskMDSService" />
 
-    <osgi:reference id="childMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.ChildMDSService" />
-
     <osgi:reference id="clientMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.ClientMDSService" />
-
-    <osgi:reference id="motherMDSService"
-        interface="org.motechproject.mcts.care.common.mds.service.MotherMDSService" />
 
     <osgi:reference id="mappingToApproveFormMDSService"
         interface="org.motechproject.mcts.care.common.mds.service.MappingToApproveFormMDSService" />
