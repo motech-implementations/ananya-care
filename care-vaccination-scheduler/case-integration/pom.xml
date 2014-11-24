@@ -5,7 +5,7 @@
     <parent>
 	<artifactId>care-vaccination-scheduler</artifactId>
 		<groupId>org.motechproject.ananya-care</groupId>
-		<version>0.24.2</version>
+		<version>0.24.3</version>
 		<relativePath>../</relativePath>
 	</parent>
 
@@ -14,7 +14,7 @@
     <artifactId>case-integration</artifactId>
 
     <packaging>pom</packaging>
-    <version>0.24.2</version>
+    <version>0.24.3</version>
 
     <modules>
         <module>case-parser</module>
