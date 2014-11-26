@@ -24,11 +24,11 @@ public class VitaService extends VaccinationService{
         if(child.getDob() != null){
             schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         }
-        if(child.getVitA1Time() != null){
-            fulfillMilestone(client, MilestoneType.VitaminA, child.getVitA1Time());
+        if(child.getVitA1Date() != null){
+            fulfillMilestone(client, MilestoneType.VitaminA, child.getVitA1Date());
         }
-        if (child.getVitA2Time() != null) {
-        	fulfillMilestone(client, MilestoneType.VitaminA2, child.getVitA2Time());
+        if (child.getVitA2Date() != null) {
+        	fulfillMilestone(client, MilestoneType.VitaminA2, child.getVitA2Date());
         	 }
     }
 }

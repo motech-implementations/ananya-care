@@ -76,7 +76,7 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
         
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getVitA1Time());
+        assertNull(childFromDb.getVitA1Date());
     }
 
     @Test
@@ -95,6 +95,6 @@ public class VitaminAIntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(vitaTaken, childFromDb.getVitA1Time());
+        assertEquals(vitaTaken, childFromDb.getVitA1Date());
     }
 }

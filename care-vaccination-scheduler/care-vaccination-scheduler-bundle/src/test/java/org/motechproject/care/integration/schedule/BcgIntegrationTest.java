@@ -75,7 +75,7 @@ public class BcgIntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDB = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob , childFromDB.getDob());
-        assertNull(childFromDB.getBcgTime());
+        assertNull(childFromDB.getBcgDate());
     }
 
     @Test
@@ -94,6 +94,6 @@ public class BcgIntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(bcgTaken, childFromDb.getBcgTime());
+        assertEquals(bcgTaken, childFromDb.getBcgDate());
     }
 }

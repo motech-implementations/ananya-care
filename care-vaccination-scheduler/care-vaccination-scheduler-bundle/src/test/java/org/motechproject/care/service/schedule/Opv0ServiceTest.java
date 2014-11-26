@@ -61,7 +61,7 @@ public class Opv0ServiceTest {
         child.setCaseId(caseId);
         child.setDob(DateTime.now());
         DateTime opv0Date = DateTime.now().minusDays(1);
-        child.setOpv0Time(opv0Date);
+        child.setOpv0Date(opv0Date);
         opv0Service.process(child);
         verify(schedulerService).fulfillMilestone(caseId, MilestoneType.OPV0.toString(), opv0Date, ChildVaccinationSchedule.OPV0.getName());
         Mockito.verify(careCaseTaskService).close(child, MilestoneType.OPV0.toString());

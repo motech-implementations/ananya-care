@@ -47,7 +47,7 @@ public class OpvBoosterServiceTest {
         String caseId = "caseId";
         ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Time(opv3Taken);
+        child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -61,7 +61,7 @@ public class OpvBoosterServiceTest {
         String caseId = "caseId";
         ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Time(opv3Taken);
+        child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -75,7 +75,7 @@ public class OpvBoosterServiceTest {
         String caseId = "caseId";
         ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Time(opv3Taken);
+        child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -101,7 +101,7 @@ public class OpvBoosterServiceTest {
         String caseId = "caseId";
         ChildCase child = new ChildCase();
         child.setDob(dob);
-        child.setOpv3Time(opv3Taken);
+        child.setOpv3Date(opv3Taken);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);
@@ -114,7 +114,7 @@ public class OpvBoosterServiceTest {
         String caseId = "caseId";
 
         ChildCase child = new ChildCase();
-        child.setOpvBoosterTime(opvBoosterDate);
+        child.setOpvBoosterDate(opvBoosterDate);
         child.setCaseId(caseId);
 
         opvBoosterService.process(child);

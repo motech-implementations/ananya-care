@@ -59,25 +59,25 @@ public class ChildBuilder {
         child.setMotherCase(motherCase);
         child.setDateModified(dateModified);
 
-        child.setDpt1Time(dpt1Date);
-        child.setDpt2Time(dpt2Date);
-        child.setDpt3Time(dpt3Date);
-        child.setDptBoosterTime(dptBoosterDate);
+        child.setDpt1Date(dpt1Date);
+        child.setDpt2Date(dpt2Date);
+        child.setDpt3Date(dpt3Date);
+        child.setDptBoosterDate(dptBoosterDate);
 
-        child.setHepB0Time(hep0Date);
-        child.setHepB1Time(hep1Date);
-        child.setHepB2Time(hep2Date);
-        child.setHepB3Time(hep3Date);
+        child.setHepB0Date(hep0Date);
+        child.setHepB1Date(hep1Date);
+        child.setHepB2Date(hep2Date);
+        child.setHepB3Date(hep3Date);
 
-        child.setBcgTime(bcgDate);
-        child.setMeaslesTime(measlesDate);
-        child.setVitA1Time(vitamin1Date);
+        child.setBcgDate(bcgDate);
+        child.setMeaslesDate(measlesDate);
+        child.setVitA1Date(vitamin1Date);
 
-        child.setOpv0Time(opv0Date);
-        child.setOpv1Time(opv1Date);
-        child.setOpv2Time(opv2Date);
-        child.setOpv3Time(opv3Date);
-        child.setOpvBoosterTime(opvBoosterDate);
+        child.setOpv0Date(opv0Date);
+        child.setOpv1Date(opv1Date);
+        child.setOpv2Date(opv2Date);
+        child.setOpv3Date(opv3Date);
+        child.setOpvBoosterDate(opvBoosterDate);
         child.setExpired(expired);
 
         return child;

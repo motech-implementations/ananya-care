@@ -52,8 +52,8 @@ public class ChildServiceTest {
         Assert.assertEquals(caseId, actualChild.getCaseId());
         Assert.assertEquals(CaseType.Child.getType(), actualChild.getCaseType());
         Assert.assertNull(actualChild.getCreationTime());
-        Assert.assertEquals(DateTime.parse("2012-02-01"), actualChild.getMeaslesTime());
-        Assert.assertEquals(DateTime.parse("2012-08-07"),actualChild.getVitA1Time());
+        Assert.assertEquals(DateTime.parse("2012-02-01"), actualChild.getMeaslesDate());
+        Assert.assertEquals(DateTime.parse("2012-08-07"),actualChild.getVitA1Date());
         verify(vaccinationProcessor).enrollUpdateVaccines(actualChild);
         verify(vaccinationProcessor, never()).closeSchedules(any(ChildCase.class));
     }
@@ -103,7 +103,7 @@ public class ChildServiceTest {
         ChildCase childUpdated = captor.getValue();
         Assert.assertEquals(newName,childUpdated.getName());
         Assert.assertEquals(docCreateTime,childUpdated.getCreationTime());
-        Assert.assertEquals(newBcgDate,childUpdated.getBcgTime());
+        Assert.assertEquals(newBcgDate,childUpdated.getBcgDate());
         Assert.assertTrue(childUpdated.isActive());
         verify(vaccinationProcessor).enrollUpdateVaccines(childInDb);
         verify(vaccinationProcessor, never()).closeSchedules(any(ChildCase.class));

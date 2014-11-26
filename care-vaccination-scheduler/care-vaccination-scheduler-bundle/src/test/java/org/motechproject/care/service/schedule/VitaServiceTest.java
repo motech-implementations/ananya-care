@@ -62,7 +62,7 @@ public class VitaServiceTest {
         DateTime vitaDate = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setVitA1Time(vitaDate);
+        child.setVitA1Date(vitaDate);
         child.setCaseId(caseId);
 
         vitaService.process(child);

@@ -61,7 +61,7 @@ public class Hep0ServiceTest {
         child.setCaseId(caseId);
         child.setDob(DateTime.now());
         DateTime hep0Date = DateTime.now().minusDays(1);
-        child.setHepB0Time(hep0Date);
+        child.setHepB0Date(hep0Date);
         hep0Service.process(child);
         verify(schedulerService).fulfillMilestone(caseId, MilestoneType.Hep0.toString(), hep0Date, ChildVaccinationSchedule.Hepatitis0.getName());
         Mockito.verify(careCaseTaskService).close(child, MilestoneType.Hep0.toString());

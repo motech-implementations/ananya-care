@@ -63,7 +63,7 @@ public class BcgServiceTest {
         DateTime bcgDate = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setBcgTime(bcgDate);
+        child.setBcgDate(bcgDate);
         child.setCaseId(caseId);
 
         bcgService.process(child);

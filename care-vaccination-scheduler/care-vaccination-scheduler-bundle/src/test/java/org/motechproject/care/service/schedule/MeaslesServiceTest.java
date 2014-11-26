@@ -63,7 +63,7 @@ public class MeaslesServiceTest {
         DateTime measlesDate = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setMeaslesTime(measlesDate);
+        child.setMeaslesDate(measlesDate);
         child.setCaseId(caseId);
 
         measlesService.process(child);

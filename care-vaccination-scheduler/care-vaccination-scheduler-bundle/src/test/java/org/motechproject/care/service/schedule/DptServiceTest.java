@@ -61,7 +61,7 @@ public class DptServiceTest {
         DateTime dpt1Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setDpt1Time(dpt1Date);
+        child.setDpt1Date(dpt1Date);
         child.setCaseId(caseId);
 
         dptService.process(child);
@@ -74,7 +74,7 @@ public class DptServiceTest {
         DateTime dpt2Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setDpt2Time(dpt2Date);
+        child.setDpt2Date(dpt2Date);
         child.setCaseId(caseId);
 
         dptService.process(child);
@@ -87,7 +87,7 @@ public class DptServiceTest {
         DateTime dpt3Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setDpt3Time(dpt3Date);
+        child.setDpt3Date(dpt3Date);
         child.setCaseId(caseId);
 
         dptService.process(child);

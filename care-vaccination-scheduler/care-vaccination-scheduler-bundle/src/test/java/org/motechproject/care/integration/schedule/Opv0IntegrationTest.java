@@ -74,7 +74,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getOpv0Time());
+        assertNull(childFromDb.getOpv0Date());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
         
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getOpv0Time());
+        assertNull(childFromDb.getOpv0Date());
     }
 
     @Test
@@ -125,6 +125,6 @@ public class Opv0IntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(OPV0Taken, childFromDb.getOpv0Time());
+        assertEquals(OPV0Taken, childFromDb.getOpv0Date());
     }
 }

@@ -61,7 +61,7 @@ public class OpvServiceTest {
         DateTime OPV1Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setOpv1Time(OPV1Date);
+        child.setOpv1Date(OPV1Date);
         child.setCaseId(caseId);
 
         opvService.process(child);
@@ -74,7 +74,7 @@ public class OpvServiceTest {
         DateTime OPV2Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setOpv2Time(OPV2Date);
+        child.setOpv2Date(OPV2Date);
         child.setCaseId(caseId);
 
         opvService.process(child);
@@ -87,7 +87,7 @@ public class OpvServiceTest {
         DateTime OPV3Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setOpv3Time(OPV3Date);
+        child.setOpv3Date(OPV3Date);
         child.setCaseId(caseId);
 
         opvService.process(child);

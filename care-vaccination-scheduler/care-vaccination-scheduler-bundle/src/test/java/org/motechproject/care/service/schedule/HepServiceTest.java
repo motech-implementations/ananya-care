@@ -61,7 +61,7 @@ public class HepServiceTest {
         DateTime hep1Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setHepB1Time(hep1Date);
+        child.setHepB1Date(hep1Date);
         child.setCaseId(caseId);
 
         hepService.process(child);
@@ -74,7 +74,7 @@ public class HepServiceTest {
         DateTime hep2Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setHepB2Time(hep2Date);
+        child.setHepB2Date(hep2Date);
         child.setCaseId(caseId);
 
         hepService.process(child);
@@ -87,7 +87,7 @@ public class HepServiceTest {
         DateTime hep3Date = new DateTime();
         String caseId = "caseId";
         ChildCase child = new ChildCase();
-        child.setHepB3Time(hep3Date);
+        child.setHepB3Date(hep3Date);
         child.setCaseId(caseId);
 
         hepService.process(child);

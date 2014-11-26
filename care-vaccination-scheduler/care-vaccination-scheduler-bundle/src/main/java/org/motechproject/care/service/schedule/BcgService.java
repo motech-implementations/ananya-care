@@ -23,8 +23,8 @@ public class BcgService extends VaccinationService{
         if(child.getDob() != null){
             schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         }
-        if(child.getBcgTime() != null){
-            fulfillMilestone(client, MilestoneType.Bcg, child.getBcgTime());
+        if(child.getBcgDate() != null){
+            fulfillMilestone(client, MilestoneType.Bcg, child.getBcgDate());
         }
     }
 }

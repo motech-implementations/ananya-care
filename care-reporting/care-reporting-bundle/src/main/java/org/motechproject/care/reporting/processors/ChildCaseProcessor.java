@@ -57,7 +57,7 @@ public class ChildCaseProcessor {
         logger.info(String.format("Started processing child case with case ID %s", caseId));
         ChildCase childCase =   careService.saveByExternalPrimaryKey(ChildCase.class, caseMap);
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put(Constants.CHILD_CREATE_UPDATE_EVENT, childCase);
+        map.put(Constants.CHILD_CASE_PARAM, childCase);
         MotechEvent e = new MotechEvent(Constants.CHILD_CREATE_UPDATE_EVENT, map);
         eventRelay.sendEventMessage(e);
         logger.info(String.format("Finished processing child case with case ID %s", caseId));

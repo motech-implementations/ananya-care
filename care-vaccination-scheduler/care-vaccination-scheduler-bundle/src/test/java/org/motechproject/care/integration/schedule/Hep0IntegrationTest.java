@@ -74,7 +74,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getHepB0Time());
+        assertNull(childFromDb.getHepB0Date());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
         assertTrue(enrollmentRecords.isEmpty());
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId", caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertNull(childFromDb.getHepB0Time());
+        assertNull(childFromDb.getHepB0Date());
     }
 
     @Test
@@ -125,6 +125,6 @@ public class Hep0IntegrationTest extends SpringIntegrationTest {
 
         ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId",caseId);
         assertEquals(dob, childFromDb.getDob());
-        assertEquals(hep0Taken, childFromDb.getHepB0Time());
+        assertEquals(hep0Taken, childFromDb.getHepB0Date());
     }
 }
