@@ -12,8 +12,8 @@ public class Mapper {
 
     public Mapper(String[] allowedDateFormats) {
         allDataTypeConverters = new AllDataTypeConverters();
-        allDataTypeConverters.registerBaseConverters(beanUtils
-                .getConvertUtils(), allowedDateFormats);
+        allDataTypeConverters.registerBaseConverters(
+                beanUtils.getConvertUtils(), allowedDateFormats);
     }
 
     public <T, U> T map(Class<T> type, Map<String, U> keyStore) {
@@ -31,13 +31,7 @@ public class Mapper {
         for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
             U value = field.getValue();
-            if (!"add".equals(key)) {
-                set(typeInstance, key, value);
-            } else {
-                set(typeInstance, "actualDeliveryDate", value);
-            }
-            
-            
+            set(typeInstance, key, value);
         }
 
         return typeInstance;

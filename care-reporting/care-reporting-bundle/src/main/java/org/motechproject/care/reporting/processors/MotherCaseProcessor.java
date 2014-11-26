@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.processors;
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,12 @@ public class MotherCaseProcessor {
     public void process(CaseEvent caseEvent) {
         CaseType caseType = CaseType.getType(caseEvent.getCaseType());
         InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
+        Map<String, String> keyConversionMap = new HashMap<String, String>(){{
+            put("add", "actualDeliveryDate");
+        }
+          
+        };
+        infoParser.setKeyConversionMap(keyConversionMap);
         Map<String, String> caseMap = new CaseInfoParser(infoParser).parse(caseEvent);
 
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
