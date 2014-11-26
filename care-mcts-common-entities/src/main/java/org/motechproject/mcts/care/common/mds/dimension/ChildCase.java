@@ -166,8 +166,12 @@ public class ChildCase extends Client implements java.io.Serializable,
         this.babyMeasles = babyMeasles;
     }
 
-    public DateTime getBcgTime() {
-        return this.bcgDate;
+    public DateTime getBcgDate() {
+        return bcgDate;
+    }
+
+    public void setBcgDate(DateTime bcgDate) {
+        this.bcgDate = bcgDate;
     }
 
     public void setBcgTime(DateTime bcgDate) {
@@ -448,8 +452,8 @@ public class ChildCase extends Client implements java.io.Serializable,
     public void updateFields(ChildCase source, List<String> ignoredFields) {
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass().getSuperclass(),
-                this);
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass()
+                .getSuperclass(), this);
     }
 
     @Field

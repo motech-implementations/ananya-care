@@ -28,22 +28,19 @@ public class FlwBuilder {
         return flw;
     }
 
-     public FlwBuilder creationTime(DateTime creationTime) {
+    public FlwBuilder creationTime(DateTime creationTime) {
         flw.setCreationTime(creationTime);
         return this;
     }
-   //TODO: uncomment below
-     /*
+
     public FlwBuilder flwGroups(HashSet<FlwGroup> flwGroups) {
         flw.setFlwGroups(flwGroups);
         return this;
     }
 
     public static Flw buildDefault() {
-        return new FlwBuilder()
-                .flwId("5ba9a0928dde95d187544babf6c0ad24")
+        return new FlwBuilder().flwId("5ba9a0928dde95d187544babf6c0ad24")
                 .firstName("FirstName1")
-                .flwGroups(FlwGroupBuilder.buildDefaultSet())
-                .build();
-    }*/
+                .flwGroups(FlwGroupBuilder.buildDefaultSet()).build();
+    }
 }
