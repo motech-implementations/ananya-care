@@ -31,8 +31,13 @@ public class Mapper {
         for (Map.Entry<String, U> field : keyStore.entrySet()) {
             String key = field.getKey();
             U value = field.getValue();
-
-            set(typeInstance, key, value);
+            if (!"add".equals(key)) {
+                set(typeInstance, key, value);
+            } else {
+                set(typeInstance, "actualDeliveryDate", value);
+            }
+            
+            
         }
 
         return typeInstance;

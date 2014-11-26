@@ -449,8 +449,8 @@ public class ChildCase extends Client implements java.io.Serializable,
     public void updateFields(ChildCase source, List<String> ignoredFields) {
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
-//        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass()
-  //              .getSuperclass(), this);
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass()
+                .getSuperclass(), this);
     }
 
     @Field
