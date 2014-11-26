@@ -11,7 +11,8 @@ public enum ChildVaccinationSchedule {
     DPTBooster("DPTBooster Vaccination"),
     OPV0("OPV0 Vaccination"),
     OPV("OPV Vaccination"),
-    OPVBooster("OPVBooster Vaccination");
+    OPVBooster("OPVBooster Vaccination"),
+    MeaslesBooster("MeaslesBooster Vaccination");
 
     private String vaccinationScheduleName;
 

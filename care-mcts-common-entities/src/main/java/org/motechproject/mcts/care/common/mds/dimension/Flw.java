@@ -365,7 +365,6 @@ public class Flw implements java.io.Serializable, SelfUpdatable<Flw> {
         validateIfUpdatable(this.flwId, object.flwId);
         updateFields(object, Arrays.asList("id", "flwId", "creationTime",
                 "modifiedBy", "modificationDate", "creationDate", "creator"));// TODO:remove
-                                                                              // later
     }
 
     public Boolean validateIfUpdatable(String thisId, String otherId) {

@@ -27,5 +27,8 @@ public class VitaService extends VaccinationService{
         if(child.getVitA1Time() != null){
             fulfillMilestone(client, MilestoneType.VitaminA, child.getVitA1Time());
         }
+        if (child.getVitA2Time() != null) {
+        	fulfillMilestone(client, MilestoneType.VitaminA2, child.getVitA2Time());
+        	 }
     }
 }

@@ -118,8 +118,8 @@ public class ChildCase extends Client implements java.io.Serializable,
     }
 
     public ChildCase(String caseId, DateTime dateModified, Flw flw,
-            String name, FlwGroup flwGroup, DateTime dob, DateTime measlesDate,
-            DateTime bcgDate, DateTime vitamin1Date, MotherCase motherCase,
+            String name, FlwGroup flwGroup, DateTime dob, DateTime measlesDate,DateTime measlesBoosterDate,
+            DateTime bcgDate, DateTime vitamin1Date,DateTime vitamin2Date, MotherCase motherCase,
             DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
             DateTime hep3Date, DateTime dpt1Date, DateTime dpt2Date,
             DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date,
@@ -134,8 +134,10 @@ public class ChildCase extends Client implements java.io.Serializable,
         this.flwGroup = flwGroup;
         this.dob = dob;
         this.measlesDate = measlesDate;
+        this.dateMeaslesBooster = measlesBoosterDate;
         this.bcgDate = bcgDate;
         this.vitA1Date = vitamin1Date;
+        this.vitA2Date = vitamin2Date;
         this.hepB0Date = hep0Date;
         this.hepB1Date = hep1Date;
         this.hepB2Date = hep2Date;
@@ -461,8 +463,9 @@ public class ChildCase extends Client implements java.io.Serializable,
     public void updateFields(ChildCase source, List<String> ignoredFields) {
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass()
-                .getSuperclass(), this);
+
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass().getSuperclass(),
+                this);
     }
 
     @Field

@@ -28,7 +28,7 @@ public class MotherCaseTest {
 
         assertEquals("devi", oldMother.getCaseName());
         assertEquals(dec01, updatedMother.getDateModified());
-        assertEquals("yes", oldMother.getIsAlive());
+        assertEquals("yes", oldMother.getMotherAlive());
     }
 
     @Test(expected = IllegalArgumentException.class)

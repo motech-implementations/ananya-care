@@ -64,6 +64,7 @@ public class ScheduleInitializer {
         vaccinationList.add("child-dpt.json");
         vaccinationList.add("child-care.json");
         vaccinationList.add("child-bcg.json");
+        vaccinationList.add("child-measles-booster.json");
         for (String vaccinationName : vaccinationList) {
             String homePath = System.getProperty("user.home");
             File file = new File(homePath + "/schedules/" + vaccinationName);

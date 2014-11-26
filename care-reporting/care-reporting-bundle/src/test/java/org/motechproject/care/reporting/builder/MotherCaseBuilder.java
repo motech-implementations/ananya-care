@@ -46,7 +46,7 @@ public class MotherCaseBuilder {
     }
 
     public MotherCaseBuilder alive(String isAlive) {
-        motherCase.setIsAlive(isAlive);
+        motherCase.setMotherAlive(isAlive);
         return this;
     }
 
