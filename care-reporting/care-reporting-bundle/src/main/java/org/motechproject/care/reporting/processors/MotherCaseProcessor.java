@@ -25,11 +25,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MotherCaseProcessor {
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
-    private static List<PostProcessor> MOTHER_CASE_POSTPROCESSOR = new ArrayList<PostProcessor>() {{
-        add(PostProcessor.CASE_COPY_USER_ID_AS_FLW);
-        add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
-    }};
+    private static final Logger logger = LoggerFactory
+            .getLogger("commcare-reporting-mapper");
+    private static List<PostProcessor> MOTHER_CASE_POSTPROCESSOR = new ArrayList<PostProcessor>() {
+        {
+            add(PostProcessor.CASE_COPY_USER_ID_AS_FLW);
+            add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
+        }
+    };
 
     private EventRelay eventRelay;
     private ICareService careService;
@@ -46,13 +49,15 @@ public class MotherCaseProcessor {
     public void process(CaseEvent caseEvent) {
         CaseType caseType = CaseType.getType(caseEvent.getCaseType());
         InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
-        Map<String, String> keyConversionMap = new HashMap<String, String>(){{
-            put("add", "actualDeliveryDate");
-        }
-          
+        Map<String, String> keyConversionMap = new HashMap<String, String>() {
+            {
+                put("add", "actualDeliveryDate");
+            }
+
         };
         infoParser.setKeyConversionMap(keyConversionMap);
-        Map<String, String> caseMap = new CaseInfoParser(infoParser).parse(caseEvent);
+        Map<String, String> caseMap = new CaseInfoParser(infoParser)
+                .parse(caseEvent);
 
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
