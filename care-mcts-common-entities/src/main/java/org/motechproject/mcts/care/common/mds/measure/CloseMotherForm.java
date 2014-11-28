@@ -10,16 +10,17 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "close_mother_form")
 @Unique(members = "instanceId")
 public class CloseMotherForm extends Form {
 
-	 private Flw flw;
-	private MotherCase motherCase;
-	private DateTime timeEnd;
-	private DateTime timeStart;
-	private DateTime dateModified;
+    private static final long serialVersionUID = 58862069553048667L;
+
+    private Flw flw;
+    private MotherCase motherCase;
+    private DateTime timeEnd;
+    private DateTime timeStart;
+    private DateTime dateModified;
     private String closeMother;
     private String confirmClose;
     private String deathVillage;
@@ -46,215 +47,207 @@ public class CloseMotherForm extends Form {
     private String newOwner;
 
     public CloseMotherForm() {
-	}
-	
-	@Field
-    @Cascade(persist = true, update = true, delete = false)
-	public Flw getFlw() {
-		return this.flw;
-	}
-
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
-
-	
-	@Field
-    @Cascade(persist = true, update = true, delete = false)
-	public MotherCase getMotherCase() {
-		return this.motherCase;
-	}
-
-	public void setMotherCase(MotherCase motherCase) {
-		this.motherCase = motherCase;
-	}
-
-	
-	@Field
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
-
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
-
-	
-	@Field
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
-
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
-
-	
-	@Field
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
-
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
-
+    }
 
     @Field
-	public String getCloseMother() {
-		return this.closeMother;
-	}
+    @Cascade(persist = true, update = true, delete = false)
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setCloseMother(String closeMother) {
-		this.closeMother = closeMother;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	@Field
-	public String getConfirmClose() {
-		return this.confirmClose;
-	}
-
-	public void setConfirmClose(String confirmClose) {
-		this.confirmClose = confirmClose;
-	}
-
-	@Field
-	public String getDeathVillage() {
-		return this.deathVillage;
-	}
-
-	public void setDeathVillage(String deathVillage) {
-		this.deathVillage = deathVillage;
-	}
-
-	@Field
-	public String getDiedVillage() {
-		return this.diedVillage;
-	}
-
-	public void setDiedVillage(String diedVillage) {
-		this.diedVillage = diedVillage;
-	}	
-    
     @Field
-	public String getPlaceDeath() {
-		return this.placeDeath;
-	}
+    @Cascade(persist = true, update = true, delete = false)
+    public MotherCase getMotherCase() {
+        return this.motherCase;
+    }
 
-	public void setPlaceDeath(String placeDeath) {
-		this.placeDeath = placeDeath;
-	}
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
+    }
 
-	@Field
-	public String getDupeReg() {
-		return this.dupeReg;
-	}
+    @Field
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public void setDupeReg(String dupeReg) {
-		this.dupeReg = dupeReg;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	@Field
-	public String getFinishedContinuum() {
-		return this.finishedContinuum;
-	}
+    @Field
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public void setFinishedContinuum(String finishedContinuum) {
-		this.finishedContinuum = finishedContinuum;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	@Field
-	public int getNumChildren() {
-		return this.numChildren;
-	}
+    @Field
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public void setNumChildren(int numChildren) {
-		this.numChildren = numChildren;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	@Field
-	public String getMotherAlive() {
-		return this.motherAlive;
-	}
+    @Field
+    public String getCloseMother() {
+        return this.closeMother;
+    }
 
-	public void setMotherAlive(String motherAlive) {
-		this.motherAlive = motherAlive;
-	}
+    public void setCloseMother(String closeMother) {
+        this.closeMother = closeMother;
+    }
 
-	@Field
-	public String getMoved() {
-		return this.moved;
-	}
+    @Field
+    public String getConfirmClose() {
+        return this.confirmClose;
+    }
 
-	public void setMoved(String moved) {
-		this.moved = moved;
-	}
+    public void setConfirmClose(String confirmClose) {
+        this.confirmClose = confirmClose;
+    }
 
-	@Field
-	public String getMigrated() {
-		return this.migrated;
-	}
+    @Field
+    public String getDeathVillage() {
+        return this.deathVillage;
+    }
 
-	public void setMigrated(String migrated) {
-		this.migrated = migrated;
-	}
+    public void setDeathVillage(String deathVillage) {
+        this.deathVillage = deathVillage;
+    }
 
-	
-	@Field
-	public DateTime getDateLearned() {
-		return this.dateLearned;
-	}
+    @Field
+    public String getDiedVillage() {
+        return this.diedVillage;
+    }
 
-	public void setDateLearned(DateTime dateLearned) {
-		this.dateLearned = dateLearned;
-	}
+    public void setDiedVillage(String diedVillage) {
+        this.diedVillage = diedVillage;
+    }
 
-	
-	@Field
-	public DateTime getDateLeft() {
-		return this.dateLeft;
-	}
+    @Field
+    public String getPlaceDeath() {
+        return this.placeDeath;
+    }
 
-	public void setDateLeft(DateTime dateLeft) {
-		this.dateLeft = dateLeft;
-	}
+    public void setPlaceDeath(String placeDeath) {
+        this.placeDeath = placeDeath;
+    }
 
-	@Field
-	public String getMigrationNote() {
-		return this.migrationNote;
-	}
+    @Field
+    public String getDupeReg() {
+        return this.dupeReg;
+    }
 
-	public void setMigrationNote(String migrationNote) {
-		this.migrationNote = migrationNote;
-	}
+    public void setDupeReg(String dupeReg) {
+        this.dupeReg = dupeReg;
+    }
 
-	@Field
-	public String getDied() {
-		return this.died;
-	}
+    @Field
+    public String getFinishedContinuum() {
+        return this.finishedContinuum;
+    }
 
-	public void setDied(String died) {
-		this.died = died;
-	}
+    public void setFinishedContinuum(String finishedContinuum) {
+        this.finishedContinuum = finishedContinuum;
+    }
 
-	
-	@Field
-	public DateTime getDateDeath() {
-		return this.dateDeath;
-	}
+    @Field
+    public int getNumChildren() {
+        return this.numChildren;
+    }
 
-	public void setDateDeath(DateTime dateDeath) {
-		this.dateDeath = dateDeath;
-	}
+    public void setNumChildren(int numChildren) {
+        this.numChildren = numChildren;
+    }
 
-	@Field
-	public String getSiteDeath() {
-		return this.siteDeath;
-	}
+    @Field
+    public String getMotherAlive() {
+        return this.motherAlive;
+    }
 
-	public void setSiteDeath(String siteDeath) {
-		this.siteDeath = siteDeath;
-	}
+    public void setMotherAlive(String motherAlive) {
+        this.motherAlive = motherAlive;
+    }
+
+    @Field
+    public String getMoved() {
+        return this.moved;
+    }
+
+    public void setMoved(String moved) {
+        this.moved = moved;
+    }
+
+    @Field
+    public String getMigrated() {
+        return this.migrated;
+    }
+
+    public void setMigrated(String migrated) {
+        this.migrated = migrated;
+    }
+
+    @Field
+    public DateTime getDateLearned() {
+        return this.dateLearned;
+    }
+
+    public void setDateLearned(DateTime dateLearned) {
+        this.dateLearned = dateLearned;
+    }
+
+    @Field
+    public DateTime getDateLeft() {
+        return this.dateLeft;
+    }
+
+    public void setDateLeft(DateTime dateLeft) {
+        this.dateLeft = dateLeft;
+    }
+
+    @Field
+    public String getMigrationNote() {
+        return this.migrationNote;
+    }
+
+    public void setMigrationNote(String migrationNote) {
+        this.migrationNote = migrationNote;
+    }
+
+    @Field
+    public String getDied() {
+        return this.died;
+    }
+
+    public void setDied(String died) {
+        this.died = died;
+    }
+
+    @Field
+    public DateTime getDateDeath() {
+        return this.dateDeath;
+    }
+
+    public void setDateDeath(DateTime dateDeath) {
+        this.dateDeath = dateDeath;
+    }
+
+    @Field
+    public String getSiteDeath() {
+        return this.siteDeath;
+    }
+
+    public void setSiteDeath(String siteDeath) {
+        this.siteDeath = siteDeath;
+    }
 
     @Field
     public String getStatus() {
@@ -274,7 +267,6 @@ public class CloseMotherForm extends Form {
         this.close = close;
     }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;

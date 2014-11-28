@@ -10,17 +10,18 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "close_child_form")
-@Unique(members = {"instanceId","childCase"})
+@Unique(members = { "instanceId", "childCase" })
 public class CloseChildForm extends Form {
 
-	 private Flw flw;
-	private ChildCase childCase;
-	private DateTime timeEnd;
-	private DateTime timeStart;
-	private DateTime dateModified;
-	private String childAlive;
+    private static final long serialVersionUID = -2379826312380940904L;
+
+    private Flw flw;
+    private ChildCase childCase;
+    private DateTime timeEnd;
+    private DateTime timeStart;
+    private DateTime dateModified;
+    private String childAlive;
     private String closeChild;
     private String confirmClose;
     private DateTime dateDeath;
@@ -35,58 +36,54 @@ public class CloseChildForm extends Form {
     private String ownerId;
 
     public CloseChildForm() {
-	}
-    
-	@Field
+    }
+
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	
-	@Field
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public ChildCase getChildCase() {
-		return this.childCase;
-	}
+    public ChildCase getChildCase() {
+        return this.childCase;
+    }
 
-	public void setChildCase(ChildCase childCase) {
-		this.childCase = childCase;
-	}
+    public void setChildCase(ChildCase childCase) {
+        this.childCase = childCase;
+    }
 
-	
-	@Field
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
+    @Field
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	
-	@Field
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
+    @Field
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	
-	@Field
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
+    @Field
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
     @Field
     public Boolean getClose() {
@@ -97,99 +94,96 @@ public class CloseChildForm extends Form {
         this.close = close;
     }
 
+    @Field
+    public String getChildAlive() {
+        return this.childAlive;
+    }
+
+    public void setChildAlive(String childAlive) {
+        this.childAlive = childAlive;
+    }
 
     @Field
-	public String getChildAlive() {
-		return this.childAlive;
-	}
+    public String getCloseChild() {
+        return this.closeChild;
+    }
 
-	public void setChildAlive(String childAlive) {
-		this.childAlive = childAlive;
-	}
+    public void setCloseChild(String closeChild) {
+        this.closeChild = closeChild;
+    }
 
-	@Field
-	public String getCloseChild() {
-		return this.closeChild;
-	}
+    @Field
+    public String getConfirmClose() {
+        return this.confirmClose;
+    }
 
-	public void setCloseChild(String closeChild) {
-		this.closeChild = closeChild;
-	}
+    public void setConfirmClose(String confirmClose) {
+        this.confirmClose = confirmClose;
+    }
 
-	@Field
-	public String getConfirmClose() {
-		return this.confirmClose;
-	}
+    @Field
+    public DateTime getDateDeath() {
+        return this.dateDeath;
+    }
 
-	public void setConfirmClose(String confirmClose) {
-		this.confirmClose = confirmClose;
-	}
+    public void setDateDeath(DateTime dateDeath) {
+        this.dateDeath = dateDeath;
+    }
 
-	
-	@Field
-	public DateTime getDateDeath() {
-		return this.dateDeath;
-	}
+    @Field
+    public String getDied() {
+        return this.died;
+    }
 
-	public void setDateDeath(DateTime dateDeath) {
-		this.dateDeath = dateDeath;
-	}
+    public void setDied(String died) {
+        this.died = died;
+    }
 
-	@Field
-	public String getDied() {
-		return this.died;
-	}
+    @Field
+    public String getDiedVillage() {
+        return this.diedVillage;
+    }
 
-	public void setDied(String died) {
-		this.died = died;
-	}
+    public void setDiedVillage(String diedVillage) {
+        this.diedVillage = diedVillage;
+    }
 
-	@Field
-	public String getDiedVillage() {
-		return this.diedVillage;
-	}
+    @Field
+    public String getDupeReg() {
+        return this.dupeReg;
+    }
 
-	public void setDiedVillage(String diedVillage) {
-		this.diedVillage = diedVillage;
-	}
+    public void setDupeReg(String dupeReg) {
+        this.dupeReg = dupeReg;
+    }
 
-	@Field
-	public String getDupeReg() {
-		return this.dupeReg;
-	}
+    @Field
+    public String getFinishedContinuum() {
+        return this.finishedContinuum;
+    }
 
-	public void setDupeReg(String dupeReg) {
-		this.dupeReg = dupeReg;
-	}
+    public void setFinishedContinuum(String finishedContinuum) {
+        this.finishedContinuum = finishedContinuum;
+    }
 
-	@Field
-	public String getFinishedContinuum() {
-		return this.finishedContinuum;
-	}
+    @Field
+    public String getSiteDeath() {
+        return this.siteDeath;
+    }
 
-	public void setFinishedContinuum(String finishedContinuum) {
-		this.finishedContinuum = finishedContinuum;
-	}
+    public void setSiteDeath(String siteDeath) {
+        this.siteDeath = siteDeath;
+    }
 
-	@Field
-	public String getSiteDeath() {
-		return this.siteDeath;
-	}
+    @Field
+    public String getPlaceDeath() {
+        return this.placeDeath;
+    }
 
-	public void setSiteDeath(String siteDeath) {
-		this.siteDeath = siteDeath;
-	}
+    public void setPlaceDeath(String placeDeath) {
+        this.placeDeath = placeDeath;
+    }
 
-	@Field
-	public String getPlaceDeath() {
-		return this.placeDeath;
-	}
-
-	public void setPlaceDeath(String placeDeath) {
-		this.placeDeath = placeDeath;
-	}
-
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;

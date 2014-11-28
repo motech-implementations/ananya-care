@@ -10,77 +10,74 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "death_child_form")
-@Unique(members = {"instanceId","childCase"})
+@Unique(members = { "instanceId", "childCase" })
 public class DeathChildForm extends Form {
 
-	 private Flw flw;
-	private ChildCase childCase;
-	private DateTime timeEnd;
-	private DateTime timeStart;
-	private DateTime dateModified;
-	private String childAlive;
-	private String childDiedVillage;
-	private String childPlaceDeath;
-	private String childSiteDeath;
-	private DateTime chldDateDeath;
+    private static final long serialVersionUID = 1776140952930025647L;
+
+    private Flw flw;
+    private ChildCase childCase;
+    private DateTime timeEnd;
+    private DateTime timeStart;
+    private DateTime dateModified;
+    private String childAlive;
+    private String childDiedVillage;
+    private String childPlaceDeath;
+    private String childSiteDeath;
+    private DateTime chldDateDeath;
     private DateTime creationTime = new DateTime();
     private Boolean close;
 
     public DeathChildForm() {
-	}
-	
-	@Field
+    }
+
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	
-	@Field
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public ChildCase getChildCase() {
-		return this.childCase;
-	}
+    public ChildCase getChildCase() {
+        return this.childCase;
+    }
 
-	public void setChildCase(ChildCase childCase) {
-		this.childCase = childCase;
-	}
+    public void setChildCase(ChildCase childCase) {
+        this.childCase = childCase;
+    }
 
-	
-	@Field
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
+    @Field
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	
-	@Field
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
+    @Field
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	
-	@Field
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
+    @Field
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
     @Field
     public Boolean getClose() {
@@ -92,52 +89,50 @@ public class DeathChildForm extends Form {
     }
 
     @Field
-	public String getChildAlive() {
-		return this.childAlive;
-	}
+    public String getChildAlive() {
+        return this.childAlive;
+    }
 
-	public void setChildAlive(String childAlive) {
-		this.childAlive = childAlive;
-	}
+    public void setChildAlive(String childAlive) {
+        this.childAlive = childAlive;
+    }
 
-	@Field
-	public String getChildDiedVillage() {
-		return this.childDiedVillage;
-	}
+    @Field
+    public String getChildDiedVillage() {
+        return this.childDiedVillage;
+    }
 
-	public void setChildDiedVillage(String childDiedVillage) {
-		this.childDiedVillage = childDiedVillage;
-	}
+    public void setChildDiedVillage(String childDiedVillage) {
+        this.childDiedVillage = childDiedVillage;
+    }
 
-	@Field
-	public String getChildPlaceDeath() {
-		return this.childPlaceDeath;
-	}
+    @Field
+    public String getChildPlaceDeath() {
+        return this.childPlaceDeath;
+    }
 
-	public void setChildPlaceDeath(String childPlaceDeath) {
-		this.childPlaceDeath = childPlaceDeath;
-	}
+    public void setChildPlaceDeath(String childPlaceDeath) {
+        this.childPlaceDeath = childPlaceDeath;
+    }
 
-	@Field
-	public String getChildSiteDeath() {
-		return this.childSiteDeath;
-	}
+    @Field
+    public String getChildSiteDeath() {
+        return this.childSiteDeath;
+    }
 
-	public void setChildSiteDeath(String childSiteDeath) {
-		this.childSiteDeath = childSiteDeath;
-	}
+    public void setChildSiteDeath(String childSiteDeath) {
+        this.childSiteDeath = childSiteDeath;
+    }
 
-	
-	@Field
-	public DateTime getChldDateDeath() {
-		return this.chldDateDeath;
-	}
+    @Field
+    public DateTime getChldDateDeath() {
+        return this.chldDateDeath;
+    }
 
-	public void setChldDateDeath(DateTime chldDateDeath) {
-		this.chldDateDeath = chldDateDeath;
-	}
+    public void setChldDateDeath(DateTime chldDateDeath) {
+        this.chldDateDeath = chldDateDeath;
+    }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;

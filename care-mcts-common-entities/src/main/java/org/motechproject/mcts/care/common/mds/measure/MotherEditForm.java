@@ -14,6 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class MotherEditForm extends Form {
 
+    private static final long serialVersionUID = 3415653889989711772L;
+
     private Flw flw;
     private MotherCase motherCase;
     private DateTime timeEnd;
@@ -58,7 +60,6 @@ public class MotherEditForm extends Form {
         this.flw = flw;
     }
 
-    
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
@@ -69,7 +70,6 @@ public class MotherEditForm extends Form {
         this.motherCase = motherCase;
     }
 
-    
     @Field
     public DateTime getTimeEnd() {
         return this.timeEnd;
@@ -79,7 +79,6 @@ public class MotherEditForm extends Form {
         this.timeEnd = timeEnd;
     }
 
-    
     @Field
     public DateTime getTimeStart() {
         return this.timeStart;
@@ -89,7 +88,6 @@ public class MotherEditForm extends Form {
         this.timeStart = timeStart;
     }
 
-    
     @Field
     public DateTime getDateModified() {
         return this.dateModified;
@@ -99,7 +97,6 @@ public class MotherEditForm extends Form {
         this.dateModified = dateModified;
     }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;
@@ -153,7 +150,6 @@ public class MotherEditForm extends Form {
     public void setAge(Integer age) {
         this.age = age;
     }
-
 
     @Field
     public String getUpdateWardNumber() {

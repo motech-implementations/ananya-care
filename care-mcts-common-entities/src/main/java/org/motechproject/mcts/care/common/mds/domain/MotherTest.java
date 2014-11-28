@@ -11,8 +11,6 @@ import org.motechproject.mds.annotations.Field;
 @Entity(name = "MotherTest")
 public class MotherTest extends ClientTest {
 
-    private static final long serialVersionUID = 7542211703701595440L;
-    
     @Field
     private DateTime edd;
     @Field
@@ -36,7 +34,11 @@ public class MotherTest extends ClientTest {
     @Field
     private String caseType;
 
-    public MotherTest(String caseId, DateTime dateModified, String flwId, String name, String groupId, DateTime edd, DateTime add, DateTime tt1Date, DateTime tt2Date, boolean lastPregTt, DateTime anc1Date, DateTime anc2Date, DateTime anc3Date, DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
+    public MotherTest(String caseId, DateTime dateModified, String flwId,
+            String name, String groupId, DateTime edd, DateTime add,
+            DateTime tt1Date, DateTime tt2Date, boolean lastPregTt,
+            DateTime anc1Date, DateTime anc2Date, DateTime anc3Date,
+            DateTime anc4Date, DateTime ttBoosterDate, boolean isAlive) {
         super(isAlive);
         this.caseId = caseId;
         this.dateModified = dateModified;
@@ -57,7 +59,7 @@ public class MotherTest extends ClientTest {
     }
 
     public MotherTest() {
-        this.caseType=CaseType.MOTHER;
+        this.caseType = CaseType.MOTHER;
     }
 
     public DateTime getTt1Date() {
@@ -140,20 +142,16 @@ public class MotherTest extends ClientTest {
         this.add = add;
     }
 
-    /*public String getCaseType() {
-        return caseType;
-    }
-
-    public void setCaseType(String caseType) {
-        this.caseType=caseType;
-    }
-*/
+    /*
+     * public String getCaseType() { return caseType; }
+     * 
+     * public void setCaseType(String caseType) { this.caseType=caseType; }
+     */
     public void setValuesFrom(MotherTest mother) {
-        try{
+        try {
             NullAwareBeanUtilsBean nullAwareBeanUtilsBean = new NullAwareBeanUtilsBean();
             nullAwareBeanUtilsBean.copyProperties(this, mother);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -170,7 +168,7 @@ public class MotherTest extends ClientTest {
 
     public void setCaseType(String caseType) {
         this.caseType = CaseType.MOTHER;
-        
+
     }
 
 }

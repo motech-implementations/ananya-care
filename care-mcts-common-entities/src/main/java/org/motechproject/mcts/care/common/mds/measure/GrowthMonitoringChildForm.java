@@ -14,7 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class GrowthMonitoringChildForm extends Form {
 
-    private Integer id;
+    private static final long serialVersionUID = -4848263802341479423L;
+
     private ChildCase childCase;
     private Flw flw;
     private DateTime dateModified;
@@ -50,7 +51,6 @@ public class GrowthMonitoringChildForm extends Form {
         this.childCase = childCase;
     }
 
-    
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public Flw getFlw() {
@@ -61,7 +61,6 @@ public class GrowthMonitoringChildForm extends Form {
         this.flw = flw;
     }
 
-     
     @Field
     public DateTime getDateModified() {
         return dateModified;
@@ -71,7 +70,6 @@ public class GrowthMonitoringChildForm extends Form {
         this.dateModified = dateModified;
     }
 
-     
     @Field
     public DateTime getTimeStart() {
         return timeStart;
@@ -81,7 +79,6 @@ public class GrowthMonitoringChildForm extends Form {
         this.timeStart = timeStart;
     }
 
-     
     @Field
     public DateTime getTimeEnd() {
         return timeEnd;
@@ -91,7 +88,6 @@ public class GrowthMonitoringChildForm extends Form {
         this.timeEnd = timeEnd;
     }
 
-     
     @Field
     public DateTime getCreationTime() {
         return creationTime;

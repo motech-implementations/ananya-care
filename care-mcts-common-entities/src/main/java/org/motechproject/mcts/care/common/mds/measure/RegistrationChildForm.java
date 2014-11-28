@@ -14,6 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = { "instanceId", "childCase" })
 public class RegistrationChildForm extends Form {
 
+    private static final long serialVersionUID = 1429749246199805436L;
+
     private Flw flw;
     private ChildCase childCase;
     private DateTime timeEnd;

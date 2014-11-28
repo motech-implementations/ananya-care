@@ -10,146 +10,139 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "mo_form")
 @Unique(members = "instanceId")
 public class MoForm extends Form {
 
-	 private Flw flw;
-	private MotherCase motherCase;
-	private DateTime timeEnd;
-	private DateTime timeStart;
-	private DateTime dateModified;
-	private DateTime migrateOutDate;
-	private String migratedStatus;
-	private String status;
-	private DateTime dateLearned;
-	private DateTime dateLeft;
-	private String name;
-	private String noteGiven;
+    private static final long serialVersionUID = -5000051235829137461L;
+
+    private Flw flw;
+    private MotherCase motherCase;
+    private DateTime timeEnd;
+    private DateTime timeStart;
+    private DateTime dateModified;
+    private DateTime migrateOutDate;
+    private String migratedStatus;
+    private String status;
+    private DateTime dateLearned;
+    private DateTime dateLeft;
+    private String name;
+    private String noteGiven;
     private DateTime creationTime = new DateTime();
 
     public MoForm() {
-	}
-    
+    }
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	
-	@Field
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public MotherCase getMotherCase() {
-		return this.motherCase;
-	}
+    public MotherCase getMotherCase() {
+        return this.motherCase;
+    }
 
-	public void setMotherCase(MotherCase motherCase) {
-		this.motherCase = motherCase;
-	}
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
+    }
 
-	
-	@Field
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
+    @Field
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	
-	@Field
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
+    @Field
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	
-	@Field
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
+    @Field
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	
-	@Field
-	public DateTime getMigrateOutDate() {
-		return this.migrateOutDate;
-	}
+    @Field
+    public DateTime getMigrateOutDate() {
+        return this.migrateOutDate;
+    }
 
-	public void setMigrateOutDate(DateTime migrateOutDate) {
-		this.migrateOutDate = migrateOutDate;
-	}
+    public void setMigrateOutDate(DateTime migrateOutDate) {
+        this.migrateOutDate = migrateOutDate;
+    }
 
-	@Field
-	public String getMigratedStatus() {
-		return this.migratedStatus;
-	}
+    @Field
+    public String getMigratedStatus() {
+        return this.migratedStatus;
+    }
 
-	public void setMigratedStatus(String migratedStatus) {
-		this.migratedStatus = migratedStatus;
-	}
+    public void setMigratedStatus(String migratedStatus) {
+        this.migratedStatus = migratedStatus;
+    }
 
-	@Field
-	public String getStatus() {
-		return this.status;
-	}
+    @Field
+    public String getStatus() {
+        return this.status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	
-	@Field
-	public DateTime getDateLearned() {
-		return this.dateLearned;
-	}
+    @Field
+    public DateTime getDateLearned() {
+        return this.dateLearned;
+    }
 
-	public void setDateLearned(DateTime dateLearned) {
-		this.dateLearned = dateLearned;
-	}
+    public void setDateLearned(DateTime dateLearned) {
+        this.dateLearned = dateLearned;
+    }
 
-	
-	@Field
-	public DateTime getDateLeft() {
-		return this.dateLeft;
-	}
+    @Field
+    public DateTime getDateLeft() {
+        return this.dateLeft;
+    }
 
-	public void setDateLeft(DateTime dateLeft) {
-		this.dateLeft = dateLeft;
-	}
+    public void setDateLeft(DateTime dateLeft) {
+        this.dateLeft = dateLeft;
+    }
 
-	@Field
-	public String getName() {
-		return this.name;
-	}
+    @Field
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Field
-	public String getNoteGiven() {
-		return this.noteGiven;
-	}
+    @Field
+    public String getNoteGiven() {
+        return this.noteGiven;
+    }
 
-	public void setNoteGiven(String noteGiven) {
-		this.noteGiven = noteGiven;
-	}
+    public void setNoteGiven(String noteGiven) {
+        this.noteGiven = noteGiven;
+    }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;

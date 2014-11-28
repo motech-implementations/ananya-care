@@ -14,6 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = "instanceId")
 public class MoveBeneficiaryForm extends Form {
 
+    private static final long serialVersionUID = 5274215142233877086L;
+
     private Flw flw;
     private MotherCase motherCase;
     private DateTime timeEnd;
@@ -38,7 +40,6 @@ public class MoveBeneficiaryForm extends Form {
         this.flw = flw;
     }
 
-    
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
@@ -49,7 +50,6 @@ public class MoveBeneficiaryForm extends Form {
         this.motherCase = motherCase;
     }
 
-    
     @Field
     public DateTime getTimeEnd() {
         return this.timeEnd;
@@ -59,7 +59,6 @@ public class MoveBeneficiaryForm extends Form {
         this.timeEnd = timeEnd;
     }
 
-    
     @Field
     public DateTime getTimeStart() {
         return this.timeStart;
@@ -69,7 +68,6 @@ public class MoveBeneficiaryForm extends Form {
         this.timeStart = timeStart;
     }
 
-    
     @Field
     public DateTime getDateModified() {
         return this.dateModified;
@@ -79,7 +77,6 @@ public class MoveBeneficiaryForm extends Form {
         this.dateModified = dateModified;
     }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;

@@ -14,6 +14,13 @@ public class UnmappedToReviewForm {
     private String ashaId;
     private String ashaName;
     private String mctsHusbandName;
+    private String isCorrectAsha;
+    private String newAsha;
+    private String newAshaName;
+    private String newAssignment;
+    private String noAsha;
+    private String noAshaExisting;
+    private String sameAssignment;
     private String mctsFullName;
     private String langCode;
     private String dateModified;
@@ -25,143 +32,221 @@ public class UnmappedToReviewForm {
     private String appVersion;
     private MotherCase motherCase;
     private MctsPregnantMother mctsPregnantMother;
-    
-    
-    
+
     @Field
     public String getKnown() {
         return known;
     }
+
     public void setKnown(String known) {
         this.known = known;
     }
-    
+
     @Field
     public String getDontKnow() {
         return dontKnow;
     }
+
     public void setDontKnow(String dontKnow) {
         this.dontKnow = dontKnow;
     }
-    
+
     @Field
     public String getPrevAshaId() {
         return prevAshaId;
     }
+
     public void setPrevAshaId(String prevAshaId) {
         this.prevAshaId = prevAshaId;
     }
-    
+
     @Field
     public String getAshaId() {
         return ashaId;
     }
+
     public void setAshaId(String ashaId) {
         this.ashaId = ashaId;
     }
-    
+
     @Field
     public String getAshaName() {
         return ashaName;
     }
+
     public void setAshaName(String ashaName) {
         this.ashaName = ashaName;
     }
-    
+
     @Field
     public String getMctsHusbandName() {
         return mctsHusbandName;
     }
+
     public void setMctsHusbandName(String mctsHusbandName) {
         this.mctsHusbandName = mctsHusbandName;
     }
-    
+
+    @Field
+    public String getIsCorrectAsha() {
+        return isCorrectAsha;
+    }
+
+    public void setIsCorrectAsha(String isCorrectAsha) {
+        this.isCorrectAsha = isCorrectAsha;
+    }
+
+    @Field
+    public String getNewAsha() {
+        return newAsha;
+    }
+
+    public void setNewAsha(String newAsha) {
+        this.newAsha = newAsha;
+    }
+
+    @Field
+    public String getNewAshaName() {
+        return newAshaName;
+    }
+
+    public void setNewAshaName(String newAshaName) {
+        this.newAshaName = newAshaName;
+    }
+
+    @Field
+    public String getNewAssignment() {
+        return newAssignment;
+    }
+
+    public void setNewAssignment(String newAssignment) {
+        this.newAssignment = newAssignment;
+    }
+
+    @Field
+    public String getNoAsha() {
+        return noAsha;
+    }
+
+    public void setNoAsha(String noAsha) {
+        this.noAsha = noAsha;
+    }
+
+    @Field
+    public String getNoAshaExisting() {
+        return noAshaExisting;
+    }
+
+    public void setNoAshaExisting(String noAshaExisting) {
+        this.noAshaExisting = noAshaExisting;
+    }
+
+    @Field
+    public String getSameAssignment() {
+        return sameAssignment;
+    }
+
+    public void setSameAssignment(String sameAssignment) {
+        this.sameAssignment = sameAssignment;
+    }
+
     @Field
     public String getMctsFullName() {
         return mctsFullName;
     }
+
     public void setMctsFullName(String mctsFullName) {
         this.mctsFullName = mctsFullName;
     }
-    
+
     @Field
     public String getLangCode() {
         return langCode;
     }
+
     public void setLangCode(String langCode) {
         this.langCode = langCode;
     }
-    
+
     @Field
     public String getDateModified() {
         return dateModified;
     }
+
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
     }
-    
+
     @Field
     public boolean getClose() {
         return close;
     }
+
     public void setClose(boolean close) {
         this.close = close;
     }
-    
+
     @Field
     public String getNamespace() {
         return namespace;
     }
+
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
-    
+
     @Field
     public String getDeviceID() {
         return deviceID;
     }
+
     public void setDeviceID(String deviceID) {
         this.deviceID = deviceID;
     }
-    
+
     @Field
     public String getInstanceID() {
         return instanceID;
     }
+
     public void setInstanceID(String instanceID) {
         this.instanceID = instanceID;
     }
-    
+
     @Field
     public String getUserID() {
         return userID;
     }
+
     public void setUserID(String userID) {
         this.userID = userID;
     }
-    
+
     @Field
     public String getAppVersion() {
         return appVersion;
     }
+
     public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
     }
-    
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MotherCase getMotherCase() {
         return motherCase;
     }
+
     public void setMotherCase(MotherCase motherCase) {
         this.motherCase = motherCase;
     }
-    
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
     public MctsPregnantMother getMctsPregnantMother() {
         return mctsPregnantMother;
     }
+
     public void setMctsPregnantMother(MctsPregnantMother mctsPregnantMother) {
         this.mctsPregnantMother = mctsPregnantMother;
     }

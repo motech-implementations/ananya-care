@@ -14,6 +14,8 @@ import org.motechproject.mds.annotations.Field;
 @Unique(members = { "instanceId", "childCase" })
 public class CfChildForm extends Form {
 
+    private static final long serialVersionUID = 416897284462581476L;
+
     @Field
     @Cascade(persist = true, update = true, delete = false)
     private Flw flw;
@@ -48,7 +50,7 @@ public class CfChildForm extends Form {
     @Field
     private DateTime bcgDate;
     @Field
-     private String caseName;
+    private String caseName;
     @Field
     private DateTime dpt1Date;
     private DateTime dpt2Date;
@@ -71,7 +73,7 @@ public class CfChildForm extends Form {
     private String milkCurd;
     private String moreFeedingLessSix;
     private String nameUpdate;
-	private String newName;
+    private String newName;
     private String numberGood;
     private String oilGhee;
     private String recentFever;
@@ -108,16 +110,15 @@ public class CfChildForm extends Form {
     public void setFlw(Flw flw) {
         this.flw = flw;
     }
-    
+
     @Field
     public String getNameUpdate() {
-		return nameUpdate;
-	}
+        return nameUpdate;
+    }
 
-	public void setNameUpdate(String nameUpdate) {
-		this.nameUpdate = nameUpdate;
-	}
-
+    public void setNameUpdate(String nameUpdate) {
+        this.nameUpdate = nameUpdate;
+    }
 
     public ChildCase getChildCase() {
         return this.childCase;
@@ -287,7 +288,7 @@ public class CfChildForm extends Form {
         this.bcgDate = bcgDate;
     }
 
-     public String getCaseName() {
+    public String getCaseName() {
         return this.caseName;
     }
 
@@ -473,7 +474,6 @@ public class CfChildForm extends Form {
     public void setMoreFeedingLessSix(String moreFeedingLessSix) {
         this.moreFeedingLessSix = moreFeedingLessSix;
     }
-
 
     @Field
     public String getNewName() {

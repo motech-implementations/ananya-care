@@ -10,155 +10,150 @@ import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-
 @Entity(name = "death_mother_form")
 @Unique(members = "instanceId")
 public class DeathMotherForm extends Form {
 
-	 private Flw flw;
-	private MotherCase motherCase;
-	private DateTime timeEnd;
-	private DateTime timeStart;
-	private DateTime dateModified;
-	private String motherAlive;
-	private String status;
-	private int castNumChildren;
+    private static final long serialVersionUID = -2365326701892901039L;
+
+    private Flw flw;
+    private MotherCase motherCase;
+    private DateTime timeEnd;
+    private DateTime timeStart;
+    private DateTime dateModified;
+    private String motherAlive;
+    private String status;
+    private int castNumChildren;
     private DateTime dateDeath;
-	private String deathVillage;
-	private int numChildren;
-	private String placeDeath;
-	private String siteDeath;
+    private String deathVillage;
+    private int numChildren;
+    private String placeDeath;
+    private String siteDeath;
     private Boolean close;
     private DateTime creationTime = new DateTime();
 
     public DeathMotherForm() {
-	}
-	
-	@Field
+    }
+
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public Flw getFlw() {
-		return this.flw;
-	}
+    public Flw getFlw() {
+        return this.flw;
+    }
 
-	public void setFlw(Flw flw) {
-		this.flw = flw;
-	}
+    public void setFlw(Flw flw) {
+        this.flw = flw;
+    }
 
-	
-	@Field
+    @Field
     @Cascade(persist = true, update = true, delete = false)
-	public MotherCase getMotherCase() {
-		return this.motherCase;
-	}
+    public MotherCase getMotherCase() {
+        return this.motherCase;
+    }
 
-	public void setMotherCase(MotherCase motherCase) {
-		this.motherCase = motherCase;
-	}
+    public void setMotherCase(MotherCase motherCase) {
+        this.motherCase = motherCase;
+    }
 
-	
-	@Field
-	public DateTime getTimeEnd() {
-		return this.timeEnd;
-	}
+    @Field
+    public DateTime getTimeEnd() {
+        return this.timeEnd;
+    }
 
-	public void setTimeEnd(DateTime timeEnd) {
-		this.timeEnd = timeEnd;
-	}
+    public void setTimeEnd(DateTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
 
-	
-	@Field
-	public DateTime getTimeStart() {
-		return this.timeStart;
-	}
+    @Field
+    public DateTime getTimeStart() {
+        return this.timeStart;
+    }
 
-	public void setTimeStart(DateTime timeStart) {
-		this.timeStart = timeStart;
-	}
+    public void setTimeStart(DateTime timeStart) {
+        this.timeStart = timeStart;
+    }
 
-	
-	@Field
-	public DateTime getDateModified() {
-		return this.dateModified;
-	}
+    @Field
+    public DateTime getDateModified() {
+        return this.dateModified;
+    }
 
-	public void setDateModified(DateTime dateModified) {
-		this.dateModified = dateModified;
-	}
+    public void setDateModified(DateTime dateModified) {
+        this.dateModified = dateModified;
+    }
 
-	@Field
-	public String getMotherAlive() {
-		return this.motherAlive;
-	}
+    @Field
+    public String getMotherAlive() {
+        return this.motherAlive;
+    }
 
-	public void setMotherAlive(String motherAlive) {
-		this.motherAlive = motherAlive;
-	}
+    public void setMotherAlive(String motherAlive) {
+        this.motherAlive = motherAlive;
+    }
 
-	@Field
-	public String getStatus() {
-		return this.status;
-	}
+    @Field
+    public String getStatus() {
+        return this.status;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	@Field
-	public int getCastNumChildren() {
-		return this.castNumChildren;
-	}
+    @Field
+    public int getCastNumChildren() {
+        return this.castNumChildren;
+    }
 
-	public void setCastNumChildren(int castNumChildren) {
-		this.castNumChildren = castNumChildren;
-	}
+    public void setCastNumChildren(int castNumChildren) {
+        this.castNumChildren = castNumChildren;
+    }
 
-    
-	@Field
-	public DateTime getDateDeath() {
-		return this.dateDeath;
-	}
+    @Field
+    public DateTime getDateDeath() {
+        return this.dateDeath;
+    }
 
-	public void setDateDeath(DateTime dateDeath) {
-		this.dateDeath = dateDeath;
-	}
+    public void setDateDeath(DateTime dateDeath) {
+        this.dateDeath = dateDeath;
+    }
 
-	@Field
-	public String getDeathVillage() {
-		return this.deathVillage;
-	}
+    @Field
+    public String getDeathVillage() {
+        return this.deathVillage;
+    }
 
-	public void setDeathVillage(String deathVillage) {
-		this.deathVillage = deathVillage;
-	}
+    public void setDeathVillage(String deathVillage) {
+        this.deathVillage = deathVillage;
+    }
 
-	@Field
-	public int getNumChildren() {
-		return this.numChildren;
-	}
+    @Field
+    public int getNumChildren() {
+        return this.numChildren;
+    }
 
-	public void setNumChildren(int numChildren) {
-		this.numChildren = numChildren;
-	}
+    public void setNumChildren(int numChildren) {
+        this.numChildren = numChildren;
+    }
 
-	@Field
-	public String getPlaceDeath() {
-		return this.placeDeath;
-	}
+    @Field
+    public String getPlaceDeath() {
+        return this.placeDeath;
+    }
 
-	public void setPlaceDeath(String placeDeath) {
-		this.placeDeath = placeDeath;
-	}
+    public void setPlaceDeath(String placeDeath) {
+        this.placeDeath = placeDeath;
+    }
 
-	@Field
-	public String getSiteDeath() {
-		return this.siteDeath;
-	}
+    @Field
+    public String getSiteDeath() {
+        return this.siteDeath;
+    }
 
-	public void setSiteDeath(String siteDeath) {
-		this.siteDeath = siteDeath;
-	}
+    public void setSiteDeath(String siteDeath) {
+        this.siteDeath = siteDeath;
+    }
 
-    
     @Field
     public DateTime getCreationTime() {
         return creationTime;
