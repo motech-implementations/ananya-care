@@ -7,9 +7,9 @@ import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Component
 public class MeaslesBoosterExpiryAction implements Action {
 
-    @Component
     private MeaslesBoosterService measlesBoosterService;
     @Autowired
     MdsRepository dbRepository;
