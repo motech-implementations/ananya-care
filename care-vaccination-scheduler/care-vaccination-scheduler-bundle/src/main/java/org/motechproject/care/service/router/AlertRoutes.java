@@ -31,7 +31,8 @@ public class AlertRoutes {
             HepExpiryAction hepExpiryAction,
             MeaslesExpiryAction measlesExpiryAction,
             OpvBoosterExpiryAction opvBoosterExpiryAction,
-            VitaExpiryAction vitaExpiryAction) {
+            VitaExpiryAction vitaExpiryAction,
+            MeaslesBoosterExpiryAction measlesBoosterExpiryAction) {
         routes = new ArrayList<Route>();
         routes.add(new Route(eq(ChildVaccinationSchedule.Hepatitis0.getName()),
                 any(), eq(WindowName.late.name()), hep0ExpiryAction));
@@ -53,6 +54,8 @@ public class AlertRoutes {
                 any(), eq(WindowName.late.name()), opvBoosterExpiryAction));
         routes.add(new Route(eq(ChildVaccinationSchedule.Vita.getName()),
                 any(), eq(WindowName.late.name()), vitaExpiryAction));
+        routes.add(new Route(eq(ChildVaccinationSchedule.MeaslesBooster.getName()),
+                any(), eq(WindowName.late.name()), measlesBoosterExpiryAction));
         routes.add(new Route(childSchedules(), any(), any(), alertChildAction));
         routes.add(new Route(motherSchedules(), any(), any(), alertMotherAction));
         //routes.add(new Route(expirySchedules(), any(), any(), expiryAction));

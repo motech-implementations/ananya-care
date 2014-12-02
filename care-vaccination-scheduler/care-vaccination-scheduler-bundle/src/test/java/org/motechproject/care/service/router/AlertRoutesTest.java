@@ -46,6 +46,8 @@ public class AlertRoutesTest {
     private OpvBoosterExpiryAction opvBoosterExpiryAction;
     @Mock
     private VitaExpiryAction vitaExpiryAction;
+    @Mock
+    private MeaslesBoosterExpiryAction measlesBoosterExpiryAction;
 
     private AlertRoutes alertRoutes;
 
@@ -56,7 +58,7 @@ public class AlertRoutesTest {
                 clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction,
                 bcgExpiryAction, opvExpiryAction, dptExpiryAction,
                 dptBoosterExpiryAction, hepExpiryAction, measlesExpiryAction,
-                opvBoosterExpiryAction, vitaExpiryAction);
+                opvBoosterExpiryAction, vitaExpiryAction, measlesBoosterExpiryAction);
     }
 
     @Test
@@ -146,7 +148,7 @@ public class AlertRoutesTest {
                 clientExpiryAction, hep0ExpiryAction, opv0ExpiryAction,
                 bcgExpiryAction, opvExpiryAction, dptExpiryAction,
                 dptBoosterExpiryAction, hepExpiryAction, measlesExpiryAction,
-                opvBoosterExpiryAction, vitaExpiryAction);;
+                opvBoosterExpiryAction, vitaExpiryAction, measlesBoosterExpiryAction);
     }
 
 }
