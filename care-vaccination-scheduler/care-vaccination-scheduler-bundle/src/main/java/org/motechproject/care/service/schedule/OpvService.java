@@ -21,7 +21,7 @@ public class OpvService extends VaccinationService{
     public void process(Client client) {
         ChildCase child = (ChildCase) client;
         if(child.getDob() != null)
-            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName, child.getDob());
+            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         if(child.getOpv1Date()!=null)
             fulfillMilestone(client, MilestoneType.OPV1, child.getOpv1Date());
         if(child.getOpv2Date()!=null)

@@ -21,7 +21,7 @@ public class DptService extends VaccinationService{
     public void process(Client client) {
         ChildCase child = (ChildCase) client;
         if(child.getDob() != null)
-            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName, child.getDob());
+            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
         if(child.getDpt1Date()!=null)
             fulfillMilestone(client, MilestoneType.DPT1, child.getDpt1Date());
         if(child.getDpt2Date()!=null)

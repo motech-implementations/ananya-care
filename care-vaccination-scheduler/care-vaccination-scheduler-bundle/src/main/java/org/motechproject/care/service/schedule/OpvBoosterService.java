@@ -31,7 +31,7 @@ public class OpvBoosterService extends VaccinationService{
             Window opvBoosterWindow = getOPVBoosterWindow(child.getOpv3Date(), child.getDob());
             if(opvBoosterWindow.isValid()) {
                 DateTime referenceDate = opvBoosterWindow.getStart().plus(periodUtil.getScheduleOffset());
-                schedulerService.enroll(child.getCaseId(), referenceDate, scheduleName, child.getDob());
+                schedulerService.enroll(child.getCaseId(), referenceDate, scheduleName);
             }
         }
         if(child.getOpvBoosterDate() != null) {
