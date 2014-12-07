@@ -31,7 +31,7 @@ public class MeaslesBoosterService extends VaccinationService {
             if(measlesBoosterWindow.isValid()) {
                 DateTime referenceDate = measlesBoosterWindow.getStart().plus(periodUtil.getScheduleOffset());
             schedulerService.enroll(child.getCaseId(), referenceDate,
-                    scheduleName);
+                    scheduleName, child.getDob());
             }
         }
         if (child.getDateMeaslesBooster() != null) {

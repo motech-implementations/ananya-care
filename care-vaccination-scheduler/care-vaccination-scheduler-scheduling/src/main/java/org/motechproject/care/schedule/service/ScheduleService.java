@@ -25,6 +25,7 @@ public class ScheduleService {
     public static final String DEFINITIONS_DIRECTORY_NAME = "/schedules";
     public static final String JSON_SUFFIX = ".json";
     protected ScheduleTrackingService trackingService;
+
     Logger logger = Logger.getLogger(ScheduleService.class);
 
     @Autowired
@@ -61,9 +62,12 @@ public class ScheduleService {
     }
 
     public void enroll(String caseId, DateTime referenceDate, String scheduleName) {
+        enroll(caseId, referenceDate, scheduleName, null);
+    }
+    public void enroll(String caseId, DateTime referenceDate, String scheduleName, DateTime childDob) {
         if (isNotEnrolled(caseId, scheduleName)) {
             logger.info(String.format("Enrolling client for external id : %s , schedule : %s", caseId, scheduleName));
-            trackingService.enroll(enrollmentRequestFor(caseId, referenceDate.toLocalDate(), scheduleName));
+            trackingService.enroll(enrollmentRequestFor(caseId, referenceDate.toLocalDate(), scheduleName, childDob));
         }
     }
 
@@ -118,7 +122,7 @@ public class ScheduleService {
         trackingService.fulfillCurrentMilestone(caseId, scheduleName, fulfillmentDateTime.toLocalDate(), DateUtil.time(fulfillmentDateTime));
     }
 
-    private EnrollmentRequest enrollmentRequestFor(String caseId, LocalDate referenceDate, String scheduleName) {
+    private EnrollmentRequest enrollmentRequestFor(String caseId, LocalDate referenceDate, String scheduleName, DateTime childDob) {
         DateTime now = DateTime.now();
         Time referenceTime = DateUtil.time(now.plusMinutes(2));
         LocalDate enrollmentDate = DateUtil.today();
@@ -130,7 +134,8 @@ public class ScheduleService {
         enrollmentRequest.setReferenceTime(referenceTime);
         enrollmentRequest.setEnrollmentDate(enrollmentDate);
         enrollmentRequest.setEnrollmentTime(enrollmentTime);
-
+        enrollmentRequest.setDob(childDob);
         return enrollmentRequest;
     }
+
 }

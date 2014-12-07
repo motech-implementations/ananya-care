@@ -21,7 +21,7 @@ public class HepService extends VaccinationService{
     public void process(Client client) {
         ChildCase child = (ChildCase) client;
         if(child.getDob() != null)
-            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName);
+            schedulerService.enroll(child.getCaseId(), child.getDob(), scheduleName, child.getDob());
         if(child.getHepB1Date()!=null)
             fulfillMilestone(client, MilestoneType.Hep1, child.getHepB1Date());
         if(child.getHepB2Date()!=null)
