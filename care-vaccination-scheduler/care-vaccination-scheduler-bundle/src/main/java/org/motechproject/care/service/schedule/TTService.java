@@ -33,6 +33,6 @@ public class TTService extends VaccinationService{
     }
 
     private boolean isNotEligibleForBooster(MotherCase mother) {
-        return mother.getLastPregTt()==null || "".equals(mother.getLastPregTt()) || mother.getLastPregTt().equals("no");
+        return mother.getLastPregTt()==null || "".equals(mother.getLastPregTt()) || mother.getLastPregTt().equalsIgnoreCase("no");
     }
 }
