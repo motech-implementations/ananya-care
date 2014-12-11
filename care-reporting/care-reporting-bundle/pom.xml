@@ -170,9 +170,9 @@
                         </goals>
                         <configuration>
                             <encoding>UTF-8</encoding>
-                            <includes>
-                                <include>**/*IT.java</include>
-                            </includes>
+                            <excludes>
+                                <exclude>**/*IT.java</exclude>
+                            </excludes>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         </configuration>
                     </execution>
@@ -222,7 +222,7 @@
                             *
                         </Import-Package>
                         <Export-Package>
-                            org.motechproject.care.reporting.domain.measure;version=${motech.version},
+                    <!--         org.motechproject.care.reporting.domain.measure;version=${motech.version}, -->
                             org.motechproject.care.reporting.service;version=${motech.version},
                             org.motechproject.care.reporting.mapper;version=${motech.version}
                         </Export-Package>

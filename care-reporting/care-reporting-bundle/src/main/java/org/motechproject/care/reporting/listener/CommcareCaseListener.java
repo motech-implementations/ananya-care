@@ -23,17 +23,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommcareCaseListener {
 
-    private static final Logger logger = LoggerFactory.getLogger("commcare-reporting-mapper");
+    private static final Logger logger = LoggerFactory
+            .getLogger("commcare-reporting-mapper");
     public static final String CLOSE_ACTION_IDENTIFIER = "CLOSE";
 
     private ChildCaseProcessor childCaseProcessor;
     private CloseCaseProcessor closeCaseProcessor;
     private MotherCaseProcessor motherCaseProcessor;
-   
 
     @Autowired
-    public CommcareCaseListener(MotherCaseProcessor motherCaseProcessor, ChildCaseProcessor childCaseProcessor, 
-    		CloseCaseProcessor closeCaseProcessor, EventRelay eventRelay) {
+    public CommcareCaseListener(MotherCaseProcessor motherCaseProcessor,
+            ChildCaseProcessor childCaseProcessor,
+            CloseCaseProcessor closeCaseProcessor, EventRelay eventRelay) {
         this.motherCaseProcessor = motherCaseProcessor;
         this.childCaseProcessor = childCaseProcessor;
         this.closeCaseProcessor = closeCaseProcessor;
@@ -47,11 +48,13 @@ public class CommcareCaseListener {
         String action = caseEvent.getAction();
         String caseName = caseEvent.getCaseName();
 
-        if (caseEvent.getCaseDataXmlns() != null && caseEvent.getCaseDataXmlns().endsWith("/task")) {
+        if (caseEvent.getCaseDataXmlns() != null
+                && caseEvent.getCaseDataXmlns().endsWith("/task")) {
             return;
         }
 
-        logger.info(format("Received case. id: %s, case name: %s; action: %s;", caseId, caseName, action));
+        logger.info(format("Received case. id: %s, case name: %s; action: %s;",
+                caseId, caseName, action));
 
         if (CLOSE_ACTION_IDENTIFIER.equals(action)) {
             processClose(caseEvent);
@@ -61,21 +64,19 @@ public class CommcareCaseListener {
         processCreateUpdate(caseEvent, caseId);
     }
 
-
-
     private void processCreateUpdate(CaseEvent caseEvent, String caseId) {
         CaseType caseType = CaseType.getType(caseEvent.getCaseType());
 
-        if(!caseType.shouldProcess())  {
-            logger.info(String.format("Ignoring case type %s with the case id %s", caseType,caseId));
+        if (!caseType.shouldProcess()) {
+            logger.info(String.format(
+                    "Ignoring case type %s with the case id %s", caseType,
+                    caseId));
             return;
         }
-        
-       
+
         if (caseType.equals(CaseType.MOTHER)) {
             motherCaseProcessor.process(caseEvent);
-           
-            
+
             return;
         }
 
@@ -84,7 +85,8 @@ public class CommcareCaseListener {
             return;
         }
 
-        throw new RuntimeException(format("Cannot process case with id %s of type %s", caseId, caseType));
+        throw new RuntimeException(format(
+                "Cannot process case with id %s of type %s", caseId, caseType));
     }
 
     private void processClose(CaseEvent caseEvent) {
