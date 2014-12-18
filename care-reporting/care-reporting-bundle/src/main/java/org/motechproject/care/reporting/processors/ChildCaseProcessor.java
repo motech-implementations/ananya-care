@@ -50,12 +50,6 @@ public class ChildCaseProcessor {
     public void process(CaseEvent caseEvent) {
         CaseType caseType = CaseType.getType(caseEvent.getCaseType());
         InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
-        Map<String, String> keyConversionMap = new HashMap<String, String>() {
-            {
-                put("measlesBoosterDate", "dateMeaslesBooster");
-            }
-        };
-        infoParser.setKeyConversionMap(keyConversionMap);
         Map<String, String> caseMap = new CaseInfoParser(infoParser)
                 .parse(caseEvent);
 

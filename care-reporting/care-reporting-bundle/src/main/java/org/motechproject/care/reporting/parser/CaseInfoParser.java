@@ -34,6 +34,10 @@ public class CaseInfoParser extends BaseInfoParser {
 
         Map<String, String> fieldValuesMap = (Map) infoParser.parse(fieldValues);
         map.putAll(fieldValuesMap);
+        if(map.containsKey("measlesBoosterDate")) {
+        	map.put("dateMeaslesBooster", map.get("measlesBoosterDate"));
+        	map.remove("measlesBoosterDate");
+        }
 
         return map;
     }

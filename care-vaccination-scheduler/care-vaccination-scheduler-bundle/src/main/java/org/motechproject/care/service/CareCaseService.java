@@ -5,9 +5,12 @@ import java.net.URISyntaxException;
 
 import org.apache.log4j.Logger;
 import org.motechproject.care.init.ScheduleInitializer;
+import org.motechproject.care.service.router.AlertRouter;
+import org.motechproject.event.MotechEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @RequestMapping("/care/**")
 public class CareCaseService  {
+	
+	private AlertRouter alertRouter;
 
     private MotherService motherService;
     private ChildService childService;
@@ -67,6 +72,15 @@ public class CareCaseService  {
     @ResponseStatus(HttpStatus.OK)
     public void addSchedule() throws URISyntaxException, IOException {
         scheduleInitializer.addSchedules();
+    }
+    
+    @RequestMapping(value = "/addtask", method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void addTask(@RequestBody MotechEvent motechEvent) {
+        
+    	alertRouter.handle(motechEvent);
+    	
     }
 
 //    protected void validateCreateCase(CareCase careCase) throws CaseException {
