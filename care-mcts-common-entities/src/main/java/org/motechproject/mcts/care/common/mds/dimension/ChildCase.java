@@ -94,19 +94,19 @@ public class ChildCase extends Client implements java.io.Serializable,
     private DateTime creationTime;
     @Field
     private DateTime lastModifiedTime;
-    
+
     @Field
     private String childAlive;
 
     public String getChildAlive() {
-		return childAlive;
-	}
+        return childAlive;
+    }
 
-	public void setChildAlive(String childAlive) {
-		this.childAlive = childAlive;
-	}
+    public void setChildAlive(String childAlive) {
+        this.childAlive = childAlive;
+    }
 
-	protected Flw flw;
+    protected Flw flw;
 
     protected FlwGroup flwGroup;
 
@@ -118,14 +118,15 @@ public class ChildCase extends Client implements java.io.Serializable,
     }
 
     public ChildCase(String caseId, DateTime dateModified, Flw flw,
-            String name, FlwGroup flwGroup, DateTime dob, DateTime measlesDate,DateTime measlesBoosterDate,
-            DateTime bcgDate, DateTime vitamin1Date,DateTime vitamin2Date, MotherCase motherCase,
-            DateTime hep0Date, DateTime hep1Date, DateTime hep2Date,
-            DateTime hep3Date, DateTime dpt1Date, DateTime dpt2Date,
-            DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date,
-            DateTime opv1Date, DateTime opv2Date, DateTime opv3Date,
-            DateTime opvBoosterDate, String isAlive) {
-        
+            String name, FlwGroup flwGroup, DateTime dob, DateTime measlesDate,
+            DateTime measlesBoosterDate, DateTime bcgDate,
+            DateTime vitamin1Date, DateTime vitamin2Date,
+            MotherCase motherCase, DateTime hep0Date, DateTime hep1Date,
+            DateTime hep2Date, DateTime hep3Date, DateTime dpt1Date,
+            DateTime dpt2Date, DateTime dpt3Date, DateTime dptBoosterDate,
+            DateTime opv0Date, DateTime opv1Date, DateTime opv2Date,
+            DateTime opv3Date, DateTime opvBoosterDate, String isAlive) {
+
         this.childAlive = isAlive;
         this.caseId = caseId;
         this.dateModified = dateModified;
@@ -155,7 +156,6 @@ public class ChildCase extends Client implements java.io.Serializable,
         this.motherCase = motherCase;
 
     }
-
 
     public MotherCase getMotherCase() {
         return motherCase;
@@ -464,8 +464,8 @@ public class ChildCase extends Client implements java.io.Serializable,
         SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass(),
                 this);
 
-        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass().getSuperclass(),
-                this);
+        SelfUpdatableUtil.updateFields(source, ignoredFields, this.getClass()
+                .getSuperclass(), this);
     }
 
     @Field
@@ -500,7 +500,8 @@ public class ChildCase extends Client implements java.io.Serializable,
     // Below methods are added from Child class while unifying the tables of
     // Mother and MotherCase
     public boolean isActive() {
-        return super.isActive() && (childAlive == null || !childAlive.equals("no"));
+        return super.isActive()
+                && (childAlive == null || !childAlive.equals("no"));
     }
 
     @JsonIgnore

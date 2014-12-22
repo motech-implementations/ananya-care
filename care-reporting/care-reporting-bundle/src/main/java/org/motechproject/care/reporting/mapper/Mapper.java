@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.mapper;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConversionException;
 import org.joda.time.DateTime;
 import org.motechproject.care.reporting.converter.JodaTimeConverter;
 
@@ -42,17 +43,28 @@ public class Mapper {
             beanUtils.getConvertUtils().register(new JodaTimeConverter(),
                     DateTime.class);
         }
+        if (from == null) {
+            return null;
+        }
         return (T) beanUtils.getConvertUtils().convert(from, to);
     }
 
     private void set(Object object, String fieldName, Object fieldValue) {
         try {
-            if (fieldValue != null)
-                beanUtils.setProperty(object, fieldName, fieldValue);
-        } catch (Exception ex) {
+            beanUtils.setProperty(object, fieldName, fieldValue);
+        } catch (ConversionException ex) {
+            try {
+                beanUtils.copyProperty(object, fieldName, fieldValue);
+            } catch (Exception e) {
+                throw new RuntimeException(String.format(
+                        "Exception when setting %s to %s while copying property", fieldValue,
+                        fieldName), e);
+            }
+        }
+        catch (Exception e) {
             throw new RuntimeException(String.format(
                     "Exception when setting %s to %s", fieldValue, fieldName),
-                    ex);
+                    e);
         }
     }
 }

@@ -68,6 +68,12 @@
             <groupId>org.motechproject</groupId>
             <artifactId>commcare</artifactId>
             <version>${motech.version}</version>
+            <exclusions>
+            <exclusion>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>com.springsource.org.apache.commons.beanutils</artifactId>
+            </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.junit</groupId>
@@ -81,7 +87,13 @@
             <scope>test</scope>
             <version>1.8.5</version>
         </dependency>
-
+        <!-- beanutils 1.9 -->
+        <dependency>
+             <groupId>commons-beanutils</groupId>
+             <artifactId>commons-beanutils</artifactId>
+             <version>1.9.1</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.motechproject.org.hibernate</groupId>
             <artifactId>com.springsource.org.hibernate</artifactId>
@@ -139,6 +151,12 @@
             <groupId>org.motechproject</groupId>
             <artifactId>motech-platform-dataservices</artifactId>
             <version>${motech.version}</version>
+            <exclusions>
+            <exclusion>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>com.springsource.org.apache.commons.beanutils</artifactId>
+            </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.motechproject.ananya-care</groupId>

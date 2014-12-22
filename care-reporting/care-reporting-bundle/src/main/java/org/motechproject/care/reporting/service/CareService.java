@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -59,8 +61,7 @@ public class CareService implements ICareService {
 
     @Autowired
     public CareService(Repository dbRepository,
-            JobMetadataMDSService jobMetadataMDSService,
-            EventRelay eventRelay) {
+            JobMetadataMDSService jobMetadataMDSService, EventRelay eventRelay) {
         this.dbRepository = dbRepository;
         this.careReportingMapper = CareReportingMapper.getInstance(this);
         this.jobMetadataMDSService = jobMetadataMDSService;
@@ -356,6 +357,12 @@ public class CareService implements ICareService {
         return (Form) get(type, fieldMap, aliasMap);
     }
 
+    /*
+     * public void mapper() { MotherCase mother = new MotherCase();
+     * mother.setEdd(new DateTime()); careReportingMapper.set(mother, "edd",
+     * null); System.out.println(mother.getEdd()); }
+     */
+
     @Override
     public void closeCase(String caseId, Map<String, String> updatedValues) {
         MotherCase motherCase = getMotherCase(caseId);
@@ -368,9 +375,10 @@ public class CareService implements ICareService {
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
                 careReportingMapper.map(motherCase, updatedValues);
                 update(motherCase);
-                Map<String,Object> map = new HashMap<String,Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put(Constants.MOTHER_CASE_ID_PARAM, motherCase.getCaseId());
-                MotechEvent e = new MotechEvent(Constants.MOTHER_CLOSE_EVENT, map);
+                MotechEvent e = new MotechEvent(Constants.MOTHER_CLOSE_EVENT,
+                        map);
 
                 eventRelay.sendEventMessage(e);
             }
@@ -386,18 +394,21 @@ public class CareService implements ICareService {
             if (canBeClosed(closedOn, previouslyClosedOnForChild)) {
                 careReportingMapper.map(childCase, updatedValues);
                 update(childCase);
-                Map<String,Object> map = new HashMap<String,Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put(Constants.CHILD_CASE_ID_PARAM, childCase.getCaseId());
-                MotechEvent e = new MotechEvent(Constants.CHILD_CLOSE_EVENT, map);
+                MotechEvent e = new MotechEvent(Constants.CHILD_CLOSE_EVENT,
+                        map);
 
                 eventRelay.sendEventMessage(e);
-                
+
             }
         }
     }
 
     private boolean canBeClosed(DateTime closedOn, DateTime previouslyClosedOn) {
-
+        if (closedOn == null) {
+            return false;
+        }
         return previouslyClosedOn == null
                 || !closedOn.isBefore(previouslyClosedOn);
     }
@@ -464,7 +475,9 @@ public class CareService implements ICareService {
         }
     }
 
-    private void updateComputedFields(Object[] resultSet, Class metadataClass) {
+    private void updateComputedFields(Object[] resultSet, Class metadataClass)
+            throws IllegalAccessException, IllegalArgumentException,
+            InvocationTargetException, NoSuchMethodException, SecurityException {
         int deliveryOffsetDays = 0;
         DateTime add = null;
         DateTime edd = null;
@@ -496,7 +509,7 @@ public class CareService implements ICareService {
             logger.error("An error occured while invoking the Method 'setDeliveryOffsetDays' for the table: "
                     + metadataClass.getSimpleName());
         }
-        dbRepository.update(form);
+        dbRepository.save(form);
     }
 
     private DateTime parseDateTime(String dateTimeString) {

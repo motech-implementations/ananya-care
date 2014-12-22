@@ -22,7 +22,7 @@ public class TTBoosterService extends VaccinationService{
     @Override
     public void process(Client client) {
         MotherCase mother = (MotherCase) client;
-        if(mother.getEdd() != null && mother.getLastPregTt().equalsIgnoreCase("yes")){
+        if(mother.getEdd() != null && mother.getLastPregTt()!=null && mother.getLastPregTt().equalsIgnoreCase("yes")){
             schedulerService.enroll(mother.getCaseId(), mother.getEdd().minusDays(PeriodUtil.DAYS_IN_9_MONTHS), scheduleName);
         }
         if(mother.getTtBoosterDate() != null){
