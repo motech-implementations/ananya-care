@@ -1,23 +1,21 @@
 package org.motechproject.care.reporting.migration;
 
-import org.joda.time.DateTime;
-import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.common.MigrationType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class MigratorArguments {
+import org.joda.time.DateTime;
+import org.motechproject.care.reporting.migration.common.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class CommcareSyncValidatorArguments {
     private static final Logger logger = LoggerFactory
-            .getLogger(MigratorArguments.class);
+            .getLogger(CommcareSyncValidatorArguments.class);
 
     private final String[] arguments;
     private HashMap<String, Object> optionsMap = new HashMap<>();
-    private MigrationType migrationType;
 
-    public MigratorArguments(String[] arguments) {
+    public CommcareSyncValidatorArguments(String[] arguments) {
         this.arguments = arguments;
         validateArgumentsLength();
         populateArguments();
@@ -26,7 +24,6 @@ public class MigratorArguments {
 
     private void logArguments() {
         logger.info("Arguments:");
-        logger.info(String.format("Migration Type: %s", migrationType));
         for (Map.Entry<String, Object> optionEntry : optionsMap.entrySet()) {
             logger.info(String.format("%s: %s", optionEntry.getKey(),
                     optionEntry.getValue()));
@@ -34,28 +31,19 @@ public class MigratorArguments {
     }
 
     public static String usage() {
-        return "Migrator migration-type -t <form-type> -v <app-version> -s <start-date> -e <end-date> -o <offset> -l <limit>\n"
-                + "Eg:\n"
-                + "Migrator form -t http://bihar.commcarehq.org/pregnancy/new\n"
-                + "Migrator form -t http://bihar.commcarehq.org/pregnancy/new -v \"v2.0.0alpha (2b6e13-e6e3c5-unvers-2.1.0-Nokia/S40-native-input) #40 b:2012-Jul-17 r:2012-Jul-25\" -s 2013-07-01 -e 2013-07-31 -o 2000 -l 100";
+        return "CommcareSyncValidator -c <case-type> - <date-modified-start>\n"
+                + "Eg:\n" + "CommcareSyncValidator -c mother -d 2014-12-25\n"
+                + "CommcareSyncValidator -c child -d 2014-12-25\n";
     }
 
     public Map<String, Object> getOptions() {
         return optionsMap;
     }
 
-    public MigrationType getMigrationType() {
-        return this.migrationType;
-    }
-
     private void populateArguments() {
-        populateMigrationType();
-        populateStringOption(NamedArgument.TYPE, Constants.TYPE);
-        populateStringOption(NamedArgument.VERSION, Constants.VERSION);
-        populateStringOption(NamedArgument.LIMIT, Constants.LIMIT);
-        populateStringOption(NamedArgument.INITIAL_OFFSET, Constants.OFFSET);
-        populateDateOption(NamedArgument.START_DATE, Constants.START_DATE);
-        populateDateOption(NamedArgument.END_DATE, Constants.END_DATE);
+        populateStringOption(NamedArgument.CASETYPE, Constants.CASE_TYPE);
+        populateDateOption(NamedArgument.DATE_MODIFIED_START,
+                Constants.DATE_MODIFIED_START);
     }
 
     private void populateStringOption(NamedArgument namedArgument,
@@ -97,26 +85,15 @@ public class MigratorArguments {
                 parameter.option));
     }
 
-    private void populateMigrationType() {
-        MigrationType type = MigrationType.getFor(arguments[0]);
-        if (type == null) {
-            throw new IllegalArgumentException(String.format(
-                    "Invalid migration type %s", arguments[0]));
-        }
-
-        this.migrationType = type;
-    }
-
     private void validateArgumentsLength() {
-        if (arguments.length == 0 || arguments.length > 13) {
+        if (arguments.length == 0 || arguments.length > 2) {
             throw new IllegalArgumentException("Invalid number of arguments");
         }
     }
 
     private enum NamedArgument {
-        TYPE("-t", "type"), VERSION("-v", "version"), START_DATE("-s",
-                "start date"), END_DATE("-e", "end date"), INITIAL_OFFSET("-o",
-                "initial offset"), LIMIT("-l", "limit");
+        CASETYPE("-c", "case type"), DATE_MODIFIED_START("-d",
+                "start date modified");
         private final String option;
         private final String name;
 

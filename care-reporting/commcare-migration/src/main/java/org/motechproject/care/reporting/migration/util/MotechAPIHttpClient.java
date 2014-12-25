@@ -27,17 +27,22 @@ import java.util.Properties;
 @Component
 public class MotechAPIHttpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(MotechAPIHttpClient.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(MotechAPIHttpClient.class);
 
     private HttpClient httpClient;
     private final Properties platformProperties;
     private EndpointStatisticsCollector statisticsCollector;
 
     @Autowired
-    public MotechAPIHttpClient(@Qualifier("motechHttpClient") HttpClient httpClient, @Qualifier("platformProperties") Properties platformProperties, MigrationStatisticsCollector migrationStatisticsCollector) {
+    public MotechAPIHttpClient(
+            @Qualifier("motechHttpClient") HttpClient httpClient,
+            @Qualifier("platformProperties") Properties platformProperties,
+            MigrationStatisticsCollector migrationStatisticsCollector) {
         this.httpClient = httpClient;
         this.platformProperties = platformProperties;
-        this.statisticsCollector = migrationStatisticsCollector.motechEndpoint();
+        this.statisticsCollector = migrationStatisticsCollector
+                .motechEndpoint();
         logConfig();
     }
 
@@ -49,36 +54,44 @@ public class MotechAPIHttpClient {
         postContent(aCase, new PostMethod(getCaseUpdateUrl()));
     }
 
-    void postContent(CommcareResponseWrapper responseWrapper, PostMethod postMethod) {
+    void postContent(CommcareResponseWrapper responseWrapper,
+            PostMethod postMethod) {
         final RequestTimer requestTimer = statisticsCollector.newRequest();
         boolean success = false;
         try {
             addHeader(postMethod, responseWrapper.getHeaders());
 
-            postMethod.setRequestEntity(new StringRequestEntity(responseWrapper.getResponseBody(), "text/xml; charset=UTF-8", "UTF-8"));
+            postMethod.setRequestEntity(new StringRequestEntity(responseWrapper
+                    .getResponseBody(), "text/xml; charset=UTF-8", "UTF-8"));
 
             final int maxRetries = getMaxRetries();
             final int sleepTime = getSleepTimeBeforeRetries();
-            postMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
-                @Override
-                public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
-                    requestTimer.retried();
-                    boolean retry = executionCount <= maxRetries;
+            postMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+                    new HttpMethodRetryHandler() {
+                        @Override
+                        public boolean retryMethod(HttpMethod method,
+                                IOException exception, int executionCount) {
+                            requestTimer.retried();
+                            boolean retry = executionCount <= maxRetries;
 
-                    logger.error("Exception occurred while posting data to motech", exception);
-                    logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
+                            logger.error(
+                                    "Exception occurred while posting data to motech",
+                                    exception);
+                            logger.error(String.format(
+                                    "Execution Count: %s, Retrying again: %s",
+                                    executionCount, retry));
 
-                    if(!retry) {
-                        return false;
-                    }
+                            if (!retry) {
+                                return false;
+                            }
 
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException ignored) {
-                    }
-                    return true;
-                }
-            });
+                            try {
+                                Thread.sleep(sleepTime);
+                            } catch (InterruptedException ignored) {
+                            }
+                            return true;
+                        }
+                    });
 
             requestTimer.start();
             httpClient.executeMethod(postMethod);
@@ -88,7 +101,8 @@ public class MotechAPIHttpClient {
             String response = readResponse(postMethod);
 
             if (statusCode != HttpStatus.SC_OK) {
-                BadResponseException e = new BadResponseException(postMethod.getURI().toString(), statusCode, response);
+                BadResponseException e = new BadResponseException(postMethod
+                        .getURI().toString(), statusCode, response);
                 logger.error(e.getMessage(), e);
                 throw e;
             }
@@ -97,7 +111,7 @@ public class MotechAPIHttpClient {
             logger.error("IO exception while sending request to motech", e);
             throw new RuntimeException(e);
         } finally {
-            if(success) {
+            if (success) {
                 requestTimer.successful();
             } else {
                 requestTimer.failed();
@@ -113,7 +127,8 @@ public class MotechAPIHttpClient {
 
     private String readResponse(PostMethod postMethod) throws IOException {
         InputStream responseStream = postMethod.getResponseBodyAsStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(responseStream));
         StringBuffer sb = new StringBuffer();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -123,16 +138,20 @@ public class MotechAPIHttpClient {
     }
 
     private String getFormUpdateUrl() {
-        return String.format("%s/%s", platformProperties.getProperty("app.url"), platformProperties.getProperty("app.form.endpoint"));
+        return String.format("%s/%s",
+                platformProperties.getProperty("app.url"), platformProperties
+                        .getProperty("app.form.endpoint"));
     }
 
     private String getCaseUpdateUrl() {
-        return String.format("%s/%s", platformProperties.getProperty("app.url"), platformProperties.getProperty("app.case.endpoint"));
+        return String.format("%s/%s",
+                platformProperties.getProperty("app.url"), platformProperties
+                        .getProperty("app.case.endpoint"));
     }
 
-
     private int getSleepTimeBeforeRetries() {
-        return Integer.parseInt(platformProperties.getProperty("retry.sleep.time.in.ms"));
+        return Integer.parseInt(platformProperties
+                .getProperty("retry.sleep.time.in.ms"));
     }
 
     private int getMaxRetries() {
@@ -140,8 +159,12 @@ public class MotechAPIHttpClient {
     }
 
     private void logConfig() {
-        logger.info(String.format("Motech case update endpoint: %s", getCaseUpdateUrl()));
-        logger.info(String.format("Motech form update Endpoint: %s", getFormUpdateUrl()));
-        logger.info(String.format("Motech maximumm retries: %s; with sleep time: %s", getMaxRetries(), getSleepTimeBeforeRetries()));
+        logger.info(String.format("Motech case update endpoint: %s",
+                getCaseUpdateUrl()));
+        logger.info(String.format("Motech form update Endpoint: %s",
+                getFormUpdateUrl()));
+        logger.info(String.format(
+                "Motech maximumm retries: %s; with sleep time: %s",
+                getMaxRetries(), getSleepTimeBeforeRetries()));
     }
 }

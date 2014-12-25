@@ -1,5 +1,14 @@
 package org.motechproject.care.reporting.migration.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpMethodRetryHandler;
@@ -19,31 +28,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 @Component
 public class CommcareAPIHttpClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommcareAPIHttpClient.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(CommcareAPIHttpClient.class);
 
     private HttpClient httpClient;
     private final Properties commcareProperties;
     private EndpointStatisticsCollector statisticsCollector;
 
     @Autowired
-    public CommcareAPIHttpClient(@Qualifier("commcareHttpClient") HttpClient httpClient,
-                                 @Qualifier("commcareProperties") Properties commcareProperties,
-                                 MigrationStatisticsCollector statisticsCollector) {
+    public CommcareAPIHttpClient(
+            @Qualifier("commcareHttpClient") HttpClient httpClient,
+            @Qualifier("commcareProperties") Properties commcareProperties,
+            MigrationStatisticsCollector statisticsCollector) {
         this.httpClient = httpClient;
         this.commcareProperties = commcareProperties;
         this.statisticsCollector = statisticsCollector.commcareEndpoint();
@@ -51,26 +52,34 @@ public class CommcareAPIHttpClient {
         authenticate();
     }
 
-    public String fetchForms(Map<String, String> parameters, Page paginationOptions) {
-        NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
+    public String fetchForms(Map<String, String> parameters,
+            Page paginationOptions) {
+        NameValuePair[] queryParams = populateParams(parameters,
+                paginationOptions);
         return getRequest(getCommcareFormListUrl(), queryParams);
     }
 
-    public String fetchCases(Map<String, String> parameters, Page paginationOptions) {
-        NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
+    public String fetchCases(Map<String, String> parameters,
+            Page paginationOptions) {
+        NameValuePair[] queryParams = populateParams(parameters,
+                paginationOptions);
         return getRequest(getCommcareCaseListUrl(), queryParams);
     }
 
-    private NameValuePair[] populateParams(Map<String, String> parameters, Page paginationOptions) {
-        parameters.put(Constants.OFFSET, String.valueOf(paginationOptions.getOffset()));
-        parameters.put(Constants.LIMIT, String.valueOf(paginationOptions.getLimit()));
+    private NameValuePair[] populateParams(Map<String, String> parameters,
+            Page paginationOptions) {
+        parameters.put(Constants.OFFSET, String.valueOf(paginationOptions
+                .getOffset()));
+        parameters.put(Constants.LIMIT, String.valueOf(paginationOptions
+                .getLimit()));
         return toArray(parameters);
     }
 
     private NameValuePair[] toArray(Map<String, String> parameters) {
         List<NameValuePair> nameValuePairs = new ArrayList<>();
         for (Map.Entry<String, String> parameterEntry : parameters.entrySet()) {
-            nameValuePairs.add(new NameValuePair(parameterEntry.getKey(), parameterEntry.getValue()));
+            nameValuePairs.add(new NameValuePair(parameterEntry.getKey(),
+                    parameterEntry.getValue()));
         }
         return nameValuePairs.toArray(new NameValuePair[nameValuePairs.size()]);
     }
@@ -90,30 +99,37 @@ public class CommcareAPIHttpClient {
         final RequestTimer requestTimer = statisticsCollector.newRequest();
 
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
-        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new SimpleCredentialsProvider(getUsername(), getPassword()));
+        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER,
+                new SimpleCredentialsProvider(getUsername(), getPassword()));
 
         final int maxRetries = getMaxRetries();
         final int sleepTime = getSleepTimeBeforeRetries();
-        getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new HttpMethodRetryHandler() {
-            @Override
-            public boolean retryMethod(HttpMethod method, IOException exception, int executionCount) {
-                requestTimer.retried();
-                boolean retry = executionCount <= maxRetries;
+        getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
+                new HttpMethodRetryHandler() {
+                    @Override
+                    public boolean retryMethod(HttpMethod method,
+                            IOException exception, int executionCount) {
+                        requestTimer.retried();
+                        boolean retry = executionCount <= maxRetries;
 
-                logger.error("Exception occurred while pulling data from commcare hq", exception);
-                logger.error(String.format("Execution Count: %s, Retrying again: %s", executionCount, retry));
+                        logger.error(
+                                "Exception occurred while pulling data from commcare hq",
+                                exception);
+                        logger.error(String.format(
+                                "Execution Count: %s, Retrying again: %s",
+                                executionCount, retry));
 
-                if(!retry) {
-                    return false;
-                }
+                        if (!retry) {
+                            return false;
+                        }
 
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException ignored) {
-                }
-                return true;
-            }
-        });
+                        try {
+                            Thread.sleep(sleepTime);
+                        } catch (InterruptedException ignored) {
+                        }
+                        return true;
+                    }
+                });
 
         try {
             logger.info("Fetching from: " + getMethod.getURI().getURI());
@@ -122,7 +138,8 @@ public class CommcareAPIHttpClient {
 
             String response = readResponse(getMethod);
             if (statusCode != HttpStatus.SC_OK) {
-                BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
+                BadResponseException e = new BadResponseException(requestUrl,
+                        statusCode, response);
                 logger.error(e.getMessage(), e);
                 throw e;
             }
@@ -134,27 +151,27 @@ public class CommcareAPIHttpClient {
             logger.error("IOException while sending request to Commcare", e);
             throw new RuntimeException(e);
         } finally {
-            if(success) {
+            if (success) {
                 requestTimer.successful();
             } else {
                 requestTimer.failed();
             }
         }
     }
-    
+
     /**
      * @since 24/Dec/2014
      * @author atish
      * @param parameters
-     * @param paginationOptions
      * @return {@link String}
      */
-    public String hitRequest(Map<String, String> parameters, Page paginationOptions) {
-       
-    	NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
-    	String requestUrl = getCommcareCaseListUrl();
+    public String hitRequest(Map<String, String> parameters) {
+
+        NameValuePair[] queryParams = toArray(parameters);
+        String requestUrl = getCommcareCaseListUrl();
         HttpMethod getMethod = buildRequest(requestUrl, queryParams);
-        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new SimpleCredentialsProvider(getUsername(), getPassword()));
+        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER,
+                new SimpleCredentialsProvider(getUsername(), getPassword()));
 
         try {
             logger.info("fetching case : " + getMethod.getURI().getURI());
@@ -162,22 +179,24 @@ public class CommcareAPIHttpClient {
 
             String response = readResponse(getMethod);
             if (statusCode != HttpStatus.SC_OK) {
-                BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
+                BadResponseException e = new BadResponseException(requestUrl,
+                        statusCode, response);
                 logger.error(e.getMessage(), e);
                 throw e;
             }
-            
+
             logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
             return response;
         } catch (IOException e) {
             getMethod.releaseConnection();
-            logger.error("IOException while sending request to Commcare", e);
+            logger.error("IOException while sending request to CommcareHQ", e);
             throw new RuntimeException(e);
-        } 
+        }
     }
 
     private int getSleepTimeBeforeRetries() {
-        return Integer.parseInt(commcareProperties.getProperty("retry.sleep.time.in.ms"));
+        return Integer.parseInt(commcareProperties
+                .getProperty("retry.sleep.time.in.ms"));
     }
 
     private int getMaxRetries() {
@@ -186,7 +205,8 @@ public class CommcareAPIHttpClient {
 
     private String readResponse(HttpMethod getMethod) throws IOException {
         InputStream responseStream = getMethod.getResponseBodyAsStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(responseStream));
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(responseStream));
         StringBuffer sb = new StringBuffer();
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -204,18 +224,21 @@ public class CommcareAPIHttpClient {
     }
 
     String getCommcareCaseListUrl() {
-        return String.format("%s/%s/api/%s/case/", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
+        return String.format("%s/%s/api/%s/case/", getCommcareBaseUrl(),
+                getCommcareDomain(), getVersion());
     }
 
     String getCommcareFormListUrl() {
-        return String.format("%s/%s/api/%s/form/", getCommcareBaseUrl(), getCommcareDomain(), getVersion());
+        return String.format("%s/%s/api/%s/form/", getCommcareBaseUrl(),
+                getCommcareDomain(), getVersion());
     }
 
     private String getCommcareBaseUrl() {
         String commcareBaseUrl = getBaseUrl();
 
         if (commcareBaseUrl.endsWith("/")) {
-            commcareBaseUrl = commcareBaseUrl.substring(0, commcareBaseUrl.length() - 1);
+            commcareBaseUrl = commcareBaseUrl.substring(0, commcareBaseUrl
+                    .length() - 1);
         }
 
         return commcareBaseUrl;
@@ -233,7 +256,6 @@ public class CommcareAPIHttpClient {
         return commcareProperties.getProperty("username");
     }
 
-
     private String getPassword() {
         return commcareProperties.getProperty("password");
     }
@@ -243,8 +265,12 @@ public class CommcareAPIHttpClient {
     }
 
     private void logConfig() {
-        logger.info(String.format("Commcare case list endpoint: %s", getCommcareCaseListUrl()));
-        logger.info(String.format("Commcare form list endpoint: %s", getCommcareFormListUrl()));
-        logger.info(String.format("Commcare maximumm retries: %s; with sleep time: %s", getMaxRetries(), getSleepTimeBeforeRetries()));
+        logger.info(String.format("Commcare case list endpoint: %s",
+                getCommcareCaseListUrl()));
+        logger.info(String.format("Commcare form list endpoint: %s",
+                getCommcareFormListUrl()));
+        logger.info(String.format(
+                "Commcare maximumm retries: %s; with sleep time: %s",
+                getMaxRetries(), getSleepTimeBeforeRetries()));
     }
 }

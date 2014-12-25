@@ -23,8 +23,10 @@ import java.util.Map;
 
 public abstract class MigrationTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
-    private static final Logger progressLogger = LoggerFactory.getLogger("migration-progress-logger");
+    private static final Logger logger = LoggerFactory
+            .getLogger(CaseMigrationTask.class);
+    private static final Logger progressLogger = LoggerFactory
+            .getLogger("migration-progress-logger");
 
     protected final CommcareAPIHttpClient commcareAPIHttpClient;
     protected final MotechAPIHttpClient motechAPIHttpClient;
@@ -32,9 +34,10 @@ public abstract class MigrationTask {
     private MigrationType migrationType;
     private MigrationStatisticsCollector statisticsCollector;
 
-    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient,
-                         ResponseParser responseParser, MigrationType migrationType,
-                         MigrationStatisticsCollector statisticsCollector) {
+    public MigrationTask(CommcareAPIHttpClient commcareAPIHttpClient,
+            MotechAPIHttpClient motechAPIHttpClient,
+            ResponseParser responseParser, MigrationType migrationType,
+            MigrationStatisticsCollector statisticsCollector) {
         this.commcareAPIHttpClient = commcareAPIHttpClient;
         this.motechAPIHttpClient = motechAPIHttpClient;
         this.responseParser = responseParser;
@@ -42,8 +45,6 @@ public abstract class MigrationTask {
         this.statisticsCollector = statisticsCollector;
     }
 
-
-    
     public void migrate(MigratorArguments migratorArguments) {
         progressLogger.info("Starting new migration");
         Map<String, String> pairs = getNameValuePair(migratorArguments);
@@ -53,11 +54,12 @@ public abstract class MigrationTask {
             final JsonArray response = paginatedResponse.getRecords();
             statisticsCollector.addRecordsDownloaded(response.size());
 
-            logger.info(String.format("Response Meta:: %s", paginatedResponse.getMeta()));
+            logger.info(String.format("Response Meta:: %s", paginatedResponse
+                    .getMeta()));
             logger.info(String.format("Records Count: %s", response.size()));
-            
+
             Runnable t = new Runnable() {
-                
+
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
@@ -65,8 +67,7 @@ public abstract class MigrationTask {
                 }
             };
             t.run();
-                
-            
+
             logger.info("completed posting");
         }
     }
@@ -74,54 +75,61 @@ public abstract class MigrationTask {
     private void postToMotech(JsonArray request) {
         List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);
         int totalCount = commcareResponseWrappers.size();
-        String log = String.format("Started posting %d %s request(s) to motech", totalCount, migrationType);
+        String log = String.format(
+                "Started posting %d %s request(s) to motech", totalCount,
+                migrationType);
         logger.info(log);
         progressLogger.info(log);
-        
+
         int successCount = 0;
         try {
             for (final CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
-               Runnable x = new Runnable(
-                        ) {
-                    
+                Runnable x = new Runnable() {
+
                     @Override
                     public void run() {
                         postToMotech(commcareResponseWrapper);
-                        
+
                     }
                 };
                 x.run();
-                
+
                 successCount++;
             }
         } finally {
             statisticsCollector.addRecordsUploaded(successCount);
 
-            if(successCount != totalCount) {
-                log = String.format("Error posting %s request(s) to motech. Successful: %s, Failed: %s", migrationType, successCount, totalCount - successCount);
+            if (successCount != totalCount) {
+                log = String
+                        .format("Error posting %s request(s) to motech. Successful: %s, Failed: %s",
+                                migrationType, successCount, totalCount
+                                        - successCount);
                 logger.error(log);
                 progressLogger.error(log);
             } else {
-                log = String.format("Successfully posted %d %s request(s) to motech", totalCount, migrationType);
+                log = String.format(
+                        "Successfully posted %d %s request(s) to motech",
+                        totalCount, migrationType);
                 logger.info(log);
                 progressLogger.info(log);
             }
         }
     }
 
-
-    private Map<String,String> getNameValuePair(MigratorArguments migratorArguments) {
+    private Map<String, String> getNameValuePair(
+            MigratorArguments migratorArguments) {
         Map<String, String> optionsToUrlMapper = getOptionsToUrlMapper();
 
-        Map<String,String> pairs = new HashMap<>();
-        for (Map.Entry<String, Object> entry : migratorArguments.getOptions().entrySet()) {
+        Map<String, String> pairs = new HashMap<>();
+        for (Map.Entry<String, Object> entry : migratorArguments.getOptions()
+                .entrySet()) {
             String optionKey = entry.getKey();
 
             if (optionsToUrlMapper.containsKey(optionKey)) {
-                pairs.put(optionsToUrlMapper.get(optionKey), entry.getValue().toString());
-            }
-            else
-                pairs.put(optionKey,entry.getValue().toString());
+                pairs.put(optionsToUrlMapper.get(optionKey), entry.getValue()
+                        .toString());
+            } else
+                pairs.put(optionKey, entry.getValue().toString());
         }
         return pairs;
     }
@@ -129,8 +137,12 @@ public abstract class MigrationTask {
     protected Paginator getPaginator(Map<String, String> pairs) {
         PaginationScheme paginationScheme = new PaginationScheme() {
             @Override
-            public String nextPage(Map<String, String> parameters, Page paginationOption) {
-                String log = String.format("Fetching %s records from commcare with offset: %s, limit: %s", migrationType, paginationOption.getOffset(), paginationOption.getLimit());
+            public String nextPage(Map<String, String> parameters,
+                    Page paginationOption) {
+                String log = String
+                        .format("Fetching %s records from commcare with offset: %s, limit: %s",
+                                migrationType, paginationOption.getOffset(),
+                                paginationOption.getLimit());
                 progressLogger.info(log);
                 logger.info(log);
                 return fetchCommcareRecords(parameters, paginationOption);
@@ -142,9 +154,12 @@ public abstract class MigrationTask {
 
     protected abstract Map<String, String> getOptionsToUrlMapper();
 
-    protected abstract List<CommcareResponseWrapper> convertToEntity(JsonArray request);
+    protected abstract List<CommcareResponseWrapper> convertToEntity(
+            JsonArray request);
 
-    protected abstract void postToMotech(CommcareResponseWrapper commcareResponseWrapper);
+    protected abstract void postToMotech(
+            CommcareResponseWrapper commcareResponseWrapper);
 
-    protected abstract String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption);
+    protected abstract String fetchCommcareRecords(
+            Map<String, String> parameters, Page paginationOption);
 }

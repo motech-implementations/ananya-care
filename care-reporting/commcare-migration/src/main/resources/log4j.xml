@@ -25,20 +25,21 @@
         </layout>
     </appender>
 
-    <logger name="org.motechproject.care.reporting.migration" additivity="false">
-        <level value="DEBUG"/>
+    <logger name="org.motechproject.care.reporting.migration"
+        additivity="false">
+        <level value="DEBUG" />
         <appender-ref ref="FILE" />
         <appender-ref ref="MIGRATION_CONSOLE" />
     </logger>
 
 
     <logger name="migration-progress-logger" additivity="false">
-        <level value="DEBUG"/>
+        <level value="DEBUG" />
         <appender-ref ref="FILE_PROGRESS" />
     </logger>
 
     <logger name="migration-statistics-logger" additivity="false">
-        <level value="DEBUG"/>
+        <level value="DEBUG" />
         <appender-ref ref="FILE" />
         <appender-ref ref="MIGRATION_CONSOLE" />
     </logger>

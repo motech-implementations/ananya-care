@@ -48,17 +48,21 @@ public class CommcareDataUtil {
         return caseXmlPair;
     }
 
-    public Map<String, String> extractAsMap(JsonObject jsonResponse, String fieldToExtract, String requestHeader) {
+    public Map<String, String> extractAsMap(JsonObject jsonResponse,
+            String fieldToExtract, String requestHeader) {
         Map<String, String> map = new HashMap<>();
         JsonElement extractedValue = jsonResponse.get(fieldToExtract);
         if (extractedValue == null)
-            throw new RuntimeException(String.format("%s field not present in commcare response", fieldToExtract));
+            throw new RuntimeException(String
+                    .format("%s field not present in commcare response",
+                            fieldToExtract));
         map.put(requestHeader, extractedValue.getAsString());
         return map;
     }
 
     private Document createNewDocument(String rootElementName) {
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory
+                .newInstance();
         try {
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document document = docBuilder.newDocument();
@@ -71,7 +75,8 @@ public class CommcareDataUtil {
     }
 
     private Document processForCreateAndUpdate(JsonObject jsonObject) {
-        List<String> createPropertyNames = asList("case_type", "case_name", "owner_id");
+        List<String> createPropertyNames = asList("case_type", "case_name",
+                "owner_id");
         JsonObject properties = jsonObject.get("properties").getAsJsonObject();
         JsonObject indices = jsonObject.get("indices").getAsJsonObject();
         Document caseDocument = createCaseAndPopulateAttributes(jsonObject);
@@ -85,7 +90,8 @@ public class CommcareDataUtil {
         return caseDocument;
     }
 
-    private void processCreate(List<String> createPropertyNames, JsonObject properties, Document caseDocument) {
+    private void processCreate(List<String> createPropertyNames,
+            JsonObject properties, Document caseDocument) {
         Element createElement = caseDocument.createElement("create");
         for (String property : createPropertyNames) {
             populateProperty(createElement, properties, property);
@@ -93,7 +99,8 @@ public class CommcareDataUtil {
         caseDocument.getDocumentElement().appendChild(createElement);
     }
 
-    private void processUpdate(List<String> createPropertyNames, JsonObject properties, Document caseDocument) {
+    private void processUpdate(List<String> createPropertyNames,
+            JsonObject properties, Document caseDocument) {
         Element updateElement = caseDocument.createElement("update");
         for (Map.Entry<String, JsonElement> entry : properties.entrySet()) {
             if (createPropertyNames.contains(entry.getKey())) {
@@ -101,7 +108,8 @@ public class CommcareDataUtil {
             }
             JsonElement value = entry.getValue();
             if (!value.isJsonNull() && !value.isJsonArray()) {
-                populateProperty(updateElement, value.getAsString(), entry.getKey());
+                populateProperty(updateElement, value.getAsString(), entry
+                        .getKey());
             }
         }
         caseDocument.getDocumentElement().appendChild(updateElement);
@@ -110,21 +118,27 @@ public class CommcareDataUtil {
     private void processIndex(JsonObject indices, Document caseDocument) {
         Element indexElement = caseDocument.createElement("index");
         JsonObject mother = indices.get("mother_id").getAsJsonObject();
-        Element motherElement = populateProperty(indexElement, mother.get("case_id").getAsString(), "mother_id");
-        motherElement.setAttribute("case_type", mother.get("case_type").getAsString());
+        Element motherElement = populateProperty(indexElement, mother.get(
+                "case_id").getAsString(), "mother_id");
+        motherElement.setAttribute("case_type", mother.get("case_type")
+                .getAsString());
         caseDocument.getDocumentElement().appendChild(indexElement);
     }
 
-    private Element populateProperty(Element element, String propertyValue, String propertyName) {
-        Element propertyElement = element.getOwnerDocument().createElement(propertyName);
+    private Element populateProperty(Element element, String propertyValue,
+            String propertyName) {
+        Element propertyElement = element.getOwnerDocument().createElement(
+                propertyName);
         propertyElement.setTextContent(propertyValue);
         element.appendChild(propertyElement);
         return propertyElement;
     }
 
-    private Element populateProperty(Element element, JsonObject jsonObject, String propertyName) {
+    private Element populateProperty(Element element, JsonObject jsonObject,
+            String propertyName) {
         JsonElement jsonElement = jsonObject.get(propertyName);
-        String propertyValue = jsonElement.isJsonNull() ? null : jsonElement.getAsString();
+        String propertyValue = jsonElement.isJsonNull() ? null : jsonElement
+                .getAsString();
         return populateProperty(element, propertyValue, propertyName);
     }
 
@@ -142,20 +156,24 @@ public class CommcareDataUtil {
         return closedCaseDocument;
     }
 
-    private void populateCaseAttributes(Element caseElement, JsonObject jsonObject) {
+    private void populateCaseAttributes(Element caseElement,
+            JsonObject jsonObject) {
         String caseId = jsonObject.get("case_id").getAsString();
         caseElement.setAttribute("case_id", caseId);
         String dateModified = jsonObject.get("date_modified").getAsString();
         caseElement.setAttribute("date_modified", dateModified);
         String userId = jsonObject.get("user_id").getAsString();
         caseElement.setAttribute("user_id", userId);
-        caseElement.setAttribute("xmlns", "http://commcarehq.org/case/transaction/v2");
+        caseElement.setAttribute("xmlns",
+                "http://commcarehq.org/case/transaction/v2");
     }
 
     private String toString(Node node) {
         try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            Transformer transformer = TransformerFactory.newInstance()
+                    .newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                    "yes");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             StringWriter sw = new StringWriter();
             transformer.transform(new DOMSource(node), new StreamResult(sw));
@@ -165,7 +183,8 @@ public class CommcareDataUtil {
         }
     }
 
-    private void recursivelyParse(Element parentElement, JsonPrimitive jsonPrimitive, String nodeName) {
+    private void recursivelyParse(Element parentElement,
+            JsonPrimitive jsonPrimitive, String nodeName) {
         String value = jsonPrimitive.getAsString();
         if (isValue(nodeName)) {
             parentElement.setTextContent(value);
@@ -175,19 +194,23 @@ public class CommcareDataUtil {
             parentElement.setAttribute(nodeName.substring(1), value);
             return;
         }
-        Element element = parentElement.getOwnerDocument().createElement(nodeName);
+        Element element = parentElement.getOwnerDocument().createElement(
+                nodeName);
         element.setTextContent(value);
         parentElement.appendChild(element);
     }
 
-    private void recursivelyParse(Element parentElement, JsonArray jsonArray, String nodeName) {
+    private void recursivelyParse(Element parentElement, JsonArray jsonArray,
+            String nodeName) {
         for (int i = 0; i < jsonArray.size(); i++) {
             recursivelyParse(parentElement, jsonArray.get(i), nodeName);
         }
     }
 
-    private void recursivelyParse(Element parentElement, JsonObject jsonObject, String nodeName) {
-        Element element = parentElement.getOwnerDocument().createElement(nodeName);
+    private void recursivelyParse(Element parentElement, JsonObject jsonObject,
+            String nodeName) {
+        Element element = parentElement.getOwnerDocument().createElement(
+                nodeName);
         parentElement.appendChild(element);
         recursivelyParse(element, jsonObject);
     }
@@ -198,19 +221,23 @@ public class CommcareDataUtil {
         }
     }
 
-    private void recursivelyParse(Element parentElement, JsonElement jsonElement, String nodeName) {
+    private void recursivelyParse(Element parentElement,
+            JsonElement jsonElement, String nodeName) {
         if (jsonElement.isJsonPrimitive()) {
-            recursivelyParse(parentElement, jsonElement.getAsJsonPrimitive(), nodeName);
+            recursivelyParse(parentElement, jsonElement.getAsJsonPrimitive(),
+                    nodeName);
             return;
         }
 
         if (jsonElement.isJsonArray()) {
-            recursivelyParse(parentElement, jsonElement.getAsJsonArray(), nodeName);
+            recursivelyParse(parentElement, jsonElement.getAsJsonArray(),
+                    nodeName);
             return;
         }
 
         if (jsonElement.isJsonObject()) {
-            recursivelyParse(parentElement, jsonElement.getAsJsonObject(), nodeName);
+            recursivelyParse(parentElement, jsonElement.getAsJsonObject(),
+                    nodeName);
         }
     }
 

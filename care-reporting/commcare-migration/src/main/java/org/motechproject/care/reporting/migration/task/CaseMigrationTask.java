@@ -35,60 +35,69 @@ import static org.motechproject.care.reporting.migration.common.Constants.VERSIO
 @Component
 public class CaseMigrationTask extends MigrationTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(CaseMigrationTask.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(CaseMigrationTask.class);
 
-    private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
-        put(VERSION, CASE_VERSION);
-        put(TYPE, CASE_TYPE);
-        put(START_DATE, CASE_START_DATE);
-        put(END_DATE, CASE_END_DATE);
-    }};
+    private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {
+        {
+            put(VERSION, CASE_VERSION);
+            put(TYPE, CASE_TYPE);
+            put(START_DATE, CASE_START_DATE);
+            put(END_DATE, CASE_END_DATE);
+        }
+    };
     private CommcareDataUtil commcareDataUtil;
 
     @Autowired
-    public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser,
-                             MigrationStatisticsCollector statisticsCollector,
-                             CommcareDataUtil commcareDataUtil) {
-        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.CASE, statisticsCollector);
+    public CaseMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient,
+            MotechAPIHttpClient motechAPIHttpClient,
+            ResponseParser responseParser,
+            MigrationStatisticsCollector statisticsCollector,
+            CommcareDataUtil commcareDataUtil) {
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser,
+                MigrationType.CASE, statisticsCollector);
         this.commcareDataUtil = commcareDataUtil;
     }
-
 
     @Override
     protected Map<String, String> getOptionsToUrlMapper() {
         return optionsToUrlMapper;
     }
-    
-    
+
     @Override
     protected void postToMotech(CommcareResponseWrapper commcareResponseWrapper) {
         motechAPIHttpClient.postCase(commcareResponseWrapper);
-       
-      
+
     }
 
     @Override
     protected List<CommcareResponseWrapper> convertToEntity(JsonArray request) {
         List<CommcareResponseWrapper> closedActionList = new ArrayList<>();
-        List<CommcareResponseWrapper>  createUpdateActionList = new ArrayList<>();
+        List<CommcareResponseWrapper> createUpdateActionList = new ArrayList<>();
         List<CommcareResponseWrapper> temporaryList = new ArrayList<>();
 
         for (JsonElement aCase : request) {
 
-            if(isTask(aCase)) {
+            if (isTask(aCase)) {
                 String caseId = getCaseId(aCase);
                 logger.warn(String.format("Task Case %s Ignored", caseId));
                 continue;
             }
 
-            CaseXmlPair caseXmls = commcareDataUtil.toCaseXml((JsonObject) aCase);
-            Map<String, String> headers = commcareDataUtil.extractAsMap((JsonObject) aCase, "server_date_modified", "server-modified-on");
+            CaseXmlPair caseXmls = commcareDataUtil
+                    .toCaseXml((JsonObject) aCase);
+            Map<String, String> headers = commcareDataUtil.extractAsMap(
+                    (JsonObject) aCase, "server_date_modified",
+                    "server-modified-on");
 
-            if(caseXmls.hasClosedAction()) {
-                createUpdateActionList.add(new CommcareResponseWrapper(caseXmls.getCreateUpdateAction(), headers));
-                closedActionList.add(new CommcareResponseWrapper(caseXmls.getCloseAction(), headers));
+            if (caseXmls.hasClosedAction()) {
+                createUpdateActionList.add(new CommcareResponseWrapper(caseXmls
+                        .getCreateUpdateAction(), headers));
+                closedActionList.add(new CommcareResponseWrapper(caseXmls
+                        .getCloseAction(), headers));
             } else {
-                temporaryList.add(new CommcareResponseWrapper(caseXmls.getCreateUpdateAction(), headers));
+                temporaryList.add(new CommcareResponseWrapper(caseXmls
+                        .getCreateUpdateAction(), headers));
             }
         }
 
@@ -100,33 +109,35 @@ public class CaseMigrationTask extends MigrationTask {
 
     private boolean isTask(JsonElement aCase) {
         JsonObject jsonObject = (JsonObject) aCase;
-        if(jsonObject == null)
+        if (jsonObject == null)
             return false;
         JsonElement properties = jsonObject.get("properties");
-        if(properties == null)
+        if (properties == null)
             return false;
-        final JsonElement caseType = properties.getAsJsonObject().get("case_type");
+        final JsonElement caseType = properties.getAsJsonObject().get(
+                "case_type");
 
-        if(caseType != null ) {
+        if (caseType != null) {
             try {
                 return "TASK".equalsIgnoreCase(caseType.getAsString());
-           } catch(UnsupportedOperationException e){
-               return false;
-           }
+            } catch (UnsupportedOperationException e) {
+                return false;
+            }
         }
         return false;
     }
 
     private String getCaseId(JsonElement aCase) {
         JsonObject jsonObject = (JsonObject) aCase;
-        if(jsonObject == null)
+        if (jsonObject == null)
             return null;
         final JsonElement caseId = jsonObject.get("case_id");
         return caseId == null ? null : caseId.getAsString();
     }
 
     @Override
-    protected String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption) {
+    protected String fetchCommcareRecords(Map<String, String> parameters,
+            Page paginationOption) {
         return commcareAPIHttpClient.fetchCases(parameters, paginationOption);
     }
 

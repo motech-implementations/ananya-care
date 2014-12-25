@@ -23,9 +23,6 @@ public class Page {
 
     @Override
     public String toString() {
-        return "Page{" +
-                "offset=" + offset +
-                ", limit=" + limit +
-                '}';
+        return "Page{" + "offset=" + offset + ", limit=" + limit + '}';
     }
 }

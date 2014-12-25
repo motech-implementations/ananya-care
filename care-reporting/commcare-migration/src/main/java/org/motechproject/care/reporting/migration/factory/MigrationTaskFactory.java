@@ -14,16 +14,17 @@ public class MigrationTaskFactory {
     private final CaseMigrationTask caseMigrationTask;
 
     @Autowired
-    public MigrationTaskFactory(FormMigrationTask formMigrationTask, CaseMigrationTask caseMigrationTask) {
+    public MigrationTaskFactory(FormMigrationTask formMigrationTask,
+            CaseMigrationTask caseMigrationTask) {
         this.formMigrationTask = formMigrationTask;
         this.caseMigrationTask = caseMigrationTask;
     }
 
     public MigrationTask getFor(MigrationType migrationType) {
-        if(migrationType == MigrationType.CASE) {
+        if (migrationType == MigrationType.CASE) {
             return caseMigrationTask;
         }
-        if(migrationType == MigrationType.FORM) {
+        if (migrationType == MigrationType.FORM) {
             return formMigrationTask;
         }
         return null;

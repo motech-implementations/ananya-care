@@ -31,19 +31,24 @@ import static org.motechproject.care.reporting.migration.common.Constants.VERSIO
 @Component
 public class FormMigrationTask extends MigrationTask {
 
-    private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {{
-        put(VERSION, FORM_VERSION);
-        put(TYPE, FORM_NAMESPACE);
-        put(START_DATE, FORM_START_DATE);
-        put(END_DATE, FORM_END_DATE);
-    }};
+    private Map<String, String> optionsToUrlMapper = new HashMap<String, String>() {
+        {
+            put(VERSION, FORM_VERSION);
+            put(TYPE, FORM_NAMESPACE);
+            put(START_DATE, FORM_START_DATE);
+            put(END_DATE, FORM_END_DATE);
+        }
+    };
     private CommcareDataUtil commcareDataUtil;
 
     @Autowired
-    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient, MotechAPIHttpClient motechAPIHttpClient, ResponseParser responseParser,
-                             MigrationStatisticsCollector statisticsCollector,
-                             CommcareDataUtil commcareDataUtil) {
-        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser, MigrationType.FORM, statisticsCollector);
+    public FormMigrationTask(CommcareAPIHttpClient commcareAPIHttpClient,
+            MotechAPIHttpClient motechAPIHttpClient,
+            ResponseParser responseParser,
+            MigrationStatisticsCollector statisticsCollector,
+            CommcareDataUtil commcareDataUtil) {
+        super(commcareAPIHttpClient, motechAPIHttpClient, responseParser,
+                MigrationType.FORM, statisticsCollector);
         this.commcareDataUtil = commcareDataUtil;
     }
 
@@ -57,7 +62,8 @@ public class FormMigrationTask extends MigrationTask {
 
         for (JsonElement form : request) {
             String formXml = commcareDataUtil.toFormXml((JsonObject) form);
-            Map<String, String> headers = commcareDataUtil.extractAsMap((JsonObject) form, "received_on", "received-on");
+            Map<String, String> headers = commcareDataUtil.extractAsMap(
+                    (JsonObject) form, "received_on", "received-on");
             formsWithHeader.add(new CommcareResponseWrapper(formXml, headers));
         }
         return formsWithHeader;
@@ -69,8 +75,9 @@ public class FormMigrationTask extends MigrationTask {
     }
 
     @Override
-    protected String fetchCommcareRecords(Map<String, String> parameters, Page paginationOption) {
-        //TODO return the string here ;
+    protected String fetchCommcareRecords(Map<String, String> parameters,
+            Page paginationOption) {
+        // TODO return the string here ;
         return commcareAPIHttpClient.fetchForms(parameters, paginationOption);
     }
 }

@@ -12,7 +12,8 @@ public class MigrationStatisticsCollector {
     private int recordsDownloaded;
     private int recordsUploaded;
 
-    private static final Logger logger = LoggerFactory.getLogger("migration-statistics-logger");
+    private static final Logger logger = LoggerFactory
+            .getLogger("migration-statistics-logger");
 
     private StopWatch stopWatch;
     private EndpointStatisticsCollector commcareEndpoint;
@@ -25,7 +26,8 @@ public class MigrationStatisticsCollector {
     }
 
     private String formatDuration(long mills) {
-        return DurationFormatUtils.formatDuration(mills, "HH 'hours' mm 'minutes' ss 'seconds' SS 'mills'", true);
+        return DurationFormatUtils.formatDuration(mills,
+                "HH 'hours' mm 'minutes' ss 'seconds' SS 'mills'", true);
     }
 
     public void startTimer() {
@@ -54,9 +56,12 @@ public class MigrationStatisticsCollector {
 
     public void publishResults() {
         logger.info(String.format("Migration Statistics::"));
-        logger.info(String.format("Total time: %s", formatDuration(getTotalTimeElapsed())));
-        logger.info(String.format("Total Records Downloaded: %s", recordsDownloaded));
-        logger.info(String.format("Total Records Uploaded: %s", recordsUploaded));
+        logger.info(String.format("Total time: %s",
+                formatDuration(getTotalTimeElapsed())));
+        logger.info(String.format("Total Records Downloaded: %s",
+                recordsDownloaded));
+        logger.info(String
+                .format("Total Records Uploaded: %s", recordsUploaded));
         logger.info("Commcare Statistics:");
         commcareEndpoint.publishResults();
         logger.info("Motech Statistics");

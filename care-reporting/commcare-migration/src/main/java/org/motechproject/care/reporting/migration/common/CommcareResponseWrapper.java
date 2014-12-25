@@ -6,7 +6,8 @@ public class CommcareResponseWrapper {
     private String responseBody;
     private Map<String, String> headers;
 
-    public CommcareResponseWrapper(String responseBody, Map<String, String> headers) {
+    public CommcareResponseWrapper(String responseBody,
+            Map<String, String> headers) {
         this.responseBody = responseBody;
         this.headers = headers;
     }

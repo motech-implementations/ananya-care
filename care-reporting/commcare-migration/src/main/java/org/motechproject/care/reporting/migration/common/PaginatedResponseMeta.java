@@ -6,7 +6,8 @@ public class PaginatedResponseMeta {
     private final Page previousPage;
     private int totalCount;
 
-    public PaginatedResponseMeta(Page currentPage, Page nextPage, Page previousPage, int totalCount) {
+    public PaginatedResponseMeta(Page currentPage, Page nextPage,
+            Page previousPage, int totalCount) {
         this.currentPage = currentPage;
         this.nextPage = nextPage;
         this.previousPage = previousPage;
@@ -15,12 +16,9 @@ public class PaginatedResponseMeta {
 
     @Override
     public String toString() {
-        return "PaginatedResponseMeta{" +
-                "currentPage=" + currentPage +
-                ", nextPage=" + nextPage +
-                ", previousPage=" + previousPage +
-                ", totalCount=" + totalCount +
-                '}';
+        return "PaginatedResponseMeta{" + "currentPage=" + currentPage
+                + ", nextPage=" + nextPage + ", previousPage=" + previousPage
+                + ", totalCount=" + totalCount + '}';
     }
 
     public Page getNextPage() {

@@ -20,9 +20,11 @@ public class SimpleCredentialsProvider implements CredentialsProvider {
     }
 
     @Override
-    public Credentials getCredentials(AuthScheme scheme, String host, int port, boolean proxy) throws CredentialsNotAvailableException {
-        if(tries >= MAX_TRIES) {
-            throw new CredentialsNotAvailableException("Known credential has already been rejected.");
+    public Credentials getCredentials(AuthScheme scheme, String host, int port,
+            boolean proxy) throws CredentialsNotAvailableException {
+        if (tries >= MAX_TRIES) {
+            throw new CredentialsNotAvailableException(
+                    "Known credential has already been rejected.");
         }
         tries++;
         return new UsernamePasswordCredentials(username, password);

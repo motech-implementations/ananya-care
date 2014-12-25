@@ -24,10 +24,12 @@ public class ResponseParser {
 
     private PaginatedResponseMeta constructMeta(JsonObject meta) {
         Page nextPage = constructPage(meta.get("next"));
-        Page previousPage= constructPage(meta.get("previous"));
-        Page currentPage = new Page(getChildElementAsInteger(meta, "offset"), getChildElementAsInteger(meta, "limit"));
+        Page previousPage = constructPage(meta.get("previous"));
+        Page currentPage = new Page(getChildElementAsInteger(meta, "offset"),
+                getChildElementAsInteger(meta, "limit"));
         int totalCount = getChildElementAsInteger(meta, "total_count");
-        return new PaginatedResponseMeta(currentPage, nextPage, previousPage, totalCount);
+        return new PaginatedResponseMeta(currentPage, nextPage, previousPage,
+                totalCount);
     }
 
     private int getChildElementAsInteger(JsonObject parent, String childName) {
@@ -50,7 +52,8 @@ public class ResponseParser {
         Matcher matcher = pattern.matcher(url);
         boolean found = matcher.find();
         if (!found)
-            throw new RuntimeException(String.format("Invalid %s option, %s", option, url));
+            throw new RuntimeException(String.format("Invalid %s option, %s",
+                    option, url));
         return matcher.group(1);
     }
 }

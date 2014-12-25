@@ -17,9 +17,9 @@ public class MigrationService {
         this.migrationTaskFactory = migrationTaskFactory;
     }
 
-
     public void migrate(MigratorArguments migratorArguments) {
-        migrationTask = migrationTaskFactory.getFor(migratorArguments.getMigrationType());
+        migrationTask = migrationTaskFactory.getFor(migratorArguments
+                .getMigrationType());
         migrationTask.migrate(migratorArguments);
     }
 }

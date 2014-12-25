@@ -16,10 +16,12 @@ public class Migrator {
     private MigrationService migrationService;
     private MigrationStatisticsCollector statisticsCollector;
 
-    private static final Logger logger = LoggerFactory.getLogger(Migrator.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(Migrator.class);
 
     @Autowired
-    public Migrator(MigrationService migrationService, MigrationStatisticsCollector statisticsCollector) {
+    public Migrator(MigrationService migrationService,
+            MigrationStatisticsCollector statisticsCollector) {
         this.migrationService = migrationService;
         this.statisticsCollector = statisticsCollector;
     }
@@ -45,19 +47,21 @@ public class Migrator {
             success = false;
         }
 
-        if(success) {
+        if (success) {
             logger.info("Migration ended.");
         } else {
             logger.error("Exception occurred while running migrator", exception);
             logger.error("Migration failed.");
         }
 
-        System.out.printf("Total time taken for migration: %d mins %n", new Duration(startTime, DateTime.now()).getStandardMinutes());
+        System.out.printf("Total time taken for migration: %d mins %n",
+                new Duration(startTime, DateTime.now()).getStandardMinutes());
         System.exit(success ? 0 : 1);
     }
 
     private static void execute(final String[] args) {
-        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationCareMigration.xml");
+        final ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                "classpath:applicationCareMigration.xml");
 
         final MigratorArguments migratorArguments = new MigratorArguments(args);
 
@@ -65,8 +69,6 @@ public class Migrator {
         migrator.migrate(migratorArguments);
         applicationContext.destroy();
     }
-
-
 
     public void migrate(MigratorArguments migratorArguments) {
         statisticsCollector.startTimer();

@@ -13,23 +13,27 @@ public class RequestTimer {
         this.endpointStatisticsCollector = endpointStatisticsCollector;
         stopWatch = new StopWatch();
     }
+
     public void retried() {
         retries++;
     }
+
     public void start() {
         started = true;
         stopWatch.start();
     }
+
     public void successful() {
-        if(!started) {
+        if (!started) {
             return;
         }
         started = false;
         stopWatch.stop();
         endpointStatisticsCollector.record(stopWatch.getTime(), retries, true);
     }
+
     public void failed() {
-        if(!started) {
+        if (!started) {
             return;
         }
         stopWatch.stop();

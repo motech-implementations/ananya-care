@@ -11,13 +11,15 @@ public class EndpointStatisticsCollector {
     private int totalRetries;
     private int retiredRequests;
 
-    private static final Logger logger = LoggerFactory.getLogger("migration-statistics-logger");
+    private static final Logger logger = LoggerFactory
+            .getLogger("migration-statistics-logger");
 
     public EndpointStatisticsCollector() {
     }
 
     public static String formatDuration(long mills) {
-        return DurationFormatUtils.formatDuration(mills, "ss 'seconds' SS 'mills'", true);
+        return DurationFormatUtils.formatDuration(mills,
+                "ss 'seconds' SS 'mills'", true);
     }
 
     public RequestTimer newRequest() {
@@ -25,24 +27,27 @@ public class EndpointStatisticsCollector {
     }
 
     public void publishResults() {
-        logger.info(String.format("Total successful Requests: %s (Total Retries: %s, Requests Retried: %s)", totalRequests, totalRetries, retiredRequests));
-        logger.info(String.format("Avg time taken by requests: %s", formatDuration(getAverageRequestTime())));
+        logger.info(String
+                .format("Total successful Requests: %s (Total Retries: %s, Requests Retried: %s)",
+                        totalRequests, totalRetries, retiredRequests));
+        logger.info(String.format("Avg time taken by requests: %s",
+                formatDuration(getAverageRequestTime())));
     }
 
     public long getAverageRequestTime() {
-        if(totalRequests + totalRetries == 0) {
+        if (totalRequests + totalRetries == 0) {
             return 0;
         }
         return totalElapsedTime / (totalRequests + totalRetries);
     }
 
     public void record(long elapsedTime, int retries, boolean successful) {
-        if(!successful) {
+        if (!successful) {
             return;
         }
         totalRequests++;
         totalElapsedTime += elapsedTime;
-        if(retries > 0) {
+        if (retries > 0) {
             totalRetries += retries;
             retiredRequests++;
         }

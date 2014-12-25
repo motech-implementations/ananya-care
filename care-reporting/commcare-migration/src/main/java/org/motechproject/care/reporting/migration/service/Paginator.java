@@ -14,11 +14,13 @@ public class Paginator {
     private final ResponseParser parser;
     private Page nextPaginationOption;
 
-    public Paginator(Map<String, String> parameters, PaginationScheme paginationScheme, ResponseParser parser) {
+    public Paginator(Map<String, String> parameters,
+            PaginationScheme paginationScheme, ResponseParser parser) {
         this.parameters = parameters;
         this.paginationScheme = paginationScheme;
         this.parser = parser;
-        nextPaginationOption = new Page(getDefaultInitialPageOffset(), getDefaultLimit());
+        nextPaginationOption = new Page(getDefaultInitialPageOffset(),
+                getDefaultLimit());
     }
 
     public PaginatedResponse nextPage() {
@@ -26,7 +28,8 @@ public class Paginator {
             return null;
         }
 
-        String result = paginationScheme.nextPage(parameters, nextPaginationOption);
+        String result = paginationScheme.nextPage(parameters,
+                nextPaginationOption);
         PaginatedResponse paginatedResult = parser.parse(result);
         nextPaginationOption = paginatedResult.getMeta().getNextPage();
         return paginatedResult;

@@ -3,8 +3,8 @@ package org.motechproject.care.reporting.migration.common;
 import com.google.gson.JsonArray;
 
 public class PaginatedResponse {
-   private JsonArray records;
-   private PaginatedResponseMeta meta;
+    private JsonArray records;
+    private PaginatedResponseMeta meta;
 
     public PaginatedResponse(JsonArray records, PaginatedResponseMeta meta) {
         this.records = records;

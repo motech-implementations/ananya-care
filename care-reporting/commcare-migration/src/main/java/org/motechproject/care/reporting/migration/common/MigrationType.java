@@ -8,7 +8,7 @@ public enum MigrationType {
         this.type = type;
     }
 
-    public static MigrationType getFor(String type){
+    public static MigrationType getFor(String type) {
         for (MigrationType migrationType : MigrationType.values()) {
             if (migrationType.type.equals(type))
                 return migrationType;
