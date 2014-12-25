@@ -6,6 +6,7 @@ import java.util.Map;
 import org.motechproject.care.reporting.migration.CommcareSyncValidatorArguments;
 import org.motechproject.care.reporting.migration.common.Constants;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
+import org.motechproject.care.reporting.model.CaseType;
 import org.motechproject.care.reporting.repository.CommcareDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,8 +28,21 @@ public class CommcareSyncValidatorService {
             CommcareSyncValidatorArguments commcareSyncValidatorArguments) {
 
         Map<String, String> paramsMap = getNameValuePair(commcareSyncValidatorArguments);
-        String response = commcareAPIHttpClient.hitRequest(paramsMap);
+        String caseType  = paramsMap.get(Constants.CASE_TYPE);
+        if(!validateCase(caseType)) {
+    	  	throw new IllegalArgumentException(String.format("case type %s not supported", caseType));
+        }
+    	   String response = commcareAPIHttpClient.hitRequest(paramsMap);
         // Map<String , Object> form = careDao.getCases(caseType);
+    }
+    
+    
+    private boolean validateCase(String caseType) {
+    	boolean flag = true;
+    	if(caseType!= "mother" && caseType != "child") {
+    	     flag = false;	
+    	}
+    	return flag;
     }
 
     private Map<String, String> getNameValuePair(

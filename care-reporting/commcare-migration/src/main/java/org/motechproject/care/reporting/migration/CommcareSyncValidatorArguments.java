@@ -86,7 +86,7 @@ public class CommcareSyncValidatorArguments {
     }
 
     private void validateArgumentsLength() {
-        if (arguments.length == 0 || arguments.length > 2) {
+        if (arguments.length == 2) {
             throw new IllegalArgumentException("Invalid number of arguments");
         }
     }
