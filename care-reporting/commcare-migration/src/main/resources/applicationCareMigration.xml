@@ -47,6 +47,11 @@
     <util:properties id="migrationProperties" location="classpath:migration.properties"/>
     <util:properties id="commcareProperties" location="classpath:commcareAPI.properties"/>
     <util:properties id="platformProperties" location="classpath:platform.properties"/>
+    <!-- Properties required repository module -->
+    <util:properties id="jdbcProperties" location="classpath:jdbc.properties"/>
+    <util:properties id="queryProperties" location="classpath:query.properties"/>
+    <util:properties id="messageProperties" location="classpath:message.properties"/>
+    
 
     <context:annotation-config/>
     <context:component-scan base-package="org.motechproject.care.reporting.migration"/>

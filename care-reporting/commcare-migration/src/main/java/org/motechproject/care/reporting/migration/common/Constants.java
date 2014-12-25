@@ -19,4 +19,5 @@ public class Constants {
 
     public static final int DEFAULT_PAGE_LIMIT = 100;
     public static final int DEFAULT_INITIAL_PAGE_OFFSET = 0;
+     
 }

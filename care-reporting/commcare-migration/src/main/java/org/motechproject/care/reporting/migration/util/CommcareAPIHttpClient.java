@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -139,6 +140,40 @@ public class CommcareAPIHttpClient {
                 requestTimer.failed();
             }
         }
+    }
+    
+    /**
+     * @since 24/Dec/2014
+     * @author atish
+     * @param parameters
+     * @param paginationOptions
+     * @return {@link String}
+     */
+    public String hitRequest(Map<String, String> parameters, Page paginationOptions) {
+       
+    	NameValuePair[] queryParams = populateParams(parameters, paginationOptions);
+    	String requestUrl = getCommcareCaseListUrl();
+        HttpMethod getMethod = buildRequest(requestUrl, queryParams);
+        getMethod.getParams().setParameter(CredentialsProvider.PROVIDER, new SimpleCredentialsProvider(getUsername(), getPassword()));
+
+        try {
+            logger.info("fetching case : " + getMethod.getURI().getURI());
+            int statusCode = httpClient.executeMethod(getMethod);
+
+            String response = readResponse(getMethod);
+            if (statusCode != HttpStatus.SC_OK) {
+                BadResponseException e = new BadResponseException(requestUrl, statusCode, response);
+                logger.error(e.getMessage(), e);
+                throw e;
+            }
+            
+            logger.info("Successfully Fetched: " + getMethod.getURI().getURI());
+            return response;
+        } catch (IOException e) {
+            getMethod.releaseConnection();
+            logger.error("IOException while sending request to Commcare", e);
+            throw new RuntimeException(e);
+        } 
     }
 
     private int getSleepTimeBeforeRetries() {
