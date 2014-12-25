@@ -1,16 +1,11 @@
 package org.motechproject.care.reporting.migration.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.motechproject.care.reporting.migration.CommcareSyncValidatorArguments;
-import org.motechproject.care.reporting.migration.MigratorArguments;
 import org.motechproject.care.reporting.migration.common.Constants;
-import org.motechproject.care.reporting.migration.common.Page;
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
-import org.motechproject.care.reporting.model.CaseType;
 import org.motechproject.care.reporting.repository.CommcareDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
