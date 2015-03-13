@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TTBoosterService extends VaccinationService{
-
-
+  
+	
+  
     @Autowired
     public TTBoosterService(ScheduleService schedulerService, CareCaseTaskService careCaseTaskService) {
         super(schedulerService, MotherVaccinationSchedule.TTBooster.getName(), careCaseTaskService);

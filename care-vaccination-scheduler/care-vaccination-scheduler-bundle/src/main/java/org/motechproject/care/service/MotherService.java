@@ -8,6 +8,8 @@ import org.motechproject.event.listener.annotations.MotechListener;
 import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MotherService extends BaseService<MotherCase> {
     
+    private static final Logger logger = LoggerFactory
+            .getLogger(MotherService.class);
+	
     @Autowired
     MdsRepository dbRepository;
     @Autowired
@@ -37,18 +42,27 @@ public class MotherService extends BaseService<MotherCase> {
 //        if(mother.isActive())
 //            vaccinationProcessor.enrollUpdateVaccines(mother);
 //    }
-    @MotechListener(subjects=Constants.MOTHER_CREATE_UPDATE_EVENT)
+    
+    
+    
+    @MotechListener(subjects=Constants.MOTHER_CREATE_UPDATE_EVENT) 
     public void processExisting(MotechEvent event) {
-        //motherFromDb.valuesSetFrom(mother);
-       // dbRepository.update(motherFromDb);
+    	
+    	logger.info("In MOTHER_CREATE_UPDATE_EVENT "+ event.toString());
     	MotherCase mother = (MotherCase) event.getParameters().get(Constants.MOTHER_CASE_PARAM);
+    	logger.info("Mother Case extracted with Case Id"+ mother.getCaseId());
     	process(mother);
+    	
     }
+    
+    
     public void process(MotherCase mother) {
     	if(mother == null) {
     		return;
     	}
+    	logger.info("Validating Case Id, %s"+mother.getCaseId());
     	validateMandatory(mother.getCaseId(), "Case Id");
+    	logger.info("Validating Owner Id, %s"+mother.getFlwGroup());
     	if(mother.getFlwGroup() == null) {
             throw new CaseException("Owner Id is a mandatory field.", HttpStatus.BAD_REQUEST);
         }

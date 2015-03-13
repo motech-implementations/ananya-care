@@ -1,20 +1,18 @@
 package org.motechproject.mcts.care.common.mds.model;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+/*import static javax.persistence.GenerationType.SEQUENCE;*/
 
 import java.util.Date;
-
-import javax.persistence.Column;
 
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
-import javax.persistence.GeneratedValue;
+/*import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.TemporalType;*/
 
 @Entity
 public class MctsPregnantMotherErrorLog implements java.io.Serializable {

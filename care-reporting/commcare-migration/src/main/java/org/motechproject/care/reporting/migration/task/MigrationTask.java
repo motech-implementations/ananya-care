@@ -84,6 +84,7 @@ public abstract class MigrationTask {
         int successCount = 0;
         try {
             for (final CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
+
                 Runnable x = new Runnable() {
 
                     @Override
@@ -94,9 +95,22 @@ public abstract class MigrationTask {
                 };
                 x.run();
 
+               //Runnable x = new Runnable(
+                //        ) {
+                    
+               //     @Override
+             //       public void run() {
+                        postToMotech(commcareResponseWrapper);
+                        
+            //        }
+            //    };
+            //    x.run();
+                
+
                 successCount++;
             }
         } finally {
+        	System.out.println("ERRRRRRRRRRRORRRRRRRRRRR OUNTTTTTTTTTTTTT" + motechAPIHttpClient.ERRORCOUNT);
             statisticsCollector.addRecordsUploaded(successCount);
 
             if (successCount != totalCount) {

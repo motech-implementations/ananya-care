@@ -489,12 +489,12 @@ public class ChildCase extends Client implements java.io.Serializable,
     }
 
     private boolean isLatest(ChildCase updatedObject) {
-        if (this.serverDateTimeModified == null)
+        if (this.dateModified == null)
             return true;
-        else if (updatedObject.serverDateTimeModified == null)
+        else if (updatedObject.dateModified == null)
             return false;
-        return this.serverDateTimeModified
-                .compareTo(updatedObject.serverDateTimeModified) <= 0;
+        return this.dateModified
+                .compareTo(updatedObject.dateModified) <= 0;
     }
 
     // Below methods are added from Child class while unifying the tables of

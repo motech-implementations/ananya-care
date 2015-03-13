@@ -21,16 +21,11 @@ public class CareCaseService  {
 	
 	private AlertRouter alertRouter;
 
-    private MotherService motherService;
-    private ChildService childService;
     Logger logger = Logger.getLogger(CareCaseService.class);
     @Autowired
     ScheduleInitializer scheduleInitializer;
-    @Autowired
-    public CareCaseService(MotherService motherService, ChildService childService) {
+    public CareCaseService() {
       //  super(CareCase.class);
-        this.motherService = motherService;
-        this.childService = childService;
     }
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)

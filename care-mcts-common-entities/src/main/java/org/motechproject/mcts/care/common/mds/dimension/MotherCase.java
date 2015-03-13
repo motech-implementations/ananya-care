@@ -27,7 +27,6 @@ public class MotherCase extends Client implements java.io.Serializable,
 
     @Field
     private DateTime serverDateModified;
-
     @Field
     private Integer familyNumber;
     @Field
@@ -40,10 +39,8 @@ public class MotherCase extends Client implements java.io.Serializable,
     private DateTime motherDob;
     @Field
     private String motherName;
-
     @Field
     private DateTime closedOn;
-
     @Field
     private DateTime actualDeliveryDate;
     @Field
@@ -52,21 +49,16 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String birthPlace;
     @Field
     private String complications;
-
     @Field
     private DateTime dateNextBp;
-
     @Field
     private DateTime dateNextCf;
-
     @Field
     private DateTime dateNextEb;
-
     @Field
     private DateTime dateNextPnc;
     @Field
     private String eatsMeat;
-
     @Field
     private DateTime edd;
     @Field
@@ -79,61 +71,44 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String interestInKilkari;
     @Field
     private String lastPregTt;
-
     @Field
     private DateTime lmp;
     @Field
     private String mobileNumber;
     @Field
     private int numBoys;
-
     @Field
     private DateTime dateCf1;
-
     @Field
     private DateTime dateCf2;
-
     @Field
     private DateTime dateCf3;
-
     @Field
     private DateTime dateCf4;
-
     @Field
     private DateTime dateCf5;
-
     @Field
     private DateTime dateCf6;
-
     @Field
     private DateTime dateCf7;
-
     @Field
     private DateTime dateEb1;
-
     @Field
     private DateTime dateEb2;
-
     @Field
     private DateTime dateEb3;
-
     @Field
     private DateTime dateEb4;
-
     @Field
     private DateTime dateEb5;
-
     @Field
     private DateTime dateEb6;
     @Field
     private String allPncOnTime;
-
     @Field
     private DateTime datePnc1;
-
     @Field
     private DateTime datePnc2;
-
     @Field
     private DateTime datePnc3;
     @Field
@@ -144,7 +119,6 @@ public class MotherCase extends Client implements java.io.Serializable,
     private Integer pnc2DaysLate;
     @Field
     private Integer pnc3DaysLate;
-
     @Field
     private DateTime ttBoosterDate;
     @Field
@@ -153,39 +127,30 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String sbaPhone;
     @Field
     private String accompany;
-
     @Field
     private DateTime anc1Date;
-
     @Field
     private DateTime anc2Date;
-
     @Field
     private DateTime anc3Date;
-
     @Field
     private DateTime anc4Date;
     @Field
     private String cleanCloth;
     @Field
     private String coupleInterested;
-
     @Field
     private DateTime dateBp1;
-
     @Field
     private DateTime dateBp2;
-
     @Field
     private DateTime dateBp3;
-
     @Field
     private DateTime dateLastVisit;
     @Field
     private String deliveryType;
     @Field
     private int ifaTablets;
-
     @Field
     private DateTime ifaTablets100;
     @Field
@@ -198,17 +163,14 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String phoneVehicle;
     @Field
     private String savingMoney;
-
     @Field
     private DateTime tt1Date;
-
     @Field
     private DateTime tt2Date;
     @Field
     private String vehicle;
     @Field
     private String birthStatus;
-
     @Field
     private DateTime migrateOutDate;
     @Field
@@ -219,12 +181,10 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String term;
     @Field
     private DateTime dateDelFu;
-
     @Field
     private DateTime dateNextReg;
     @Field
     private String institutional;
-
     @Field
     private DateTime dob;
     @Field
@@ -254,7 +214,6 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String fullMctsId;
     @Field
     private String dateModifiedString;
-    
     @Field
     private String motherAlive;
 
@@ -1104,12 +1063,12 @@ public class MotherCase extends Client implements java.io.Serializable,
     }
 
     private boolean isLatest(MotherCase updatedObject) {
-        if (this.serverDateModified == null)
+        if (this.dateModified == null )
             return true;
-        else if (updatedObject.serverDateModified == null)
+        else if (updatedObject.dateModified == null)
             return false;
-        return this.serverDateModified
-                .compareTo(updatedObject.serverDateModified) <= 0;
+        return this.dateModified 
+                .compareTo(updatedObject.dateModified) <= 0;
     }
 
     public boolean isActive() {

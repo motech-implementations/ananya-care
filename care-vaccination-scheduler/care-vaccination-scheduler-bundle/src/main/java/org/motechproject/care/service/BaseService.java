@@ -14,8 +14,9 @@ import org.springframework.http.HttpStatus;
 
 public abstract class BaseService<T> {
 	
-    protected final VaccinationProcessor vaccinationProcessor;
+    protected  VaccinationProcessor vaccinationProcessor;
     
+ 
     @Autowired
     MdsRepository dbRepository;
     

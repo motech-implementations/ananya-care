@@ -43,11 +43,13 @@ public class ChildService extends BaseService<ChildCase> {
 //		}
 //	}
 
+	
+	
 	@MotechListener(subjects=Constants.CHILD_CREATE_UPDATE_EVENT)
 	public void processExisting(MotechEvent event) {
-		ChildCase child = (ChildCase) event.getParameters().get(
-				Constants.CHILD_CASE_PARAM);
-    	
+		  ChildCase child = (ChildCase) event.getParameters().get(
+		 		Constants.CHILD_CASE_PARAM);
+    	 
 		process(child);
 	}
 	

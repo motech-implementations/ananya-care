@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.motechproject.care.request.CareCase;
 import org.motechproject.care.request.CaseType;
+import org.motechproject.care.service.util.ClientLoggerUtil;
 import org.motechproject.care.service.util.CommcareTask;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.commons.date.util.DateUtil;
@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 public class CareCaseTaskService {
 
     //private AllCareCaseTasks allCareCaseTasks;
+	private static final Logger LOGGER = Logger.getLogger(CareCaseTaskService.class);
+	
     @Autowired
 	private Repository dbRepository;
     private CommcareCaseGateway commcareCaseGateway;
@@ -35,6 +37,15 @@ public class CareCaseTaskService {
     }
 
     public void close(Client client, String milestoneName) {
+    	
+    	LOGGER.info(String.format("Validating Client %s . ",ClientLoggerUtil.clientBuilder(client).toString()));
+        
+    	if(validateIfCaseNull(client)){	
+    		LOGGER.info(String.format("Found Client %s is invalid. Exiting.... ",ClientLoggerUtil.clientBuilder(client).toString()));
+            return;	
+        }
+        
+        
         logger.info(String.format("Closing case for Client Case Id: %s; Milestone Name: %s", client.getCaseId(), milestoneName));
         Map careFieldMap = new HashMap<String, Object>();
         if (client.getCaseType().equals(CaseType.Mother.getType())) {
@@ -58,6 +69,21 @@ public class CareCaseTaskService {
         String commcarePassword = ananyaCareProperties.getProperty("commcare.hq.password");
         //TODO added null as 5th argument in below method(check what it should be)
         commcareCaseGateway.closeCase(commcareUrl,CommcareTask.toCaseTask(careCaseTask), commcareUsername, commcarePassword, null);
+    }
+    
+    /**
+     * Bug Fix : Following code handles if client or client Id is not null 
+     * then allows to prcess a care case.
+     * @author atish
+     * @since 4/12/2015
+     * @param client
+     */
+    private boolean validateIfCaseNull(Client client) {
+    	 boolean flag = false;
+    	  if(client == null || client.getCaseId() == null) {
+           flag = true;
+          }
+    	  return flag;
     }
 
     public void closeAll(String clientCaseId, String milestoneName) {

@@ -27,8 +27,12 @@ import java.util.Properties;
 @Component
 public class MotechAPIHttpClient {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(MotechAPIHttpClient.class);
+
+
+
+	public static int ERRORCOUNT =0;
+    private static final Logger logger = LoggerFactory.getLogger(MotechAPIHttpClient.class);
+
 
     private HttpClient httpClient;
     private final Properties platformProperties;
@@ -104,12 +108,14 @@ public class MotechAPIHttpClient {
                 BadResponseException e = new BadResponseException(postMethod
                         .getURI().toString(), statusCode, response);
                 logger.error(e.getMessage(), e);
-                throw e;
+                ERRORCOUNT++;
+                //throw e;
             }
             success = true;
         } catch (IOException e) {
             logger.error("IO exception while sending request to motech", e);
-            throw new RuntimeException(e);
+            ERRORCOUNT++;
+            //throw new RuntimeException(e);
         } finally {
             if (success) {
                 requestTimer.successful();

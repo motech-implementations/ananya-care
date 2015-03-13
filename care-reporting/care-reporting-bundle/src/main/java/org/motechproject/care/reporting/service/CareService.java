@@ -104,8 +104,12 @@ public class CareService implements ICareService {
         if (persistedObject == null)
             dbRepository.save(entity);
         else {
+        	try {
             persistedObject.updateToLatest(entity);
-            dbRepository.save(persistedObject);
+            dbRepository.update(persistedObject);
+        	}catch (Exception e) {
+        	 logger.debug("Failed to save/update "+entity.getClass().getName());	
+        	}
         }
     }
 

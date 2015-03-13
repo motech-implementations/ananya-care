@@ -15,6 +15,41 @@
             </map>
         </constructor-arg>
     </bean>
+    <!-- <bean id="motherVaccinationProcessor" class="org.motechproject.care.service.VaccinationProcessor">
+        <constructor-arg>
+            <list>
+                <ref bean="TTService"/>
+                <ref bean="TTBoosterService"/>
+                <ref bean="ancService"/>
+                <ref bean="anc4Service"/>
+                <ref bean="motherCareService" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="childVaccinationProcessor" class="org.motechproject.care.service.VaccinationProcessor">
+        <constructor-arg>
+            <list>
+                <ref bean="measlesService"/>
+                <ref bean="measlesBoosterService"/>
+                <ref bean="bcgService"/>
+                <ref bean="vitaService"/>
+                <ref bean="hep0Service"/>
+                <ref bean="hepService"/>
+                <ref bean="dptService"/>
+                <ref bean="dptBoosterService"/>
+                <ref bean="opv0Service"/>
+                <ref bean="opvService"/>
+                <ref bean="opvBoosterService"/>
+                <ref bean="childCareService" />
+            </list>
+        </constructor-arg>
+    </bean> -->
+    <!-- <osgi:service ref="childService"
+                    interface="org.motechproject.care.service.ChildService" />
+    
+    <osgi:service ref="motherService"
+                    interface="org.motechproject.care.service.MotherService" />  -->
 
     <osgi:reference id="schedulerServiceOsgi"
                     interface="org.motechproject.scheduler.service.MotechSchedulerService" />

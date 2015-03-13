@@ -1,13 +1,11 @@
 package org.motechproject.casexml.gateway;
 
 import java.util.HashMap;
-import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.motechproject.casexml.domain.CaseTask;
-import org.motechproject.event.MotechEvent;
 import org.motechproject.http.agent.domain.Credentials;
 import org.motechproject.http.agent.domain.EventDataKeys;
-import org.motechproject.http.agent.domain.EventSubjects;
 import org.motechproject.http.agent.service.HttpAgent;
 import org.motechproject.http.agent.service.Method;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ public class CommcareCaseGateway {
 
     private CaseTaskXmlConverter caseTaskXmlConverter;
     private HttpAgent httpAgent;
+   private final static Logger LOGGER = Logger.getLogger(CommcareCaseGateway.class.getName());
 
     @Autowired
     public CommcareCaseGateway(CaseTaskXmlConverter caseTaskXmlConverter,
@@ -31,42 +30,32 @@ public class CommcareCaseGateway {
         String request = caseTaskXmlConverter.convertToCaseXml(task);
         HashMap<String, Object> parameters = constructParametersFrom(
                 commcareUrl, request, "POST", username, password);
-        // MotechEvent motechEvent = new MotechEvent(EventSubjects.HTTP_REQUEST,
-        // parameters);
+        
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
     public void closeCase(String commcareUrl, CaseTask task, String username,
             String password, Integer redeliveryCount) {
+    	
         String request = caseTaskXmlConverter.convertToCloseCaseXml(task);
-        // HashMap<String, Object> parameters =
-        // constructParametersFrom(commcareUrl, request, "POST", username,
-        // password);
-        // MotechEvent motechEvent = new MotechEvent(EventSubjects.HTTP_REQUEST,
-        // parameters);
         sendEventMessage(commcareUrl, request, "POST", username, password);
-
     }
 
     private void sendEventMessage(String url, String data, String method,
             String username, String password) {
         try {
             Credentials credential = new Credentials(username, password);
-
+            LOGGER.info(String.format("Posting url: %s with username: %s, password: %s", url, username, password));
+            LOGGER.info("Data: " + data);
+            url = url.trim();
             httpAgent.executeSync(url, (Object) data, Method.POST, credential);
+            LOGGER.info(String.format("Posted url: %s with username: %s, password: %s", url, username, password));
         } catch (Exception e) {
-            /*
-             * event.getParameters().put(MotechEvent.PARAM_INVALID_MOTECH_EVENT,
-             * Boolean.TRUE); if (event.getMessageRedeliveryCount() ==
-             * redeliveryCount || redeliveryCount == null) {
-             * event.getParameters(
-             * ).put(MotechEvent.PARAM_DISCARDED_MOTECH_EVENT, Boolean.TRUE);
-             */
-            // max retry count reached
-            throw e;
-            // }
-            // event.incrementMessageRedeliveryCount();
-            // sendEventMessage(event, redeliveryCount);
+            
+            // Error Posting URL 
+        	LOGGER.info(String.format("Error Posting url: %s with username: %s, password: %s", url, username, password));
+            LOGGER.error(e.getMessage());
+            
         }
     }
 

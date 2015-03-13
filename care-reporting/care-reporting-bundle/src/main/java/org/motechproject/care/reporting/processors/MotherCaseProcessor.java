@@ -26,7 +26,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class MotherCaseProcessor {
     private static final Logger logger = LoggerFactory
-            .getLogger("commcare-reporting-mapper");
+            .getLogger(MotherCaseProcessor.class);
+            		//"commcare-reporting-mapper");
     private static List<PostProcessor> MOTHER_CASE_POSTPROCESSOR = new ArrayList<PostProcessor>() {
         {
             add(PostProcessor.CASE_COPY_USER_ID_AS_FLW);
@@ -37,7 +38,7 @@ public class MotherCaseProcessor {
     private EventRelay eventRelay;
     private ICareService careService;
     private MapperService mapperService;
-
+    
     @Autowired
     public MotherCaseProcessor(ICareService careService,
             MapperService mapperService, EventRelay eventRelay) {
@@ -65,15 +66,27 @@ public class MotherCaseProcessor {
 
         logger.info(String.format(
                 "Started processing mother case with case ID %s", caseId));
-        MotherCase motherCase = careService.saveByExternalPrimaryKey(
-                MotherCase.class, caseMap);
+        //MotherCase mother = careService.getMotherCase(caseId);
+        //if(mother == null) {
+
+        	MotherCase mother = careService.saveByExternalPrimaryKey(
+        			
+                    MotherCase.class, caseMap);
+        logger.debug("Saved/Updated mother case");
+        
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(Constants.MOTHER_CASE_PARAM, motherCase);
+        map.put(Constants.MOTHER_CASE_PARAM, mother);
         MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT,
                 map);
 
+        logger.debug("Sending Event "+e.toString());
         eventRelay.sendEventMessage(e);
+        logger.debug("Event sent "+e.toString());
+        
+       
         logger.info(String.format(
                 "Finished processing mother case with case ID %s", caseId));
     }
+        
+        
 }

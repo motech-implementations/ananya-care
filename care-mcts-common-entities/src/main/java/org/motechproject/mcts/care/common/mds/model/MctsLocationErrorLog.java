@@ -2,7 +2,7 @@ package org.motechproject.mcts.care.common.mds.model;
 
 // Generated May 19, 2014 7:55:47 PM by Hibernate Tools 3.4.0.CR1
 
-import javax.persistence.Column;
+/*import javax.persistence.Column;*/
 
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
