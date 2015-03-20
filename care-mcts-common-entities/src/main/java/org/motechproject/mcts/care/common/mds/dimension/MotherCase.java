@@ -1063,12 +1063,12 @@ public class MotherCase extends Client implements java.io.Serializable,
     }
 
     private boolean isLatest(MotherCase updatedObject) {
-        if (this.dateModified == null )
+        if (this.serverDateModified == null )
             return true;
-        else if (updatedObject.dateModified == null)
+        else if (updatedObject.serverDateModified == null)
             return false;
-        return this.dateModified 
-                .compareTo(updatedObject.dateModified) <= 0;
+        return this.serverDateModified 
+                .compareTo(updatedObject.serverDateModified) <= 0;
     }
 
     public boolean isActive() {

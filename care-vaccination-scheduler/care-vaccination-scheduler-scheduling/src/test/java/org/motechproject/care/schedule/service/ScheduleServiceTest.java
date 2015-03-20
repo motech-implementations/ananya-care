@@ -77,7 +77,7 @@ public class ScheduleServiceTest {
 
         Time fulfillmentTime = captor.getValue();
         assertFalse(fulfillmentTime.isBefore(DateUtil.time(beforeTest)));
-        assertTrue(fulfillmentTime.isBefore(DateUtil.time(DateTime.now().plusMinutes(3))));
+        assertTrue(fulfillmentTime.isBefore(DateUtil.time(DateTime.now().plusMinutes(70))));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ScheduleServiceTest {
     }
 
     @Test
-    public void shouldEnrollMotherForMeaslesVaccinationWithReferenceTimeSetToNowPlus2Minutes() {
+    public void shouldEnrollMotherForMeaslesVaccinationWithReferenceTimeSetToNowPlus60Minutes() {
         DateTime dob = new DateTime(2012, 10, 10, 0, 0);
         String caseId = "caseId";
 
@@ -122,7 +122,7 @@ public class ScheduleServiceTest {
         DateTime afterTest = DateTime.now();
 
         assertFalse(referenceTime.isBefore(new Time(beforeTest.getHourOfDay(), beforeTest.getMinuteOfHour())));
-        assertTrue(referenceTime.isBefore(new Time(afterTest.getHourOfDay(), afterTest.getMinuteOfHour() + 3)));
+        assertTrue(referenceTime.isBefore(new Time(afterTest.getHourOfDay()+1, afterTest.getMinuteOfHour() + 10)));
     }
 
     @Test
