@@ -82,4 +82,5 @@
                   interface="org.motechproject.scheduletracking.service.EnrollmentActionService"/>
                   
     <osgi:reference id="ScheduleServiceOSGi" interface="org.motechproject.scheduletracking.repository.dataservices.ScheduleDataService" />
+    
 </beans>

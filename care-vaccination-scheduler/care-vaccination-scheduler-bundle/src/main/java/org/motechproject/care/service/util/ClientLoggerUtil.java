@@ -28,18 +28,8 @@ public class ClientLoggerUtil {
 			   		    .append("Client{ ")
 			   		    .append("Case Id : ")
 			   			.append((client.getCaseId()!=null)?client.getCaseId():EMPTY_FIELD).append(", ")
-			   			.append("Case Name : ")
-			   			.append((client.getCaseName()!=null)?client.getCaseName():EMPTY_FIELD).append(", ")
-			   			.append("Case Type : ")
-			   			.append((client.getCaseType()!=null)?client.getCaseType():EMPTY_FIELD).append(", ")
-			   			.append("Closed : ")
-			   			.append((client.getClosed())?client.getClosed():EMPTY_FIELD).append(",")
-			   			.append("Creation Time : ")
-			   			.append((client.getCreationTime()!=null)?client.getCreationTime():EMPTY_FIELD).append(", ")
 			   			.append("Date Modified : ")
 			   			.append((client.getDateModified()!=null)?client.getDateModified():EMPTY_FIELD).append(", ")
-			   			.append("Expired : ")
-			   			.append((client.getExpired()!=null)?client.getExpired():EMPTY_FIELD)
 			   			.append(" }");
 					}
    	return clientBuilder;
@@ -55,7 +45,7 @@ public class ClientLoggerUtil {
    public static StringBuilder ExceptionBuilder(Exception exception) {
 	   StringBuilder exceptionBuilder = new StringBuilder();
 	    
-	   String exceptionName = (exception != null)?exception.getClass().getName():null;
+	   String exceptionName = (exception != null)?((exception.getClass()!=null)?exception.getClass().getName():null):null;
 	   
 	   	exceptionBuilder.append("{ errorClass :")
 	   					.append(exceptionName)

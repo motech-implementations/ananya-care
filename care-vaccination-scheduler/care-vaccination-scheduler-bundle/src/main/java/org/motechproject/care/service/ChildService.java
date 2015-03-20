@@ -1,5 +1,7 @@
 package org.motechproject.care.service;
 
+
+
 import org.motechproject.care.service.util.Constants;
 import org.motechproject.casexml.service.exception.CaseException;
 import org.motechproject.event.MotechEvent;
@@ -7,6 +9,8 @@ import org.motechproject.event.listener.annotations.MotechListener;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChildService extends BaseService<ChildCase> {
+	
+	   private static final Logger logger = LoggerFactory
+	            .getLogger(ChildService.class);
 
 	@Autowired
 	public ChildService(
@@ -26,31 +33,17 @@ public class ChildService extends BaseService<ChildCase> {
 	@Autowired
 	MdsRepository dbRepository;
 
-//	protected void onProcess(ChildCase child) {
-//		// ChildCase childFromDb = dbRepository.get(ChildCase.class, "caseId",
-//		// child.getCaseId());
-//
-//		// if(childFromDb == null)
-//		// processNew(child);
-//		// else if(childFromDb.isActive())
-//		processExisting(child);
-//	}
-
-//	private void processNew(ChildCase child) {
-//		dbRepository.save(child);
-//		if (child.shouldEnrollForSchedules()) {
-//			vaccinationProcessor.enrollUpdateVaccines(child);
-//		}
-//	}
-
 	
 	
 	@MotechListener(subjects=Constants.CHILD_CREATE_UPDATE_EVENT)
 	public void processExisting(MotechEvent event) {
-		  ChildCase child = (ChildCase) event.getParameters().get(
-		 		Constants.CHILD_CASE_PARAM);
-    	 
-		process(child);
+		
+		  logger.info("In CHILD_CREATE_UPDATE_EVENT :"+ event.toString());
+		  String caseId = (String) event.getParameters().get(Constants.CHILD_CASE_ID_PARAM);
+		  ChildCase child = dbRepository.get(ChildCase.class, "caseId", caseId);
+		  logger.info("Mother Case extracted with Case Id"+ child.getCaseId());
+		  process(child);
+		   
 	}
 	
 	public void process(ChildCase child){

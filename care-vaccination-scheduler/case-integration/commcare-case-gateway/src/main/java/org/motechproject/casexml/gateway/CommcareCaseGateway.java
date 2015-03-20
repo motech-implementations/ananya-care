@@ -1,5 +1,10 @@
 package org.motechproject.casexml.gateway;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
@@ -28,9 +33,12 @@ public class CommcareCaseGateway {
     public void submitCase(String commcareUrl, CaseTask task, String username,
             String password, Integer redeliveryCount) {
         String request = caseTaskXmlConverter.convertToCaseXml(task);
-        HashMap<String, Object> parameters = constructParametersFrom(
-                commcareUrl, request, "POST", username, password);
         
+        /*
+         * HashMap<String, Object> parameters = constructParametersFrom(
+         *       commcareUrl, request, "POST", username, password);
+         */      
+        createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -38,6 +46,7 @@ public class CommcareCaseGateway {
             String password, Integer redeliveryCount) {
     	
         String request = caseTaskXmlConverter.convertToCloseCaseXml(task);
+        createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -59,6 +68,7 @@ public class CommcareCaseGateway {
         }
     }
 
+    /**
     private HashMap<String, Object> constructParametersFrom(String url,
             Object data, String method, String username, String password) {
         HashMap<String, Object> parameters = new HashMap<>();
@@ -68,5 +78,34 @@ public class CommcareCaseGateway {
         parameters.put(EventDataKeys.USERNAME, username);
         parameters.put(EventDataKeys.PASSWORD, password);
         return parameters;
-    }
+    }**/
+    
+    /**
+     * @author atish
+     * Created to collect all cases to post in a folder "/home/naveen/motech/task".
+     * Used for Testing purpose.
+     **/
+    private void createTask(String request,CaseTask task) {
+      	 final String path ="/home/naveen/motech/task";
+      	 final String FILE_APPENDER ="/";
+      	 final String FILE_NAME_APPENDER="-";
+      	 final String FILE_EXTENTION_APPENDER=".";
+      	 final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+      	 String fileName = new StringBuilder(path).append(FILE_APPENDER).append(task.getCaseId()).append(FILE_NAME_APPENDER).append(dateFormat.format(new Date())).append(FILE_EXTENTION_APPENDER).append(".txt").toString();
+      	 LOGGER.info(String.format("Logging request %s to file %s ",request, fileName));
+      	 File file = new File(fileName);
+      	 
+      	 try {
+      		boolean created = file.createNewFile();
+      		if(created == true) {
+      			BufferedWriter output = new BufferedWriter(new java.io.FileWriter(file));
+      			output.write(request);
+      			output.close();
+      		}
+      	 }catch (Exception e) {
+      		LOGGER.info(String.format("failed to write file %s to path %s due to %s",fileName,path,e.getMessage()));
+      	 }
+      	
+      }
+      
 }

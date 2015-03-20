@@ -2,11 +2,13 @@ package org.motechproject.care.reporting.processors;
 
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -39,6 +41,7 @@ public class ChildCaseProcessor {
 	private MapperService mapperService;
 	private EventRelay eventRelay;
 	
+	
 	@Autowired
 	public ChildCaseProcessor(ICareService careService,
 			MapperService mapperService, EventRelay eventRelay) {
@@ -56,29 +59,21 @@ public class ChildCaseProcessor {
 		applyPostProcessors(CHILD_CASE_POSTPROCESSOR, caseMap);
 
 		String caseId = caseMap.get("caseId");
-		//ChildCase child = careService.getChildCase(caseId);
 		logger.info(String.format(
 				"Started processing child case with case ID %s", caseId));
-		//if (child == null) {
+		
 		ChildCase child = careService.saveByExternalPrimaryKey(ChildCase.class,
 					caseMap);
-		//} else {
-		//	careService.save(child);
-		//}
+		
+		 
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(Constants.CHILD_CASE_PARAM, child);
+	    map.put(Constants.CHILD_CASE_ID_PARAM, child.getCaseId());
 		MotechEvent e = new MotechEvent(Constants.CHILD_CREATE_UPDATE_EVENT,
-				map);
-		eventRelay.sendEventMessage(e);
-
-		/**
-		 * Map<String, Object> map = new HashMap<String, Object>();
-		 * map.put(Constants.CHILD_CASE_PARAM, childCase); MotechEvent e = new
-		 * MotechEvent(Constants.CHILD_CREATE_UPDATE_EVENT, map);
-		 * eventRelay.sendEventMessage(e);
-		 **/
-
+					map);
+		logger.debug("Sending Event "+e.toString());
+	    eventRelay.sendEventMessage(e);
+	    logger.debug("Event sent "+e.toString());
 		logger.info(String.format(
 				"Finished processing child case with case ID %s", caseId));
 	}

@@ -18,11 +18,11 @@ public class CareCaseTask implements java.io.Serializable {
     private String ownerId;
 
     @Field
-    @Cascade(persist = true, update = true, delete = true)
+    //@Cascade(persist = true, update = true, delete = true)
     private MotherCase motherCase;
 
     @Field
-    @Cascade(persist = true, update = true, delete = true)
+    //@Cascade(persist = true, update = true, delete = true)
     private ChildCase childCase;
 
     @Field

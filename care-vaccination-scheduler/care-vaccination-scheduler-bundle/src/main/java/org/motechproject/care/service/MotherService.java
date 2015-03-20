@@ -1,11 +1,8 @@
 package org.motechproject.care.service;
-
 import org.motechproject.care.service.util.Constants;
 import org.motechproject.casexml.service.exception.CaseException;
-import org.motechproject.commons.date.util.StringUtil;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.event.listener.annotations.MotechListener;
-import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.slf4j.Logger;
@@ -22,7 +19,8 @@ public class MotherService extends BaseService<MotherCase> {
             .getLogger(MotherService.class);
 	
     @Autowired
-    MdsRepository dbRepository;
+    MdsRepository dbRepository;   
+    
     @Autowired
     public MotherService(@Qualifier("motherVaccinationProcessor") VaccinationProcessor vaccinationProcessor) {
         super(vaccinationProcessor);
@@ -49,9 +47,12 @@ public class MotherService extends BaseService<MotherCase> {
     public void processExisting(MotechEvent event) {
     	
     	logger.info("In MOTHER_CREATE_UPDATE_EVENT "+ event.toString());
-    	MotherCase mother = (MotherCase) event.getParameters().get(Constants.MOTHER_CASE_PARAM);
+    	String caseId = (String) event.getParameters().get(Constants.MOTHER_CASE_ID_PARAM);
+    	MotherCase mother =  dbRepository.get(MotherCase.class, "caseId",caseId);
     	logger.info("Mother Case extracted with Case Id"+ mother.getCaseId());
     	process(mother);
+    	
+    
     	
     }
     

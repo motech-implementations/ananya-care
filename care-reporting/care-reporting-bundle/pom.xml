@@ -242,7 +242,7 @@
                         <Export-Package>
                     <!--         org.motechproject.care.reporting.domain.measure;version=${motech.version}, -->
                             org.motechproject.care.reporting.service;version=${motech.version},
-                            org.motechproject.care.reporting.mapper;version=${motech.version}
+                            org.motechproject.care.reporting.mapper;version=${motech.version}                
                         </Export-Package>
                     </instructions>
                 </configuration>

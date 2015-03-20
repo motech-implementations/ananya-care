@@ -2,11 +2,13 @@ package org.motechproject.care.reporting.processors;
 
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -18,6 +20,7 @@ import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.event.MotechEvent;
 import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +42,14 @@ public class MotherCaseProcessor {
     private ICareService careService;
     private MapperService mapperService;
     
+    
     @Autowired
     public MotherCaseProcessor(ICareService careService,
             MapperService mapperService, EventRelay eventRelay) {
         this.careService = careService;
         this.mapperService = mapperService;
         this.eventRelay = eventRelay;
+        
     }
 
     public void process(CaseEvent caseEvent) {
@@ -63,25 +68,20 @@ public class MotherCaseProcessor {
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
         String caseId = caseMap.get("caseId");
-
         logger.info(String.format(
                 "Started processing mother case with case ID %s", caseId));
-        //MotherCase mother = careService.getMotherCase(caseId);
-        //if(mother == null) {
-
-        	MotherCase mother = careService.saveByExternalPrimaryKey(
-        			
-                    MotherCase.class, caseMap);
-        logger.debug("Saved/Updated mother case");
         
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put(Constants.MOTHER_CASE_PARAM, mother);
-        MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT,
-                map);
-
-        logger.debug("Sending Event "+e.toString());
-        eventRelay.sendEventMessage(e);
-        logger.debug("Event sent "+e.toString());
+        MotherCase mother = careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
+        logger.debug("Saved/Updated mother case");
+        Map<String, Object> map = new HashMap<String, Object>();	
+	    map.put(Constants.MOTHER_CASE_ID_PARAM, mother.getCaseId());
+	    MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT,
+	                map);
+	    logger.debug("Sending Event "+e.toString());
+	    eventRelay.sendEventMessage(e);
+	    logger.debug("Event sent "+e.toString());
+			
+    
         
        
         logger.info(String.format(
