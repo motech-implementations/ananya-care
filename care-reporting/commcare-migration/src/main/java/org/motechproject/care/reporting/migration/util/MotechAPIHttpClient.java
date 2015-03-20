@@ -109,13 +109,13 @@ public class MotechAPIHttpClient {
                         .getURI().toString(), statusCode, response);
                 logger.error(e.getMessage(), e);
                 ERRORCOUNT++;
-                //throw e;
+                throw e;
             }
             success = true;
         } catch (IOException e) {
             logger.error("IO exception while sending request to motech", e);
             ERRORCOUNT++;
-            //throw new RuntimeException(e);
+            throw new RuntimeException(e);
         } finally {
             if (success) {
                 requestTimer.successful();

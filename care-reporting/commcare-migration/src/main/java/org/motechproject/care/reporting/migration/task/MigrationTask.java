@@ -85,15 +85,15 @@ public abstract class MigrationTask {
         try {
             for (final CommcareResponseWrapper commcareResponseWrapper : commcareResponseWrappers) {
 
-                Runnable x = new Runnable() {
+               // Runnable x = new Runnable() {
 
-                    @Override
-                    public void run() {
-                        postToMotech(commcareResponseWrapper);
+                    //@Override
+                    //public void run() {
+                      //  postToMotech(commcareResponseWrapper);
 
-                    }
-                };
-                x.run();
+                    //}
+               // };
+                //x.run();
 
                //Runnable x = new Runnable(
                 //        ) {
@@ -110,8 +110,7 @@ public abstract class MigrationTask {
                 successCount++;
             }
         } finally {
-        	System.out.println("ERRRRRRRRRRRORRRRRRRRRRR OUNTTTTTTTTTTTTT" + motechAPIHttpClient.ERRORCOUNT);
-            statisticsCollector.addRecordsUploaded(successCount);
+        	statisticsCollector.addRecordsUploaded(successCount);
 
             if (successCount != totalCount) {
                 log = String
