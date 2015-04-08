@@ -48,6 +48,14 @@ public interface PostProcessor {
             if (values.containsKey("ownerId")) values.put("flwGroup", values.get("ownerId"));
         }
     };
+    
+    public static PostProcessor COPY_SERVER_DATE_MODIFIED_AS_SERVER_DATE_TIME_MODIFIED = new PostProcessor() {
+        @Override
+        public void transform(Map<String, String> values) {
+            if (values.containsKey("serverDateModified")) values.put("serverDateTimeModified", values.get("serverDateModified"));
+        }
+    };
+
 
     void transform(Map<String, String> values);
 

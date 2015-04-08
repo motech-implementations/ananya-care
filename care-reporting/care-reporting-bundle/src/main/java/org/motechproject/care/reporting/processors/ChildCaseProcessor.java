@@ -2,13 +2,11 @@ package org.motechproject.care.reporting.processors;
 
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.parser.CaseInfoParser;
 import org.motechproject.care.reporting.parser.InfoParser;
@@ -34,6 +32,7 @@ public class ChildCaseProcessor {
 			add(PostProcessor.CASE_COPY_USER_ID_AS_FLW);
 			add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
 			add(PostProcessor.COPY_MOTHER_ID_AS_MOTHER_CASE);
+			add(PostProcessor.COPY_SERVER_DATE_MODIFIED_AS_SERVER_DATE_TIME_MODIFIED);
 		}
 	};
 

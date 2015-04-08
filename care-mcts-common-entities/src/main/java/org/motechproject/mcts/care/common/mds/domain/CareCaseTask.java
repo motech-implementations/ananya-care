@@ -3,7 +3,6 @@ package org.motechproject.mcts.care.common.mds.domain;
 import org.motechproject.mcts.care.common.lookup.CaseType;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
-import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
 
@@ -11,6 +10,7 @@ import org.motechproject.mds.annotations.Field;
 public class CareCaseTask implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     private String caseType;
 
     private String milestoneName;
@@ -124,7 +124,7 @@ public class CareCaseTask implements java.io.Serializable {
     }
 
     public void setCaseType(String caseType) {
-        this.caseType = CaseType.TASK;
+    	this.caseType = caseType;
     }
 
     @Field
@@ -159,6 +159,7 @@ public class CareCaseTask implements java.io.Serializable {
         this.clientCaseType = clientCaseType;
         this.motherCase = motherCase;
         this.childCase = childCase;
+        this.caseType = CaseType.TASK;
     }
 
     public MotherCase getMotherCase() {

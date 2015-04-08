@@ -28,7 +28,7 @@ public class ScheduleInitializer {
     @Autowired
     ScheduleDataService scheduleDataService;
 
-    public static void main(String[] args) throws URISyntaxException,
+    /**public static void main(String[] args) throws URISyntaxException,
             IOException, NullPointerException {
         URL schedulesDirectoryUrl = ScheduleInitializer.class
                 .getResource("/schedules");
@@ -45,6 +45,7 @@ public class ScheduleInitializer {
             repo.save(schedule);
         }
     }
+    **/
 
     public void addSchedules() throws URISyntaxException, IOException {
         List<String> vaccinationList = new ArrayList<String>();
