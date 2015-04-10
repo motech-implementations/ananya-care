@@ -6,7 +6,7 @@
             "scheduleWindows": {
                 "earliest": ["6 Weeks"],
                 "due": ["24 Months"],
-		"late": ["24 Months","1 Day"]
+		        "late": ["24 Months","1 Day"]
             },
             "alerts": [
                 {

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>case-integration</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24.3</version>
+        <version>0.24.4</version>
     </parent>
 
     <name>openrosa-registration-service</name>

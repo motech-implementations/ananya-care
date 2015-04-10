@@ -5,17 +5,17 @@
     <parent>
         <artifactId>case-integration</artifactId>
         <groupId>org.motechproject.ananya-care</groupId>
-        <version>0.24.3</version>
+        <version>0.24.4</version>
     </parent>
 
 <groupId>org.motechproject.ananya-care</groupId>
     <artifactId>commcare-case-gateway</artifactId>
-    <version>0.24.3</version>
+    <version>0.24.4</version>
     <packaging>jar</packaging>
     <name>commcare-case-gateway</name>
 
     <properties>
-        <motech.version>0.24.3</motech.version>
+        <motech.version>0.24.4</motech.version>
     </properties>
 
     <dependencies>

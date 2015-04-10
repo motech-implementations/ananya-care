@@ -84,10 +84,10 @@ public abstract class AlertClientAction {
         MotherCase motherCase = null;
         ChildCase childCase = null;
         if (client.getCaseType().equals(CaseType.Mother.getType())) {
-            flwId = ((MotherCase) client).getFlw().getFlwId();
+            flwId = ((MotherCase) client).getFlwGroup().getGroupId();
             motherCase = (MotherCase) client;
         } else {
-            flwId = ((ChildCase) client).getFlw().getFlwId();
+            flwId = ((ChildCase) client).getFlwGroup().getGroupId();
             childCase = (ChildCase) client;
         }
         return new CareCaseTask(milestoneName, flwId, caseId, motechUserId,

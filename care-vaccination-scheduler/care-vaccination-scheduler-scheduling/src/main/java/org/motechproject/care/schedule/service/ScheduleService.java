@@ -1,24 +1,19 @@
 package org.motechproject.care.schedule.service;
 
-import org.apache.commons.io.IOUtils;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.motechproject.commons.date.model.Time;
+import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.scheduletracking.service.EnrollmentRecord;
 import org.motechproject.scheduletracking.service.EnrollmentRequest;
 import org.motechproject.scheduletracking.service.EnrollmentsQuery;
 import org.motechproject.scheduletracking.service.ScheduleTrackingService;
-import org.motechproject.commons.date.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class ScheduleService {
@@ -30,14 +25,21 @@ public class ScheduleService {
     @Autowired
     public ScheduleService(ScheduleTrackingService trackingService) {
         this.trackingService = trackingService;
-        try {
+        /**
+         * @author atish 
+         * Refractored and removed duplicate code
+          try {
             registerAllSchedulesJsons();
         } catch (IOException e) {
             logger.error("Error occurred while parsing schedule jsons", e);
             throw new RuntimeException(e);
-        }
+        }**/
     }
 
+    /**
+     * @author atish
+     * Refractored and removed duplicate code
+     
     private void registerAllSchedulesJsons() throws IOException {
         for (File file : getAllJsonFiles(DEFINITIONS_DIRECTORY_NAME)) {
             trackingService.add(IOUtils.toString(new FileReader(file)));
@@ -58,7 +60,7 @@ public class ScheduleService {
         }
 
         return files;
-    }
+    }**/
 
     public void enroll(String caseId, DateTime referenceDate, String scheduleName) {
         if (isNotEnrolled(caseId, scheduleName)) {

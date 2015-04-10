@@ -21,31 +21,10 @@ import org.springframework.stereotype.Component;
 public class ScheduleInitializer {
 
     private static final ScheduleFactory SCHEDULE_FACTORY = new ScheduleFactory();
-    private static final String DATABASE_NAME = "motech-scheduletracking-api";
-
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     ScheduleDataService scheduleDataService;
-
-    /**public static void main(String[] args) throws URISyntaxException,
-            IOException, NullPointerException {
-        URL schedulesDirectoryUrl = ScheduleInitializer.class
-                .getResource("/schedules");
-        File schedulesDirectory = new File(schedulesDirectoryUrl.toURI());
-        FilenameFilter filenameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return (name.endsWith(".json"));
-            }
-        };
-        MdsRepository repo = new MdsRepository();
-        for (File file : schedulesDirectory.listFiles(filenameFilter)) {
-            Schedule schedule = parseScheduleJson(file);
-            repo.save(schedule);
-        }
-    }
-    **/
 
     public void addSchedules() throws URISyntaxException, IOException {
         List<String> vaccinationList = new ArrayList<String>();
