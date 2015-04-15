@@ -41,20 +41,20 @@ public class MotherCaseProcessor {
     private EventRelay eventRelay;
     private ICareService careService;
     private MapperService mapperService;
-    
-    
+
     @Autowired
     public MotherCaseProcessor(ICareService careService,
             MapperService mapperService, EventRelay eventRelay) {
         this.careService = careService;
         this.mapperService = mapperService;
         this.eventRelay = eventRelay;
-        
+
     }
 
     public void process(CaseEvent caseEvent) {
-    	
-        CaseType caseType = CaseType.getType(caseEvent.getCaseType());
+
+    	logger.info("Server Modified On " +caseEvent.getServerModifiedOn());
+    	CaseType caseType = CaseType.getType(caseEvent.getCaseType());
         InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
         Map<String, String> keyConversionMap = new HashMap<String, String>() {
             {
@@ -65,13 +65,14 @@ public class MotherCaseProcessor {
         infoParser.setKeyConversionMap(keyConversionMap);
         Map<String, String> caseMap = new CaseInfoParser(infoParser)
                 .parse(caseEvent);
+        logger.info("Server Modified Date "+caseMap.get("serverDateModified"));
 
         applyPostProcessors(MOTHER_CASE_POSTPROCESSOR, caseMap);
 
         String caseId = caseMap.get("caseId");
         logger.info(String.format(
                 "Started processing mother case with case ID %s", caseId));
-        
+
         MotherCase mother = careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
         logger.debug("Saved/Updated mother case");
         Map<String, Object> map = new HashMap<String, Object>();	
@@ -81,13 +82,9 @@ public class MotherCaseProcessor {
 	    logger.debug("Sending Event "+e.toString());
 	    eventRelay.sendEventMessage(e);
 	    logger.debug("Event sent "+e.toString());
-			
-    
-        
-       
+
         logger.info(String.format(
                 "Finished processing mother case with case ID %s", caseId));
     }
-        
-        
+
 }

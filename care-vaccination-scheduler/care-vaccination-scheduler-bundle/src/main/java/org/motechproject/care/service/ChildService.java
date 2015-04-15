@@ -58,11 +58,13 @@ public class ChildService extends BaseService<ChildCase> {
 		validateMandatory(child.getFlwGroup().getGroupId(), "Owner Id");
 
 		synchronized (getLockName(child.getCaseId())) {
+			logger.info(" Started processing vaccination for child case "+child.getCaseId());
 			if (child.isActive()) {
 				vaccinationProcessor.enrollUpdateVaccines(child);
 			} else {
 				vaccinationProcessor.closeSchedules(child);
 			}
+			logger.info(" Completed processing vaccination for child case "+child.getCaseId());
 		}
 	}
 
@@ -93,6 +95,7 @@ public class ChildService extends BaseService<ChildCase> {
 	
 	public boolean closeCase(String caseId) {
 		synchronized (getLockName(caseId)) {
+			logger.info("Started processing vaccination. ");
 			 ChildCase child =
 			dbRepository.get(ChildCase.class,"caseId",caseId);
 			if (child == null)

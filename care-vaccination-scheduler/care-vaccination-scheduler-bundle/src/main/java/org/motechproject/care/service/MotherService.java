@@ -69,11 +69,14 @@ public class MotherService extends BaseService<MotherCase> {
         }
         validateMandatory(mother.getFlwGroup().getGroupId(), "Owner Id");
     	  synchronized (getLockName(mother.getCaseId())) {
+    	   logger.info("Started processing vaccination for mother case "+mother.getCaseId());
         if(mother.isActive())
             vaccinationProcessor.enrollUpdateVaccines(mother);
         else
             vaccinationProcessor.closeSchedules(mother);
     	  }
+    	  logger.info("Completed processing vaccination for mother case "+mother.getCaseId());
+
     }
 
     @Override
@@ -90,6 +93,8 @@ public class MotherService extends BaseService<MotherCase> {
    	 validateMandatory(caseId, "Case Id");
    	 
        synchronized (getLockName(caseId)) {
+    	   logger.info("Started processing vaccination. ");
+    	   
            MotherCase mother =  dbRepository.get(MotherCase.class,"caseId",caseId);
            if (mother == null)
 				return false;
@@ -97,6 +102,7 @@ public class MotherService extends BaseService<MotherCase> {
         //   mother.setClosed(true);
         //   dbRepository.update(mother);
            vaccinationProcessor.closeSchedules(mother);
+           
            return true;
        }
     }

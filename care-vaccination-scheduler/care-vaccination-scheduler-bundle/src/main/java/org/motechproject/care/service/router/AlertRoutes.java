@@ -58,7 +58,7 @@ public class AlertRoutes {
                 any(), eq(WindowName.late.name()), measlesBoosterExpiryAction));
         routes.add(new Route(childSchedules(), any(), any(), alertChildAction));
         routes.add(new Route(motherSchedules(), any(), any(), alertMotherAction));
-        //routes.add(new Route(expirySchedules(), any(), any(), expiryAction));
+        routes.add(new Route(expirySchedules(), any(), any(), expiryAction));
     }
 
     private Matcher childSchedules() {

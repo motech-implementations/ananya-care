@@ -1,6 +1,7 @@
 package org.motechproject.care.service.router.action;
 
 import java.util.Properties;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -10,6 +11,8 @@ import org.motechproject.care.service.util.CommcareTask;
 import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.commons.date.util.DateUtil;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.Flw;
+import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
 import org.motechproject.mcts.care.common.mds.domain.Client;
@@ -65,9 +68,62 @@ public abstract class AlertClientAction {
                                 .getMotherCase().getCaseId(), careCaseTask
                                 .getDateEligible(), careCaseTask
                                 .getDateExpires()));
-        commcareCaseGateway.submitCase(commcareUrl,
+       commcareCaseGateway.submitCase(commcareUrl,
                 CommcareTask.toCaseTask(careCaseTask), commcareUsername,
                 commcarePassword, null);
+        logger.info("Saving CareCaseTasK "+careCaseTask.getCaseId());
+        safeSave(careCaseTask);
+        logger.info("Saving Care CaseTasK "+careCaseTask.getCaseId());
+    }
+    
+    private void safeSave(CareCaseTask careCaseTask) {
+    	
+    	if(careCaseTask.getMotherCase()!=null) {
+	    		if(careCaseTask.getMotherCase().getFlw() != null) {
+	    			Set<FlwGroup> flwGroups =  careCaseTask.getMotherCase().getFlw().getFlwGroups();
+	    		    if(flwGroups != null){
+	    		    	for (FlwGroup flwGroup : flwGroups) {
+	    		    		flwGroup.setFlws(null);
+	    		    	}
+	    		    }
+	    		    careCaseTask.getMotherCase().getFlw().setFlwGroups(flwGroups);
+	    		}
+    		
+	    		if(careCaseTask.getMotherCase().getFlwGroup()!= null) {
+	    			Set<Flw> flws = careCaseTask.getMotherCase().getFlwGroup().getFlws();
+	    			if(flws != null) {	
+	    				for (Flw flw : flws) {
+	    					flw.setFlwGroups(null);
+	    				}
+	    			}
+	    			careCaseTask.getMotherCase().getFlwGroup().setFlws(flws);
+	    		}
+    		
+    	}
+    	if(careCaseTask.getChildCase()!= null) {
+    		
+    		if(careCaseTask.getChildCase().getFlw() != null) {
+    			Set<FlwGroup> flwGroups =  careCaseTask.getChildCase().getFlw().getFlwGroups();
+    			if(flwGroups != null) {
+    				for (FlwGroup flwGroup : flwGroups) {
+    					flwGroup.setFlws(null);
+    				}
+    			}
+    		 careCaseTask.getChildCase().getFlw().setFlwGroups(flwGroups);
+    		}
+    		
+    		
+    		if( careCaseTask.getChildCase().getFlwGroup()!=null) {
+    			Set<Flw> flws = careCaseTask.getChildCase().getFlwGroup().getFlws();
+    			if(flws != null) {
+    				for (Flw flw : flws) {
+    					flw.setFlwGroups(null);
+    				}
+    			}
+    			careCaseTask.getChildCase().getFlwGroup().setFlws(flws);
+    		}
+    	}
+    	
         dbRepository.save(careCaseTask);
     }
 

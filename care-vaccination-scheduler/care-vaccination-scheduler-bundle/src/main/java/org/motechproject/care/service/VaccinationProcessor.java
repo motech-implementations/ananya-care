@@ -28,7 +28,9 @@ public class VaccinationProcessor {
     public void enrollUpdateVaccines(Client client){
         for(VaccinationService vaccineService : vaccinationServices)
         	try {
+        		  LOGGER.info("Processing vaccination :"+ vaccineService.getClass().getName());
         			vaccineService.process(client);
+        		  LOGGER.info("Processed vaccination :"+ vaccineService.getClass().getName());	
         	}catch (Exception exception) {
         		log(exception, vaccineService, client);
 			}

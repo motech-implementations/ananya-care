@@ -14,12 +14,17 @@ import org.motechproject.mcts.care.common.utils.SelfUpdatableUtil;
 import org.motechproject.mds.annotations.Cascade;
 import org.motechproject.mds.annotations.Entity;
 import org.motechproject.mds.annotations.Field;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity(name = "child_case")
 public class ChildCase extends Client implements java.io.Serializable,
         SelfUpdatable<ChildCase> {
 
     private static final long serialVersionUID = -7655944396275293118L;
+    
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ChildCase.class);
 
     @Field
     @Cascade(persist = true, update = true, delete = true)
@@ -442,9 +447,9 @@ public class ChildCase extends Client implements java.io.Serializable,
         validateIfUpdatable(this.caseId, updated.caseId);
 
         if (!isLatest(updated)) {
-            // TODO add logger below
-            // logger.warn(String.format("Ignoring mother case update with case id: %s since current DateTime modified is %s and given DateTime modified is %s",
-            // this.caseId, this.dateModified, updated.DateTimeModified));
+            
+            LOGGER.warn(String.format("Ignoring mother case update with case id: %s since current DateTime modified is %s and given DateTime modified is %s",
+             this.caseId, this.dateModified, updated.serverDateTimeModified));
             return;
         }
 

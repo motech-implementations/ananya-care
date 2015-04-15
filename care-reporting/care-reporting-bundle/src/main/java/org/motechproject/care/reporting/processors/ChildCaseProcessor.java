@@ -50,22 +50,21 @@ public class ChildCaseProcessor {
 	}
 
 	public void process(CaseEvent caseEvent) {
+		logger.info("Server Modified On" +caseEvent.getServerModifiedOn());
 		CaseType caseType = CaseType.getType(caseEvent.getCaseType());
 		InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
 		Map<String, String> caseMap = new CaseInfoParser(infoParser)
 				.parse(caseEvent);
 
 		applyPostProcessors(CHILD_CASE_POSTPROCESSOR, caseMap);
+		logger.info("Server Modified Date "+caseMap.get("serverDateTimeModified"));
 
 		String caseId = caseMap.get("caseId");
 		logger.info(String.format(
 				"Started processing child case with case ID %s", caseId));
-		
 		ChildCase child = careService.saveByExternalPrimaryKey(ChildCase.class,
 					caseMap);
-		
-		 
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 	    map.put(Constants.CHILD_CASE_ID_PARAM, child.getCaseId());
 		MotechEvent e = new MotechEvent(Constants.CHILD_CREATE_UPDATE_EVENT,
