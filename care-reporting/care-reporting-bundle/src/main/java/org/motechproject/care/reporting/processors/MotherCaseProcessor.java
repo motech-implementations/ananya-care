@@ -53,7 +53,7 @@ public class MotherCaseProcessor {
 
     public void process(CaseEvent caseEvent) {
 
-    	logger.info("Server Modified On " +caseEvent.getServerModifiedOn());
+    	logger.info(" Server Modified On " +caseEvent.getServerModifiedOn());
     	CaseType caseType = CaseType.getType(caseEvent.getCaseType());
         InfoParser infoParser = mapperService.getCaseInfoParser(caseType, null);
         Map<String, String> keyConversionMap = new HashMap<String, String>() {

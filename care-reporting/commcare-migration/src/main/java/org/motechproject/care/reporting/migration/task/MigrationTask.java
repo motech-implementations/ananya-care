@@ -1,6 +1,9 @@
 package org.motechproject.care.reporting.migration.task;
 
-import com.google.gson.JsonArray;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.io.*;
 
 import org.motechproject.care.reporting.migration.MigratorArguments;
 import org.motechproject.care.reporting.migration.common.CommcareResponseWrapper;
@@ -11,15 +14,12 @@ import org.motechproject.care.reporting.migration.common.ResponseParser;
 import org.motechproject.care.reporting.migration.service.PaginationScheme;
 import org.motechproject.care.reporting.migration.service.Paginator;
 import org.motechproject.care.reporting.migration.statistics.MigrationStatisticsCollector;
-
 import org.motechproject.care.reporting.migration.util.CommcareAPIHttpClient;
 import org.motechproject.care.reporting.migration.util.MotechAPIHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.gson.JsonArray;
 
 public abstract class MigrationTask {
 
@@ -50,14 +50,19 @@ public abstract class MigrationTask {
         Map<String, String> pairs = getNameValuePair(migratorArguments);
         Paginator paginator = getPaginator(pairs);
         PaginatedResponse paginatedResponse;
+        int count =1;
         while ((paginatedResponse = paginator.nextPage()) != null) {
             final JsonArray response = paginatedResponse.getRecords();
+            create(paginatedResponse.getRecords().toString(),count);
             statisticsCollector.addRecordsDownloaded(response.size());
 
             logger.info(String.format("Response Meta:: %s", paginatedResponse
                     .getMeta()));
             logger.info(String.format("Records Count: %s", response.size()));
+            
+            
 
+            /*
             Runnable t = new Runnable() {
 
                 @Override
@@ -67,10 +72,35 @@ public abstract class MigrationTask {
                 }
             };
             t.run();
+            */
 
             logger.info("completed posting");
+            count++;
         }
     }
+    
+    
+   private void create(String request, int count) {
+     	 final String path ="/home/naveen/motech/cases";
+     	 final String FILE_APPENDER ="/";
+     	 final String fILE_SAPERATOR= "-"; 
+     	
+     	 String fileName = new StringBuilder(path).append(FILE_APPENDER).append("Cases").append(fILE_SAPERATOR).append(count).append(".txt").toString();
+     	 logger.info(String.format("Logging request %s to file %s ",request, fileName));
+     	 File file = new File(fileName);
+     	 
+     	 try {
+     		boolean created = file.createNewFile();
+     		if(created == true) {
+     			BufferedWriter output = new BufferedWriter(new java.io.FileWriter(file));
+     			output.write(request);
+     			output.close();
+     		}
+     	 }catch (Exception e) {
+     		logger.info(String.format("failed to write file %s to path %s due to %s",fileName,path,e.getMessage()));
+     	 }
+     	
+     }
 
     private void postToMotech(JsonArray request) {
         List<CommcareResponseWrapper> commcareResponseWrappers = convertToEntity(request);

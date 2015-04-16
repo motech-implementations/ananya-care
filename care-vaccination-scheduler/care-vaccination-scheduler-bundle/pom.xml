@@ -189,6 +189,18 @@
             <artifactId>care-mcts-common-entities</artifactId>
             <version>0.24.4</version>
         </dependency>
+        <!-- MySQL Custom Query  -->
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.35</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+        <!-- MySQL Custom Query  -->
     </dependencies>
     <build>
         <finalName>${project.artifactId}-${release.version}</finalName>
@@ -235,6 +247,8 @@
                             !junit.framework,
                             org.motechproject.scheduletracking.domain.json;version=${project.version},
                             org.motechproject.scheduletracking.repository.dataservices,
+                            org.springframework.jdbc.datasource,
+                            com.mysql.jdbc,
                             *
                         </Import-Package>
                         <Export-Package>

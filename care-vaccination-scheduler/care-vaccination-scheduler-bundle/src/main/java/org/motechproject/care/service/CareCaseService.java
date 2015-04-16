@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import org.apache.log4j.Logger;
 import org.motechproject.care.init.ScheduleInitializer;
+import org.motechproject.care.missing.migration.service.MissingMigrationService;
 import org.motechproject.care.service.router.AlertRouter;
 import org.motechproject.event.MotechEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,13 @@ public class CareCaseService  {
 	private AlertRouter alertRouter;
 
     Logger logger = Logger.getLogger(CareCaseService.class);
+    
     @Autowired
     ScheduleInitializer scheduleInitializer;
+    
+    @Autowired
+    private MissingMigrationService missingMigrationService;
+    
     public CareCaseService() {
       //  super(CareCase.class);
     }
@@ -77,6 +83,35 @@ public class CareCaseService  {
     	alertRouter.handle(motechEvent);
     	
     }
+    
+    @RequestMapping(value = "/triggeralerts", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void addMissingTask() {
+        
+    	missingMigrationService.scheduleEnrollment();
+    	
+    }
+    
+    @RequestMapping(value = "/enrollMother", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void enrollMother() {
+        
+    	missingMigrationService.enrollAllMissingMotherVaccines();
+    	
+    }
+    
+    
+    @RequestMapping(value = "/enrollChild", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void enrollChild() {
+        
+    	missingMigrationService.enrollAllMissingChildVaccines();;
+    	
+    }
+
 
 //    protected void validateCreateCase(CareCase careCase) throws CaseException {
 //        validateMandatory(careCase.getCase_id(), "Case Id");

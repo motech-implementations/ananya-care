@@ -1,6 +1,11 @@
 package org.motechproject.casexml.gateway;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.motechproject.casexml.domain.CaseTask;
 import org.motechproject.http.agent.domain.Credentials;
@@ -31,6 +36,7 @@ public class CommcareCaseGateway {
          * HashMap<String, Object> parameters = constructParametersFrom(
          *       commcareUrl, request, "POST", username, password);
          */      
+        createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -38,6 +44,7 @@ public class CommcareCaseGateway {
             String password, Integer redeliveryCount) {
     	
         String request = caseTaskXmlConverter.convertToCloseCaseXml(task);
+        createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -48,7 +55,7 @@ public class CommcareCaseGateway {
             LOGGER.info(String.format("Posting url: %s with username: %s, password: %s", url, username, password));
             LOGGER.info("Data: " + data);
             url = url.trim();
-            httpAgent.executeSync(url, (Object) data, Method.POST, credential);
+            //httpAgent.executeSync(url, (Object) data, Method.POST, credential);
             LOGGER.info(String.format("Posted url: %s with username: %s, password: %s", url, username, password));
         } catch (Exception e) {
             
@@ -77,7 +84,7 @@ public class CommcareCaseGateway {
      * Created to collect all cases to post in a folder "/home/naveen/motech/task".
      * Used for Testing purpose.
      **/
-    /**
+    
     private void createTask(String request,CaseTask task) {
       	 final String path ="/home/naveen/motech/task";
       	 final String FILE_APPENDER ="/";
@@ -99,6 +106,6 @@ public class CommcareCaseGateway {
       		LOGGER.info(String.format("failed to write file %s to path %s due to %s",fileName,path,e.getMessage()));
       	 }
       	
-      }**/
+      }
       
 }
