@@ -26,7 +26,7 @@ public class ScheduleInitializer {
     @Autowired
     ScheduleDataService scheduleDataService;
 
-    public void addSchedules() throws URISyntaxException, IOException {
+    public void addSchedules() throws URISyntaxException, IOException, InterruptedException {
         List<String> vaccinationList = new ArrayList<String>();
         vaccinationList.add("mother-tt.json");
         vaccinationList.add("mother-tt-booster.json");
@@ -50,6 +50,7 @@ public class ScheduleInitializer {
             File file = new File(homePath + "/schedules/" + vaccinationName);
             Schedule schedule = parseScheduleJson(file);
             scheduleDataService.update(schedule);
+            Thread.sleep(2000);
         }
     }
 
