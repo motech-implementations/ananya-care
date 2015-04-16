@@ -1,15 +1,12 @@
 package org.motechproject.care.init;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.Schedule;
 import org.motechproject.scheduletracking.domain.ScheduleFactory;
 import org.motechproject.scheduletracking.domain.json.ScheduleRecord;
