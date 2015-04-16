@@ -65,7 +65,7 @@ public class CareCaseService  {
     @RequestMapping(value = "/addschedule", method = RequestMethod.GET)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public void addSchedule() throws URISyntaxException, IOException {
+    public void addSchedule() throws URISyntaxException, IOException, InterruptedException {
         scheduleInitializer.addSchedules();
     }
     
