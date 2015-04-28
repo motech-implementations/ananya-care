@@ -51,10 +51,8 @@ public class CommcareCaseGateway {
             httpAgent.executeSync(url, (Object) data, Method.POST, credential);
             LOGGER.info(String.format("Posted url: %s with username: %s, password: %s", url, username, password));
         } catch (Exception e) {
-            
-            // Error Posting URL 
-        	LOGGER.info(String.format("Error Posting url: %s with username: %s, password: %s", url, username, password));
-            LOGGER.error(e.getMessage());
+        	LOGGER.error(String.format("Error Posting url: %s with username: %s, password: %s", url, username, password));
+            throw new RuntimeException(e.getMessage());
             
         }
     }
