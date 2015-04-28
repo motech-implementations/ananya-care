@@ -83,4 +83,8 @@
                   
     <osgi:reference id="ScheduleServiceOSGi" interface="org.motechproject.scheduletracking.repository.dataservices.ScheduleDataService" />
     
+    <osgi:reference id="enrollmentAlertServiceToExportOSGi"
+                  interface="org.motechproject.scheduletracking.service.EnrollmentAlertServiceToExport"/>
+    
+    
 </beans>

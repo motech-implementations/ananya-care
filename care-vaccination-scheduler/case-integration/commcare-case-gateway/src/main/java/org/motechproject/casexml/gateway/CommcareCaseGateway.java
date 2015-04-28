@@ -36,7 +36,7 @@ public class CommcareCaseGateway {
          * HashMap<String, Object> parameters = constructParametersFrom(
          *       commcareUrl, request, "POST", username, password);
          */      
-        createTask(request, task);
+        //createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -44,7 +44,7 @@ public class CommcareCaseGateway {
             String password, Integer redeliveryCount) {
     	
         String request = caseTaskXmlConverter.convertToCloseCaseXml(task);
-        createTask(request, task);
+        //createTask(request, task);
         sendEventMessage(commcareUrl, request, "POST", username, password);
     }
 
@@ -55,7 +55,7 @@ public class CommcareCaseGateway {
             LOGGER.info(String.format("Posting url: %s with username: %s, password: %s", url, username, password));
             LOGGER.info("Data: " + data);
             url = url.trim();
-            //httpAgent.executeSync(url, (Object) data, Method.POST, credential);
+            //httpAgent.execute(url, (Object) data, Method.POST, credential);
             LOGGER.info(String.format("Posted url: %s with username: %s, password: %s", url, username, password));
         } catch (Exception e) {
             

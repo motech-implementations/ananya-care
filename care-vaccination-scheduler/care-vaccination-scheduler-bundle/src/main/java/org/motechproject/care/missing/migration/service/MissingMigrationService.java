@@ -1,5 +1,8 @@
 package org.motechproject.care.missing.migration.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +31,14 @@ import org.motechproject.care.service.schedule.OpvService;
 import org.motechproject.care.service.schedule.TTBoosterService;
 import org.motechproject.care.service.schedule.TTService;
 import org.motechproject.care.service.schedule.VitaService;
+import org.motechproject.care.service.util.CommcareTask;
+import org.motechproject.casexml.gateway.CommcareCaseGateway;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
+import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.scheduletracking.domain.Enrollment;
-import org.motechproject.scheduletracking.service.impl.EnrollmentAlertService;
+import org.motechproject.scheduletracking.service.EnrollmentAlertServiceToExport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -41,6 +47,12 @@ import org.springframework.stereotype.Service;
 public class MissingMigrationService {
 	 
 	private static final Logger LOGGER = Logger.getLogger(MissingMigrationService.class);
+	
+	private static final String COMMCARE_HQ_URL = "https://india.commcarehq.org/a/care-bihar/receiver/";
+	
+	private static final String COMMCARE_USERNAME = "motech_care@thoughtworks.com";
+	
+	private static final String COMMCARE_PASSWORD = "parkingProcess0z.24";
     
     @Resource(name = "careDataSource")
     private DataSource careDataSource;
@@ -100,7 +112,11 @@ public class MissingMigrationService {
     ChildCareService childCareService;
     
     @Autowired
-    private EnrollmentAlertService enrollmentAlertService;
+    private EnrollmentAlertServiceToExport enrollmentAlertServiceToExportOSGi;
+    
+    @Autowired
+    private CommcareCaseGateway commcareCaseGateway;
+    
     
     private int vaccinationCountMother;
     
@@ -120,7 +136,6 @@ public class MissingMigrationService {
     	schedulesLstAllMot.add(MotherVaccinationSchedule.Anc.getName());
     	schedulesLstAllMot.add(MotherVaccinationSchedule.Anc4.getName());
     	schedulesLstAllMot.add("Mother Care");
-    	
     	schedulesLstAllChild = new ArrayList<String>();
     	schedulesLstAllChild.add(ChildVaccinationSchedule.Bcg.getName());
     	schedulesLstAllChild.add(ChildVaccinationSchedule.DPT.getName());
@@ -137,12 +152,6 @@ public class MissingMigrationService {
     	
 		
 	}
-    
-    
-
-    
-    
-   
     
     
     public void enrollAllMissingMotherVaccines(){
@@ -195,7 +204,7 @@ public class MissingMigrationService {
         	 childCount++;
 
          }
-         LOGGER.info("Total Vaccinations processed for mother "+vaccinationCountMother);
+         LOGGER.info("Total Vaccinations processed for child "+vaccinationCountChild);
     }
     
     
@@ -308,21 +317,24 @@ public class MissingMigrationService {
 	
     private List<Map<String, Object>> getMothers(){
     	JdbcTemplate jdbcTemplate = new JdbcTemplate(careDataSource);	
-   		return jdbcTemplate.queryForList("select caseId, group_concat( distinct e.scheduleName) as schedules  from CARE_MCTS_COMMON_ENTITIES_MOTHERCASE m inner join SCHEDULE_TRACKING_MODULES_ENROLLMENT e on m.caseId=e.externalId where m.edd >= '2015-4-10' and actualDeliveryDate is null group by m.caseId limit 1"); 
+   		return jdbcTemplate.queryForList("select caseId, group_concat( distinct e.scheduleName) as schedules  from CARE_MCTS_COMMON_ENTITIES_MOTHERCASE m inner join SCHEDULE_TRACKING_MODULES_ENROLLMENT e on m.caseId=e.externalId where m.edd >= '2015-4-10' and actualDeliveryDate is null group by m.caseId"); 
     }
     
     
     private List<Map<String, Object>> getChilds(){
     	JdbcTemplate jdbcTemplate = new JdbcTemplate(careDataSource);
-   		return jdbcTemplate.queryForList("select caseId, group_concat( distinct e.scheduleName) as schedules  from CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc inner join SCHEDULE_TRACKING_MODULES_ENROLLMENT e on cc.caseId=e.externalId where cc.dob >= '2013-04-08' group by cc.caseId limit 1"); 
+   		return jdbcTemplate.queryForList("select caseId, group_concat( distinct e.scheduleName) as schedules  from CARE_MCTS_COMMON_ENTITIES_CHILDCASE cc inner join SCHEDULE_TRACKING_MODULES_ENROLLMENT e on cc.caseId=e.externalId where cc.dob >= '2013-04-08' group by cc.caseId"); 
     }
+    
+  
+    
 	
     public void scheduleEnrollment() {
     	
     	List<Enrollment> enrollments = getAllEnrollments();
     	for (Enrollment enrollment : enrollments) {
     		LOGGER.info("Sending alert  for Enrollment : "+enrollment.getCurrentMilestoneName());
-			enrollmentAlertService.scheduleAlertsForCurrentMilestone(enrollment);
+    		enrollmentAlertServiceToExportOSGi.scheduleAlertsForCurrentMilestone(enrollment);
 			LOGGER.info("Sent alert  for Enrollment : "+enrollment.getCurrentMilestoneName());
 		}
     }
@@ -337,6 +349,55 @@ public class MissingMigrationService {
         	enrollments.add(enrollment);
 		}
     	return enrollments;    
+    }
+    
+    private List<Map<String, Object>> getTasksTobeClosed (){
+    	JdbcTemplate jdbcTemplate = new JdbcTemplate(careDataSource);	
+   		return jdbcTemplate.queryForList(""); 
+    }
+    
+    public void closeAllCases() throws IOException {
+    	
+    	List<String> careCaseTasks = readAllCareCaseId();
+    	  int counter = 1;
+    	  for (String caseId : careCaseTasks) {
+    		  LOGGER.info(counter+". Sending close case for Care Case Task with id"+caseId);
+    			  postCloseToCommCare(caseId);
+    			  counter++;
+    		  }
+    	   LOGGER.info("Total case closed :"+counter);
+    }
+    
+    protected void postCloseToCommCare(String careCaseTaskId) {
+    	
+        String commcareUrl = COMMCARE_HQ_URL;
+        String commcareUsername = COMMCARE_USERNAME;
+        String commcarePassword = COMMCARE_PASSWORD;
+
+        CareCaseTask careCaseTask = dbRepository.get(CareCaseTask.class, "caseId", careCaseTaskId);
+
+        LOGGER.info(String
+                .format("Notifying commcare to close task with -- TaskId: %s ",
+                        careCaseTask.getCaseId()));
+       commcareCaseGateway.closeCase(commcareUrl, CommcareTask.toCaseTask(careCaseTask), commcareUsername,commcarePassword, null);
+       
+    }
+  
+    
+    private List<String> readAllCareCaseId() throws IOException {
+    	List<String> careCaseTasks = new ArrayList<String>();
+    	LOGGER.info("Loading Resource");
+    	String fileLocation = "/home/naveen/skype_downloads/tobeclosed.txt";
+    	@SuppressWarnings("resource")
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileLocation));
+    	      String CareCaseTaskId;
+    	      int counter =1;
+    	      while ((CareCaseTaskId = bufferedReader.readLine()) != null) {
+			     LOGGER.info(counter+". Fetched Care Case Task Id : "+CareCaseTaskId);
+				careCaseTasks.add(CareCaseTaskId);
+				counter++;
+			}
+    	return careCaseTasks;
     }
 
 

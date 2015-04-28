@@ -249,6 +249,7 @@
                             org.motechproject.scheduletracking.repository.dataservices,
                             org.springframework.jdbc.datasource,
                             com.mysql.jdbc,
+                            org.motechproject.scheduletracking.service;version=${project.version},
                             *
                         </Import-Package>
                         <Export-Package>
