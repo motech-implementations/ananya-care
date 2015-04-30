@@ -21,6 +21,8 @@ public class JodaTimeConverter extends AbstractConverter {
         super();
     }
 
+   
+    }
     @Override
     protected Object convertToType(Class type, Object value) throws Throwable {
         if (type == null) {
@@ -46,8 +48,8 @@ public class JodaTimeConverter extends AbstractConverter {
                                                                         // in
                                                                         // string.
             if (format == null) { // If the date does not have a known format it
-                                  // returns null
-                return null;
+            	DateTime dt = DateTime.parse(value.toString());
+                return dt;
             }
             if ("yyyy-MM-dd'T'HH:mm:ss.XXX+HH:mm".equals(format)) {
                 DateTime dt = DateTime.parse(value.toString());
