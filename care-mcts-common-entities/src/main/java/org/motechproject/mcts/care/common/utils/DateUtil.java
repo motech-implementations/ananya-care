@@ -55,7 +55,10 @@ public final class DateUtil {
                     "yyyy-MM-dd'T'HH:mm:ss");
             put("^\\d{4}-\\d{1,2}-\\d{1,2}t\\d{2}:\\d{2}:\\d{2}z$",
                     "yyyy-MM-dd'T'HH:mm:ssZ");
-            
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}t\\d{2}:\\d{2}:\\d{2}.\\d{6}z$",
+                    "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+            put("^\\d{4}-\\d{1,2}-\\d{1,2}t\\d{2}:\\d{2}:\\d{2}.\\d{3}z$",
+                    "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
             put("^\\d{4}-\\d{1,2}-\\d{1,2}t\\d{2}:\\d{2}:\\d{2}.\\d{3}[+]\\d{2}:\\d{2}$",
                     "yyyy-MM-dd'T'HH:mm:ss.XXX+HH:mm");
         }
