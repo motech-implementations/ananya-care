@@ -22,7 +22,7 @@ public class JodaTimeConverter extends AbstractConverter {
     }
 
    
-    }
+    
     @Override
     protected Object convertToType(Class type, Object value) throws Throwable {
         if (type == null) {
