@@ -23,7 +23,7 @@ public class ClientExpiryActionTest {
     @Before
     public void setUp(){
        initMocks(this);
-       clientExpiryAction = new ClientExpiryAction(motherService, childService);
+       //clientExpiryAction = new ClientExpiryAction(motherService, childService);
     }
 
    /* @Test
