@@ -51,11 +51,11 @@ public class MissingMigrationService {
 	 
 	private static final Logger LOGGER = Logger.getLogger(MissingMigrationService.class);
 	
-	private static final String FILE_LOCATION_CLOSE_TASK = "/home/naveen/skype_downloads/cases_final_tobeclosed_cchq_may6.txt";
+	private static final String FILE_LOCATION_CLOSE_TASK = "/home/motech/utils/cases_close_commcarehq.txt";
 	
-	private static final String FILE_LOCATION_SUBMIT_TASK = "/home/naveen/skype_downloads/missing_tasks_commcarehq.txt";
+	private static final String FILE_LOCATION_SUBMIT_TASK = "/home/motech/utils/cases_submit_commcarehq.txt";
 	
-	private static final String FILE_LOCATIONS_MISSING_TASKS = "/home/naveen/skype_downloads/missing_tasks_motech.txt";
+	private static final String FILE_LOCATIONS_MISSING_TASKS = "/home/motech/utils/missing_tasks_motech.txt";
 	
 	private static final String COMMCARE_HQ_URL = "https://india.commcarehq.org/a/care-bihar/receiver/";
 	
@@ -333,7 +333,7 @@ public class MissingMigrationService {
     	Date now = new Date();
         Date start = format("08/04/2013");
 
-    	RangeProperty<Date> rangeProperty = (RangeProperty<Date>) PropertyBuilder.create("dob",new Range<Date>(test,test),Date.class.getName());
+    	RangeProperty<Date> rangeProperty = (RangeProperty<Date>) PropertyBuilder.create("dob",new Range<Date>(start,now),Date.class.getName());
     	EqualProperty<Boolean> closed = (EqualProperty<Boolean>) PropertyBuilder.create("closed", Boolean.FALSE, Boolean.class);
     	List<Property> properties = new ArrayList<Property>();
     	properties.add(rangeProperty);
