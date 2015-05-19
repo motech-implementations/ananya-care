@@ -2,9 +2,11 @@ package org.motechproject.care.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.text.ParseException;
 
 import org.apache.log4j.Logger;
 import org.motechproject.care.init.ScheduleInitializer;
+import org.motechproject.care.missing.migration.service.MissingMigrationService;
 import org.motechproject.care.service.router.AlertRouter;
 import org.motechproject.event.MotechEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,13 @@ public class CareCaseService  {
 	private AlertRouter alertRouter;
 
     Logger logger = Logger.getLogger(CareCaseService.class);
+    
     @Autowired
     ScheduleInitializer scheduleInitializer;
+    
+    @Autowired
+    private MissingMigrationService missingMigrationService;
+    
     public CareCaseService() {
       //  super(CareCase.class);
     }
@@ -86,6 +93,59 @@ public class CareCaseService  {
 //    protected void validateCloseCase(CareCase careCase) throws CaseException {
 //        validateMandatory(careCase.getCase_id(), "Case Id");
 //    }
+
+    
+   @RequestMapping(value = "/triggeralerts", method = RequestMethod.GET)
+   @ResponseBody
+   @ResponseStatus(HttpStatus.OK)
+    public void addMissingTask() throws IOException {
+        
+    	missingMigrationService.scheduleEnrollment();
+    	
+    }
+    
+    @RequestMapping(value = "/enrollMother", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void enrollMother() throws ParseException {
+        
+    	missingMigrationService.enrollAllMissingMotherVaccines();
+    	
+    }
+    
+    
+    @RequestMapping(value = "/enrollChild", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void enrollChild() throws ParseException {
+        
+    	missingMigrationService.enrollAllMissingChildVaccines();
+    	
+    }
+   
+   /**
+     * 
+     * @throws ParseException 
+     */
+    @RequestMapping(value = "/close", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void closeAllCases() throws IOException {
+        
+    	missingMigrationService.closeAllCases();
+    	
+    }
+    
+    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public void submitAllCases() throws IOException {
+        
+    	missingMigrationService.submitAllCases();
+    	
+    }
+
+
 
    
 }

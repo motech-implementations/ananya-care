@@ -1,5 +1,7 @@
 package org.motechproject.care.service.router.action;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
@@ -18,6 +20,9 @@ import org.motechproject.mcts.care.common.mds.domain.CareCaseTask;
 import org.motechproject.mcts.care.common.mds.domain.Client;
 import org.motechproject.mcts.care.common.mds.domain.Window;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
+import org.motechproject.mds.query.EqualProperty;
+import org.motechproject.mds.query.Property;
+import org.motechproject.mds.query.PropertyBuilder;
 import org.motechproject.scheduletracking.domain.MilestoneAlert;
 import org.motechproject.scheduletracking.events.MilestoneEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +73,67 @@ public abstract class AlertClientAction {
                                 .getMotherCase().getCaseId(), careCaseTask
                                 .getDateEligible(), careCaseTask
                                 .getDateExpires()));
-       commcareCaseGateway.submitCase(commcareUrl,
+       if(verifyExistingVaccinationTask(careCaseTask)== false) {
+    	   commcareCaseGateway.submitCase(commcareUrl,
                 CommcareTask.toCaseTask(careCaseTask), commcareUsername,
                 commcarePassword, null);
-        logger.info("Saving CareCaseTasK "+careCaseTask.getCaseId());
-        safeSave(careCaseTask);
-        logger.info("Saving Care CaseTasK "+careCaseTask.getCaseId());
+    	   logger.info("Saving CareCaseTasK "+careCaseTask.getCaseId());
+    	   safeSave(careCaseTask);
+    	   logger.info("Saved CareCaseTasK "+careCaseTask.getCaseId());
+       }else {
+		   logger.info("CareCaseTask "+careCaseTask.getCaseId()+" is already sent to commcareHQ.");
+       }
+       
+    }
+    
+    
+    private boolean verifyExistingVaccinationTask(CareCaseTask careCaseTask) {
+    	boolean flag = false;
+    	List<CareCaseTask> list = findVaccinationTask(careCaseTask);
+    	
+    	if (list != null && list.size() > 0) {
+    		logger.info("No of CareCaseTask in system with same attribute "+ list.size());
+     	   	flag = true;
+        }
+    	return flag;
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	private List<CareCaseTask> findVaccinationTask(CareCaseTask careCaseTask) {
+    	List<CareCaseTask> tasks = null;
+    	
+    	EqualProperty<String> milestoneProperty = (EqualProperty<String>) PropertyBuilder.create("milestoneName", careCaseTask.getMilestoneName(), String.class);
+
+    	MotherCase motherCase = careCaseTask.getMotherCase();
+    	
+    	ChildCase childCase = careCaseTask.getChildCase();
+    	
+    	EqualProperty<String> clientCaseIdProperty = null;
+    	
+    	if(motherCase != null) {
+    		
+    		clientCaseIdProperty = (EqualProperty<String>) PropertyBuilder.create("motherCase.caseId", motherCase.getCaseId(), String.class);
+    	}
+    	
+    	if(childCase != null) {
+    		
+    		clientCaseIdProperty = (EqualProperty<String>) PropertyBuilder.create("childCase.caseId", childCase.getCaseId(), String.class); 
+    	}
+    	if (clientCaseIdProperty != null) {
+    		
+    		tasks = dbRepository.executeJDO(CareCaseTask.class, configureProperties(milestoneProperty, clientCaseIdProperty));
+    	}
+    	return tasks;
+    }
+    
+    @SuppressWarnings("rawtypes")
+	private List<Property> configureProperties(EqualProperty<String> milestoneProperty,
+    		EqualProperty<String> clientCaseIdProperty) {
+		List<Property> properties = new ArrayList<Property>();
+		properties.add(milestoneProperty);
+		properties.add(clientCaseIdProperty);
+		return properties;
     }
     
     private void safeSave(CareCaseTask careCaseTask) {

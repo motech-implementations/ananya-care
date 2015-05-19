@@ -235,6 +235,7 @@
                             !junit.framework,
                             org.motechproject.scheduletracking.domain.json;version=${project.version},
                             org.motechproject.scheduletracking.repository.dataservices,
+                            org.motechproject.scheduletracking.service;version=${project.version},
                             *
                         </Import-Package>
                         <Export-Package>
