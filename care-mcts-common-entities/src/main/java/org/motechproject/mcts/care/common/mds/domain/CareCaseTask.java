@@ -17,23 +17,15 @@ public class CareCaseTask implements java.io.Serializable {
 
     private String ownerId;
 
-    // TODO: add getter and setter for mother and child fields
     @Field
     @Cascade(persist = true, update = true, delete = true)
     private MotherCase motherCase;
 
-   
     @Field
     @Cascade(persist = true, update = true, delete = true)
     private ChildCase childCase;
 
     @Field
-    /*
-     * @Cascade(persist = true, update = true, delete = true) private ChildCase
-     * child;
-     */
-    // TODO: remove this field and use Mother and Child Objects
-    // private String clientCaseId;
     private String motechUserId;
 
     private String currentTime;
@@ -67,12 +59,6 @@ public class CareCaseTask implements java.io.Serializable {
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
-
-    /*
-     * @Field public String getCaseId() { return caseId; }
-     * 
-     * public void setCaseId(String caseId) { this.caseId = caseId; }
-     */
 
     @Field
     public String getMotechUserId() {
@@ -146,14 +132,6 @@ public class CareCaseTask implements java.io.Serializable {
         return caseType;
     }
 
-    /*
-     * @Field public String getClientCaseId() { return clientCaseId; }
-     */
-
-    /*
-     * public void setClientCaseId(String clientCaseId) { this.clientCaseId =
-     * clientCaseId; }
-     */
     @Field
     public Boolean getIsOpen() {
         return isOpen;
@@ -199,17 +177,4 @@ public class CareCaseTask implements java.io.Serializable {
         this.childCase = childCase;
     }
 
-    
-    // TODO: implement this in care-V in util class
-    /*
-     * public CaseTask toCaseTask() { CaseTask caseTask = new CaseTask();
-     * caseTask.setCaseType(caseType); caseTask.setCaseName(milestoneName);
-     * caseTask.setOwnerId(ownerId); caseTask.setCaseId(caseId);
-     * caseTask.setMotechUserId(motechUserId);
-     * caseTask.setCurrentTime(currentTime); caseTask.setTaskId(taskId);
-     * caseTask.setDateEligible(dateEligible);
-     * caseTask.setDateExpires(dateExpires);
-     * caseTask.setClientCaseType(clientCaseType);
-     * caseTask.setClientCaseId(clientCaseId); return caseTask; }
-     */
 }

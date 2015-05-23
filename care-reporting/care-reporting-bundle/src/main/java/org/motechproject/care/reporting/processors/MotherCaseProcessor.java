@@ -39,8 +39,8 @@ public class MotherCaseProcessor {
     private MapperService mapperService;
 
     @Autowired
-    public MotherCaseProcessor(ICareService careService, MapperService mapperService
-    		, EventRelay eventRelay) {
+    public MotherCaseProcessor(ICareService careService,
+            MapperService mapperService, EventRelay eventRelay) {
         this.careService = careService;
         this.mapperService = mapperService;
         this.eventRelay = eventRelay;
@@ -63,13 +63,17 @@ public class MotherCaseProcessor {
 
         String caseId = caseMap.get("caseId");
 
-        logger.info(String.format("Started processing mother case with case ID %s", caseId));
-        MotherCase motherCase = careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
-        Map<String,Object> map = new HashMap<String,Object>();
+        logger.info(String.format(
+                "Started processing mother case with case ID %s", caseId));
+        MotherCase motherCase = careService.saveByExternalPrimaryKey(
+                MotherCase.class, caseMap);
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put(Constants.MOTHER_CASE_PARAM, motherCase);
-        MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT, map);
+        MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT,
+                map);
 
         eventRelay.sendEventMessage(e);
-        logger.info(String.format("Finished processing mother case with case ID %s", caseId));
+        logger.info(String.format(
+                "Finished processing mother case with case ID %s", caseId));
     }
 }
