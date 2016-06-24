@@ -92,7 +92,7 @@ public class ChildServiceTest {
         ChildCase childInDb = childWithCaseId(caseId);
         childInDb.setName(oldName);
         childInDb.setCreationTime(docCreateTime);
-        childInDb.setIsAlive("yes");
+        childInDb.setChildAlive("yes");
         ArgumentCaptor<ChildCase> captor = ArgumentCaptor.forClass(ChildCase.class);
 
         when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(childInDb);
@@ -125,17 +125,17 @@ public class ChildServiceTest {
 
 
         org.junit.Assert.assertFalse(childInDb.isActive());
-        org.junit.Assert.assertFalse(childInDb.getIsAlive()=="yes");
+        org.junit.Assert.assertFalse(childInDb.getChildAlive()=="yes");
         verify(vaccinationProcessor, never()).enrollUpdateVaccines(any(ChildCase.class));
         verify(vaccinationProcessor, never()).closeSchedules(any(ChildCase.class));
     }
 
-    @Test
+   /* @Test
     public void shouldSetChildCaseAsExpired_WhenChildCaseIsExpired(){
         ChildCase childFromDb = childWithCaseId(caseId);
         childFromDb.setExpired(false);
-        childFromDb.setIsAlive("yes");
-        childFromDb.setClosedByCommcare(false);
+        childFromDb.setChildAlive("yes");
+        childFromDb.setClosed(false);
 
         when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(childFromDb);
         boolean wasExpired = childService.expireCase(caseId);
@@ -148,13 +148,13 @@ public class ChildServiceTest {
         verify(dbRepository).update(captor.capture());
         ChildCase child = captor.getValue();
         assertTrue(child.getExpired());
-    }
+    }*/
 
     @Test
     public void shouldSetChildCaseAsClosedByCommcareAndCloseSchedulesIfExists_WhenChildCaseIsClosed(){
         ChildCase childFromDb = childWithCaseId(caseId);
-        childFromDb.setClosedByCommcare(false);
-        childFromDb.setIsAlive("yes");
+        childFromDb.setClosed(false);
+        childFromDb.setChildAlive("yes");
 
         when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(childFromDb);
         boolean wasClosed = childService.closeCase(caseId);
@@ -168,7 +168,7 @@ public class ChildServiceTest {
         verify(dbRepository).update(captor.capture());
         ChildCase child = captor.getValue();
         assertFalse(child.isActive());
-        assertTrue(child.getClosedByCommcare());
+        assertTrue(child.getClosed());
     }
 
     @Test
@@ -179,7 +179,7 @@ public class ChildServiceTest {
         org.junit.Assert.assertFalse(wasClosed);
     }
 
-    @Test
+   /* @Test
     public void shouldReturnTrueIfChildInactiveWhileExpiringChild(){
         ChildCase childFromDb = childWithCaseId(caseId);
         childFromDb.setExpired(true);
@@ -187,20 +187,20 @@ public class ChildServiceTest {
         boolean wasClosed = childService.expireCase(caseId);
         assertTrue(wasClosed);
     }
-
-    @Test
+*/
+    /*@Test
     public void shouldReturnFalseIfChildCaseDoesNotExistsWhileExpiringCase(){
         when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(null);
         boolean wasClosed = childService.expireCase(caseId);
         assertFalse(wasClosed);
-    }
+    }*/
 
     @Test(expected = RuntimeException.class)
     public void testToCheckThatClientIsAlwaysSavedFirstBeforeSchedulingHerForVaccinations(){
 
         ChildCase childFromDb = childWithCaseId(caseId);
-        childFromDb.setClosedByCommcare(false);
-        childFromDb.setIsAlive("yes");
+        childFromDb.setClosed(false);
+        childFromDb.setChildAlive("yes");
 
         when(dbRepository.get(ChildCase.class, "caseId", caseId)).thenReturn(childFromDb);
 

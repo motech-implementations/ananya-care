@@ -306,7 +306,7 @@ public class AlertChildActionTest {
         motherCase.setCaseId(motherCaseId);
         
         ChildCase client = new ChildCase(childCaseId, null, flw, childName, flwGroup, dob, null, null, null, motherCase, null, null, null, null,null,null,null,null,null,null,null,null,null,"yes");
-        client.setClosedByCommcare(true);
+        client.setClosed(true);
         when(dbRepository.get(ChildCase.class, "caseId", childCaseId)).thenReturn(client);
         alertChildAction.invoke(milestoneEvent);
 

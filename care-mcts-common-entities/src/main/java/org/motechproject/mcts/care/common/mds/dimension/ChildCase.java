@@ -94,8 +94,19 @@ public class ChildCase extends Client implements java.io.Serializable,
     private DateTime creationTime;
     @Field
     private DateTime lastModifiedTime;
+    
+    @Field
+    private String childAlive;
 
-    protected Flw flw;
+    public String getChildAlive() {
+		return childAlive;
+	}
+
+	public void setChildAlive(String childAlive) {
+		this.childAlive = childAlive;
+	}
+
+	protected Flw flw;
 
     protected FlwGroup flwGroup;
 
@@ -103,7 +114,7 @@ public class ChildCase extends Client implements java.io.Serializable,
         DateTime date = new DateTime();
         creationTime = date;
         lastModifiedTime = date;
-        super.isAlive = "yes";
+        this.childAlive = "yes";
     }
 
     public ChildCase(String caseId, DateTime dateModified, Flw flw,
@@ -114,7 +125,8 @@ public class ChildCase extends Client implements java.io.Serializable,
             DateTime dpt3Date, DateTime dptBoosterDate, DateTime opv0Date,
             DateTime opv1Date, DateTime opv2Date, DateTime opv3Date,
             DateTime opvBoosterDate, String isAlive) {
-        super(isAlive);
+        
+        this.childAlive = isAlive;
         this.caseId = caseId;
         this.dateModified = dateModified;
         this.flw = flw;
@@ -484,9 +496,8 @@ public class ChildCase extends Client implements java.io.Serializable,
 
     // Below methods are added from Child class while unifying the tables of
     // Mother and MotherCase
-
     public boolean isActive() {
-        return super.isActive();
+        return super.isActive() && (childAlive == null || !childAlive.equals("no"));
     }
 
     @JsonIgnore

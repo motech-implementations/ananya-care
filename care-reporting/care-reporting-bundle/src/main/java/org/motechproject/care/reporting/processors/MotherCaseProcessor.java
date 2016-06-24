@@ -13,7 +13,10 @@ import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.ICareService;
+import org.motechproject.care.reporting.utils.Constants;
 import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.event.MotechEvent;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +31,16 @@ public class MotherCaseProcessor {
         add(PostProcessor.COPY_OWNER_ID_AS_FLW_GROUP);
     }};
 
+    private EventRelay eventRelay;
     private ICareService careService;
     private MapperService mapperService;
 
     @Autowired
-    public MotherCaseProcessor(ICareService careService, MapperService mapperService) {
+    public MotherCaseProcessor(ICareService careService, MapperService mapperService
+    		, EventRelay eventRelay) {
         this.careService = careService;
         this.mapperService = mapperService;
+        this.eventRelay = eventRelay;
     }
 
     public void process(CaseEvent caseEvent) {
@@ -53,7 +59,12 @@ public class MotherCaseProcessor {
         String caseId = caseMap.get("caseId");
 
         logger.info(String.format("Started processing mother case with case ID %s", caseId));
-        careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
+        MotherCase motherCase = careService.saveByExternalPrimaryKey(MotherCase.class, caseMap);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put(Constants.MOTHER_CASE_PARAM, motherCase);
+        MotechEvent e = new MotechEvent(Constants.MOTHER_CREATE_UPDATE_EVENT, map);
+
+        eventRelay.sendEventMessage(e);
         logger.info(String.format("Finished processing mother case with case ID %s", caseId));
     }
 }

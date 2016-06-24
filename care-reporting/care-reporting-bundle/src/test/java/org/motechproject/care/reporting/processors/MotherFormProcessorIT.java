@@ -19,6 +19,7 @@ import org.motechproject.care.reporting.builder.FormValueElementBuilder;
 import org.motechproject.care.reporting.service.CareService;
 import org.motechproject.commcare.domain.CommcareForm;
 import org.motechproject.commcare.domain.FormValueElement;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.motechproject.mcts.care.common.mds.repository.MdsRepository;
 import org.motechproject.mcts.care.common.mds.service.JobMetadataMDSService;
@@ -41,6 +42,8 @@ public class MotherFormProcessorIT extends BasePaxIT {
 
     @Inject
     private MdsRepository dbRepository;
+    @Inject
+    private EventRelay eventRelay;
 
     @Inject
     private JobMetadataMDSService jobMetadataMDSService;
@@ -48,7 +51,7 @@ public class MotherFormProcessorIT extends BasePaxIT {
     @Before
     public void setup() {
         initMocks(this);
-        careService = new CareService(dbRepository, jobMetadataMDSService);
+        careService = new CareService(dbRepository, jobMetadataMDSService,eventRelay);
     }
 
     @Test

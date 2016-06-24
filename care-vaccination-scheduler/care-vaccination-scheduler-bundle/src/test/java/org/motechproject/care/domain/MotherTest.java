@@ -13,21 +13,21 @@ public class MotherTest {
     @Test
     public void shouldBeSetToActiveIfAliveAndNoADDIsPresentAndNotClosedByCommcare() {
         MotherCase mother = new MotherCase();
-        mother.setIsAlive("yes");
+        mother.setMotherAlive("yes");
         Assert.assertTrue(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
         MotherCase mother = new MotherCase();
-        mother.setIsAlive("no");
+        mother.setMotherAlive("no");
         Assert.assertFalse(mother.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNoADDIsPresent() {
         MotherCase mother = new MotherCase();
-        mother.setIsAlive("yes");
+        mother.setMotherAlive("yes");
         mother.setActualDeliveryDate(new DateTime());
         Assert.assertFalse(mother.isActive());
     }
@@ -35,8 +35,8 @@ public class MotherTest {
     @Test
     public void shouldBeSetToInActiveIfCaseClosedByCommCare() {
         MotherCase mother = new MotherCase();
-        mother.setIsAlive("yes");
-        mother.setClosedByCommcare(true);
+        mother.setMotherAlive("yes");
+        mother.setClosed(true);
         Assert.assertFalse(mother.isActive());
     }
 

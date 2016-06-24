@@ -55,7 +55,7 @@ public class ChildBuilder {
         child.setCaseId(caseId);
         child.setFlwGroup(flwGroup);
         child.setDob(dob);
-        child.setIsAlive(isAlive);
+        child.setChildAlive(isAlive);
         child.setMotherCase(motherCase);
         child.setDateModified(dateModified);
 

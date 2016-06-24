@@ -2,13 +2,18 @@ package org.motechproject.care.reporting.listener;
 
 import static java.lang.String.format;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.processors.ChildCaseProcessor;
 import org.motechproject.care.reporting.processors.CloseCaseProcessor;
 import org.motechproject.care.reporting.processors.MotherCaseProcessor;
+import org.motechproject.care.reporting.utils.Constants;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.commcare.events.constants.EventSubjects;
 import org.motechproject.event.MotechEvent;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.event.listener.annotations.MotechListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +29,11 @@ public class CommcareCaseListener {
     private ChildCaseProcessor childCaseProcessor;
     private CloseCaseProcessor closeCaseProcessor;
     private MotherCaseProcessor motherCaseProcessor;
+   
 
     @Autowired
-    public CommcareCaseListener(MotherCaseProcessor motherCaseProcessor, ChildCaseProcessor childCaseProcessor, CloseCaseProcessor closeCaseProcessor) {
+    public CommcareCaseListener(MotherCaseProcessor motherCaseProcessor, ChildCaseProcessor childCaseProcessor, 
+    		CloseCaseProcessor closeCaseProcessor, EventRelay eventRelay) {
         this.motherCaseProcessor = motherCaseProcessor;
         this.childCaseProcessor = childCaseProcessor;
         this.closeCaseProcessor = closeCaseProcessor;
@@ -63,9 +70,12 @@ public class CommcareCaseListener {
             logger.info(String.format("Ignoring case type %s with the case id %s", caseType,caseId));
             return;
         }
-
+        
+       
         if (caseType.equals(CaseType.MOTHER)) {
             motherCaseProcessor.process(caseEvent);
+           
+            
             return;
         }
 

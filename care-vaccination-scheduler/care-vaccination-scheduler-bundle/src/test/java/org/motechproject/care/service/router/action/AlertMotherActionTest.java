@@ -286,8 +286,11 @@ public class AlertMotherActionTest {
         FlwGroup flwGroup = new FlwGroup();
         flwGroup.setGroupId(groupId);
         
-        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName, flwGroup, DateTime.now().plusYears(1), null, null, null, "no", null, null, null, null, null, "yes");
-        client.setClosedByCommcare(true);
+        MotherCase client = new MotherCase(motherCaseId, null, flw, motherName,
+        		flwGroup, DateTime.now().plusYears(1),
+        		null, null, null, "no", null, null, null, 
+        		null, null, "yes");
+        client.setClosed(true);
         when(dbRepository.get(MotherCase.class, "caseId", motherCaseId)).thenReturn(client);
         alertMotherAction.invoke(milestoneEvent);
 

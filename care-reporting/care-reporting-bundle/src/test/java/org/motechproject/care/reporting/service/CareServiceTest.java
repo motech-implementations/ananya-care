@@ -24,6 +24,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.motechproject.care.reporting.builder.FlwGroupBuilder;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
 import org.motechproject.mcts.care.common.mds.dimension.FlwGroup;
@@ -41,13 +42,15 @@ public class CareServiceTest {
     private Repository dbRepository;
     @Mock
     private JobMetadataMDSService jobMetadataMDSService;
+    @Mock
+    private EventRelay eventRelay;
 
     private CareService careService;
 
     @Before
     public void setUp() {
         initMocks(this);
-        careService = new CareService(dbRepository, jobMetadataMDSService);
+        careService = new CareService(dbRepository, jobMetadataMDSService,eventRelay);
     }
 
     @Test

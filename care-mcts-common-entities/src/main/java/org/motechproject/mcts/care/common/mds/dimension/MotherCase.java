@@ -254,8 +254,19 @@ public class MotherCase extends Client implements java.io.Serializable,
     private String fullMctsId;
     @Field
     private String dateModifiedString;
+    
+    @Field
+    private String motherAlive;
 
-    protected Flw flw;
+    public String getMotherAlive() {
+		return motherAlive;
+	}
+
+	public void setMotherAlive(String motherAlive) {
+		this.motherAlive = motherAlive;
+	}
+
+	protected Flw flw;
 
     protected FlwGroup flwGroup;
 
@@ -271,7 +282,7 @@ public class MotherCase extends Client implements java.io.Serializable,
             DateTime tt1Date, DateTime tt2Date, String lastPregTt,
             DateTime anc1Date, DateTime anc2Date, DateTime anc3Date,
             DateTime anc4Date, DateTime ttBoosterDate, String isAlive) {
-        super(isAlive);
+    	this.motherAlive = isAlive;
         this.caseId = caseId;
         this.dateModified = dateModified;
         this.flw = flw;
@@ -1102,7 +1113,7 @@ public class MotherCase extends Client implements java.io.Serializable,
     }
 
     public boolean isActive() {
-        return super.isActive() && actualDeliveryDate == null;
+        return super.isActive() && (motherAlive==null || !motherAlive.equals("no"))  && actualDeliveryDate == null;
     }
 
     public void valuesSetFrom(MotherCase mother) {

@@ -3,6 +3,7 @@ package org.motechproject.care.reporting.processors;
 import static org.motechproject.care.reporting.parser.PostProcessor.Utils.applyPostProcessors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,12 @@ import org.motechproject.care.reporting.parser.InfoParser;
 import org.motechproject.care.reporting.parser.PostProcessor;
 import org.motechproject.care.reporting.service.MapperService;
 import org.motechproject.care.reporting.service.ICareService;
+import org.motechproject.care.reporting.utils.Constants;
 import org.motechproject.commcare.events.CaseEvent;
+import org.motechproject.event.MotechEvent;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
+import org.motechproject.mcts.care.common.mds.dimension.MotherCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +35,14 @@ public class ChildCaseProcessor {
 
     private ICareService careService;
     private MapperService mapperService;
-
+    private EventRelay eventRelay;
     @Autowired
-    public ChildCaseProcessor(ICareService careService, MapperService mapperService) {
+    public ChildCaseProcessor(ICareService careService, 
+    		MapperService mapperService,
+    		EventRelay eventRelay) {
         this.careService = careService;
         this.mapperService = mapperService;
+        this.eventRelay  = eventRelay;
     }
 
     public void process(CaseEvent caseEvent) {
@@ -47,7 +55,11 @@ public class ChildCaseProcessor {
         String caseId = caseMap.get("caseId");
 
         logger.info(String.format("Started processing child case with case ID %s", caseId));
-        careService.saveByExternalPrimaryKey(ChildCase.class, caseMap);
+        ChildCase childCase =   careService.saveByExternalPrimaryKey(ChildCase.class, caseMap);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put(Constants.CHILD_CREATE_UPDATE_EVENT, childCase);
+        MotechEvent e = new MotechEvent(Constants.CHILD_CREATE_UPDATE_EVENT, map);
+        eventRelay.sendEventMessage(e);
         logger.info(String.format("Finished processing child case with case ID %s", caseId));
     }
 }

@@ -42,7 +42,7 @@ public class MotherBuilder {
         mother.setDateModified(dateModified);
         mother.setActualDeliveryDate(add);
         mother.setEdd(edd);
-        mother.setIsAlive(isAlive);
+        mother.setMotherAlive(isAlive);
 
         mother.setAnc1Date(anc1Date);
         mother.setAnc2Date(anc2Date);

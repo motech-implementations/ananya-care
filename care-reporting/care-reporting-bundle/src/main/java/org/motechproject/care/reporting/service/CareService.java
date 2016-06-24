@@ -26,7 +26,10 @@ import org.motechproject.care.reporting.enums.CaseType;
 import org.motechproject.care.reporting.enums.DomainMetadata;
 import org.motechproject.care.reporting.factory.FormFactory;
 import org.motechproject.care.reporting.mapper.CareReportingMapper;
+import org.motechproject.care.reporting.utils.Constants;
 import org.motechproject.care.reporting.utils.ObjectUtils;
+import org.motechproject.event.MotechEvent;
+import org.motechproject.event.listener.EventRelay;
 import org.motechproject.mcts.care.common.domain.SelfUpdatable;
 import org.motechproject.mcts.care.common.mds.dimension.ChildCase;
 import org.motechproject.mcts.care.common.mds.dimension.Flw;
@@ -49,16 +52,19 @@ public class CareService implements ICareService {
     private static final Logger logger = LoggerFactory
             .getLogger("commcare-reporting-mapper");
 
+    private EventRelay eventRelay;
     private Repository dbRepository;
     private CareReportingMapper careReportingMapper;
     private JobMetadataMDSService jobMetadataMDSService;
 
     @Autowired
     public CareService(Repository dbRepository,
-            JobMetadataMDSService jobMetadataMDSService) {
+            JobMetadataMDSService jobMetadataMDSService,
+            EventRelay eventRelay) {
         this.dbRepository = dbRepository;
         this.careReportingMapper = CareReportingMapper.getInstance(this);
         this.jobMetadataMDSService = jobMetadataMDSService;
+        this.eventRelay = eventRelay;
     }
 
     @Override
@@ -362,6 +368,11 @@ public class CareService implements ICareService {
             if (canBeClosed(closedOn, previouslyClosedOnForMother)) {
                 careReportingMapper.map(motherCase, updatedValues);
                 update(motherCase);
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put(Constants.MOTHER_CASE_ID_PARAM, motherCase.getCaseId());
+                MotechEvent e = new MotechEvent(Constants.MOTHER_CLOSE_EVENT, map);
+
+                eventRelay.sendEventMessage(e);
             }
         } else {
             ChildCase childCase = getChildCase(caseId);
@@ -375,6 +386,12 @@ public class CareService implements ICareService {
             if (canBeClosed(closedOn, previouslyClosedOnForChild)) {
                 careReportingMapper.map(childCase, updatedValues);
                 update(childCase);
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put(Constants.CHILD_CASE_ID_PARAM, childCase.getCaseId());
+                MotechEvent e = new MotechEvent(Constants.CHILD_CLOSE_EVENT, map);
+
+                eventRelay.sendEventMessage(e);
+                
             }
         }
     }

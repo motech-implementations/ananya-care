@@ -8,6 +8,7 @@ import org.motechproject.care.reporting.processors.CloseCaseProcessor;
 import org.motechproject.care.reporting.processors.MotherCaseProcessor;
 import org.motechproject.commcare.events.CaseEvent;
 import org.motechproject.event.MotechEvent;
+import org.motechproject.event.listener.EventRelay;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -23,6 +24,8 @@ public class CommcareCaseListenerTest {
     private CloseCaseProcessor closeCaseProcessor;
     @Mock
     private MotherCaseProcessor motherCaseProcessor;
+    @Mock
+    private EventRelay eventRelay;
 
     @Before
     public void setUp() throws Exception {
@@ -31,7 +34,7 @@ public class CommcareCaseListenerTest {
 
     @Test
     public void shouldHandleCloseEvent() {
-        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor);
+        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor, eventRelay);
 
         MotechEvent event = new MotechEvent();
         event.getParameters().put("caseAction", "CLOSE");
@@ -45,7 +48,7 @@ public class CommcareCaseListenerTest {
 
     @Test
     public void shouldHandleMotherCaseEvent() {
-        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor);
+        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor,eventRelay);
 
         MotechEvent event = new MotechEvent();
         event.getParameters().put("caseType", "cc_bihar_pregnancy");
@@ -59,7 +62,7 @@ public class CommcareCaseListenerTest {
 
     @Test
     public void shouldHandleChildCaseEvent() {
-        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor);
+        CommcareCaseListener commcareCaseListener = new CommcareCaseListener(motherCaseProcessor, childCaseProcessor, closeCaseProcessor,eventRelay);
 
         MotechEvent event = new MotechEvent();
         event.getParameters().put("caseType", "cc_bihar_newborn");

@@ -22,8 +22,8 @@ public class ClientExpiryAction implements Action {
     @Override
     public void invoke(MilestoneEvent event) {
         String externalId = event.getExternalId();
-        boolean didExpireMother = motherService.expireCase(externalId);
-        if (!didExpireMother)
-            childService.expireCase(externalId);
+        //boolean didExpireMother = motherService.expireCase(externalId);
+       /* if (!didExpireMother)
+            childService.expireCase(externalId);*/
     }
 }

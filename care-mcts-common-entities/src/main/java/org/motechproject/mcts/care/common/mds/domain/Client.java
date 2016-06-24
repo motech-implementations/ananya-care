@@ -21,20 +21,20 @@ public class Client implements java.io.Serializable {
     protected String caseType;
     protected DateTime creationTime;
     protected boolean closed;
-    protected boolean expired;
-    protected String isAlive;
+   protected boolean expired;
+   // protected String isAlive;
     
     public Client() {
 
     }
 
     public Client(String isAlive) {
-        this.isAlive = isAlive;
+       // this.isAlive = isAlive;
         closed = false;
     }
 
     public boolean isActive() {
-        return isAlive.equals("yes") && !closed && !expired;
+        return !closed;
     }
 
     @Field
@@ -92,14 +92,14 @@ public class Client implements java.io.Serializable {
         this.creationTime = creationTime;
     }
 
-    @Field
-    public Boolean getClosedByCommcare() {
-        return closed;
-    }
-
-    public void setClosedByCommcare(Boolean closed) {
-        this.closed = closed;
-    }
+//    @Field
+//    public Boolean getClosedByCommcare() {
+//        return closed;
+//    }
+//
+//    public void setClosedByCommcare(Boolean closed) {
+//        this.closed = closed;
+//    }
 
     @Field
     public Boolean getExpired() {
@@ -109,14 +109,14 @@ public class Client implements java.io.Serializable {
     public void setExpired(Boolean expired) {
         this.expired = expired;
     }
-
-    @Field
-    public String getIsAlive() {
-        return isAlive;
-    }
-
-    public void setIsAlive(String isAlive) {
-        this.isAlive = isAlive;
-    }
+//
+//    @Field
+//    public String getIsAlive() {
+//        return isAlive;
+//    }
+//
+//    public void setIsAlive(String isAlive) {
+//        this.isAlive = isAlive;
+//    }
 
 }

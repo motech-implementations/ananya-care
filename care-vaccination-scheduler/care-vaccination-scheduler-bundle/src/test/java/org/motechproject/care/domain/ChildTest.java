@@ -14,14 +14,14 @@ public class ChildTest {
     @Test
     public void shouldBeSetToIsActiveByDefault() {
         ChildCase child = new ChildCase();
-        child.setIsAlive("yes");
+        child.setChildAlive("yes");
         Assert.assertTrue(child.isActive());
     }
 
     @Test
     public void shouldBeSetToInActiveIfNotAlive() {
         ChildCase child = new ChildCase();
-        child.setIsAlive("no");
+        child.setChildAlive("no");
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
     }
@@ -29,8 +29,8 @@ public class ChildTest {
     @Test
     public void shouldBeInactiveIfClosedByCommcare() {
         ChildCase child = new ChildCase();
-        child.setIsAlive("yes");
-        child.setClosedByCommcare(true);
+        child.setChildAlive("yes");
+        child.setClosed(true);
         Assert.assertFalse(child.isActive());
         Assert.assertFalse(child.shouldEnrollForSchedules());
     }
@@ -57,7 +57,7 @@ public class ChildTest {
     public void shouldSetEnrollForSchedulesToTrueIfChildIsNotOlderThanAYearAndIsActive(){
         ChildCase child = new ChildCase();
         child.setDob(DateTime.now());
-        child.setIsAlive("yes");
+        child.setChildAlive("yes");
         Assert.assertTrue(child.shouldEnrollForSchedules());
     }
 }
